@@ -39,12 +39,13 @@ public class Cloud {
   }
 
     @EngineFunction("listTest")
-    public static List<Test> getTests(@EngineFunctionParam("limit") int limit) throws AVException {
-        AVQuery<Test> query = AVObject.getQuery(Test.class);
+    public static List<AVObject> getTests(@EngineFunctionParam("limit") int limit) throws AVException {
+        System.out.print("<---listTest--->");
+        AVQuery<AVObject> query = new AVQuery<>("Test");
         query.orderByDescending("createdAt");
         query.limit(limit);
         try {
-            List<Test> testList = query.find();
+            List<AVObject> testList = query.find();
             System.out.print(testList.size());
             return testList;
         } catch (AVException e) {
