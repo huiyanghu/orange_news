@@ -1,5 +1,6 @@
 package cn.leancloud.demo.todo;
 
+import com.avos.avoscloud.AVOSCloud;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.boot.SpringApplication;
@@ -41,6 +42,9 @@ public class Application {
       LeanEngine.setLocalEngineCallEnabled(true);
     }
     SpringApplication.run(Application.class, args);
+
+      AVOSCloud.setDebugLogEnabled(true);
+
   }
 
 }
