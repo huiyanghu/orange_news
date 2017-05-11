@@ -44,8 +44,11 @@ public class Cloud {
         query.orderByDescending("createdAt");
         query.limit(limit);
         try {
-            return query.find();
+            List<Test> testList = query.find();
+            System.out.print(testList.size());
+            return testList;
         } catch (AVException e) {
+            System.out.print("exception" + e);
             if (e.getCode() == 101) {
                 // 该错误的信息为：{ code: 101, message: 'Class or object doesn\'t exists.' }，说明 Todo 数据表还未创建，所以返回空的
                 // Todo 列表。
