@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans" xmlns:th="http://www.thymeleaf.org" xmlns:c="http://www.w3.org/1999/html">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <script src="/stylesheets/js/jquery-1.11.0.js"></script>
+    <link rel="stylesheet" href="/stylesheets/css/bootstrap.css">
+    <link rel="stylesheet" href="/stylesheets/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="/stylesheets/css/plugins/timeline.css">
+    <link rel="stylesheet" href="/stylesheets/css/sb-admin-2.css">
+    <link rel="stylesheet" href="/stylesheets/css/plugins/morris.css">
+    <link rel="stylesheet" href="/stylesheets/css/font-awesome-4.3.0/css/font-awesome.min.css">
+    <script src="/stylesheets/js/bootstrap.min.js"></script>
+    <script src="/stylesheets/js/bootstrap-datetimepicker.zh-CN.js"></script>
+    <script src="/stylesheets/js/page/myPage.js"></script>
+    <script type="text/javascript" src="/stylesheets/js/jquery.ui.widget.js"></script>
+</head>
+<body>
+			<div class="row">
+			<div class="col-sm-12">
+				<h1 class="page-header">更新</h1>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-sm-12">
+				<div class="panel panel-default">
+					<div class="panel-heading">请填写以下选项：</div>
+					<div class="panel-body">
+						<div class="row">
+
+                            <!--<form id="iform" th:action="@{/list.html?save}" th:method="post" th:object="${animalForm}">-->
+
+							<form id="addUserInfoform" class="form-horizontal" th:object="${bean}" th:action="@{/globalrule/saveorupdate}" th:method="post">
+                            <!--action="${ctx }/globalrule/saveorupdate" method="post"-->
+								<input name="GlobalRule.id" type="hidden" value="" th:value="${bean.objectId}" />
+							<div class="col-sm-12">
+								<div class="form-group">
+									<label for="input01" class="control-label col-sm-2">节点：</label>
+									<div class="controls col-sm-4">
+										<select id="nid" name="GlobalRule.nid" class="form-control" >
+											<c:forEach var="item" items="${nodelist}">
+											<option value="" th:value="${bean.nid}"
+												<c:if test="${item.id==bean.nid}">selected</c:if>>${item.nodename}</option>
+											</c:forEach>
+										</select>
+									</div>
+									<div class="controls col-sm-6">
+									</div>
+								</div>
+								<div class="form-group">
+									<label for="input01" class="control-label col-sm-2">规则名称：</label>
+									<div class="controls col-sm-4">
+										<input type="text" name="GlobalRule.rulename" id="rulename" class="form-control" th:value="${bean.rulename}" value="" required />
+									</div>
+									<div class="controls col-sm-6">
+									</div>
+								</div>
+								<div class="form-group">
+									<label for="input01" class="control-label col-sm-2">媒体id：</label>
+									<div class="controls col-sm-4">
+										<input type="text" name="GlobalRule.pid" id="pid" class="form-control" value="" th:value="${bean.pid}" required />
+										<a id="apid" href="${ctx }/article/list?publicationid=${bean.id}" target="_blank" onclick="redictart()">查看文章</a>
+									</div>
+									<div class="controls col-sm-6">
+										<div id=""></div>
+									</div>
+								</div>
+								<div class="form-group">
+									<label for="input01" class="control-label col-sm-2">去除域的csspath：</label>
+									<div class="controls col-sm-4">
+										<input type="text" name="GlobalRule.replacecsspath" id="replacecsspath" class="form-control" value="" th:value="${bean.replacecsspath}" />
+									</div>
+									<div class="controls col-sm-6">
+									</div>
+									</div>
+								<div class="form-group">
+									<label for="input01" class="control-label col-sm-2">内容1的csspath：</label>
+									<div class="controls col-sm-4">
+										<input type="text" name="GlobalRule.concsspath" id="concsspath" class="form-control" value="" th:value="${bean.concsspath}" required />
+									</div>
+									<div class="controls col-sm-6">
+									</div>
+									</div>
+
+									<div class="form-group">
+									<label for="input01" class="control-label col-sm-2">内容2的csspath：</label>
+									<div class="controls col-sm-4">
+										<input type="text" name="GlobalRule.concsspath1" id="concsspath1" class="form-control" th:value="${bean.concsspath1}" value=""  />
+									</div><div class="controls col-sm-6">
+									</div>
+									</div>
+
+									<div class="form-group">
+									<label for="input01" class="control-label col-sm-2">内容3的csspath：</label>
+									<div class="controls col-sm-4">
+										<input type="text" name="GlobalRule.concsspath2" id="concsspath2" class="form-control" th:value="${bean.concsspath2}" value=""  />
+									</div><div class="controls col-sm-6">
+									</div>
+									</div>
+
+								<div class="form-group">
+									<label for="input01" class="control-label col-sm-2">关键字csspath：</label>
+									<div class="controls col-sm-4">
+										<input type="text" name="GlobalRule.keycsspath" id="keycsspath" class="form-control" th:value="${bean.keycsspath}"/>
+									</div>
+									<div class="controls col-sm-6">
+										<div id="keycsspatharea"></div>
+									</div>
+								</div>
+
+								<div class="form-group">
+									<label for="input01" class="control-label col-sm-2">videocsspath：</label>
+									<div class="controls col-sm-4">
+										<input type="text" name="GlobalRule.videocsspath" id="videocsspath" class="form-control" th:value="${bean.videocsspath}" value=""  />
+									</div>
+									<div class="controls col-sm-6">
+										<div id="videocsspatharea"></div>
+									</div>
+								</div>
+								<div class="form-group">
+									<label for="input01" class="control-label col-sm-2">authorcsspath：</label>
+									<div class="controls col-sm-4">
+										<input type="text" name="GlobalRule.authorcsspath" id="authorcsspath" class="form-control" th:value="${bean.authorcsspath}" value=""  />
+									</div>
+									<div class="controls col-sm-6">
+										<div id="authorcsspatharea"></div>
+									</div>
+								</div>
+
+								<div class="form-group">
+									<label for="input01" class="control-label col-sm-2">排序：</label>
+									<div class="controls col-sm-4">
+										<input type="text" name="GlobalRule.rank" id="rank" class="form-control" th:value="${bean.rank}" value=""  />
+									</div>
+									<div class="controls col-sm-6">
+									</div>
+								</div>
+								<div class="form-group">
+									<label for="input01" class="control-label col-sm-2">replacerule：</label>
+									<div class="controls col-sm-4">
+										<input type="text" name="GlobalRule.replacerule" id="replacerule" class="form-control" th:value="${bean.replacerule}" value=""  />
+									</div>
+									<div class="controls col-sm-6">
+									</div>
+								</div>
+								<div class="form-group">
+									<label for="input01" class="control-label col-sm-2">testurl：</label>
+									<div class="controls col-sm-4">
+										<input type="text" name="GlobalRule.testurl" id="testurl" class="form-control" th:value="${bean.testurl}"  value="" required />
+									</div>
+										<div class="controls col-sm-6">
+									</div>
+								</div>
+									<div class="form-group">
+									<label for="input01" class="control-label col-sm-2">commentcssapth：</label>
+									<div class="controls col-sm-4">
+										<input type="text" name="GlobalRule.commentcssapth" id="commentcssapth" class="form-control" th:value="${bean.commentcssapth}"  value=""  />
+									</div>
+									<div class="controls col-sm-6">
+									</div>
+								</div>
+
+								</div>
+
+							<div class="form-actions">
+									<div class="col-sm-12 text-center">
+										<a th:href="@{/globalrule/list}" class="btn btn-info"><span class="fa fa-arrow-left fa-fw"></span> 返回</a>
+										<a href="#" class="btn btn-info"  onclick="test(1)"><span class="fa fa-arrow-left fa-fw"></span> 测试</a>
+										&nbsp;&nbsp;
+										<a class="btn btn-primary" type="submit" onclick="test(2)"><span class="fa fa-floppy-o fa-fw"></span>
+										提交</a>
+									</div>
+									<div class="col-sm-12 text-center">
+										<font color="red" id="resstatus"></font>
+									</div>
+								</div>
+                                <input type="submit" value="提交">
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+
+	<script type="text/javascript">
+		function redictart() {
+			var pid=$("#pid").val();
+			$("#apid").attr('href','${ctx }/article/list?publicationid='+pid);
+			window.open('${ctx }/article/list?publicationid='+pid);
+		}
+		function test(type) {
+			if(type==1){
+				$("#addUserInfoform").attr("action","${ctx }/globalrule/test");
+				$("#addUserInfoform").attr("target","_blank");
+				$("#addUserInfoform").submit();
+			}else{
+				$("#addUserInfoform").attr("action","${ctx }/globalrule/saveorupdate");
+				$("#addUserInfoform").removeAttr("target");
+				$("#addUserInfoform").submit();
+			}
+			/* var testurl=$("#testurl").val();
+			var commentcssapth=$("#commentcssapth").val();
+			var replacerule=$("#replacerule").val();
+			var authorcsspath=$("#authorcsspath").val();
+			var videocsspath=$("#videocsspath").val();
+			var keycsspath=$("#keycsspath").val();
+			var concsspath=$("#concsspath").val();
+			var concsspath1=$("#concsspath1").val();
+			var concsspath2=$("#concsspath2").val();
+			window.open('${ctx }/globalrule/test?testurl='+testurl+"&concsspath="+concsspath
+					+"&concsspath1="+concsspath1+"&concsspath2="+concsspath2+"&keycsspath="+keycsspath
+					+"&videocsspath="+videocsspath+"&authorcsspath="+authorcsspath+"&replacerule="+replacerule
+					+"&commentcssapth="+commentcssapth); */
+			
+		}
+		</script>
+		
+		
+</body>
+</html>

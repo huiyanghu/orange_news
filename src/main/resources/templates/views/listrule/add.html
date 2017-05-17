@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans" xmlns:th="http://www.thymeleaf.org" xmlns:c="http://www.w3.org/1999/html">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <script src="/stylesheets/js/jquery-1.11.0.js"></script>
+    <link rel="stylesheet" href="/stylesheets/css/bootstrap.css">
+    <link rel="stylesheet" href="/stylesheets/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="/stylesheets/css/plugins/timeline.css">
+    <link rel="stylesheet" href="/stylesheets/css/sb-admin-2.css">
+    <link rel="stylesheet" href="/stylesheets/css/plugins/morris.css">
+    <link rel="stylesheet" href="/stylesheets/css/font-awesome-4.3.0/css/font-awesome.min.css">
+    <script src="/stylesheets/js/bootstrap.min.js"></script>
+    <script src="/stylesheets/js/bootstrap-datetimepicker.zh-CN.js"></script>
+    <script src="/stylesheets/js/page/myPage.js"></script>
+
+</head>
+<body>
+	<div class="row">
+		<div class="col-sm-12">
+			<h1 class="page-header">添加或修改</h1>
+		</div>
+	</div>
+<div class="row">
+	<div class="col-sm-12">
+		<div class="panel panel-default">
+			<div class="panel-heading">请填写以下选项：</div>
+				<div class="panel-body">
+					<div class="col" >
+
+                        <form id="addUserInfoform" class="form-horizontal" action="#" th:action="@{/listrule/saveorupdate}" th:object="${bean}" th:method="post">
+					  <!--<form id="addUserInfoform" class="form-horizontal" action="${ctx }/listrule/saveorupdate" method="post">-->
+						<input class="form-control" id="id" name="id" type="hidden"  value="${bean.id }" th:value="${bean.get('id')}" />
+								 <div class="form-group">
+									<label for="input01" class="control-label col-sm-2">规则名称：</label>
+									<div class="controls col-sm-4">
+										<input type="text" name="rulename" id="rulename" class="form-control" value="" th:value="${bean.get('rulename')}" required />
+									</div>
+									<div class="controls col-sm-6">
+									</div>
+								</div>
+								<div class="form-group">
+									<label for="input01" class="control-label col-sm-2">节点id：</label>
+									<div class="controls col-sm-4">
+										<select id="nodeid" name="nodeid" class="form-control" >
+											<c:forEach var="node" items="${nodelist}">	
+											<option value="${node.id}"
+												<c:if test="${node.id==bean.nodeid}">selected</c:if>>${node.nodename}</option>
+											</c:forEach>	
+										</select>
+									</div>
+									<div class="controls col-sm-6">
+									</div>
+								</div>
+								<div class="form-group">
+									<label for="input01" class="control-label col-sm-2">国家：</label>
+									<div class="controls col-sm-4">
+										<select id="code" name="code" class="form-control" >
+                                            <option value="0">请选择</option>
+                                            <tr th:each="country:${hbCountrys}">
+                                                <option th:text="${country.get('cnname')}"></option>
+                                            </tr>
+											<!--<c:forEach var="country" items="${countrylist}">	-->
+											<!--<option value="${country.code}"-->
+												<!--<c:if test="${country.code==bean.code}">selected</c:if>>${country.cnname}</option>-->
+											<!--</c:forEach>	-->
+										</select>
+									</div>
+									<div class="controls col-sm-6">
+									</div>
+								</div>
+								
+								<div class="form-group">
+									<label for="input01" class="control-label col-sm-2">媒体：</label>
+									<div class="controls col-sm-4">
+										<select id="pid" name="pid" class="form-control" >
+                                            <option value="0">请选择</option>
+                                                <tr th:each="publication:${publications}">
+                                                    <option th:text="${publication.get('name')}"></option>
+                                                </tr>
+                                            <!--<c:forEach var="publication" items="${publicationlist}">-->
+											<!--<option value="${publication.id}"-->
+												<!--<c:if test="${publication.id==bean.pid}">selected</c:if>>${publication.name}</option>-->
+											<!--</c:forEach>	-->
+										</select>
+									</div>
+									<div class="controls col-sm-6">
+									</div>
+								</div>
+								
+								<div class="form-group">
+									<label for="input01" class="control-label col-sm-2">渠道id：</label>
+									<div class="controls col-sm-4">
+										<select id="channelid" name="channelid" class="form-control" >
+                                            <option value="0">请选择</option>
+                                            <tr th:each="channel:${conChannels}">
+                                                <option th:text="${channel.get('channelname')}"></option>
+                                            </tr>
+											<!--<c:forEach var="channel" items="${channellist}">	-->
+											<!--<option value="${channel.id}"-->
+												<!--<c:if test="${channel.id==bean.channelid}">selected</c:if>>${channel.channelname}</option>-->
+											<!--</c:forEach>	-->
+										</select>
+									</div>
+									<div class="controls col-sm-6">
+									</div>
+								</div>
+								<div class="form-group">
+									<label for="input01" class="control-label col-sm-2">csspath：</label>
+									<div class="controls col-sm-4">
+										<input type="text" name="csspath" id="csspath" class="form-control" value="" th:value="${bean.get('csspath')}" required />
+									</div>
+									<div class="controls col-sm-6">
+									</div>
+								</div>
+								<div class="form-group">
+									<label for="input01" class="control-label col-sm-2">url：</label>
+									<div class="controls col-sm-4">
+										<input type="text" name="url" id="url" class="form-control" value="" th:value="${bean.get('url')}" required />
+									</div>
+									<div class="controls col-sm-6">
+									</div>
+								</div>
+								
+								<div class="form-group">
+									<label for="input01" class="control-label col-sm-2">话题：</label>
+									<div class="controls col-sm-4">
+										<select id="topic" name="topic" class="form-control" >
+                                            <option value="0">请选择</option>
+                                            <tr th:each="topic:${topics}">
+                                                <option th:text="${topic.get('name')}"></option>
+                                            </tr>
+											<!--<c:forEach var="topic" items="${topiclist}">	-->
+											<!--<option value="${topic.tid}"-->
+												<!--<c:if test="${topic.tid==bean.topic}">selected</c:if>>${topic.name}</option>-->
+											<!--</c:forEach>	-->
+										</select>
+									</div>
+									<div class="controls col-sm-6">
+									</div>
+								</div>
+								
+								<div class="form-group">
+									<label for="input01" class="control-label col-sm-2">findpre：</label>
+									<div class="controls col-sm-4">
+										<input type="text" name="findpre" id="findpre" class="form-control" th:value="${bean.get('findpre')}" value=""/>
+									</div>
+									<div class="controls col-sm-6">
+									</div>
+								</div>
+								
+								<div class="form-group">
+									<label for="input01" class="control-label col-sm-2">语言：</label>
+									<div class="controls col-sm-4">
+										<select id="langid" name="langid" class="form-control" >
+                                            <option value="0">请选择</option>
+                                            <tr th:each="language:${languages}">
+                                                <option th:text="${language.get('cnname')}"></option>
+                                            </tr>
+											<!--<c:forEach var="lang" items="${langlist}">	-->
+											<!--<option value="${lang.id}"-->
+												<!--<c:if test="${lang.id==bean.langid}">selected</c:if>>${lang.cnname}</option>-->
+											<!--</c:forEach>	-->
+										</select>
+									</div>
+									<div class="controls col-sm-6">
+									</div>
+								</div>
+								
+									<div class="form-group">
+							      <label for="input01" class="control-label col-sm-2">列表文章状态：</label>
+							      	<div class="controls col-sm-4">
+								      	<select name="liststatus" class="form-control ">
+                                            <option>请选择</option>
+                                            <option  value="0" th:if="${bean.liststatus eq 0}" th:selected="selected">未发布</option>
+                                            <option  value="0" th:if="${bean.liststatus eq 0}" th:selected="selected">正常</option>
+
+                                            <!--<option th:if="${skill.level eq '精通'}" th:selected="selected">精通</option>-->
+
+									      		<!--<option value="0" <c:if test="${bean.liststatus==0 }">selected</c:if>>正常</option>-->
+									      		<!--<option value="1" <c:if test="${bean.liststatus==1 }">selected</c:if>>未发布</option>-->
+									      </select>
+									 </div>
+								</div> 
+								
+						 	<div class="form-group">
+							      <label for="input01" class="control-label col-sm-2">规则状态：</label>
+							      	<div class="controls col-sm-4">
+								      	<select name="status" class="form-control ">
+									      		<option  value="0" <c:if test="${bean.status==0 }">selected</c:if>>正常</option>
+									      		<option  value="1" <c:if test="${bean.status==1 }">selected</c:if>>禁用</option>
+									      </select>
+									 </div>
+								</div> 
+								<div class="form-group">
+								      <label for="input01" class="control-label col-sm-2">字符：</label>
+									      <div class="controls col-sm-4">
+									      	<select name="conconstant" class="form-control ">
+
+
+										      		<option value="auto" th:if="${bean.get('conconstant') eq 'auto'}" th:selected="selected">auto</option>
+										      		<option value="utf8" th:if="${bean.get('conconstant') eq 'utf8'}" th:selected="selected">utf8</option>
+										      		<option value="jbk" th:if="${bean.get('conconstant') eq 'jbk'}" th:selected="selected">jbk</option>
+										      		<option value="jb2312" th:if="${bean.get('conconstant') eq 'jb2312'}" th:selected="selected">jb2312</option>
+
+
+										      		<!--<option value="auto" <c:if test="${bean.constant=='auto' }">selected</c:if>>auto</option>-->
+										      		<!--<option value="utf8" <c:if test="${bean.constant=='utf8' }">selected</c:if>>utf8</option>-->
+										      		<!--<option value="jbk" <c:if test="${bean.constant=='jbk' }">selected</c:if>>jbk</option>-->
+										      		<!--<option value="jb2312" <c:if test="${bean.constant=='jb2312' }">selected</c:if>>jb2312</option>-->
+										    </select>
+										   </div>
+								</div>
+								
+								<div class="form-group">
+									<label for="input01" class="control-label col-sm-2">抓取时间间隔(秒)：</label>
+									<div class="controls col-sm-4">
+										<input type="text" name="grabtime" id="grabtime" class="form-control" th:value="${bean.get('grabtime')}" value="" required />
+									</div>
+									<div class="controls col-sm-6">
+									</div>
+								</div>
+								
+							<div class="form-actions">
+								<div class="col-sm-1"></div>
+								<div class="col-sm-12 text-center">
+									<a th:href="@{/listrule/list}" class="btn btn-info"><span
+										class="fa fa-arrow-left fa-fw"></span> 返回</a> &nbsp;&nbsp;
+									<a href="#" class="btn btn-info" onclick="test()">
+											<span class="fa fa-arrow-left fa-fw"></span> 测试</a>
+									 <a href="#" class="btn btn-info" onclick="testSubmmit()">
+											<span class="fa fa-arrow-left fa-fw"></span>提交</a>
+								</div>
+							</div>
+                          <input type="submit" value="提交">
+						</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+	<script type="text/javascript" src="${ctx }/js/jquery.ui.widget.js"></script>
+	<script type="text/javascript" src="${ctx }/js/jquery.fileupload.js"></script>
+	<script type="text/javascript">
+		function test() {
+				$("#addUserInfoform").attr("action","${ctx }/listrule/test");
+				$("#addUserInfoform").attr("target","_blank");
+				$("#addUserInfoform").submit();
+		}
+		function testSubmmit() {
+			$("#addUserInfoform").attr("action","${ctx }/listrule/saveorupdate");
+//			$("#addUserInfoform").attr("action","@{/listrule/saveorupdate}");
+			$("#addUserInfoform").attr("target","_self");
+			$("#addUserInfoform").submit();
+	}
+	</script>
+
+</body>
+
+</html>

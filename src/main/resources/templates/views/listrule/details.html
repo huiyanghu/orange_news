@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans" xmlns:th="http://www.thymeleaf.org" xmlns:c="http://www.w3.org/1999/html">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <script src="/stylesheets/js/jquery-1.11.0.js"></script>
+    <link rel="stylesheet" href="/stylesheets/css/bootstrap.css">
+    <link rel="stylesheet" href="/stylesheets/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="/stylesheets/css/plugins/timeline.css">
+    <link rel="stylesheet" href="/stylesheets/css/sb-admin-2.css">
+    <link rel="stylesheet" href="/stylesheets/css/plugins/morris.css">
+    <link rel="stylesheet" href="/stylesheets/css/font-awesome-4.3.0/css/font-awesome.min.css">
+    <script src="/stylesheets/js/bootstrap.min.js"></script>
+    <script src="/stylesheets/js/bootstrap-datetimepicker.zh-CN.js"></script>
+    <script src="/stylesheets/js/page/myPage.js"></script>
+
+</head>
+<body>
+	<div class="row">
+		<div class="col-sm-12">
+			<h1 class="page-header">规则详情</h1>
+		</div>
+	</div>
+     <div class="panel-body">
+		 <div class="table-responsive">
+			<table class="table table-striped table-bordered table-hover"
+				id="dataTables-example">
+					
+		<input class="form-control" id="id" name="id" type="hidden"  />
+                <!--value="${item.id }"-->
+				<tr>
+				   <td>规则名称</td>
+				   <td th:text="${item.get('rulename')}"></td>
+				</tr>
+				<tr>
+				  <td>媒体</td>
+				   <td th:text="${item.get('pid')}">
+				   		<!--<div class="input-group" >-->
+							<!--<c:forEach var="publication" items="${publicationlist}">	-->
+								<!--<c:if test="${publication.id==item.pid}">${publication.name}</c:if>-->
+							<!--</c:forEach>	-->
+					    <!--</div>-->
+				   
+				   </td>
+				</tr>
+					
+				<tr>
+				   <td>节点</td>
+				   <td>美国
+					   	<!--<div class="input-group" >-->
+							<!--<c:forEach var="node" items="${nodelist}">	-->
+								<!--<c:if test="${node.id==item.nodeid}">${node.nodename}</c:if>-->
+							<!--</c:forEach>	-->
+					    <!--</div>-->
+				   </td>
+				</tr>
+				
+				<tr>
+				   <td>渠道</td>
+				   <td th:text="${item.get('channelid')}">
+					   	<!--<div class="input-group" >-->
+							<!--<c:forEach var="channel" items="${channellist}">	-->
+								<!--<c:if test="${channel.id==item.channelid}">${channel.channelname}</c:if>-->
+							<!--</c:forEach>	-->
+					    <!--</div>-->
+				   </td>
+				</tr>
+				
+				<tr>
+					<td>创建时间</td>
+					<td th:text="${#calendars.format(item.createdAt)}">
+						<!--<fmt:formatDate value="${item.createtime }" type="both" pattern="YY-MM-dd HH:mm"/>-->
+					</td>
+				</tr>
+				<tr>
+					<td>url</td>
+					<td th:text="${item.get('url')}"></td>
+				</tr>
+				<tr>
+					<td>字符</td>
+					<td th:text="${item.get('constant')}"></td>
+				</tr>
+				<tr>
+					<td>国家码</td>
+					<td th:text="${item.get('code')}"></td>
+					<!--<td>-->
+						<!--<div class="input-group" >-->
+							<!--<c:forEach var="country" items="${countrylist}">	-->
+								<!--<c:if test="${country.cid==item.code}">${country.cnname}</c:if>-->
+							<!--</c:forEach>	-->
+					    <!--</div>			-->
+						<!---->
+					<!--</td>-->
+					
+				</tr>
+				<tr>
+					<td>语言码</td>
+					<td th:text="${item.get('langid')}">${item.langid}</td>
+				</tr>
+				
+				<tr>
+					<td>话题分类id</td>
+					<td th:text="${item.get('topic')}">
+					<!--<div class="input-group" >-->
+						<!--<c:forEach var="topic" items="${topiclist}">	-->
+							<!--<c:if test="${topic.tid==item.topic}">${topic.tid}</c:if>-->
+						<!--</c:forEach>	-->
+				    <!--</div>-->
+					</td>
+				</tr>
+				
+				<tr>
+					<td>csspath</td>
+					<td th:text="${item.get('csspath')}"></td>
+				</tr>
+				<tr>
+					<td>finder</td>
+					<td th:text="${item.get('findpre')}"></td>
+				</tr>
+				<tr>
+					<td>规则状态</td>
+					<td>正常
+					<!--<c:if test="${item.status==0}">正常</c:if>-->
+					<!--<c:if test="${item.status==1}">禁用</c:if>-->
+					</td>
+				</tr>
+				<tr>
+					<td>列表文章状态</td>
+					<td>正常
+					<!--<c:if test="${item.liststatus==0}">正常</c:if>-->
+					<!--<c:if test="${item.liststatus==1}">未发布</c:if>-->
+					</td>
+				</tr>
+				<tr>
+					<td>抓取时间间隔(秒)</td>
+					<td th:text="${item.get('grabtime')}"></td>
+				</tr>
+				
+			</table>
+			<div class="col-sm-12 text-center">
+				<a th:href="@{/listrule/list}" class="btn btn-info">
+					<span class="fa fa-arrow-left fa-fw"></span> 返回</a>
+			</div>
+			<div class="col-sm-12 text-center">
+			</div>
+	     </div>
+	</div>
+	<script type="text/javascript" src="${ctx }/js/jquery.ui.widget.js"></script>
+	<script type="text/javascript" src="${ctx }/js/jquery.fileupload.js"></script>
+</body>
+
+</html>

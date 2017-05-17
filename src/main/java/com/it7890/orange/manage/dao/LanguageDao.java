@@ -1,0 +1,12 @@
+package com.it7890.orange.manage.dao;
+
+import com.it7890.orange.manage.model.HbLanguage;
+
+import java.util.List;
+
+/**
+ * Created by Administrator on 2017/5/12.
+ */
+public interface LanguageDao {
+    public List<HbLanguage> getAll();
+}
