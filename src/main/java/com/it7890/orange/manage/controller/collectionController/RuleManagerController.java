@@ -29,7 +29,6 @@ public class RuleManagerController {
     public String getAll(Model model, GlobalRule bean) {
         List<GlobalRule> list = ruleManagerService.getAll();
         model.addAttribute("list", list);
-        System.out.println(list.size());
         return "views/globalrule/list";
     }
 
