@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans" xmlns:th="http://www.thymeleaf.org" xmlns:c="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body><!--<span th:text="${topics}"></span>-->
+
+<tr th:text="${list}"></tr>
+
+<br/>
+<br/>
+<br/>
+<br/>
+<tr th:each="todo: ${list}">
+    <!--<td th:text="${todo.serverData}"></td>-->
+    <td th:text="${todo.createdAt}">time</td>
+</tr>
+
+</body>
+</html>

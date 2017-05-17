@@ -1,0 +1,69 @@
+<%@page language="java" contentType="text/html; charset=UTF-8"%>
+<%@ include file="/common/taglibs.jsp"%>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <title>${vo.cv.title }</title>
+  <link rel="stylesheet" href="https://translate.googleapis.com/translate_static/css/translateelement.css">
+    <link rel="stylesheet" href="http://static.coolook.org/assets/static/css/detail_ad.css?v=8">
+      <link rel="stylesheet" href="http://static.coolook.org/static/css/bootstrap.min.css">
+        <link rel="stylesheet" href="http://static.coolook.org/static/css/font-awesome.min.css">
+          <link rel="stylesheet" href="http://static.coolook.org/static/css/partner_ck.css">
+</head>
+
+<body>
+  <div class="wrap">
+    <!--  title pictures start , If there is no title pictures , pls remove the div tag -->
+   <c:if test="${titlepic !=null && titlepic!=''}">
+   		<div id="titlepic">
+			<img src="http://cdn.img.coolook.org/${titlepic }">
+   		 </div>
+	</c:if>
+    <!-- title pictures end  -->
+    <article>
+      <header class="article-title clearfix">
+        <h2>${vo.cv.title }</h2>
+        <div class="media pull-left" style="width:80%;">
+          <!-- media icon start ,if no media icon ,pls remove the div tag -->
+          <c:if test="${publicationicon!=null && publicationicon!='' }">
+          <div class="pull-left">
+              <img class="media-object img-circle" src="${publicationicon }" alt="${publication}" style="width:50px; height:50px;">
+          </div>
+          </c:if>
+          <!-- media icon end -->
+          <div class="media-body">
+            <h3 class="media-heading text-danger">${publication}</h3>
+            <p class="text-light-grey"> <i class="glyphicon glyphicon-time"></i> Update at
+              <time>${createtime}</time>
+            </p>
+          </div>
+        </div>
+        <!-- source link btn start ,if no source link ,pls remove the button tag -->
+        <!--   <c:if test="${vo.cv.sourceurl !=null && vo.cv.sourceurl!=''}">
+         	  <button class="btn btn-default btn-lg btn-border-color pull-right" style="width:20%;margin-top:15px;" onclick="location.href='${vo.cv.sourceurl}'">Web</button>
+           </c:if> --> 
+        <!-- source link btn end -->
+      </header>
+      <c:if test="${vo.cv.medialink !=null && vo.cv.medialink!='' }">
+            <video src="${vo.cv.medialink }"
+             type="video/mp4" controls poster="<c:if test="${titlepic !=null && titlepic!=''}">${titlepic }</c:if>" preload="none" style="padding:15px" width="100%"></video>
+      </c:if>
+      <section class="article-body">
+        <c:if test="${not empty errormessage }">
+           ${errormessage }
+        </c:if>
+       ${vo.cac.content }
+      </section>
+    </article>
+    <!-- statement -->
+    
+  </div>
+  <script src="http://static.coolook.org/static/js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+  <script src="http://static.coolook.org/static/js/bootstrap.min.js" type="text/javascript" charset="utf-8"></script>
+  <script src="http://static.coolook.org/static/js/jquery.cookie.js" type="text/javascript" charset="utf-8"></script>
+  <script src="http://static.coolook.org/static/js/partner_ck.js" type="text/javascript" charset="utf-8"></script>
+</body>
+</html>

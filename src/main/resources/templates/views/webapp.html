@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="format-detection" content="telephone=no" />
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, width=device-width, minimal-ui" />
+		<link rel="stylesheet" type="text/css" href="/stylesheets/pickadate/default.css" />
+		<link rel="stylesheet" type="text/css" href="/stylesheets/pickadate/default.date.css" />
+		<link rel="stylesheet" type="text/css" href="/stylesheets/pickadate/default.time.css" />
+
+        <link rel="stylesheet" type="text/css" href="/stylesheets/reset.css" />
+		<link rel="stylesheet" type="text/css" href="/stylesheets/webapp.css" />
+		<script type="text/javascript" src="/api/getToken.js"></script>
+        <title>功夫洗车</title>
+    </head>
+    <body>
+        <div class="app" id="page-container">
+            <div class="page p-hide" id="homepage">
+			    <div class="p-home">
+                    <header class="app-header">功夫洗车</header>
+				    <div class="banner-left">
+                      <div class="des">
+                          <h1 class="title">移动汽车美容专家</h1>
+                          <p>专业技师，专业设备 </p>
+                          <p>手机下单，上门服务 </p>
+                      </div>
+				   </div>
+
+				   <div class="content">
+				      <ul class="home-entry">
+					    <li class="item" data-s="0">
+                          <div class="icon yuyue"></div>
+						  <p class="label">预约服务<p>
+                          <div class="arrow"></div>
+						</li>
+						<li class="item" data-s="1">
+                           <div class="icon myorder"> <span id="my-order-count" style="display:none"></span> </div>
+						   <p class="label">账户&订单查询</p>
+
+                           <div class="arrow"></div>
+						</li>
+					  </ul>
+				   </div>
+					<div class="ft" style="bottom: 40px;">
+						<p>天通苑、北苑、望京、亚运村</p>
+						<p>酒仙桥、团结湖、五棵松</p>
+						<p>8:00 - 19:00 为您服务</p>
+					</div>
+                    <div class="ft">
+                        <p><a href="tel:4000-650-640">客服电话：4000-650-640</a></p>
+                    </div>
+				</div>
+			</div>
+			<div id="c-loading">
+			    <div class="sprite-con">
+				    <div class="sprite"></div>
+					<p>正在加载...</p>
+				</div>
+			</div>
+        </div>
+
+		<div id="alert-dialog" class="alert-dialog" style="display:none">
+		    <div class="ctn">
+			   <p class="text"></p>
+			   <div class="tools main-btn">
+			      <button>确定</button>
+			   </div>
+			</div>
+		</div>
+
+        <div id="car-category" class="popup" style="display: none">
+           <div class="carinfo-container ctn">
+               <div class="carinfo-input">
+                   <div class="license">
+                      <input type="text"  placeholder="车牌照号" />
+                   </div>
+                   <div class="bm-tl">
+                          <input type="text" placeholder="品牌&型号" id="brand"/>
+                   </div>
+                   <div class="color">
+                      <input type="text" placeholder="车辆颜色" readonly="true" />
+					  <div class="menu-icon"></div>
+                   </div>
+               </div>
+			   <div class="tools main-btn">
+			       <button class="ok">确定</button>
+			   </div>
+
+			   <div class="close"></div>
+           </div>
+        </div>
+
+		<div id="date-dialog" class="popup" style="left: -200%">
+		    <div class="date-selector">
+			    <div class="input-time">
+                   <div id="date-con" class="date">
+				       <div class="list">
+					       <ul>
+							  <li></li>
+						   </ul>
+					   </div>
+				   </div>
+				   <div id="time-con" class="time">
+				       <div class="list">
+					       <ul>
+						   </ul>
+					   </div>
+				   </div>
+				   <div id="second-con" class="second">
+				       <div class="list">
+					       <ul></ul>
+					   </div>
+				   </div>
+
+				   <div class="split l1"></div>
+				   <div class="split l2"></div>
+                </div>
+			    <div class="tools main-btn">
+			       <button class="ok">确定</button>
+			    </div>
+
+				 <div class="close"></div>
+		    </div>
+		</div>
+
+        <div id="color-selector" class="popup" style="left: -200%;">
+            <div class="color-selector">
+                <h3>全部颜色</h3>
+                <ul>
+                   <li><em style="background-color:#000000;"></em><span>黑色</span></li>
+                   <li><em style="background-color:#ffffff;border: 1px solid #cccccc;"></em><span>白色</span></li>
+                   <li><em style="background-color:#bec3c4;"></em><span>银灰色</span></li>
+                   <li><em style="background-color:#595959;"></em><span>深灰色</span></li>
+                   <li><em style="background-color:#e60012;"></em><span>红色</span></li>
+                   <li><em style="background-color:#00a1e9;"></em><span>蓝色</span></li>
+				   <li><em style="background-color:#009944;"></em><span>绿色</span></li>
+
+				   <li><em style="background-color:#fff33f;"></em><span>黄色</span></li>
+
+				   <li><em style="background-color:#cd7f32;"></em><span>香槟色</span></li>
+				   <li><em style="background-color:#4f2f4f;"></em><span>紫色</span></li>
+                </ul>
+            </div>
+        </div>
+
+		<div id="specify-requirement" class="popup" style="display: none">
+		    <div class="requirement">
+                <div>
+				   <textarea placeholder="特殊需求" autofocus="false"></textarea>
+				   <div class="main-btn">
+				      <button>确定</button>
+				   </div>
+				</div>
+				<div class="close"></div>
+            </div>
+		</div>
+
+
+        <script id="temp-service-info" type="text/tpl">
+            <div class="page p-hide" id="page-service-info">
+                <div class="p-service-info">
+                    <header class="app-header"><span class="back"></span>选择服务项目</header>
+                    <div class="content">
+                        <ul>
+                        <%ServiceObj.forEach(function(s) {%>
+                           <li class="item" data-service="<%=s.id%>">
+                               <p class="tt"><%=s.name%> </p>
+                               <p class="sec">
+                                    <i class="c-main"> <%=s.price%> </i>元，
+                                    <%= s.description %>
+                               </p>
+							   <div class="checkbox"></div>
+                           </li>
+                       <%})%>
+                           <li class="item part" data-service="<%= ServiceObj.length + 1%>">
+                               特殊要求
+							   <div>
+							       <input type="text" placeholder="输入您的需求" readonly="true"></input>
+							   </div>
+                           </li>
+                        </ul>
+                        <div class="main-btn">
+                           <button class="next">下一步</button>
+                        </div>
+                        <div id="pop-bottom" style="height: 240px;display:none;"></div>
+                    </div>
+                </div>
+            </div>
+        </script>
+
+        <script id="temp-car-info" type="text/tpl">
+            <div class="page p-hide" id="page-car-info">
+			   <div class="p-car-info">
+			       <header class="app-header"><span class="back"></span>车辆信息</header>
+                   <div class="content" id="carinfo-content">
+
+				      <div>
+                      <ul class="car-info">
+					    <div class="card-title"><span class="flag"></span>服务车辆信息</div>
+                        <li class="item" data-item="0">
+                           <p class="sec placeholder">
+						      <span class="lc">车牌号</span>
+							  <span class="br">品牌型号</span>
+							  <span class="cl">颜色</span>
+						   </p>
+
+                        </li>
+                        <li class="item adr" data-item="1">
+                           <input type="text" name="address" class="sec default-txt" placeholder="停车位置，请尽量详细描述" />
+                        </li>
+                        <!--
+                        <li class="item" data-item="2">
+                           <p class="placeholder sec datetime">用车时间, 我们会在此时间前完成服务</p>
+
+                        </li>
+                        -->
+
+                        <!--date-->
+                        <li class="item">
+                            <input type="text" placeholder="用车日期" class="sec default-txt" id="picker-date" />
+                        </li>
+
+                        <!--time-->
+                        <li class="item">
+                           <input type="text" placeholder="用车时间" class="sec default-txt" id="picker-time" />
+                        </li>
+
+                        <li class="item no-pen" data-item="3">
+                            <label for="wash-inner">
+                                <input type="checkbox" name="wash-inner" id="wash-inner" />
+                                需要清洗内饰
+                            </label>
+                           <p class="placeholder sec wash"></p>
+                        </li>
+                      </ul>
+
+					  <ul id="selected-service-list">
+					    <div class="card-title"><span class="flag"></span>订单</div>
+                        <div class="list">
+
+						</div>
+						<div id="service-total-des" class="c-main">
+
+						</div>
+                      </ul>
+                       <div class="tools main-btn">
+                           <button class=" submit">提交订单</button>
+                        </div>
+                   </div>
+				   </div>
+               </div>
+			</div>
+        </script>
+
+
+		<script id="account-register" type="text/tpl">
+		    <div class="page p-hide" id="page-account">
+			   <div class="p-account">
+			       <header class="app-header"><span class="back"></span>注册手机号</header>
+                   <div class="mobile">
+                       <input id="cellphone" type="text" placeholder="请输入手机号" pattern="\d*"></input>
+                   </div>
+
+				   <div class="vcode">
+				       <input type="text" placeholder="输入验证码" pattern="\d*"></input>
+					   <button class="yellow-btn">获取验证码</button>
+                   </div>
+				   <div class="tools main-btn">
+					   <button class="ok">确认</button>
+				   </div>
+               </div>
+			</div>
+		</script>
+
+
+		<script id="tpl-pay-page" type="text/tpl">
+            <div class="page p-hide" id="page-pay">
+			    <div class="p-pay">
+				    <header class="app-header"><span class="back"></span>支付</header>
+                    <p class="c-main" style="font-size: 16px;margin: 20px 10px;">
+						支付 <em id="pay-total-num"> 0 </em>元
+				    </p>
+
+                    <div class="content">
+                       <ul>
+						  <li class="item pay-0" style="display:none" item="0">
+						     从套餐中扣除
+							 <div class="checkbox"></div>
+						  </li>
+					      <li class="item pay-1" style="display:none" item="1">
+						     <p>从账户余额扣除</p>
+							 （<span class="account-limit"> 0 </span> 元）
+
+							 <div class="checkbox"></div>
+						  </li>
+						  <li class="item pay-2 checked" item="2">
+						     上门收取现金
+							 <div class="checkbox"></div>
+					      </li>
+					   </ul>
+                       <div class="main-btn">
+                           <button class="ok">确定支付</button>
+                       </div>
+					   <div style="margin-top:30px; text-align:center; font-size:14px; color:#666; width:100%">
+						   <p>如何免费体验？</p>
+						   <p>如果您是第一次使用，选择“上门收取现金”，服务后不会收钱</p>
+                       </div>
+                    </div>
+                </div>
+			</div>
+        </script>
+
+        <script id="tpl-myorder-item" type="text/tpl">
+            <%for(var i=0; i < list.length; i++){%>
+            <li class="item" data-item="0">
+                <a href="#order/order/orderId=<%=list[i].orderNumber%>">
+                    <h3>
+                        <%=list[i].serviceTime%>
+                        <span>¥ <%=list[i].totalPrice%></span>
+                    </h3>
+                    <p><%=list[i].serviceName%></p>
+                    <h4><%=list[i].createTime%> 下单</h4>
+                    <span class="status status-<%=list[i].statusColor%>"><%=list[i].statusText%></span>
+                </a>
+            </li>
+            <%}%>
+        </script>
+
+        <script id="tpl-mypackage-item" type="text/tpl">
+            <%list.forEach(function(item) {%>
+            <li data-id="">
+                <%= item.service.name %>
+                <span>剩余: <%= item.count%> 次</span>
+            </li>
+            <%})%>
+        </script>
+
+        <script id="tpl-my-order" type="text/tpl">
+            <div class="page p-hide" id="page-myorder">
+			   <div class="p-myorder">
+                   <header class="app-header">
+                       <span class="back"></span>
+                       帐号&订单
+                       <span class="logout">退出</span>
+                   </header>
+                   <div class="account-info">
+                        <p>
+                            用户 <span class="accountNameSlot"></span>
+                            <span class="accountBlance">
+                                账户余额：<span class="accountBlanceSlot">0</span> 元
+                            </span>
+                        </p>
+                   </div>
+				   <div class="content" id="myorder-sroller">
+                      <h2>我的套餐</h2>
+                      <ul id="mypackage-items"></ul>
+
+                      <h2>我的订单</h2>
+                      <ul id="myorder-items"></ul>
+                   </div>
+               </div>
+			</div>
+        </script>
+
+        <script id="tpl-order" type="text/tpl">
+          <div class="page p-hide" id="page-order">
+            <div class="">
+               <header class="app-header"><span class="back"></span>订单详情</header>
+      				   <div class="content">
+                    <ul id="order-detail"></ul>
+
+                    <p id="order-status">
+                        <span data-st='0'>下单</span>
+                        <span data-st='4'>接单</span>
+                        <span data-st='1'>服务</span>
+                        <span data-st='2'>完成</span>
+                    </p>
+
+                    <div id="order-photos"></div>
+                    <div id="order-review"></div>
+                    <p><a href="tel:4000-650-640" class="kefu">客服电话：4000-650-640</a></p>
+                 </div>
+             </div>
+    			</div>
+        </script>
+
+        <script id="tpl-order-review" type="text/tpl">
+          <%if (!rank) {%>
+            <form class="rating-frm">
+                <h2>服务还满意吗？打个分吧</h2>
+                <div class="star">
+                    <span>★</span>
+                    <span>★</span>
+                    <span>★</span>
+                    <span>★</span>
+                    <span>★</span>
+                </div>
+
+                <input type="hidden" name="rank" />
+                <input type="hidden" name="oid" value="<%=id %>" />
+                <textarea name="review" cols="30" rows="3" placeholder="有什么想说的？"></textarea>
+                <div class="main-btn">
+                    <button>提交</button>
+                </div>
+            </form>
+          <%} else {%>
+            <div class="rating-frm">
+                <h2>感谢您的反馈</h2>
+                <div class="star">
+                    <span>★</span>
+                    <span>★</span>
+                    <span>★</span>
+                    <span>★</span>
+                    <span>★</span>
+                </div>
+                <p class="review"><%=text %></p>
+            </div>
+          <%}%>
+        </script>
+
+        <script id="tpl-order-photos" type="text/tpl">
+		 	<h3>洗前照片</h3>
+          <ul class="photo-list">
+          <%list.forEach(function(item){%>
+            <%if(item.status === 0){%>
+            <li class="box">
+              <a href="<%=item.carimg%>">
+                <img src="<%=item.carimg%>?imageView2/1/w/200/h/200" alt="" />
+              </a>
+            </li>
+            <%}%>
+          <%})%>
+          </ul>
+
+          <h3>洗后照片</h3>
+          <ul class="photo-list">
+          <%list.forEach(function(item){%>
+            <%if(item.status === 2){%>
+            <li class="box">
+              <a href="<%=item.carimg%>">
+                <img src="<%=item.carimg%>?imageView2/1/w/200/h/200" alt="" />
+              </a>
+            </li>
+            <%}%>
+          <%})%>
+          </ul>
+        </script>
+
+        <script id="tpl-order-detail" type="text/tpl">
+            <li class="item">
+                <p class="car">
+                    <span class="label sec">车辆信息:</span>
+                    <span> <%=carModel%> </span>
+                    <span> <%=license%></span>
+                </p>
+
+                <p><span class="label sec">停放位置:</span> <%=address%></p>
+                <p><span class="label sec">用车时间:</span> <%=serviceTime%></p>
+                <div class="split"></div>
+
+                <p>
+                    <span class="label sec">服务内容:</span>
+                    <%=serviceStr%>
+                </p>
+                <%if(notes){%>
+                <p>
+                    <span class="label sec">特殊需求:</span>
+                    <%=notes%>
+                </p>
+                <%}%>
+                <p>
+                    <span class="label sec">订单金额:</span>
+                    <span class="c-main"> ¥ <%=totalPrice%></span>
+                </p>
+                <div class="split"></div>
+
+                <%if(workerStr){%>
+                    <p><span class="label sec">技师:</span>
+                    <%=workerStr%>
+                <%} else {%>
+                    <p>正在安排技师，请稍等</p>
+                <%}%>
+            </li>
+            <%if(status == 3){%>
+            <li class="main-btn">
+                <span>订单已取消</span>
+            </li>
+            <%}%>
+        </script>
+
+        <script src="//cdn.bootcss.com/jquery/1.11.1/jquery.min.js"></script>
+        <script src="//cdn.bootcss.com/underscore.js/1.6.0/underscore-min.js"></script>
+
+        <script type="text/javascript" src="/javascripts/lib/pickadate/picker.js"></script>
+        <script type="text/javascript" src="/javascripts/lib/pickadate/picker.date.js"></script>
+        <script type="text/javascript" src="/javascripts/lib/pickadate/picker.time.js"></script>
+        <script type="text/javascript" src="/javascripts/lib/pickadate/zh_CN.js"></script>
+
+        <script type="text/javascript" src="/javascripts/lib/event.js"></script>
+        <script type="text/javascript" src="/javascripts/lib/calendar.js"></script>
+        <script src="//cdn.bootcss.com/fastclick/1.0.2/fastclick.min.js"></script>
+        <script src="//cdn.bootcss.com/moment.js/2.8.3/moment.min.js"></script>
+
+        <script type="text/javascript" src="/javascripts/webapp/UI.js"></script>
+        <script type="text/javascript" src="/javascripts/webapp/controller.js"></script>
+    </body>
+</html>
