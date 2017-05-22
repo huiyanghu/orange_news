@@ -30,22 +30,16 @@
 					<div class="panel-heading">请填写以下选项：</div>
 					<div class="panel-body">
 						<div class="row">
-
-                            <!--<form id="iform" th:action="@{/list.html?save}" th:method="post" th:object="${animalForm}">-->
-
 							<form id="addUserInfoform" class="form-horizontal" th:object="${bean}" th:action="@{/globalrule/saveorupdate}" th:method="post">
-                            <!--action="${ctx }/globalrule/saveorupdate" method="post"-->
-								<input name="GlobalRule.id" type="hidden" value="" th:value="${bean.objectId}" />
+								<input  type="hidden" value="" th:field="*{objectId}" />
 							<div class="col-sm-12">
 								<div class="form-group">
 									<label for="input01" class="control-label col-sm-2">节点：</label>
 									<div class="controls col-sm-4">
-										<select id="nid" name="GlobalRule.nid" class="form-control" >
-											<c:forEach var="item" items="${nodelist}">
-											<option value="" th:value="${bean.nid}"
-												<c:if test="${item.id==bean.nid}">selected</c:if>>${item.nodename}</option>
-											</c:forEach>
-										</select>
+                                        <select id="nodeid" name="nodeid" th:field="*{nodeid}" class="form-control">
+                                            <option value="0">请选择</option>
+                                            <option th:each="node:${nodeList}" th:selected="(${bean.nodeid == node.id})" th:value="${node.id}" th:text="${node.nodename}"></option>
+                                        </select>
 									</div>
 									<div class="controls col-sm-6">
 									</div>
@@ -53,7 +47,7 @@
 								<div class="form-group">
 									<label for="input01" class="control-label col-sm-2">规则名称：</label>
 									<div class="controls col-sm-4">
-										<input type="text" name="GlobalRule.rulename" id="rulename" class="form-control" th:value="${bean.rulename}" value="" required />
+										<input type="text" id="rulename" class="form-control" th:field="*{rulename}" th:value="${bean.rulename}" required />
 									</div>
 									<div class="controls col-sm-6">
 									</div>
@@ -61,7 +55,8 @@
 								<div class="form-group">
 									<label for="input01" class="control-label col-sm-2">媒体id：</label>
 									<div class="controls col-sm-4">
-										<input type="text" name="GlobalRule.pid" id="pid" class="form-control" value="" th:value="${bean.pid}" required />
+                                        <!--name="GlobalRule.pid"-->
+										<input type="text" id="pid" th:field="*{pid}" class="form-control" value="" th:value="${bean.pid}" required />
 										<a id="apid" href="${ctx }/article/list?publicationid=${bean.id}" target="_blank" onclick="redictart()">查看文章</a>
 									</div>
 									<div class="controls col-sm-6">
@@ -71,7 +66,8 @@
 								<div class="form-group">
 									<label for="input01" class="control-label col-sm-2">去除域的csspath：</label>
 									<div class="controls col-sm-4">
-										<input type="text" name="GlobalRule.replacecsspath" id="replacecsspath" class="form-control" value="" th:value="${bean.replacecsspath}" />
+                                        <!--name="GlobalRule.replacecsspath"-->
+										<input type="text"  th:field="*{replacecsspath}" id="replacecsspath" class="form-control" value="" th:value="${bean.replacecsspath}" />
 									</div>
 									<div class="controls col-sm-6">
 									</div>
@@ -79,7 +75,8 @@
 								<div class="form-group">
 									<label for="input01" class="control-label col-sm-2">内容1的csspath：</label>
 									<div class="controls col-sm-4">
-										<input type="text" name="GlobalRule.concsspath" id="concsspath" class="form-control" value="" th:value="${bean.concsspath}" required />
+                                        <!--name="GlobalRule.concsspath"-->
+										<input type="text" th:field="*{concsspath}" id="concsspath" class="form-control" value="" th:value="${bean.concsspath}" required />
 									</div>
 									<div class="controls col-sm-6">
 									</div>
@@ -88,7 +85,7 @@
 									<div class="form-group">
 									<label for="input01" class="control-label col-sm-2">内容2的csspath：</label>
 									<div class="controls col-sm-4">
-										<input type="text" name="GlobalRule.concsspath1" id="concsspath1" class="form-control" th:value="${bean.concsspath1}" value=""  />
+										<input type="text" name="GlobalRule.concsspath1" th:field="*{concsspath1}" id="concsspath1" class="form-control" th:value="${bean.concsspath1}" value=""  />
 									</div><div class="controls col-sm-6">
 									</div>
 									</div>
@@ -96,7 +93,7 @@
 									<div class="form-group">
 									<label for="input01" class="control-label col-sm-2">内容3的csspath：</label>
 									<div class="controls col-sm-4">
-										<input type="text" name="GlobalRule.concsspath2" id="concsspath2" class="form-control" th:value="${bean.concsspath2}" value=""  />
+										<input type="text" name="GlobalRule.concsspath2" th:field="*{concsspath2}" id="concsspath2" class="form-control" th:value="${bean.concsspath2}" value=""  />
 									</div><div class="controls col-sm-6">
 									</div>
 									</div>
@@ -104,7 +101,7 @@
 								<div class="form-group">
 									<label for="input01" class="control-label col-sm-2">关键字csspath：</label>
 									<div class="controls col-sm-4">
-										<input type="text" name="GlobalRule.keycsspath" id="keycsspath" class="form-control" th:value="${bean.keycsspath}"/>
+										<input type="text" name="GlobalRule.keycsspath" th:field="*{keycsspath}" id="keycsspath" class="form-control" th:value="${bean.keycsspath}"/>
 									</div>
 									<div class="controls col-sm-6">
 										<div id="keycsspatharea"></div>
@@ -114,7 +111,7 @@
 								<div class="form-group">
 									<label for="input01" class="control-label col-sm-2">videocsspath：</label>
 									<div class="controls col-sm-4">
-										<input type="text" name="GlobalRule.videocsspath" id="videocsspath" class="form-control" th:value="${bean.videocsspath}" value=""  />
+										<input type="text" name="GlobalRule.videocsspath" th:field="*{videocsspath}" id="videocsspath" class="form-control" th:value="${bean.videocsspath}" value=""  />
 									</div>
 									<div class="controls col-sm-6">
 										<div id="videocsspatharea"></div>
@@ -123,7 +120,7 @@
 								<div class="form-group">
 									<label for="input01" class="control-label col-sm-2">authorcsspath：</label>
 									<div class="controls col-sm-4">
-										<input type="text" name="GlobalRule.authorcsspath" id="authorcsspath" class="form-control" th:value="${bean.authorcsspath}" value=""  />
+										<input type="text" name="GlobalRule.authorcsspath" th:field="*{authorcsspath}" id="authorcsspath" class="form-control" th:value="${bean.authorcsspath}" value=""  />
 									</div>
 									<div class="controls col-sm-6">
 										<div id="authorcsspatharea"></div>
@@ -133,7 +130,7 @@
 								<div class="form-group">
 									<label for="input01" class="control-label col-sm-2">排序：</label>
 									<div class="controls col-sm-4">
-										<input type="text" name="GlobalRule.rank" id="rank" class="form-control" th:value="${bean.rank}" value=""  />
+										<input type="text" name="GlobalRule.rank" th:field="*{rank}" id="rank" class="form-control" th:value="${bean.rank}" value=""  />
 									</div>
 									<div class="controls col-sm-6">
 									</div>
@@ -141,7 +138,7 @@
 								<div class="form-group">
 									<label for="input01" class="control-label col-sm-2">replacerule：</label>
 									<div class="controls col-sm-4">
-										<input type="text" name="GlobalRule.replacerule" id="replacerule" class="form-control" th:value="${bean.replacerule}" value=""  />
+										<input type="text" name="GlobalRule.replacerule" th:field="*{replacerule}" id="replacerule" class="form-control" th:value="${bean.replacerule}" value=""  />
 									</div>
 									<div class="controls col-sm-6">
 									</div>
@@ -149,7 +146,7 @@
 								<div class="form-group">
 									<label for="input01" class="control-label col-sm-2">testurl：</label>
 									<div class="controls col-sm-4">
-										<input type="text" name="GlobalRule.testurl" id="testurl" class="form-control" th:value="${bean.testurl}"  value="" required />
+										<input type="text" name="GlobalRule.testurl" th:field="*{testurl}" id="testurl" class="form-control" th:value="${bean.testurl}"  value="" required />
 									</div>
 										<div class="controls col-sm-6">
 									</div>
@@ -157,7 +154,7 @@
 									<div class="form-group">
 									<label for="input01" class="control-label col-sm-2">commentcssapth：</label>
 									<div class="controls col-sm-4">
-										<input type="text" name="GlobalRule.commentcssapth" id="commentcssapth" class="form-control" th:value="${bean.commentcssapth}"  value=""  />
+										<input type="text" name="GlobalRule.commentcssapth" th:field="*{commentcssapth}" id="commentcssapth" class="form-control" th:value="${bean.commentcssapth}"  value=""  />
 									</div>
 									<div class="controls col-sm-6">
 									</div>
@@ -168,16 +165,17 @@
 							<div class="form-actions">
 									<div class="col-sm-12 text-center">
 										<a th:href="@{/globalrule/list}" class="btn btn-info"><span class="fa fa-arrow-left fa-fw"></span> 返回</a>
-										<a href="#" class="btn btn-info"  onclick="test(1)"><span class="fa fa-arrow-left fa-fw"></span> 测试</a>
+										<!--<a href="#" class="btn btn-info"  onclick="test(1)"><span class="fa fa-arrow-left fa-fw"></span> 测试</a>-->
 										&nbsp;&nbsp;
-										<a class="btn btn-primary" type="submit" onclick="test(2)"><span class="fa fa-floppy-o fa-fw"></span>
-										提交</a>
-									</div>
-									<div class="col-sm-12 text-center">
-										<font color="red" id="resstatus"></font>
-									</div>
-								</div>
-                                <input type="submit" value="提交">
+										<!--<a class="btn btn-primary" type="submit" onclick="test(2)"><span class="fa fa-floppy-o fa-fw"></span>-->
+										<!--提交</a>-->
+                                        <!--<input type="submit" class="btn btn-primary" value="测试">-->
+                                        <input type="submit" class="btn btn-primary" value="提交">
+                                    </div>
+                                <div class="col-sm-12 text-center">
+                                        <font color="red" id="resstatus"></font>
+                                    </div>
+                            </div>
 							</form>
 						</div>
 					</div>

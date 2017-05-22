@@ -16,11 +16,13 @@
     <script src="/stylesheets/js/bootstrap.min.js"></script>
     <script src="/stylesheets/js/bootstrap-datetimepicker.zh-CN.js"></script>
     <script src="/stylesheets/js/page/myPage.js"></script>
+    <script type="text/javascript" src="/stylesheets/js/jquery.ui.widget.js"></script>
+    <script type="text/javascript" src="/stylesheets/js/jquery.fileupload.js"></script>
 </head>
 <body>
 	<div class="row">
 		<div class="col-sm-12">
-			<h1 class="page-header">修改</h1>
+			<h1 class="page-header">添加或修改</h1>
 		</div>
 	</div>
 	<div class="row">
@@ -29,57 +31,45 @@
 				<div class="panel-heading">请填写以下选项：</div>
 				<div class="panel-body">
 					<div class="col">
-						<form id="addUserInfoform" class="form-horizontal"
-							action="${ctx }/conrule/saveorupdate" method="post">
-							<input class="form-control" id="id" name="id" type="hidden"
-                                   th:value="${bean1.get('id')}" value=""/>
-								<!--value="${bean1.id }" -->
+
+                        <form id="addUserInfoform" class="form-horizontal" action="#" th:action="@{/conrule/saveorupdate}" th:object="${bean}" th:method="post">
+							<input class="form-control" id="id" th:field="*{id}" name="id" type="hidden" th:value="${bean.id}" value=""/>
+							<input class="form-control" id="objectId" th:field="*{objectId}" name="objectId" type="hidden" th:value="${bean.objectId}" value=""/>
 							<div class="form-group ">
 								<label for="input01" class="control-label col-sm-2">规则名称：</label>
 								<div class="controls col-sm-4">
-									<input type="text" name="rulename" id="rulename"
-										class="form-control" value="${bean1.rulename}" th:value="${bean1.rulename}" required />
+									<input type="text" name="rulename" id="rulename" th:field="*{rulename}"
+										class="form-control" value="" th:value="${bean.rulename}" required />
 								</div>
 								<div class="controls col-sm-6"></div>
 							</div>
 							<div class="form-group">
 								<label for="input01" class="control-label col-sm-2">节点id：</label>
 								<div class="controls col-sm-4">
-									<select id="nodeid" name="nodeid" class="form-control">
-										<c:forEach var="node" items="${nodelist}">
-											<option value="${node.id}"
-												<c:if test="${node.id==bean1.nodeid}">selected</c:if>>${node.nodename}</option>
-										</c:forEach>
-									</select>
+                                    <select id="nodeid" name="nodeid" th:field="*{nodeid}" class="form-control">
+                                        <option value="0">请选择</option>
+                                        <option th:each="node:${nodeList}" th:selected="(${bean.nodeid == node.id})" th:value="${node.id}" th:text="${node.nodename}"></option>
+                                    </select>
 								</div>
 								<div class="controls col-sm-6"></div>
 							</div>
-
-
-
 							<div class="form-group">
 								<label for="input01" class="control-label col-sm-2">规则状态：</label>
 								<div class="controls col-sm-4">
-									<select name="status" class="form-control ">
-										<option value="1"
-											<c:if test="${bean1.status==1 }">selected</c:if>>禁用</option>
-										<option value="0"
-											<c:if test="${bean1.status==0 }">selected</c:if>>正常</option>
+									<select name="status" th:field="*{status}" class="form-control ">
+                                        <option  th:value="0" th:selected="(${bean.status} == 0)">正常</option>
+                                        <option  th:value="1" th:selected="(${bean.status} == 1)">禁用</option>
 									</select>
 								</div>
 							</div>
 							<div class="form-group">
 								<label for="input01" class="control-label col-sm-2">对应列表名称：</label>
 								<div class="controls col-sm-4">
-									<select id="lid" name="lid" class="form-control">
+									<select id="lid" name="lid" th:field="*{id}"  class="form-control">
                                         <option value="0">请选择</option>
                                         <tr th:each="list:${listlist}">
-                                            <option th:text="${list.rulename}"></option>
+                                            <option th:value="${list.id}" th:selected="(${bean.id == list.id})" th:text="${list.rulename}"></option>
                                         </tr>
-										<!--<c:forEach var="list" items="${listlist}">-->
-											<!--<option value="${list.id}"-->
-												<!--<c:if test="${list.id==bean1.lid}">selected</c:if>>${list.rulename}</option>-->
-										<!--</c:forEach>-->
 									</select>
 								</div>
 								<div class="controls col-sm-6"></div>
@@ -87,35 +77,34 @@
 							<div class="form-group">
 								<label for="input01" class="control-label col-sm-2">标题：</label>
 								<div class="controls col-sm-4">
-									<input type="text" name="titlecsspath" id="titlecsspath"
-										class="form-control" value="" th:value="${bean1.titlecsspath}" />
+									<input type="text" name="titlecsspath"  th:field="*{titlecsspath}" id="titlecsspath"
+										class="form-control" value="" th:value="${bean.titlecsspath}" />
 								</div>
 								<div class="controls col-sm-6"></div>
 							</div>
 							<div class="form-group">
 								<label for="input01" class="control-label col-sm-2">关键字：</label>
 								<div class="controls col-sm-4">
-									<input type="text" name="keycsspath" id="keycsspath" th:value="${bean1.keycsspath}"
+									<input type="text" name="keycsspath" th:field="*{keycsspath}" id="keycsspath" th:value="${bean.keycsspath}"
 										class="form-control"/>
-										<!--<c:if test="${bean1.keycsspath==null||bean1.keycsspath=='' }"> value="head > meta[name=keywords]|content" </c:if>-->
-										<!--<c:if test="${bean1.keycsspath!=null&&bean1.keycsspath!='' }">value="${bean1.keycsspath}"</c:if> -->
-
+										<!--<c:if test="${bean.keycsspath==null||bean1.keycsspath=='' }"> value="head > meta[name=keywords]|content" </c:if>-->
+										<!--<c:if test="${bean.keycsspath!=null&&bean1.keycsspath!='' }">value="${bean.keycsspath}"</c:if> -->
 								</div>
 							</div>
 							<div class="form-group">
 								<label for="input01" class="control-label col-sm-2">描述：</label>
 								<div class="controls col-sm-4">
-									<input type="text" name="descsspath" id="descsspath"
-										class="form-control" th:value="${bean1.descsspath}" />
-										<!--<c:if test="${bean1.descsspath==null||bean1.descsspath=='' }">value="head > meta[name=description]|content"</c:if>-->
-										<!--<c:if test="${bean1.descsspath!=null&&bean1.descsspath!='' }">value="${bean1.descsspath}"</c:if> -->
+									<input type="text" name="descsspath" id="descsspath" th:field="*{descsspath}"
+										class="form-control" th:value="${bean.descsspath}" />
+										<!--<c:if test="${bean.descsspath==null||bean1.descsspath=='' }">value="head > meta[name=description]|content"</c:if>-->
+										<!--<c:if test="${bean.descsspath!=null&&bean1.descsspath!='' }">value="${bean.descsspath}"</c:if> -->
 								</div>
 							</div>
 							<div class="form-group">
 								<label for="input01" class="control-label col-sm-2">csspath：</label>
 								<div class="controls col-sm-4">
-									<input type="text" name="concsspath" id="concsspath"
-										class="form-control" value="" th:value="${bean1.concsspath}" required />
+									<input type="text" name="concsspath" id="concsspath" th:field="*{concsspath}"
+										class="form-control" value="" th:value="${bean.concsspath}" required />
 								</div>
 								<div class="controls col-sm-6"></div>
 							</div>
@@ -123,96 +112,92 @@
 							<div class="form-group">
 								<label for="input01" class="control-label col-sm-2">csspath1：</label>
 								<div class="controls col-sm-4">
-									<input type="text" name="concsspath1" id="concsspath1"
-										class="form-control" value="" th:value="${bean1.concsspath1}"/>
+									<input type="text" name="concsspath1" id="concsspath1" th:field="*{concsspath1}"
+										class="form-control" value="" th:value="${bean.concsspath1}"/>
 								</div>
 							</div>
 							<div class="form-group">
 								<label for="input01" class="control-label col-sm-2">csspath2：</label>
 								<div class="controls col-sm-4">
-									<input type="text" name="concsspath2" id="concsspath2"
-										class="form-control" value="" th:value="${bean1.concsspath2}" />
+									<input type="text" name="concsspath2" id="concsspath2" th:field="*{concsspath2}"
+										class="form-control" value="" th:value="${bean.concsspath2}" />
 								</div>
 							</div>
 							<div class="form-group">
 								<label for="input01" class="control-label col-sm-2">replacerule：</label>
 								<div class="controls col-sm-4">
-									<!--<%&#45;&#45; <input type="text" name="replacerule" id="replacerule" class="form-control" value="${bean1.replacerule} "  /> &#45;&#45;%>-->
-									<textarea rows="5" cols="49" name="replacerule"
-										id="replacerule" th:text="${bean1.replacerule}" >
+									<!--<%&#45;&#45; <input type="text" name="replacerule" id="replacerule" class="form-control" value="${bean.replacerule} "  /> &#45;&#45;%>-->
+									<textarea rows="5" cols="49" name="replacerule" th:field="*{replacerule}"
+										id="replacerule" th:text="${bean.replacerule}" >
 										</textarea>
-                                    <!--<c:out value="${bean1.replacerule}"></c:out>-->
+                                    <!--<c:out value="${bean.replacerule}"></c:out>-->
 								</div>
 								<div class="controls col-sm-6"></div>
 							</div>
 							<div class="form-group">
 								<label for="input01" class="control-label col-sm-2">replacecsspath：</label>
 								<div class="controls col-sm-4">
-									<!--<%&#45;&#45; <input type="text" name="replacecsspath" id="replacecsspath" class="form-control" value="${bean1.replacecsspath} "  /> &#45;&#45;%>-->
-									<textarea rows="5" cols="49" name="replacecsspath"
-										id="replacecsspath" th:text="${bean1.replacecsspath}">
+									<!--<%&#45;&#45; <input type="text" name="replacecsspath" id="replacecsspath" class="form-control" value="${bean.replacecsspath} "  /> &#45;&#45;%>-->
+									<textarea rows="5" cols="49" name="replacecsspath" th:field="*{replacecsspath}"
+										id="replacecsspath" th:text="${bean.replacecsspath}">
 										</textarea>
-                                    <!--<c:out value="${bean1.replacecsspath}"></c:out> -->
-                                    <!--<%&#45;&#45; ${bean1.replacecsspath} &#45;&#45;%>-->
+                                    <!--<c:out value="${bean.replacecsspath}"></c:out> -->
+                                    <!--<%&#45;&#45; ${bean.replacecsspath} &#45;&#45;%>-->
 								</div>
 								<div class="controls col-sm-6"></div>
 							</div>
 							<div class="form-group">
 								<label for="input01" class="control-label col-sm-2">测试url：</label>
 								<div class="controls col-sm-4">
-									<input type="text" name="testurl" id="testurl"
-										class="form-control" value="" th:value="${bean1.testurl}" required /> <input
-										type="button" value="预览" onclick="preview()" /> <input
-										type="button" value="删除" onclick="delview()" />
+									<input type="text" name="testurl" id="testurl" th:field="*{testurl}"
+										class="form-control" value="" th:value="${bean.testurl}" required />
+                                    <input type="button" value="预览" onclick="preview()" />
+                                    <input type="button" value="删除" onclick="delview()" />
 								</div>
 								<div class="controls col-sm-6"></div>
 							</div>
 							<div class="form-group">
 								<label for="input01" class="control-label col-sm-2">来源：</label>
 								<div class="controls col-sm-4">
-									<input type="text" name="soucsspath" id="soucsspath"
-										class="form-control" value="" th:value="${bean1.soucsspath}" />
+									<input type="text" name="soucsspath" id="soucsspath"  th:field="*{soucsspath}"
+										class="form-control" value="" th:value="${bean.soucsspath}" />
 								</div>
 								<div class="controls col-sm-6"></div>
 							</div>
 
-
-
 							<div class="form-group">
 								<label for="input01" class="control-label col-sm-2">图片：</label>
 								<div class="controls col-sm-4">
-									<input type="text" name="imgcsspath" id="imgcsspath"
-										class="form-control" value="" th:value="${bean1.imgcsspath}" />
+									<input type="text" name="imgcsspath" id="imgcsspath" th:field="*{imgcsspath}"
+										class="form-control" value="" th:value="${bean.imgcsspath}" />
 								</div>
 							</div>
 							<div class="form-group">
 								<label for="input01" class="control-label col-sm-2">视频：</label>
 								<div class="controls col-sm-4">
-									<input type="text" name="videocsspath" id="videocsspath"
-										class="form-control" value="" th:value="${bean1.videocsspath}" />
+									<input type="text" name="videocsspath" id="videocsspath" th:field="*{videocsspath}"
+										class="form-control" value="" th:value="${bean.videocsspath}" />
 								</div>
 							</div>
 							<div class="form-group">
 								<label for="input01" class="control-label col-sm-2">作者：</label>
 								<div class="controls col-sm-4">
-									<input type="text" name="authorcsspath" id="authorcsspath"
-										class="form-control" value="" th:value="${bean1.authorcsspath}" />
+									<input type="text" name="authorcsspath" id="authorcsspath" th:field="*{authorcsspath}"
+										class="form-control" value="" th:value="${bean.authorcsspath}" />
 								</div>
 							</div>
 
-
-
-							<!-- -->
 							<div class="form-actions">
 								<div class="col-sm-1"></div>
 								<div class="col-sm-12 text-center">
-									<a href="${ctx }/conrule/list" class="btn btn-info"><span
+									<a th:href="@{/conrule/list}" class="btn btn-info"><span
 										class="fa fa-arrow-left fa-fw"></span> 返回</a> &nbsp;&nbsp; <a
 										href="#" class="btn btn-info" onclick="test()"> <span
-										class="fa fa-arrow-left fa-fw"></span> 测试
-									</a> <a href="#" class="btn btn-info" onclick="submit()"> <span
-										class="fa fa-arrow-left fa-fw"></span>提交
-									</a>
+										class="fa fa-arrow-left fa-fw"></span> 测试</a>
+                                    <!--<a href="#" class="btn btn-info" onclick="submit()"> <span-->
+										<!--class="fa fa-arrow-left fa-fw"></span>提交-->
+									<!--</a>-->
+                                    <input type="submit" class="btn btn-info" value="提交">
 								</div>
 							</div>
 						</form>
@@ -221,13 +206,6 @@
 			</div>
 		</div>
 	</div>
-	<form id="addUserInfoform2" class="form-horizontal" action=""
-		method="get">
-		<input type="hidden" name="url" value="" id="url2" /> <input
-			type="hidden" name="id" value="" id="id2" />
-	</form>
-	<script type="text/javascript" src="${ctx }/js/jquery.ui.widget.js"></script>
-	<script type="text/javascript" src="${ctx }/js/jquery.fileupload.js"></script>
 	<script type="text/javascript">
 		function test() {
 			$("#addUserInfoform").attr("action", "${ctx }/conrule/test");

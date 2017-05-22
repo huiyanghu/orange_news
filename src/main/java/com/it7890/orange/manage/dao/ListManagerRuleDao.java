@@ -19,6 +19,8 @@ public interface ListManagerRuleDao {
 
     void deleteRuleByObjectId(String objectId);
 
+    List<ConGrabLRule> getSelect(ConGrabLRule bean);
+
 	/*
 
 	@Select("select * from con_grab_lrule where id=#{id}")

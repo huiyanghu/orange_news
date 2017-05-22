@@ -99,12 +99,12 @@ public class HbCountrys extends AVObject {
         this.put("enname", enname);
     }
 
-    public String getCode() {
-        return getString("code");
+    public String getCountryCode() {
+        return getString("countryCode");
     }
 
-    public void setCode(String code) {
-        this.put("code", code);
+    public void setCountryCode(String countryCode) {
+        this.put("countryCode", countryCode);
     }
 
     public String getContinentid() {
@@ -138,7 +138,7 @@ public class HbCountrys extends AVObject {
         result.put("enname", this.getString("enname"));
         result.put("shortname", this.getString("shortname"));
         result.put("countryicon", this.getString("countryicon"));
-        result.put("code", this.getString("code"));
+        result.put("countryCode", this.getString("countryCode"));
         result.put("continentid", this.getString("continentid"));
         result.put("continent", this.getString("continent"));
         result.put("isopen", this.getInt("isopen"));

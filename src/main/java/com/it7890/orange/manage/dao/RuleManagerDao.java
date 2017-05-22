@@ -11,6 +11,8 @@ public interface RuleManagerDao {
 
     public List<GlobalRule> getAll();
 
+    public List<GlobalRule> getByRuleNameAndPid(GlobalRule bean);
+
     public GlobalRule getById(String objectId);
 
     public String insert(GlobalRule bean);

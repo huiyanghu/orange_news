@@ -42,4 +42,14 @@ public class ArticleManagerRuleServiceImpl implements ArticleManagerRuleService 
     public void deleteRuleByObjectId(String id) {
         articleManagerRuleDao.deleteRuleByObjectId(id);
     }
+
+    @Override
+    public List<ConGrabCRule> getSelect(ConGrabCRule bean) {
+        return articleManagerRuleDao.getSelect(bean);
+    }
+
+    @Override
+    public List<ConGrabCRule> getAllConByLid(Integer id) {
+        return articleManagerRuleDao.getAllConByLid(id);
+    }
 }

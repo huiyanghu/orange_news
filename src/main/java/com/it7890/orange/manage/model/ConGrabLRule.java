@@ -126,12 +126,12 @@ public class ConGrabLRule extends AVObject {
         this.put("url", url);
     }
 
-    public String getCode() {
-        return getString("code");
+    public String getCountryCode() {
+        return getString("countryCode");
     }
 
-    public void setCode(String code) {
-        this.put("code", code);
+    public void setCountryCode(String countryCode) {
+        this.put("countryCode", countryCode);
     }
 
     public int getLangid() {
@@ -200,7 +200,7 @@ public class ConGrabLRule extends AVObject {
         result.put("channelid", this.getInt("channelid"));
         result.put("csspath", this.getString("csspath"));
         result.put("url", this.getString("url"));
-        result.put("code", this.getString("code"));
+        result.put("countryCode", this.getString("countryCode"));
         result.put("langid", this.getInt("langid"));
         result.put("grabtime", this.getInt("grabtime"));
         result.put("topic", this.getInt("topic"));

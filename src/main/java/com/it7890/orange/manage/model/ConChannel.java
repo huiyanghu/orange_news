@@ -15,14 +15,14 @@ public class ConChannel extends AVObject {
     private static final long serialVersionUID = 1L;
     //	private int id;
 //	private Date createtime;
-    private String channelname;
-    private int countryid;
-    private int createuid;
-    private String email;
-    private String mobile;
-    private String password;
-    private int status;
-    private String telphone;
+//    private String channelname;
+//    private int countryid;
+//    private int createuid;
+//    private String email;
+//    private String mobile;
+//    private String password;
+//    private int status;
+//    private String telphone;
 
     public ConChannel() {
         super();
@@ -52,12 +52,28 @@ public class ConChannel extends AVObject {
         this.put("channelname", channelname);
     }
 
+//    public String getConconstant() {
+//        return getString("conconstant");
+//    }
+//
+//    public void setConconstant(String conconstant) {
+//        this.put("conconstant", conconstant);
+//    }
+
     public int getCountryid() {
         return getInt("countryid");
     }
 
     public void setCountryid(int countryid) {
         this.put("countryid", countryid);
+    }
+
+    public int getId() {
+        return getInt("id");
+    }
+
+    public void setId(int id) {
+        this.put("id", id);
     }
 
     public int getCreateuid() {
@@ -112,7 +128,9 @@ public class ConChannel extends AVObject {
     public String toString() {
         Map<String, Object> result = new HashMap<String, Object>();
         result.put("channelname", this.getString("channelname"));
+//        result.put("conconstant", this.getString("conconstant"));
         result.put("countryid", this.getInt("countryid"));
+        result.put("id", this.getInt("id"));
         result.put("createuid", this.getInt("createuid"));
         result.put("email", this.getString("email"));
         result.put("mobile", this.getString("mobile"));
