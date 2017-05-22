@@ -2,42 +2,26 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="5f155f5c-7fdf-4f5f-b7c3-132e84cacc64" name="Default" comment="Merge branch 'master' of code.csdn.net:sun_tv_7890/orange_news&#10;&#10;# Conflicts:&#10;#&#9;README.md">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_httpcomponents_httpclient_4_5_2.xml" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/encodings.xml" afterPath="$PROJECT_DIR$/.idea/encodings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/kotlinc.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__cn_leancloud_leancloud_common_0_1_9.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__commons_httpclient_commons_httpclient_3_1.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__commons_logging_commons_logging_1_0_4.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_jsoup_jsoup_1_7_2.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/it7890/orange/manage/controller/collectionController/GlobalNodeController.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/it7890/orange/manage/dao/GlobalNodeDao.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/it7890/orange/manage/dao/impl/GlobalNodeDaoImpl.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/it7890/orange/manage/model/GlobalNode.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/it7890/orange/manage/service/collectionService/GlobalNodeService.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/it7890/orange/manage/service/collectionService/collectionServiceImpl/GlobalNodeServiceImpl.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/it7890/orange/manage/utils/Constant.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/it7890/orange/manage/utils/HttpClientUtil.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/it7890/orange/manage/utils/JsoupUtil.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/it7890/orange/manage/utils/StringUtil.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/it7890/orange/manage/utils/UserAgentUtil.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/orange_news.iml" afterPath="$PROJECT_DIR$/orange_news.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pom.xml" afterPath="$PROJECT_DIR$/pom.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/it7890/orange/manage/controller/collectionController/ArticleManagerRuleController.java" afterPath="$PROJECT_DIR$/src/main/java/com/it7890/orange/manage/controller/collectionController/ArticleManagerRuleController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/it7890/orange/manage/controller/collectionController/ListManagerRuleController.java" afterPath="$PROJECT_DIR$/src/main/java/com/it7890/orange/manage/controller/collectionController/ListManagerRuleController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/it7890/orange/manage/controller/collectionController/RuleManagerController.java" afterPath="$PROJECT_DIR$/src/main/java/com/it7890/orange/manage/controller/collectionController/RuleManagerController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/it7890/orange/manage/dao/ArticleManagerRuleDao.java" afterPath="$PROJECT_DIR$/src/main/java/com/it7890/orange/manage/dao/ArticleManagerRuleDao.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/it7890/orange/manage/dao/ListManagerRuleDao.java" afterPath="$PROJECT_DIR$/src/main/java/com/it7890/orange/manage/dao/ListManagerRuleDao.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/it7890/orange/manage/dao/RuleManagerDao.java" afterPath="$PROJECT_DIR$/src/main/java/com/it7890/orange/manage/dao/RuleManagerDao.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/it7890/orange/manage/dao/impl/ArticleManagerRuleDaoImpl.java" afterPath="$PROJECT_DIR$/src/main/java/com/it7890/orange/manage/dao/impl/ArticleManagerRuleDaoImpl.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/it7890/orange/manage/dao/impl/ListManagerRuleDaoImpl.java" afterPath="$PROJECT_DIR$/src/main/java/com/it7890/orange/manage/dao/impl/ListManagerRuleDaoImpl.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/it7890/orange/manage/dao/impl/RuleManagerDaoImpl.java" afterPath="$PROJECT_DIR$/src/main/java/com/it7890/orange/manage/dao/impl/RuleManagerDaoImpl.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/it7890/orange/manage/model/ConChannel.java" afterPath="$PROJECT_DIR$/src/main/java/com/it7890/orange/manage/model/ConChannel.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/it7890/orange/manage/model/ConGrabLRule.java" afterPath="$PROJECT_DIR$/src/main/java/com/it7890/orange/manage/model/ConGrabLRule.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/it7890/orange/manage/model/GlobalRule.java" afterPath="$PROJECT_DIR$/src/main/java/com/it7890/orange/manage/model/GlobalRule.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/it7890/orange/manage/model/HbCountrys.java" afterPath="$PROJECT_DIR$/src/main/java/com/it7890/orange/manage/model/HbCountrys.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/it7890/orange/manage/service/collectionService/ArticleManagerRuleService.java" afterPath="$PROJECT_DIR$/src/main/java/com/it7890/orange/manage/service/collectionService/ArticleManagerRuleService.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/it7890/orange/manage/service/collectionService/ListManagerRuleService.java" afterPath="$PROJECT_DIR$/src/main/java/com/it7890/orange/manage/service/collectionService/ListManagerRuleService.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/it7890/orange/manage/service/collectionService/RuleManagerService.java" afterPath="$PROJECT_DIR$/src/main/java/com/it7890/orange/manage/service/collectionService/RuleManagerService.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/it7890/orange/manage/service/collectionService/collectionServiceImpl/ArticleManagerRuleServiceImpl.java" afterPath="$PROJECT_DIR$/src/main/java/com/it7890/orange/manage/service/collectionService/collectionServiceImpl/ArticleManagerRuleServiceImpl.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/it7890/orange/manage/service/collectionService/collectionServiceImpl/ListManagerRuleServiceImpl.java" afterPath="$PROJECT_DIR$/src/main/java/com/it7890/orange/manage/service/collectionService/collectionServiceImpl/ListManagerRuleServiceImpl.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/it7890/orange/manage/service/collectionService/collectionServiceImpl/RuleManagerServicedImpl.java" afterPath="$PROJECT_DIR$/src/main/java/com/it7890/orange/manage/service/collectionService/collectionServiceImpl/RuleManagerServicedImpl.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/templates/index.html" afterPath="$PROJECT_DIR$/src/main/resources/templates/index.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/templates/views/conrule/add.html" afterPath="$PROJECT_DIR$/src/main/resources/templates/views/conrule/add.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/templates/views/conrule/details.html" afterPath="$PROJECT_DIR$/src/main/resources/templates/views/conrule/details.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/templates/views/conrule/list.html" afterPath="$PROJECT_DIR$/src/main/resources/templates/views/conrule/list.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/templates/views/globalrule/add.html" afterPath="$PROJECT_DIR$/src/main/resources/templates/views/globalrule/add.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/templates/views/globalrule/list.html" afterPath="$PROJECT_DIR$/src/main/resources/templates/views/globalrule/list.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/templates/views/listrule/add.html" afterPath="$PROJECT_DIR$/src/main/resources/templates/views/listrule/add.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/templates/views/listrule/details.html" afterPath="$PROJECT_DIR$/src/main/resources/templates/views/listrule/details.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/templates/views/listrule/list.html" afterPath="$PROJECT_DIR$/src/main/resources/templates/views/listrule/list.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/templates/views/listrule/test.html" afterPath="$PROJECT_DIR$/src/main/resources/templates/views/listrule/test.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/templates/views/message.html" afterPath="$PROJECT_DIR$/src/main/resources/templates/views/message.html" />
     </list>
     <ignored path="$PROJECT_DIR$/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -93,34 +77,14 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="index.html" pinned="false" current-in-tab="false">
+      <file leaf-file-name="index.html" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/resources/templates/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1433">
-              <caret line="115" column="28" lean-forward="false" selection-start-line="115" selection-start-column="28" selection-end-line="115" selection-end-column="28" />
+            <state relative-caret-position="125">
+              <caret line="5" column="61" lean-forward="true" selection-start-line="5" selection-start-column="61" selection-end-line="5" selection-end-column="61" />
               <folding>
                 <element signature="n#style#0;n#nav#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="add.html" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/main/resources/templates/views/listrule/add.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="619">
-              <caret line="193" column="94" lean-forward="false" selection-start-line="193" selection-start-column="94" selection-end-line="193" selection-end-column="94" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="test.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/resources/templates/views/listrule/test.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-142">
-              <caret line="6" column="40" lean-forward="true" selection-start-line="6" selection-start-column="40" selection-end-line="6" selection-end-column="40" />
-              <folding />
             </state>
           </provider>
         </entry>
@@ -240,12 +204,12 @@
         <option value="$PROJECT_DIR$/src/main/java/com/it7890/orange/manage/controller/collectionController/RuleManagerController.java" />
         <option value="$PROJECT_DIR$/src/main/resources/templates/views/globalrule/list.html" />
         <option value="$PROJECT_DIR$/src/main/resources/templates/views/listrule/list.html" />
-        <option value="$PROJECT_DIR$/src/main/resources/templates/index.html" />
         <option value="$PROJECT_DIR$/src/main/java/com/it7890/orange/manage/controller/collectionController/ArticleManagerRuleController.java" />
         <option value="$PROJECT_DIR$/src/main/resources/templates/views/listrule/test.html" />
         <option value="$PROJECT_DIR$/pom.xml" />
         <option value="$PROJECT_DIR$/src/main/java/com/it7890/orange/manage/controller/collectionController/ListManagerRuleController.java" />
         <option value="$PROJECT_DIR$/src/main/resources/templates/views/listrule/add.html" />
+        <option value="$PROJECT_DIR$/src/main/resources/templates/index.html" />
       </list>
     </option>
   </component>
@@ -1057,7 +1021,7 @@
       <workItem from="1495158924381" duration="19289000" />
       <workItem from="1495180607388" duration="12703000" />
       <workItem from="1495376198544" duration="2518000" />
-      <workItem from="1495417974028" duration="13893000" />
+      <workItem from="1495417974028" duration="16313000" />
     </task>
     <task id="LOCAL-00001" summary="test">
       <created>1494987481561</created>
@@ -1108,11 +1072,18 @@
       <option name="project" value="LOCAL" />
       <updated>1495019922231</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="Merge branch 'master' of code.csdn.net:sun_tv_7890/orange_news&#10;&#10;# Conflicts:&#10;#&#9;README.md">
+      <created>1495434159509</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1495434159509</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="294999000" />
+    <option name="totallyTimeSpent" value="297419000" />
   </component>
   <component name="TodoView" selected-index="2">
     <todo-panel id="selected-file">
@@ -1147,7 +1118,7 @@
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.7616747" sideWeight="0.49319214" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Spring" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32850242" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32850242" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.23146747" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.30257186" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Bean Validation" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32980332" sideWeight="0.5" order="6" side_tool="true" content_ui="tabs" />
@@ -1189,7 +1160,7 @@
       <window_info id="Coverage" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32980332" sideWeight="0.5" order="12" side_tool="true" content_ui="tabs" />
       <window_info id="Spring" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32850242" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32850242" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.23146747" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.30332828" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Bean Validation" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32850242" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
@@ -1284,6 +1255,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="294">
           <caret line="44" column="40" lean-forward="true" selection-start-line="44" selection-start-column="40" selection-end-line="44" selection-end-column="40" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1373,6 +1345,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="300">
           <caret line="28" column="45" lean-forward="true" selection-start-line="28" selection-start-column="45" selection-end-line="28" selection-end-column="45" />
+          <folding>
+            <element signature="e#863#864#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1394,6 +1369,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="200">
           <caret line="47" column="13" lean-forward="true" selection-start-line="47" selection-start-column="13" selection-end-line="47" selection-end-column="13" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1408,6 +1384,10 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="183">
           <caret line="35" column="13" lean-forward="true" selection-start-line="35" selection-start-column="13" selection-end-line="35" selection-end-column="13" />
+          <folding>
+            <element signature="e#1439#1440#0" expanded="false" />
+            <element signature="e#1502#1503#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1415,6 +1395,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="225">
           <caret line="11" column="0" lean-forward="true" selection-start-line="11" selection-start-column="0" selection-end-line="11" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1422,6 +1403,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="200">
           <caret line="16" column="0" lean-forward="true" selection-start-line="16" selection-start-column="0" selection-end-line="16" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1429,6 +1411,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="275">
           <caret line="16" column="0" lean-forward="true" selection-start-line="16" selection-start-column="0" selection-end-line="16" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1444,6 +1427,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1300">
           <caret line="52" column="38" lean-forward="false" selection-start-line="52" selection-start-column="38" selection-end-line="52" selection-end-column="38" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1451,6 +1435,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="300">
           <caret line="12" column="66" lean-forward="true" selection-start-line="12" selection-start-column="66" selection-end-line="12" selection-end-column="66" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1458,6 +1443,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="417">
           <caret line="46" column="114" lean-forward="true" selection-start-line="46" selection-start-column="114" selection-end-line="46" selection-end-column="114" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1465,6 +1451,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-967">
           <caret line="40" column="80" lean-forward="true" selection-start-line="40" selection-start-column="80" selection-end-line="40" selection-end-column="80" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1574,16 +1561,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/templates/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1433">
-          <caret line="115" column="28" lean-forward="false" selection-start-line="115" selection-start-column="28" selection-end-line="115" selection-end-column="28" />
-          <folding>
-            <element signature="n#style#0;n#nav#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/pom.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="275">
@@ -1596,14 +1573,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="100">
           <caret line="4" column="55" lean-forward="true" selection-start-line="4" selection-start-column="55" selection-end-line="4" selection-end-column="55" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/templates/views/listrule/test.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-142">
-          <caret line="6" column="40" lean-forward="true" selection-start-line="6" selection-start-column="40" selection-end-line="6" selection-end-column="40" />
           <folding />
         </state>
       </provider>
@@ -1622,9 +1591,27 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/resources/templates/views/listrule/add.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="619">
-          <caret line="193" column="94" lean-forward="false" selection-start-line="193" selection-start-column="94" selection-end-line="193" selection-end-column="94" />
+        <state relative-caret-position="394">
+          <caret line="184" column="38" lean-forward="true" selection-start-line="184" selection-start-column="38" selection-end-line="184" selection-end-column="38" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/templates/views/listrule/test.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-142">
+          <caret line="6" column="40" lean-forward="true" selection-start-line="6" selection-start-column="40" selection-end-line="6" selection-end-column="40" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/templates/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="125">
+          <caret line="5" column="61" lean-forward="true" selection-start-line="5" selection-start-column="61" selection-end-line="5" selection-end-column="61" />
+          <folding>
+            <element signature="n#style#0;n#nav#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
