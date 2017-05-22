@@ -10,13 +10,8 @@ import com.it7890.orange.manage.service.collectionService.GlobalNodeService;
 import com.it7890.orange.manage.service.collectionService.ListManagerRuleService;
 import com.it7890.orange.manage.service.contentService.LanguageService;
 import com.it7890.orange.manage.service.contentService.PublicationService;
-import com.it7890.orange.manage.utils.Constant;
-import com.it7890.orange.manage.utils.JsoupUtil;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -210,92 +205,6 @@ public class ListManagerRuleController {
 
 
 
-    @RequestMapping( value = "/test", method = RequestMethod.POST)
-    public String Test(
-        HttpServletRequest request,
-        Integer id,
-        String url,
-        ConGrabLRule bean,
-        ModelMap model,
-        String csspath,
-        String findpre) {
-//		System.out.println(request.getParameter("url"));
-//		System.out.println(request.getParameter("csspath"));
-        int status=-1;String content="";
-        if(url!=null&&!"".equals(url)){
-            Document doc= JsoupUtil.getDocument(url, Constant.AUTO);
-            if(doc!=null){
-                if(csspath!=null&&!"".equals(csspath)){
-                    Elements area = doc.select(csspath);
-//					content=JsoupUtil.genTextOrHTMLByCssPath(doc, csspath, false);
-                    Elements pageEls = area.select("a[href~="+findpre+"]");
-                    for (int i = 0; i < pageEls.size(); i++) {
-                        Element e = pageEls.get(i);
-                        String hrefurl = e.attr("href");
-                        System.out.println(hrefurl);
-                        //hrefurl =URLTransUtil.relAdrToAbsAdr(initBaseUrl(url), e.attr("href"));
-                        hrefurl=getUrlList(hrefurl, url);
-                        content=content+hrefurl+"\n";
-                    }
-                }
-                status=0;
-            }else{
-                status=1;
-            }
-        }
-        model.addAttribute("content",content);
-        model.addAttribute("status",status);
-        model.addAttribute("id",id);
-//		List<ContentGather> list=new ArrayList<ContentGather>();
-        return "views/listrule/test";
 
-    }
-
-
-    public static String getUrlList(String lacturls,String aMainUrl){
-        String lacturl="";
-        //特殊处理
-        if(aMainUrl.trim().contains("http://www.folhadoes.com/categoria/")){
-            lacturl="http://www.folhadoes.com/"+lacturls;
-            return lacturl;
-        }
-        if(lacturls.contains("#")){
-            lacturls = lacturls.substring(0, lacturls.indexOf("#"));
-        }
-        if(lacturls.startsWith("//")){
-            lacturls="http:"+lacturls;
-        }
-        if(!lacturls.startsWith("http://") && !lacturls.startsWith("https://")){
-            String listbaseurl = getBaseUrl(aMainUrl);
-            String headbaseurl=getHeadBaseUrl(aMainUrl);
-            if(lacturls.startsWith("/")){
-                lacturl=headbaseurl+lacturls;
-            }else{
-                lacturl=listbaseurl+"/"+lacturls;
-            }
-        }else{
-            lacturl=lacturls;
-        }
-        return lacturl;
-    }
-
-    public static String getBaseUrl(String url) {
-        return url.substring(0, url.lastIndexOf("/"));
-    }
-
-    public static String getHeadBaseUrl(String url) {
-        if(url.startsWith("//")){
-            url="http:"+url;
-        }
-        if( !url.startsWith("http://") && !url.startsWith("https://")){
-            url="http://"+url;
-        }
-        if(url.indexOf("/", 8)==-1){
-            //log.info("error  getHeadBaseUrl url="+url);
-        }else{
-            url=url.substring(0, url.indexOf("/", 8));
-        }
-        return url;
-    }
 
 }
