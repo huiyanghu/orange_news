@@ -102,7 +102,7 @@ public class IConArticleServiceImpl implements IConArticleService {
                 avQuery.whereEqualTo("keyword", article.getKeywords());
             }
             if (article.getTopicsid() > 0) {
-                avQuery.whereEqualTo("TopicObj", article.getTopicsid());
+                avQuery.whereEqualTo("topicObj", article.getTopicsid());
             }
             if (article.getStarttime() != null) {
             }
