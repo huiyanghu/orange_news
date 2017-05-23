@@ -4,3 +4,6 @@
 target/
 
 .leancloud/
+
+/.idea/
+/.idea/workspace.xml
