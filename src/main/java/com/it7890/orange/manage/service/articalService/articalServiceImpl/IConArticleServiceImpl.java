@@ -133,10 +133,19 @@ public class IConArticleServiceImpl implements IConArticleService {
 
     }
 
-
     @Override
     public long articletotal(ConArticle article) {
-        return 0;
+        AVCloudQueryResult result;
+        String cql = "select count(*) from conarticle";
+        int count = 0;
+        try {
+            result = AVQuery.doCloudQuery(cql, ConArticle.class);
+            count = result.getCount();
+        } catch (Exception e) {
+        }
+
+
+        return count;
     }
 
     @Override

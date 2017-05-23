@@ -98,8 +98,6 @@ public class ConArticleController {
                               @RequestParam(value = "publicationid", required = false) Integer publicationid,
                               @RequestParam(value = "channelid", required = false) Integer channelid,
                               @RequestParam(value = "page", required = false, defaultValue = "1") Integer page) {
-
-
         HttpSession session = request.getSession();
         session.setAttribute("page", page);
         ConArticle article = new ConArticle();
@@ -169,12 +167,12 @@ public class ConArticleController {
             pageUtil.setRecordCount(total);
             pageUtil.setCurrentPage(page);
         }
-
         List<ConArticle> list = conArticleService.getarticlelist(article, pageUtil);
+        model.addAttribute("pageUtil", pageUtil);
         model.addAttribute("article", article);
         model.addAttribute("searchstr", searchstr);
         model.addAttribute("articles", list);
-/*         model.addAttribute("hbtopics", topicsService.getAllHbTopics());
+/*        model.addAttribute("hbtopics", topicsService.getAllHbTopics());
         model.addAttribute("conchannels", conchannelService.getAllConChannel());
         model.addAttribute("publications", conpublicationService.getAllConpublication());
         model.addAttribute("users", sysuserService.getAllSysUser());
