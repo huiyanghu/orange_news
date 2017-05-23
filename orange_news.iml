@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module org.jetbrains.idea.maven.project.MavenProjectsManager.isMavenModule="true" type="JAVA_MODULE" version="4">
-  <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_1_8" inherit-compiler-output="false">
+  <component name="FacetManager">
+    <facet type="Spring" name="Spring">
+      <configuration />
+    </facet>
+  </component>
+  <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_1_8">
     <output url="file://$MODULE_DIR$/target/classes" />
     <output-test url="file://$MODULE_DIR$/target/test-classes" />
     <content url="file://$MODULE_DIR$">
@@ -10,6 +15,7 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" name="Maven: cn.leancloud:leancloud-common:0.1.8" level="project" />
     <orderEntry type="library" name="Maven: cn.leancloud:leanengine:0.1.11" level="project" />
     <orderEntry type="library" name="Maven: cn.leancloud:java-sdk:0.1.6" level="project" />
     <orderEntry type="library" name="Maven: cn.leancloud:fastjson-leancloud:1.1.39" level="project" />
@@ -18,7 +24,7 @@
     <orderEntry type="library" name="Maven: org.apache.logging.log4j:log4j-core:2.6.2" level="project" />
     <orderEntry type="library" name="Maven: cn.leancloud:okhttp-leancloud:2.6.0" level="project" />
     <orderEntry type="library" name="Maven: cn.leancloud:okio-leancloud:1.6.0" level="project" />
-    <orderEntry type="library" name="Maven: cn.leancloud:leancloud-common:0.1.8" level="project" />
+    <orderEntry type="library" name="Maven: cn.leancloud:leancloud-common:0.1.9" level="project" />
     <orderEntry type="library" name="Maven: cn.leancloud:android-stub:0.1.1" level="project" />
     <orderEntry type="library" name="Maven: org.apache.httpcomponents:httpcore:4.4.5" level="project" />
     <orderEntry type="library" name="Maven: org.apache.httpcomponents:httpclient:4.5.2" level="project" />

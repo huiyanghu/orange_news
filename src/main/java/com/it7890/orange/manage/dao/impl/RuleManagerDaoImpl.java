@@ -1,11 +1,11 @@
 package com.it7890.orange.manage.dao.impl;
 
-import com.it7890.orange.manage.dao.RuleManagerDao;
-import com.it7890.orange.manage.model.GlobalRule;
 import com.avos.avoscloud.AVCloudQueryResult;
 import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.AVObject;
 import com.avos.avoscloud.AVQuery;
+import com.it7890.orange.manage.dao.RuleManagerDao;
+import com.it7890.orange.manage.model.GlobalRule;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -21,12 +21,39 @@ public class RuleManagerDaoImpl implements RuleManagerDao {
         List<GlobalRule> list = new ArrayList<GlobalRule>();
         AVCloudQueryResult result;
         try {
-            String cql = "select * from GlobalRule";
+            String cql = "select * from GlobalRule where status != -1";
             result = AVQuery.doCloudQuery(cql, GlobalRule.class);
             list = (List<GlobalRule>) result.getResults();
         } catch (Exception e) {
         }
         return list;
+    }
+
+
+    @Override
+    public List<GlobalRule> getByRuleNameAndPid(GlobalRule bean) {
+        List<GlobalRule> list = new ArrayList<GlobalRule>();
+        AVCloudQueryResult result;
+        try {
+            StringBuffer sb = new StringBuffer();
+            sb.append("select * from GlobalRule where status != -1");
+            if (bean.getNodeid() != 0) {
+                sb.append(" and nodeid =" + bean.getNodeid());
+            }
+            if (bean.getPid() != 0) {
+                sb.append(" and pid =" + bean.getPid());
+            }
+            if (bean.getRulename() != null && !"".equals(bean.getRulename())) {
+                sb.append(" and rulename like '%" + bean.getRulename() + "%' ");
+            }
+            String cql = sb.toString();
+//            System.out.println(cql);
+            result = AVQuery.doCloudQuery(cql, GlobalRule.class);
+            list = (List<GlobalRule>) result.getResults();
+        } catch (Exception e) {
+        }
+        return list;
+
     }
 
     //根据id获取对象
@@ -38,7 +65,7 @@ public class RuleManagerDaoImpl implements RuleManagerDao {
         try {
             String cql = " select * from GlobalRule where objectId = ?";
             result = AVQuery.doCloudQuery(cql, GlobalRule.class, objectId);
-            list = (List<GlobalRule>)result.getResults();
+            list = (List<GlobalRule>) result.getResults();
             object = list.get(0);
         } catch (Exception e) {
         }
@@ -53,7 +80,7 @@ public class RuleManagerDaoImpl implements RuleManagerDao {
             AVObject todoFolder = new AVObject("GlobalRule");// 构建对象
             todoFolder.put("id", bean.getId());
             todoFolder.put("pid", bean.getPid());
-            todoFolder.put("nid", bean.getNid());
+            todoFolder.put("nid", bean.getNodeid());
             todoFolder.put("rulename", bean.getRulename());
             todoFolder.put("concsspath", bean.getConcsspath());
             todoFolder.put("concsspath1", bean.getConcsspath1());
@@ -82,7 +109,7 @@ public class RuleManagerDaoImpl implements RuleManagerDao {
             AVObject todoFolder = AVObject.createWithoutData("GlobalRule", bean.getObjectId());
             todoFolder.put("id", bean.getId());
             todoFolder.put("pid", bean.getPid());
-            todoFolder.put("nid", bean.getNid());
+            todoFolder.put("nid", bean.getNodeid());
             todoFolder.put("rulename", bean.getRulename());
             todoFolder.put("concsspath", bean.getConcsspath());
             todoFolder.put("concsspath1", bean.getConcsspath1());

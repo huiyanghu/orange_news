@@ -39,6 +39,11 @@ public class ListManagerRuleServiceImpl implements ListManagerRuleService {
     public void deleteRuleByObjectId(String objectId) {
         this.listRuledao.deleteRuleByObjectId(objectId);
     }
+
+    @Override
+    public List<ConGrabLRule> getSelect(ConGrabLRule bean) {
+        return this.listRuledao.getSelect(bean);
+    }
 }
 
 

@@ -18,104 +18,74 @@
     <script src="/stylesheets/js/page/myPage.js"></script>
 </head>
 <body>
+<!--<div th:include="/index"></div>-->
 <div class="row">
     <div class="col-sm-12">
         <h1 class="page-header">列表规则</h1>
     </div>
 </div>
-
 <div class="row">
     <div class="col-sm-12">
         <div class="panel panel-default">
             <div class="panel-heading text-left">
                 <div class="row">
-                    <form class="form-inline" role="form" action="/listrule/list" method="get">
-
+                    <form class="form-inline" role="form" th:object="${bean}" th:action="@{/listrule/select}" th:method="get">
+                    <!--<form class="form-inline" role="form" action="/listrule/select" method="get">-->
                         <!--<form action="#" th:action="@{/users/add}" th:object="${myuser}" method="post">-->
                         <!--这里th：Object表示表单与 改myuser注入的实体映射，-->
 
-                        <input name="page" type="hidden" value="1"/>
+                        <!--<input name="page" type="hidden" value="1"/>-->
                         <div class="form-group">
                             <div class="input-group">
                                 <div class="input-group-addon">规则名称:</div>
-                                <input class="form-control" type="text" id="rulename" name="rulename"
+                                <input class="form-control" type="text" th:field="*{rulename}" th:value="${bean.rulename}" id="rulename" name="rulename"
                                        value=""/>
                                 <!--th:value="${conGrabLRule.get('rulename')}"-->
                             </div>
                         </div>
-
                         <div class="form-group">
                             <div class="input-group">
                                 <div class="input-group-addon">国家码:</div>
-                                <input class="form-control" type="text" id="code" name="code"
+                                <input class="form-control" type="text" id="countryCode" name="countryCode" th:field="*{countryCode}" th:value="${bean.countryCode}"
                                        value=""/>
-                                <!--th:value="${conGrabLRule.get('code')}"-->
                             </div>
                         </div>
 
                         <div class="form-group">
                             <div class="input-group">
                                 <div class="input-group-addon">节点:</div>
-                                <select id="nodeid" name="nodeid" class="form-control">
+                                <select id="nodeid" name="nodeid" th:field="*{nodeid}" class="form-control">
                                     <option value="0">请选择</option>
-                                    <!--<c:forEach var="item" items="${nodelist}">-->
-                                    <!--<option-->
-                                    <!--<c:if test="${conGrabLRule.nodeid==item.id }">selected='selected'</c:if>-->
-                                    <!--value="${item.id}">${item.nodename}</option>-->
-                                    <!--</c:forEach>-->
+                                    <option th:each="node:${nodeList}" th:selected="(${bean.nodeid == node.id})" th:value="${node.id}" th:text="${node.nodename}"></option>
                                 </select>
                             </div>
-                            <!--<span th:text="${aa}"></span>-->
-                            <!--<tr th:each="topic:${topics}">-->
-                            <!--<option th:text="${topic.get('Name')}"></option>-->
-                            <!--<option th:text="${topic.get('tid')}"></option>-->
-                            <!--<option th:text="${topic.get('status')}"></option>-->
-                            <!--<option th:text="${topic.createdAt}"></option>-->
-                            <!--</tr>-->
                             <div class="form-group">
                                 <div class="input-group">
                                     <div class="input-group-addon">话题:</div>
-                                    <select id="topic" name="topic" class="form-control">
+                                    <select id="topic" name="topic" th:field="*{topic}" class="form-control">
                                         <option value="0">请选择</option>
-                                        <tr th:each="topic:${topics}">
-                                            <option th:text="${topic.get('Name')}"></option>
-                                        </tr>
-                                        <!--<option th:text="${topic.get('tid')}"></option>-->
-                                        <!--<option th:text="${topic.get('status')}"></option>-->
-                                        <!--<option th:text="${topic.createdAt}"></option>-->
-
-                                        <!--<c:forEach var="item" items="${topiclist}">-->
-                                        <!--<option-->
-                                        <!--<c:if test="${conGrabLRule.topic==item.tid }">selected='selected'</c:if>-->
-                                        <!--value="${item.tid}">${item.name}</option>-->
-                                        <!--</c:forEach>-->
+                                        <option th:each="topic:${topics}" th:selected="(${bean.topic == topic.tid})" th:value="${topic.tid}" th:text="${topic.Name}"></option>
                                     </select>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <div class="input-group">
                                     <div class="input-group-addon">媒体:</div>
-                                    <select id="publication" name="publication" class="form-control">
+                                    <select id="publication" name="publication" th:field="*{pid}" class="form-control">
                                         <option value="0" size=>请选择</option>
-                                        <!--publication-->
-                                        <tr th:each="publication:${publication}">
-                                            <option th:text="${publication.get('name')}"></option>
-                                        </tr>
+                                        <option th:each="publication:${publication}" th:selected="(${bean.pid == publication.id})" th:value="${publication.id}" th:text="${publication.name}"></option>
                                     </select>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <div class="input-group">
                                     <div class="input-group-addon">渠道:</div>
-                                    <select id="channelid" name="channelid" class="form-control">
+                                    <select id="channelid" name="channelid" th:field="*{channelid}" class="form-control">
                                         <option value="0">请选择</option>
-                                        <tr th:each="channel:${conChannels}">
-                                            <option th:text="${channel.get('channelname')}"></option>
-                                        </tr>
+                                        <option th:each="channel:${conChannels}" th:selected="(${bean.channelid == channel.id})" th:value="${channel.id}" th:text="${channel.channelname}"></option>
                                     </select>
                                 </div>
                             </div>
-                            <!--th:href="@{/listrule/toadd(id=0)}"-->
                             <button type="submit" class="btn btn-primary" id="search">搜索</button>&nbsp;&nbsp;
                             <a th:href="@{/listrule/toadd(objectId)}" class="btn btn-primary" id="add"><span
                                 class="fa fa-plus-circle fa-fw"></span> 添加</a>
@@ -134,125 +104,23 @@
                         <th>规则名称</th>
                         <th>话题</th>
                         <th>节点</th>
-                        <!-- <th>渠道</th> -->
                         <th>国家码</th>
-                        <!-- <th>csspath</th> -->
-                        <!-- <th>findpre</th> -->
                         <th>创建时间</th>
-                        <!-- <th>url</th> -->
                         <th>列表文章状态</th>
                         <th>规则状态</th>
                         <th></th>
                     </tr>
                     </thead>
-
-
                     <tbody>
                     <tr th:each="item:${rules}">
-                        <!--<c:forEach var="item" items="${list}">-->
-                        <!--<div th:each="item:${rules}">-->
-                        <!--<tr class="id" value="">-->
-
-                        <!--<td th:each="publication:${publication}" class="input-group">-->
-                        <!--<div class=" input-group" th:if="${publication.get('id') eq item.get('pid')}">-->
-                        <!--<a th:text="${publication.get('id')}"></a>-->
-                        <!--</div>-->
-                        <!--</td>-->
-
                         <td th:text="${item.get('pid')}"></td>
-
-
-                        <!--<span th:text="${publication.get('name')}"></span>-->
-                        <!--<span th:if="${publication.get('id') eq item.get('pid')}" class="offer"><h7-->
-                        <!--th:text="${publication.get('name')}"></h7></span>-->
-
-                        <!--<td class="input-group">-->
-                        <!--<div class="input-group">-->
-                        <!--<c:forEach var="publication" items="${publicationlist}">-->
-                        <!--<c:if test="${publication.id==item.pid}">${publication.name}</c:if>-->
-                        <!--</c:forEach>-->
-                        <!--</div>-->
-                        <!--</td>-->
-
-                        <!--<td th:text="${item.get('rulename')}"></td>-->
                         <td th:text="${item.rulename}"></td>
-
-
-                        <!--<c:forEach var="item" items="${list}">-->
-                        <!--<tr class="id" value="${item.id }">-->
-                        <!--<tr th:each="item:${rules}">-->
-                        <!--<div class="input-group">-->
-                        <!--<td th:each="publication:${publication}">-->
-                        <!--<span th:text="${publication.get('name')}"></span>-->
-                        <!--&lt;!&ndash;<span th:if="${publication.get('id') eq item.get('pid')}" class="offer"><h7&ndash;&gt;-->
-                        <!--&lt;!&ndash;th:text="${publication.get('name')}"></h7></span>&ndash;&gt;-->
-                        <!--</td>-->
-                        <!--</div>-->
-                        <!--</td>-->
-
-                        <!--<td th:text="${item.get('rulename')}"></td>-->
-
-
-                        <td th:text="${item.get('topic')}">
-                            <!--<div class=" input-group-->
-                            <!--">-->
-                            <!--<c:forEach var="topic" items="${topiclist}">-->
-                            <!--<c:if test="${topic.tid==item.topic}">${topic.name}</c:if>-->
-                            <!--</c:forEach>-->
-                            <!--</div>-->
-                        </td>
-
-                        <td>美国</td>
-                        <!--<td th:text="${item.get('nodeid')}">-->
-                        <!--<div class="input-group">-->
-                        <!--<c:forEach var="node" items="${nodelist}">-->
-                        <!--<c:if test="${node.id==item.nodeid}">${node.nodename}</c:if>-->
-                        <!--</c:forEach>-->
-                        <!--</div>-->
-                        <!--</td>-->
-
-                        <!--<td th:text="${item.get('channelid')}"></td>-->
-                        <!--<div class="input-group">-->
-                        <!--<c:forEach var="channel" items="${channellist}">-->
-                        <!--<c:if test="${channel.id==item.channelid}">${channel.channelname}</c:if>-->
-                        <!--</c:forEach>-->
-                        <!--</div>-->
-
-
-                        <!-- <td>
-                            ${item.csspath}
-                        </td> -->
-                        <td th:text="${item.get('code')}">
-                            <!--${item.code }-->
-                        </td>
-                        <!--<td th:text="${item.get('findpre')}">-->
-                        <!--&lt;!&ndash;${item.findpre }&ndash;&gt;-->
-                        <!--</td>-->
-
-                        <td th:text="${#calendars.format(item.createdAt)}">
-                            <!--<td th:text="${item.createdAt}">-->
-                            <!--<fmt:formatDate value="${item.createtime }" type="both" pattern="YY-MM-dd HH:mm"/>-->
-                        </td>
-
-                        <!--<td width="20" th:text="${item.get('url')}">-->
-                        <!--${item.url}-->
-                        <!--</td>-->
-
-                        <td>正常
-
-                            <!--<div class=" input-group" th:if="${item.get('liststatus') eq 0">正常</div>-->
-                            <!--<div class=" input-group" th:if="${item.get('liststatus') eq 1">未发布</div>-->
-
-                            <!--<c:if test="${item.liststatus==0}">正常</c:if>-->
-                            <!--<c:if test="${item.liststatus==1}">未发布</c:if>-->
-                        </td>
-                        <td>正常
-                            <!--<div class=" input-group" th:if="${item.get('status') eq 0">正常</div>-->
-                            <!--<div class=" input-group" th:if="${item.get('status') eq 1">禁用</div>-->
-                            <!--<c:if test="${item.status==0}">正常</c:if>-->
-                            <!--<c:if test="${item.status==1}">禁用</c:if>-->
-                        </td>
-
+                        <td th:each="topic:${topics}" th:if="${topic.tid == item.topic}" th:text="${topic.Name}"></td>
+                        <td th:each="node:${nodeList}" th:if="${node.id == item.nodeid}" th:text="${node.nodename}"></td>
+                        <td th:text="${item.countryCode}"></td>
+                        <td th:text="${#calendars.format(item.createdAt)}"></td>
+                        <td th:text="(${item.liststatus==0} ? ('未发布'):('正常'))"></td>
+                        <td th:text="(${item.status==0} ? ('禁用'):('正常'))"></td>
                         <td>
                             <div class="btn-group">
                                 <a class="btn btn-primary" href="#"><i
@@ -260,37 +128,24 @@
                                 class="btn btn-primary dropdown-toggle"
                                 data-toggle="dropdown" href="#"><span class="caret"></span></a>
                                 <ul class="dropdown-menu">
-
-
-                                    <!--<a href="details.html" th:href="@{/order/{orderId}/details(orderId=${o.id})}">view</a>-->
-
-
                                     <li><a href="details.html"
                                            th:href="@{/listrule/details(objectId=${item.objectId})}">
                                         <i class="fa fa-pencil fa-fw"></i>查看详情</a></li>
-                                    <!--<li><a href="${ctx }/listrule/details?id=${item.id}"><i-->
-                                    <!--class="fa fa-pencil fa-fw"></i>查看详情</a></li>-->
-                                    <!--href="${ctx }/listrule/add?id=${item.id}"-->
                                     <li><a th:href="@{/listrule/toadd(objectId=${item.objectId})}">
                                         <i class="fa fa-pencil fa-fw"></i>修改</a></li>
                                     <li><a th:href="@{/listrule/delete(objectId=${item.objectId})}"><i
                                         class="fa fa-trash-o fa-fw"></i>删除</a></li>
-                                    <li><a href="${ctx }/listrule/getconnect?id=${item.id}"><i
+                                    <li><a th:href="@{/listrule/getconnect(id=${item.id})}"><i
                                         class="fa fa-pencil fa-fw"></i>查看关联规则</a></li>
                                 </ul>
-
                             </div>
                         </td>
                     </tr>
             </div>
-            <!--</c:forEach>-->
             </tbody>
             </table>
-
-
             <div class="col-sm-12 text-center">
                 <ul class="pagination" id="pagination">
-
                 </ul>
                 <ul id="countabs">
 

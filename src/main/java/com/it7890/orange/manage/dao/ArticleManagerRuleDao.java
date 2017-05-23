@@ -11,6 +11,8 @@ public interface ArticleManagerRuleDao {
 
     public List<ConGrabCRule> getAll();
 
+    public List<ConGrabCRule> getSelect(ConGrabCRule bean);
+
     public  ConGrabCRule  getContentById(String id);
 
     public String insertConRule(ConGrabCRule tem);
@@ -18,4 +20,6 @@ public interface ArticleManagerRuleDao {
     public String updateConRule (ConGrabCRule tem);
 
     public void deleteRuleByObjectId(String id);
+
+    List<ConGrabCRule> getAllConByLid(Integer id);
 }

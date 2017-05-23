@@ -8,6 +8,8 @@ public interface ListManagerRuleService {
 
     List<ConGrabLRule> getAll();
 
+    List<ConGrabLRule> getSelect(ConGrabLRule bean);
+
     ConGrabLRule getLRuleById(String objectId);
 
     String insert(ConGrabLRule bean);

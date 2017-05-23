@@ -1,11 +1,11 @@
 package com.it7890.orange.manage.dao.impl;
 
-import com.it7890.orange.manage.dao.ArticleManagerRuleDao;
-import com.it7890.orange.manage.model.ConGrabCRule;
 import com.avos.avoscloud.AVCloudQueryResult;
 import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.AVObject;
 import com.avos.avoscloud.AVQuery;
+import com.it7890.orange.manage.dao.ArticleManagerRuleDao;
+import com.it7890.orange.manage.model.ConGrabCRule;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -31,6 +31,28 @@ public class ArticleManagerRuleDaoImpl implements ArticleManagerRuleDao {
     }
 
     @Override
+    public List<ConGrabCRule> getSelect(ConGrabCRule bean) {
+        List<ConGrabCRule> list = new ArrayList<ConGrabCRule>();
+        AVCloudQueryResult result;
+        try {
+            StringBuffer sb = new StringBuffer();
+            sb.append("select * from con_grab_crule where status!=-1");
+            if (bean.getRulename() != null && !"".equals(bean.getRulename())) {
+                sb.append(" and rulename like '%" + bean.getRulename() + "%' ");
+            }
+            if (bean.getStatus() != -1) {
+                sb.append(" and status=" + bean.getStatus());
+            }
+            String cql = sb.toString();
+            System.out.println(cql);
+            result = AVQuery.doCloudQuery(cql, ConGrabCRule.class);
+            list = (List<ConGrabCRule>) result.getResults();
+        } catch (Exception e) {
+        }
+        return list;
+    }
+
+    @Override
     public ConGrabCRule getContentById(String objectId) {
         ConGrabCRule object = null;
         List<ConGrabCRule> list = new ArrayList<>();
@@ -38,12 +60,13 @@ public class ArticleManagerRuleDaoImpl implements ArticleManagerRuleDao {
         try {
             String cql = " select * from con_grab_crule where objectId = ?";
             result = AVQuery.doCloudQuery(cql, ConGrabCRule.class, objectId);
-            list = (List<ConGrabCRule>)result.getResults();
+            list = (List<ConGrabCRule>) result.getResults();
             object = list.get(0);
         } catch (Exception e) {
         }
         return object;
     }
+
     //TODO 文章规则修改删除未完成
     @Override
     public String insertConRule(ConGrabCRule bean) {
@@ -121,5 +144,19 @@ public class ArticleManagerRuleDaoImpl implements ArticleManagerRuleDao {
             String objectId = todoFolder.getObjectId();
         } catch (AVException e) {
         }
+    }
+
+
+    @Override
+    public List<ConGrabCRule> getAllConByLid(Integer id) {
+        List<ConGrabCRule> list = new ArrayList<ConGrabCRule>();
+        AVCloudQueryResult result;
+        try {
+            String cql = "select * from con_grab_crule where lid=" + id;
+            result = AVQuery.doCloudQuery(cql, ConGrabCRule.class);
+            list = (List<ConGrabCRule>) result.getResults();
+        } catch (Exception e) {
+        }
+        return list;
     }
 }

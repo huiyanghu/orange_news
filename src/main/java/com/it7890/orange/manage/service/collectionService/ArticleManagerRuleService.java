@@ -11,6 +11,10 @@ public interface ArticleManagerRuleService {
 
     public List<ConGrabCRule> getAll();
 
+    public List<ConGrabCRule> getSelect(ConGrabCRule bean);
+
+    List<ConGrabCRule> getAllConByLid(Integer id);
+
     public ConGrabCRule getContentById(String id);
 
     public String insertConRule(ConGrabCRule tem);

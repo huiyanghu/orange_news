@@ -40,4 +40,9 @@ public class RuleManagerServicedImpl implements RuleManagerService {
     public void deleteRuleByObjectId(String id) {
         ruleManagerDao.deleteRuleByObjectId(id);
     }
+
+    @Override
+    public List<GlobalRule> getByRuleNameAndPid(GlobalRule bean) {
+        return ruleManagerDao.getByRuleNameAndPid(bean);
+    }
 }
