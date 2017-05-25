@@ -20,6 +20,7 @@
     <script type="text/javascript" src="/stylesheets/js/page/myPage.js"></script>
     <script type="text/javascript" src="/stylesheets/js/plugins/My97DatePicker/WdatePicker.js"></script>
     <style>
+        .row{ margin: 0;}
         #dataTables-example .dropdown-menu{ right: 0; left: auto;}
     </style>
 </head>
@@ -35,18 +36,18 @@
         <div class="panel panel-default">
             <div class="panel-heading text-left">
                 <div class="row">
-                    <form class="form-inline" role="form" th:object="${bean}" th:action="@{/article/select}" th:method="get">
-                        <input id="page" name="page" type="hidden" th:field="*{page}" th:value="${bean.page}"/>
+                    <form class="form-inline" role="form" th:object="${article}" th:action="@{/article/list}" th:method="get">
+                       <!-- <input id="page" name="page" type="hidden" th:field="*{page}"  th:value="${article.page}"/>-->
                         <div class="form-group">
                             <div class="input-group">
                                 <div class="input-group-addon">文章编号:</div>
-                                <input class="form-control" type="text" th:field="*{id}" th:value="${bean.id}" id="id" name="id" value=""/>
+                                <input class="form-control" type="text" th:field="*{id}" th:value="${article.id}" id="id" name="id" value=""/>
                             </div>
                         </div>
                         <div class="form-group">
                             <div class="input-group">
                                 <div class="input-group-addon">国家:</div>
-                                <input class="form-control" type="text" th:field="*{countrycode}" th:value="${bean.countrycode}" id="countrycode" name="countrycode" value=""/>
+                                <input class="form-control" type="text" th:field="*{countrycode}" th:value="${article.countrycode}" id="countrycode" name="countrycode" value=""/>
                             </div>
                         </div>
                         <div class="form-group">
@@ -54,7 +55,7 @@
                                 <div class="input-group-addon">媒体:</div>
                                 <select id="publicationid" name="publicationid" th:field="*{publicationid}" class="form-control">
                                     <option value="0">请选择</option>
-                                    <option th:each="publicationid:${publicationid}" th:selected="(${bean.publicationid == publicationid.tid})" th:value="${publicationid.tid}" th:text="${publicationid.Name}"></option>
+                                    <option th:each="publication:${publications}" th:selected="(${article.publicationid == publication.id})" th:value="${publication.id}" th:text="${publication.Name}"></option>
                                 </select>
                             </div>
                         </div>
@@ -63,7 +64,7 @@
                                 <div class="input-group-addon">来源渠道:</div>
                                 <select id="channelid" name="channelid" th:field="*{channelid}" class="form-control">
                                     <option value="0">请选择</option>
-                                    <option th:each="channelid:${channelid}" th:selected="(${bean.channelid == channelid.tid})" th:value="${channelid.tid}" th:text="${channelid.Name}"></option>
+                                    <option th:each="conchannel:${conchannels}" th:selected="(${article.channelid == conchannel.id})" th:value="${conchannel.id}" th:text="${conchannel.channelname}"></option>
                                 </select>
                             </div>
                         </div>
@@ -72,16 +73,16 @@
                                 <div class="input-group-addon">国际化语言:</div>
                                 <select id="langid" name="langid" th:field="*{langid}" class="form-control">
                                     <option value="0">请选择</option>
-                                    <option th:each="langid:${langid}" th:selected="(${bean.langid == langid.tid})" th:value="${langid.tid}" th:text="${langid.Name}"></option>
+                                    <option th:each="languagesSorts:${languagesSort}" th:selected="(${article.langid == languagesSorts.id})" th:value="${languagesSorts.id}" th:text="${languagesSorts.localname}"></option>
                                 </select>
                             </div>
                         </div>
-                        <div class="form-group">
+                        <!--<div class="form-group">
                             <div class="input-group">
                                 <div class="input-group-addon">稿件属性:</div>
                                 <select id="attr" name="attr" th:field="*{attr}" class="form-control">
                                     <option value="0">请选择</option>
-                                    <option th:each="attr:${attr}" th:selected="(${bean.attr == attr.tid})" th:value="${attr.tid}" th:text="${attr.Name}"></option>
+                                    <option th:each="attr:${attr}" th:selected="(${article.attr == attr.id})" th:value="${attr.id}" th:text="${attr.Name}"></option>
                                 </select>
                             </div>
                         </div>
@@ -90,35 +91,35 @@
                                 <div class="input-group-addon">状态:</div>
                                 <select id="status" name="status" th:field="*{status}" class="form-control">
                                     <option value="0">请选择</option>
-                                    <option th:each="status:${status}" th:selected="(${bean.status == status.tid})" th:value="${status.tid}" th:text="${status.Name}"></option>
+                                    <option th:each="status:${status}" th:selected="(${article.status == status.id})" th:value="${status.id}" th:text="${status.Name}"></option>
                                 </select>
                             </div>
-                        </div>
+                        </div>-->
                         <div class="form-group">
                             <div class="input-group">
                                 <div class="input-group-addon">关键字:</div>
-                                <input class="form-control" type="text" th:field="*{keywords}" th:value="${bean.keywords}" id="keywords" name="keywords" value=""/>
+                                <input class="form-control" type="text" th:field="*{keywords}" th:value="${article.keywords}" id="keywords" name="keywords" value=""/>
                             </div>
                         </div>
                         <div class="form-group">
                             <div class="input-group">
                                 <div class="input-group-addon">话题:</div>
-                                <select id="topicid" name="topicid" th:field="*{topicid}" class="form-control">
+                                <select id="topicid" name="topicid" th:field="*{topicsid}"  class="form-control">
                                     <option value="0">请选择</option>
-                                    <option th:each="topicid:${topicid}" th:selected="(${bean.topicid == topicid.tid})" th:value="${topicid.tid}" th:text="${topicid.Name}"></option>
+                                    <option th:each="hbtopic:${hbtopics}" th:selected="(${article.topicsid == hbtopic.tid})" th:value="${hbtopic.tid}" th:text="${hbtopic.Name}"></option>
                                 </select>
                             </div>
                         </div>
                         <div class="form-group">
                             <div class="input-group">
                                 <div class="input-group-addon">开始日期:</div>
-                                <input class="form-control" type="text" placeholder="输入开始日期" th:field="*{starttime}" th:value="${bean.starttime}" id="starttime" name="starttime" onClick="WdatePicker()" value=""/>
+                                <input class="form-control" type="text" placeholder="输入开始日期" th:field="*{starttime}" th:value="${article.starttime}" id="starttime" name="starttime" onClick="WdatePicker()" value=""/>
                             </div>
                         </div>
                         <div class="form-group">
                             <div class="input-group">
                                 <div class="input-group-addon">结束日期:</div>
-                                <input class="form-control" type="text" placeholder="输入结束日期" th:field="*{endtime}" th:value="${bean.endtime}" id="endtime" name="endtime" onClick="WdatePicker()" value=""/>
+                                <input class="form-control" type="text" placeholder="输入结束日期" th:field="*{endtime}" th:value="${article.endtime}" id="endtime" name="endtime" onClick="WdatePicker()" value=""/>
                             </div>
                         </div>
                         <button type="submit" class="btn btn-primary" id="search">搜索</button>
@@ -164,19 +165,28 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr th:each="item:${rules}">
+                        <tr th:each="item:${articles}">
                             <td>
                                 <input type="checkbox" name="checkbox" th:value="${item.id}"/>
                             </td>
                             <td th:text="${item.id}"></td>
-                            <td th:text="${#strings.abbreviate(${item.title},20)}"></td>
-                            <td th:text="(${item.ctype == 0} ? ('普'): (${item.ctype == 1} ? ('荐'):${item.ctype == 2} ? ('顶')))"></td>
+                            <td th:text="${#strings.abbreviate({item.title},20)}"></td>
+                            <td th:switch="${item.ctype}">
+                                <span th:case="0">正常</span>
+                                <span th:case="1">未审核</span>
+                                <span th:case="2">预发布</span>
+                            </td>
+                            <!--<td th:text="(${item.ctype == 0} ? ('普'): ${item.ctype == 1} ? ('荐') : ${item.ctype == 2} ? ('顶'))"></td>-->
                             <td th:text="${item.countrycode}"></td>
                             <td th:text="${item.topicsid}"></td>
                             <td th:text="${item.publicationid}"></td>
-                            <td th:text="(${item.ctype == 0} ? ('正常'): (${item.ctype == 1} ? ('未审核'):${item.ctype == 2} ? ('预发布')))"></td>
-                            <td th:text="${#calendars.format(${item.subtime},'MM-dd HH:mm')}"></td>
-                            <td th:text="${#calendars.format(${item.createtime},'MM-dd HH:mm')}"></td>
+                            <td th:switch="${item.status}">
+                                <span th:case="0">正常</span>
+                                <span th:case="1">未审核</span>
+                                <span th:case="2">预发布</span>
+                            </td>
+                            <td th:text="${#calendars.format({item.subtime},'MM-dd HH:mm')}"></td>
+                            <td th:text="${#calendars.format({item.createtime},'MM-dd HH:mm')}"></td>
                             <td th:text="${item.createuid}"></td>
                             <td>
                                 <div class="btn-group">
@@ -203,16 +213,14 @@
                                                 文章内容管理
                                             </a>
                                         </li>
-                                        <!--item.status==1-->
-                                        <li>
+                                        <li th:if="${item.status}==1">
                                             <a th:href="@{/article/auditing(id=${item.id})}">
                                                 <i class="fa fa-pencil fa-fw" ></i>
                                                 审核
                                             </a>
                                         </li>
-                                        <!--item.status==1-->
                                         <li>
-                                            <a th:href="@{http://www.coolook.top/article/${item.id})}.html" target="_blank">
+                                            <a th:href="@{http://www.coolook.top/article/${item.id}.html}" target="_blank">
                                                 <i class="fa fa-pencil fa-fw" ></i>
                                                 预览
                                             </a>
@@ -223,8 +231,7 @@
                                                 导入锁屏
                                             </a>
                                         </li>
-                                        <!--item.status !=2-->
-                                        <li>
+                                        <li th:if="${item.status}!=2">
                                             <a th:href="@{/article/pushadd(id=${item.id})}">
                                                 <i class="fa fa-pencil fa-fw" ></i>
                                                 推送
@@ -236,23 +243,18 @@
                                                 推送2
                                             </a>
                                         </li>
-                                        <!--item.status !=2-->
-                                        <!--item.attr==1-->
-                                        <li>
-                                            <a onclick="return checkTitleAndPic('${item.id}','${item.title}','${item.titlepic}')"}">
+                                        <li th:if="${item.attr}==1">
+                                            <a onclick="return checkTitleAndPic('${item.id}','${item.title}','${item.titlepic}')">
                                                 <i class="fa fa-pencil fa-fw" ></i>
                                                 添加到置顶图
                                             </a>
                                         </li>
-                                        <!--item.attr==1-->
-                                        <!--item.channelid==1-->
-                                        <li>
+                                        <li th:if="${item.channelid}==1">
                                             <a th:href="@{/article/viewsource(id=${item.id})}" target="_blank">
                                                 <i class="fa fa-pencil fa-fw" ></i>
                                                 查看原文
                                             </a>
                                         </li>
-                                        <!--item.channelid==1-->
                                     </ul>
                                 </div>
                             </td>
@@ -273,7 +275,7 @@
                     <!-- 当前第几页 -->
                     <input type="hidden" id="Pagedq" runat="server" th:value="${pageUtil.currentPage}"/>
                     <!-- 请求的地址 -->
-                    <input type="hidden" id="pageUrl" runat="server" th:value="/article/list"/>
+                    <input type="hidden" id="pageUrl" runat="server" th:value="@{/article/list}"/>
                     <!-- 请求的参数 -->
                     <input type="hidden" id="pageParameter" runat="server" th:value="${searchstr}"/>
                     <!--设置最多显示的页码数 可以手动设置 默认为7-->
