@@ -123,11 +123,11 @@ public class IConArticleServiceImpl implements IConArticleService {
             try {
                 list = avQuery.find();
                 System.out.println(list.size());
+
             } catch (AVException e) {
                 e.printStackTrace();
             }
         } else {
-            // 所有的集合
         }
         return list;
 
@@ -143,8 +143,6 @@ public class IConArticleServiceImpl implements IConArticleService {
             count = result.getCount();
         } catch (Exception e) {
         }
-
-
         return count;
     }
 

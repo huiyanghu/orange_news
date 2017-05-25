@@ -5,6 +5,7 @@ import cn.leancloud.LeanEngine;
 import com.avos.avoscloud.AVOSCloud;
 import com.avos.avoscloud.AVObject;
 import com.avos.avoscloud.internal.impl.JavaRequestSignImplementation;
+import com.it7890.orange.manage.model.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.boot.SpringApplication;
@@ -27,6 +28,14 @@ public class Application {
         logger.info("LeanEngine app init.");
         // 注册子类化
         AVObject.registerSubclass(Todo.class);
+        AVObject.registerSubclass(ConArticle.class);
+        AVObject.registerSubclass(HbTopics.class);
+        AVObject.registerSubclass(SysUser.class);
+        AVObject.registerSubclass(ConPublication.class);
+        AVObject.registerSubclass(HbLanguage.class);
+        AVObject.registerSubclass(ConChannel.class);
+
+
         // 初始化AVOSCloud，请保证在整个项目中间只初始化一次
         LeanEngine.initialize(appId, appKey, appMasterKey);
         // 在请求签名中使用masterKey以激活云代码的最高权限
@@ -35,6 +44,7 @@ public class Application {
         // AVOSCloud.setDebugLogEnabled(true);
         // 向云引擎注册云函数
         LeanEngine.register(Cloud.class);
+
         if (System.getenv("LEANCLOUD_APP_ENV").equals("development")) {
             // 如果是开发环境，则设置 AVCloud.callFunction 和 AVCloud.rpcFunction 调用本地云函数实现
             // 如果需要本地开发时调用云端云函数实现，则注释掉下面语句。

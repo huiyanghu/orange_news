@@ -10,20 +10,17 @@ import java.util.Map;
 @AVClassName("Todo")
 public class Todo extends AVObject {
 
-  public Todo() {
-    super();
-  }
-
-
-
+    public Todo() {
+        super();
+    }
 
     public String getContent() {
-    return getString("content");
-  }
+        return getString("content");
+    }
 
-  public void setContent(String content) {
-    this.put("content", content);
-  }
+    public void setContent(String content) {
+        this.put("content", content);
+    }
 
     @Override
     public String toString() {

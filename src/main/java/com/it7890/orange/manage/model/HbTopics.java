@@ -16,11 +16,10 @@ import java.util.Map;
  */
 @AVClassName("hb_topics")
 public class HbTopics extends AVObject {
-
 //    private int tid;
 //    private int topictype;
 //    private String ID;
-//    //	private String Name;
+//    private String Name;
 //    private String topicicon;
 //    private int status;
     public HbTopics() {

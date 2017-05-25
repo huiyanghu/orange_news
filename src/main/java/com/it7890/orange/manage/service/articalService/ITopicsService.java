@@ -12,6 +12,8 @@ import java.util.List;
  * @author zhoujie@7890it.com
  * @date 2015年10月15日 下午6:48:58
  */
+
+
 public interface ITopicsService {
 	
 	public List<HbTopics> getAllHbTopics();

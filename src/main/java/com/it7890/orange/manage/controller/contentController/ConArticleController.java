@@ -10,6 +10,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.avos.avoscloud.AVCloudQueryResult;
+import com.avos.avoscloud.AVException;
+import com.avos.avoscloud.AVObject;
+import com.avos.avoscloud.AVQuery;
 import com.it7890.orange.manage.model.ConArticle;
 import com.it7890.orange.manage.model.SysUser;
 import com.it7890.orange.manage.service.articalService.*;
@@ -37,8 +41,7 @@ public class ConArticleController {
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
     @Resource
     private IConArticleService conArticleService;
-/*    @Resource
-    private IHbCountrysService hbcountryService;
+
     @Resource
     private ITopicsService topicsService;
     @Resource
@@ -48,7 +51,9 @@ public class ConArticleController {
     @Resource
     private IHbLanguageService hblanguageService;
     @Resource
-    private IConPublicationService conpublicationService;*/
+    private IConPublicationService conpublicationService;
+    @Resource
+    private IHbCountrysService hbcountryService;
 
 /*
     @Value("#{configProperties['appkey']}")
@@ -172,12 +177,12 @@ public class ConArticleController {
         model.addAttribute("article", article);
         model.addAttribute("searchstr", searchstr);
         model.addAttribute("articles", list);
-/*        model.addAttribute("hbtopics", topicsService.getAllHbTopics());
+        model.addAttribute("hbtopics", topicsService.getAllHbTopics());
         model.addAttribute("conchannels", conchannelService.getAllConChannel());
         model.addAttribute("publications", conpublicationService.getAllConpublication());
         model.addAttribute("users", sysuserService.getAllSysUser());
         model.addAttribute("languagesSort", hblanguageService.getAllHbLanguageOrderByHbcode());
-        model.addAttribute("channellist", ruleService.getChannellist());*/
+//        model.addAttribute("channellist", ruleService.getChannellist());
         return "article/list";
     }
 
@@ -202,16 +207,13 @@ public class ConArticleController {
         } else {
             article = conArticleService.getConArticleByIdES(id);
         }
-
         //	model.addAttribute("upyunhttp", upyunutil.getUpyunhttp());
         model.addAttribute("article", article);
-
-
-/*        model.addAttribute("hbcountrys", hbcountryService.getHbCountrysAll());
+        model.addAttribute("hbcountrys", hbcountryService.getHbCountrysAll());
         model.addAttribute("hbtopics", topicsService.getAllHbTopics());
         model.addAttribute("conchannels", conchannelService.getAllConChannelByStatus());
         model.addAttribute("hblanguages", hblanguageService.getAllHbLanguage());
-        model.addAttribute("conpublications", conpublicationService.getAllConpublication());*/
+        model.addAttribute("conpublications", conpublicationService.getAllConpublication());
         return "article/add";
     }
 
@@ -285,7 +287,6 @@ public class ConArticleController {
             str.append("&channelid=");
         }
         int result = 0;
-        long nid = 0;
         SysUser sysuer = (SysUser) request.getSession().getAttribute("sysuser");
         conarticle.setCreateuid(sysuer.getUserid());
         conarticle.setSubuid(sysuer.getUserid());
@@ -295,7 +296,6 @@ public class ConArticleController {
             conarticle.setChannelid(3);
             //conarticle.setPublicationid(4094);
             conarticle.setStatus(1);
-            nid = conArticleService.updateConArticleES(conarticle);
         } else {
             ConArticle ca = conArticleService.getConArticleByIdES((int) conarticle.getId());
             ca.setAbstracts(conarticle.getAbstracts());
@@ -316,26 +316,19 @@ public class ConArticleController {
             ca.setCountrycode(conarticle.getCountrycode());
             ca.setTopicsid(conarticle.getTopicsid());
             ca.setPublicationid(conarticle.getPublicationid());
-            nid = conArticleService.updateConArticleES(ca);
-            conarticle = ca;
+            ca.getAbstracts();
+            AVObject conArticle = new AVObject("ConArticle");
+
+            try {
+                conArticle.save();
+            } catch (AVException e) {
+                e.printStackTrace();
+            }
         }
-/*		if(switch1.getIsopenarticle()==0){
-            String[] list=SQSUtil.getUrlList();
-			for (int j = 0; j < list.length; j++) {
-				SqsBaseVo sb=new SqsBaseVo();
-				sb.setType(0);
-				sb.setName(ConArticle.class.getSimpleName());
-				List l=new ArrayList();
-				l.add(conarticle);
-				sb.setList(l);
-				SQSUtil.putMessage(SQSUtil.getSQSClient(), sb, list[j]);
-				logger.info("send art message to "+list[j]);
-			}
-		}*/
+
         result = 1;
         request.getSession().setAttribute("message",
             "添加或修改文章:" + (result > 0 ? "成功" : "失败"));
-        request.getSession().setAttribute("url", "articlescontent/add?id=" + nid);
         return String.format("redirect:/message");
     }
 
@@ -345,13 +338,13 @@ public class ConArticleController {
      *
      * @param request
      * @param response
-     * @param id
+     * @param objectId
      * @param model
      * @return
      */
     @RequestMapping(value = "/delete", method = RequestMethod.GET)
     public String deletearticle(HttpServletRequest request,
-                                HttpServletResponse response, int id, Model model) {
+                                HttpServletResponse response, int objectId, Model model) {
 
         //搜索记忆
         StringBuffer str = new StringBuffer();
@@ -410,21 +403,16 @@ public class ConArticleController {
         } else {
             str.append("&channelid=");
         }
-        long result = conArticleService.deleteConArticleES(id);
-        ConArticle conarticle = conArticleService.getConArticleByIdES(id);
-/*		if(switch1.getIsopenarticle()==0){
-            String[] list=SQSUtil.getUrlList();
-			for (int j = 0; j < list.length; j++) {
-				SqsBaseVo sb=new SqsBaseVo();
-				sb.setType(0);
-				sb.setName(ConArticle.class.getSimpleName());
-				List l=new ArrayList();
-				l.add(conarticle);
-				sb.setList(l);
-				SQSUtil.putMessage(SQSUtil.getSQSClient(), sb, list[j]);
-				logger.info("send art message to "+list[j]);
-			}
-		}*/
+
+        int result = 1;
+        // 执行 CQL 语句实现更新一个 Todo 对象
+        try {
+            AVQuery.doCloudQuery("delete from Todo where objectId=?", objectId);
+
+        } catch (Exception e) {
+            result = 0;
+            e.printStackTrace();
+        }
 
         request.getSession().setAttribute("message",
             "删除文章:" + (result > 0 ? "成功" : "失败"));

@@ -14,7 +14,7 @@ import java.util.Map;
 public class HbLanguage extends AVObject {
     private static final long serialVersionUID = 1L;
 
-    public HbLanguage(){
+    public HbLanguage() {
         super();
     }
 
@@ -27,18 +27,15 @@ public class HbLanguage extends AVObject {
     //语言的中文名称
     private String cnname;
     private int status;*/
-
     //TODO 不一样的字段
 //    private int isopen;
 
 //    public int getIsopen() {
 //        return getString(""); isopen;
 //    }
-//
 //    public void setIsopen(int isopen) {
 //        this.put("", );isopen = isopen;
 //    }
-
 
     public int getStatus() {
         return getInt("status");

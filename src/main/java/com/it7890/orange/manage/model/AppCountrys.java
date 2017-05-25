@@ -26,10 +26,6 @@ public class AppCountrys  extends AVObject {
 	private Date createtime;
 
 
-
-
-
-
 	/**
 	 * @return countrycode
 	 * @author zhoujie@7890it.com

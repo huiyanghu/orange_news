@@ -16,22 +16,21 @@ import java.util.Map;
 @Controller
 @RequestMapping("/todos")
 public class TodoController {
+    @RequestMapping(path = "/", method = RequestMethod.GET)
+    ModelAndView listTodo(@RequestParam(required = false, defaultValue = "20") int limit)
+        throws AVException {
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("limit", limit);
+        List<Todo> todos = AVCloud.rpcFunction("listTodo", params);
+        return new ModelAndView("index", "todos", todos);
+    }
 
-  @RequestMapping(path = "/", method = RequestMethod.GET)
-  ModelAndView listTodo(@RequestParam(required = false, defaultValue = "20") int limit)
-      throws AVException {
-    Map<String, Object> params = new HashMap<String, Object>();
-    params.put("limit", limit);
-    List<Todo> todos = AVCloud.rpcFunction("listTodo", params);
-    return new ModelAndView("index", "todos", todos);
-  }
-
-  @RequestMapping(path = "/", method = RequestMethod.POST)
-  ModelAndView saveTodo(String content, RedirectAttributes redirectAttrs) throws AVException {
-    Todo todo = new Todo();
-    todo.setContent(content);
-    todo.save();
-    return new ModelAndView("redirect:/todos/");
-  }
+    @RequestMapping(path = "/", method = RequestMethod.POST)
+    ModelAndView saveTodo(String content, RedirectAttributes redirectAttrs) throws AVException {
+        Todo todo = new Todo();
+        todo.setContent(content);
+        todo.save();
+        return new ModelAndView("redirect:/todos/");
+    }
 
 }

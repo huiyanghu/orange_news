@@ -10,7 +10,6 @@ import java.util.List;
  * @date 2015年11月13日 上午10:58:08
  */
 public interface IHbLanguageService {
-	
 	/**
 	 * 获取所有语言列表
 	 * @return List 语言列表

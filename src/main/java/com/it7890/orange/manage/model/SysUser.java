@@ -1,173 +1,103 @@
 package com.it7890.orange.manage.model;
 
+import com.avos.avoscloud.AVClassName;
+import com.avos.avoscloud.AVObject;
+
 import java.io.Serializable;
 import java.util.Date;
 
+@AVClassName("hb_topics")
+public class SysUser extends AVObject {
 
-public class SysUser implements Serializable {
-	
     private Integer userid;
-	private String username;
-	private String password;
-	private String truename;
-	private String identity;
-	private Integer sex;
-	private Date createtime;
-	private Integer createuserid;
-	private String allowip;
-	private String lastlogintime;
-	private String email;
-	private String mobilephone;
-	private Integer isstate;
-	private Integer roleid;
-	private String qq;
-	private String telphone;
-	private String fax;
-	private String[] sonroles;
+    private String username;
+    private String password;
+    private String truename;
+    private String identity;
+    private Integer sex;
+    private Date createtime;
+    private Integer createuserid;
+    private String allowip;
+    private String lastlogintime;
+    private String email;
+    private String mobilephone;
+    private Integer isstate;
+    private Integer roleid;
+    private String qq;
+    private String telphone;
+    private String fax;
+    private String[] sonroles;
 
-	public Integer getUserid() {
-		return userid;
-	}
 
-	public void setUserid(Integer userid) {
-		this.userid = userid;
-	}
+    public Integer getUserid() {
+        return getInt("userid");
+    }
 
-	public String getUsername() {
-		return username;
-	}
+    public String getUsername() {
+        return getString("username");
+    }
 
-	public void setUsername(String username) {
-		this.username = username;
-	}
+    public String getPassword() {
+        return getString("password");
+    }
 
-	public String getPassword() {
-		return password;
-	}
+    public String getTruename() {
+        return getString("truename");
+    }
 
-	public void setPassword(String password) {
-		this.password = password;
-	}
+    public String getIdentity() {
+        return getString("identity");
+    }
 
-	public String getTruename() {
-		return truename;
-	}
+    public Integer getSex() {
+        return getInt("sex");
+    }
 
-	public void setTruename(String truename) {
-		this.truename = truename;
-	}
+    public Date getCreatetime() {
+        return getDate("createtime");
+    }
 
-	public String getIdentity() {
-		return identity;
-	}
+    public Integer getCreateuserid() {
+        return getInt("createuserid");
+    }
 
-	public void setIdentity(String identity) {
-		this.identity = identity;
-	}
+    public String getAllowip() {
+        return getString("allowip");
+    }
 
-	public Integer getSex() {
-		return sex;
-	}
+    public String getLastlogintime() {
+        return getString("lastlogintime");
+    }
 
-	public void setSex(Integer sex) {
-		this.sex = sex;
-	}
+    public String getEmail() {
+        return getString("email");
+    }
 
-	public Date getCreatetime() {
-		return createtime;
-	}
+    public String getMobilephone() {
+        return getString("mobilephone");
+    }
 
-	public void setCreatetime(Date createtime) {
-		this.createtime = createtime;
-	}
+    public Integer getIsstate() {
+        return getInt("isstate");
+    }
 
-	public Integer getCreateuserid() {
-		return createuserid;
-	}
+    public Integer getRoleid() {
+        return getInt("roleid");
+    }
 
-	public void setCreateuserid(Integer createuserid) {
-		this.createuserid = createuserid;
-	}
+    public String getQq() {
+        return getString("qq");
+    }
 
-	public String getAllowip() {
-		return allowip;
-	}
+    public String getTelphone() {
+        return getString("telphone");
+    }
 
-	public void setAllowip(String allowip) {
-		this.allowip = allowip;
-	}
-
-	public String getLastlogintime() {
-		return lastlogintime;
-	}
-
-	public void setLastlogintime(String lastlogintime) {
-		this.lastlogintime = lastlogintime;
-	}
-
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
-	public String getMobilephone() {
-		return mobilephone;
-	}
-
-	public void setMobilephone(String mobilephone) {
-		this.mobilephone = mobilephone;
-	}
-
-	public Integer getIsstate() {
-		return isstate;
-	}
-
-	public void setIsstate(Integer isstate) {
-		this.isstate = isstate;
-	}
-
-	public Integer getRoleid() {
-		return roleid;
-	}
-
-	public void setRoleid(Integer roleid) {
-		this.roleid = roleid;
-	}
-
-	public String getQq() {
-		return qq;
-	}
-
-	public void setQq(String qq) {
-		this.qq = qq;
-	}
-
-	public String getTelphone() {
-		return telphone;
-	}
-
-	public void setTelphone(String telphone) {
-		this.telphone = telphone;
-	}
-
-	public String getFax() {
-		return fax;
-	}
-
-	public void setFax(String fax) {
-		this.fax = fax;
-	}
-    
-   
+    public String getFax() {
+        return getString("fax");
+    }
 
     public String[] getSonroles() {
-		return sonroles;
-	}
-
-	public void setSonroles(String[] sonroles) {
-		this.sonroles = sonroles;
-	}
+        return getString("sonroles").split("");
+    }
 }

@@ -16,7 +16,7 @@ import java.util.Map;
 @AVClassName("hb_countrys")
 public class HbCountrys extends AVObject {
 
-    public HbCountrys(){
+    public HbCountrys() {
         super();
     }
 

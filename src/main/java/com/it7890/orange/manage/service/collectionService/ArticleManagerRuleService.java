@@ -19,7 +19,7 @@ public interface ArticleManagerRuleService {
 
     public String insertConRule(ConGrabCRule tem);
 
-    public String updateConRule (ConGrabCRule tem);
+    public String updateConRule(ConGrabCRule tem);
 
     public void deleteRuleByObjectId(String id);
 }

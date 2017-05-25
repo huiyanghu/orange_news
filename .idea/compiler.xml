@@ -12,7 +12,6 @@
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="orange_news" target="1.8" />
-      <module name="spring-boot-getting-started" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>

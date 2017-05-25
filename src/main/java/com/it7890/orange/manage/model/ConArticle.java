@@ -19,7 +19,6 @@ public class ConArticle extends AVObject {
     public ConArticle() {
         super();
     }
-
     private long id;
     private String abstracts;//简介
     private String articleid;
