@@ -182,8 +182,8 @@ public class ConArticleController {
         model.addAttribute("publications", conpublicationService.getAllConpublication());
         model.addAttribute("users", sysuserService.getAllSysUser());
         model.addAttribute("languagesSort", hblanguageService.getAllHbLanguageOrderByHbcode());
-//        model.addAttribute("channellist", ruleService.getChannellist());
-        return "article/list";
+     //   model.addAttribute("channellist", ruleService.getChannellist());
+        return "views/article/list";
     }
 
     /**
@@ -214,7 +214,7 @@ public class ConArticleController {
         model.addAttribute("conchannels", conchannelService.getAllConChannelByStatus());
         model.addAttribute("hblanguages", hblanguageService.getAllHbLanguage());
         model.addAttribute("conpublications", conpublicationService.getAllConpublication());
-        return "article/add";
+        return "views/article/add";
     }
 
     /**
