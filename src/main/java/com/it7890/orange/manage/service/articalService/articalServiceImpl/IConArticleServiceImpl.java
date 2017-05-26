@@ -122,8 +122,6 @@ public class IConArticleServiceImpl implements IConArticleService {
             avQuery.skip((pageUtil.getCurrentPage() - 1) * pageUtil.getPageSize());
             try {
                 list = avQuery.find();
-                System.out.println(list.size());
-
             } catch (AVException e) {
                 e.printStackTrace();
             }

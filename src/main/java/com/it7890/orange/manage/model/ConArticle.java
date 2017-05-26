@@ -55,6 +55,7 @@ public class ConArticle extends AVObject {
     //    private Timestamp pushtime;//发布日期
     private String plogo;
     private String authorheadimg;
+    private AppTopics topicObj;
 
 
     public String getPlogo() {
@@ -337,6 +338,13 @@ public class ConArticle extends AVObject {
         this.put("writer", writer);
     }
 
+    public AppTopics getTopicObj() {
+        return topicObj;
+    }
+
+    public void setTopicObj(AppTopics topicObj) {
+        this.topicObj = topicObj;
+    }
 
     @Override
     public String toString() {

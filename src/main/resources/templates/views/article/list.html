@@ -123,7 +123,7 @@
                             </div>
                         </div>
                         <button type="submit" class="btn btn-primary" id="search">搜索</button>
-                        <a th:href="@{/article/toadd}" class="btn btn-primary" id="add">
+                        <a th:href="@{/article/add}" class="btn btn-primary" id="add">
                             <span class="fa fa-plus-circle fa-fw"></span>
                             添加文章
                         </a>
@@ -167,9 +167,9 @@
                     <tbody>
                         <tr th:each="item:${articles}">
                             <td>
-                                <input type="checkbox" name="checkbox" th:value="${item.id}"/>
+                                <input type="checkbox" name="checkbox" th:value="${item.objectId}"/>
                             </td>
-                            <td th:text="${item.id}"></td>
+                            <td th:text="${item.objectId}"></td>
                             <td th:text="${#strings.abbreviate({item.title},20)}"></td>
                             <td th:switch="${item.ctype}">
                                 <span th:case="0">正常</span>
@@ -178,8 +178,8 @@
                             </td>
                             <!--<td th:text="(${item.ctype == 0} ? ('普'): ${item.ctype == 1} ? ('荐') : ${item.ctype == 2} ? ('顶'))"></td>-->
                             <td th:text="${item.countrycode}"></td>
-                            <td th:text="${item.topicsid}"></td>
-                            <td th:text="${item.publicationid}"></td>
+                            <td th:text="${item.topicObj}"></td>
+                            <td th:text="${item.publicationObj.name}"></td>
                             <td th:switch="${item.status}">
                                 <span th:case="0">正常</span>
                                 <span th:case="1">未审核</span>
@@ -196,61 +196,61 @@
                                     </a>
                                     <ul class="dropdown-menu">
                                         <li>
-                                            <a th:href="@{/article/add(id=${item.id})}">
+                                            <a th:href="@{/article/add(id=${item.objectId})}">
                                                 <i class="fa fa-pencil fa-fw"></i>
                                                 修改
                                             </a>
                                         </li>
                                         <li>
-                                            <a th:href="@{/article/delete(id=${item.id})}">
+                                            <a th:href="@{/article/delete(id=${item.objectId})}">
                                                 <i class="fa fa-trash-o fa-fw" ></i>
                                                 删除
                                             </a>
                                         </li>
                                         <li>
-                                            <a th:href="@{/articlescontent/add(id=${item.id})}">
+                                            <a th:href="@{/articlescontent/add(id=${item.objectId})}">
                                                 <i class="fa fa-pencil fa-fw" ></i>
                                                 文章内容管理
                                             </a>
                                         </li>
                                         <li th:if="${item.status}==1">
-                                            <a th:href="@{/article/auditing(id=${item.id})}">
+                                            <a th:href="@{/article/auditing(id=${item.objectId})}">
                                                 <i class="fa fa-pencil fa-fw" ></i>
                                                 审核
                                             </a>
                                         </li>
                                         <li>
-                                            <a th:href="@{http://www.coolook.top/article/${item.id}.html}" target="_blank">
+                                            <a th:href="@{'http://www.coolook.top/article/'+${item.objectId}+'.html'}" target="_blank">
                                                 <i class="fa fa-pencil fa-fw" ></i>
                                                 预览
                                             </a>
                                         </li>
                                         <li>
-                                            <a th:href="@{/screen/importscreen(screenstatus=1,screenid=${item.id})}">
+                                            <a th:href="@{/screen/importscreen(screenstatus=1,screenid=${item.objectId})}">
                                                 <i class="fa fa-pencil fa-fw" ></i>
                                                 导入锁屏
                                             </a>
                                         </li>
                                         <li th:if="${item.status}!=2">
-                                            <a th:href="@{/article/pushadd(id=${item.id})}">
+                                            <a th:href="@{/article/pushadd(id=${item.objectId})}">
                                                 <i class="fa fa-pencil fa-fw" ></i>
                                                 推送
                                             </a>
                                         </li>
                                         <li>
-                                            <a th:href="@{/article/pushadd2(id=${item.id})}">
+                                            <a th:href="@{/article/pushadd2(id=${item.objectId})}">
                                                 <i class="fa fa-pencil fa-fw" ></i>
                                                 推送2
                                             </a>
                                         </li>
                                         <li th:if="${item.attr}==1">
-                                            <a onclick="return checkTitleAndPic('${item.id}','${item.title}','${item.titlepic}')">
+                                            <a onclick="return checkTitleAndPic('${item.objectId}','${item.title}','${item.titlepic}')">
                                                 <i class="fa fa-pencil fa-fw" ></i>
                                                 添加到置顶图
                                             </a>
                                         </li>
                                         <li th:if="${item.channelid}==1">
-                                            <a th:href="@{/article/viewsource(id=${item.id})}" target="_blank">
+                                            <a th:href="@{/article/viewsource(id=${item.objectId})}" target="_blank">
                                                 <i class="fa fa-pencil fa-fw" ></i>
                                                 查看原文
                                             </a>
