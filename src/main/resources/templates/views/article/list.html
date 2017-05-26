@@ -178,8 +178,8 @@
                             </td>
                             <!--<td th:text="(${item.ctype == 0} ? ('普'): ${item.ctype == 1} ? ('荐') : ${item.ctype == 2} ? ('顶'))"></td>-->
                             <td th:text="${item.countrycode}"></td>
-                            <td th:text="${item.topicObj}"></td>
-                            <td th:text="${item.publicationObj.name}"></td>
+                            <td th:text="${item.get('topicObj').get('topicName')}"></td>
+                            <td th:text="${item.get('publicationObj').get('name')}"></td>
                             <td th:switch="${item.status}">
                                 <span th:case="0">正常</span>
                                 <span th:case="1">未审核</span>

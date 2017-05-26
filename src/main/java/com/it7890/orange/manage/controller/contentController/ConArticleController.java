@@ -174,7 +174,7 @@ public class ConArticleController {
             pageUtil.setRecordCount(total);
             pageUtil.setCurrentPage(page);
         }
-        List<ConArticle> list = conArticleService.getarticlelist(article, pageUtil);
+        List<AVObject> list = conArticleService.getarticlelist(article, pageUtil);
         model.addAttribute("pageUtil", pageUtil);
         model.addAttribute("article", article);
         model.addAttribute("searchstr", searchstr);

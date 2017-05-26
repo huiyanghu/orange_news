@@ -1,5 +1,6 @@
 package com.it7890.orange.manage.service.articalService;
 
+import com.avos.avoscloud.AVObject;
 import com.it7890.orange.manage.model.AppPushInfo;
 import com.it7890.orange.manage.model.ConArticle;
 import com.it7890.orange.manage.model.GlobalNode;
@@ -39,7 +40,7 @@ public interface IConArticleService {
 
     AppPushInfo getAppPushInfoByarticleId(String articleid);
 
-    public List<ConArticle> getarticlelist(ConArticle article, PageUtil pageUtil);
+    public List<AVObject> getarticlelist(ConArticle article, PageUtil pageUtil);
 
     public long articletotal(ConArticle article);
 

@@ -72,9 +72,11 @@ public class IConArticleServiceImpl implements IConArticleService {
     }
 
     @Override
-    public List<ConArticle> getarticlelist(ConArticle article, PageUtil pageUtil) {
-        List<ConArticle> list = new ArrayList<ConArticle>();
-        AVQuery<ConArticle> avQuery = new AVQuery<>("conarticle");
+    public List<AVObject> getarticlelist(ConArticle article, PageUtil pageUtil) {
+        List<AVObject> list = new ArrayList<AVObject>();
+        AVQuery avQuery = new AVQuery<>("conarticle");
+        avQuery.include("topicObj");
+        avQuery.include("publicationObj");
         AVCloudQueryResult result;
   /*      String cql = "";
         try {

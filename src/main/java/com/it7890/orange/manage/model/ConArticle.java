@@ -339,11 +339,11 @@ public class ConArticle extends AVObject {
     }
 
     public AppTopics getTopicObj() {
-        return topicObj;
+        return (AppTopics) get("topicObj");
     }
 
     public void setTopicObj(AppTopics topicObj) {
-        this.topicObj = topicObj;
+        this.put("topicObj", topicObj);
     }
 
     @Override
