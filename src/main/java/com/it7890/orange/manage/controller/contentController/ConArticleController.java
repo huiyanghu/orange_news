@@ -54,6 +54,8 @@ public class ConArticleController {
     private IConPublicationService conpublicationService;
     @Resource
     private IHbCountrysService hbcountryService;
+    @Resource
+    private IConGrabRuleService ruleService;
 
 /*
     @Value("#{configProperties['appkey']}")
@@ -182,7 +184,7 @@ public class ConArticleController {
         model.addAttribute("publications", conpublicationService.getAllConpublication());
         model.addAttribute("users", sysuserService.getAllSysUser());
         model.addAttribute("languagesSort", hblanguageService.getAllHbLanguageOrderByHbcode());
-     //   model.addAttribute("channellist", ruleService.getChannellist());
+        model.addAttribute("channellist", ruleService.getChannellist());
         return "views/article/list";
     }
 

@@ -10,6 +10,7 @@ import com.avos.avoscloud.AVCloudQueryResult;
 import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.AVObject;
 import com.avos.avoscloud.AVQuery;
+import com.it7890.orange.manage.model.ConArticle;
 import com.it7890.orange.manage.model.ConChannel;
 import com.it7890.orange.manage.model.HbTopics;
 import com.it7890.orange.manage.service.articalService.IConChannelService;
@@ -29,9 +30,9 @@ public class IConChannelServiceImpl implements IConChannelService {
     @Override
     public List<ConChannel> getAllConChannel() {
         List<ConChannel> list = new ArrayList<ConChannel>();
-        AVQuery<ConChannel> query = AVObject.getQuery(ConChannel.class);
+        AVQuery<ConChannel> avQuery = new AVQuery<>("con_channel");
         try {
-            list = query.find();
+            list = avQuery.find();
         } catch (AVException e) {
             e.printStackTrace();
         }

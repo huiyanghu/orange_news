@@ -41,7 +41,6 @@ public class ITopicsServiceImpl implements ITopicsService {
         } catch (Exception e) {
        }
 */
-
         AVQuery<HbTopics> query = AVObject.getQuery(HbTopics.class);
         try {
             list = query.find();

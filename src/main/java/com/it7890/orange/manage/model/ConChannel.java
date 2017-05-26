@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.avos.avoscloud.AVClassName;
 import com.avos.avoscloud.AVObject;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -13,16 +14,16 @@ import java.util.Map;
 @AVClassName("con_channel")
 public class ConChannel extends AVObject {
     private static final long serialVersionUID = 1L;
-    //	private int id;
-//	private Date createtime;
-//    private String channelname;
-//    private int countryid;
-//    private int createuid;
-//    private String email;
-//    private String mobile;
-//    private String password;
-//    private int status;
-//    private String telphone;
+    private int id;
+    private Date createtime;
+    private String channelname;
+    private int countryid;
+    private int createuid;
+    private String email;
+    private String mobile;
+    private String password;
+    private int status;
+    private String telphone;
 
     public ConChannel() {
         super();
