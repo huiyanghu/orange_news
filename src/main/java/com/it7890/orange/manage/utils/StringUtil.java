@@ -4,6 +4,7 @@ import java.io.BufferedInputStream;
 import java.sql.Blob;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -17,11 +18,14 @@ public class StringUtil {
 	
 	private static List<String> modulelist=null;
 
-	public static SimpleDateFormat sdff = new SimpleDateFormat(
-			"yyyy-MM-dd HH:mm:ss");
+	public static SimpleDateFormat sdff = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 	
-	public static SimpleDateFormat sdffdate = new SimpleDateFormat(
-			"yyyy-MM-dd");
+	public static SimpleDateFormat sdffdate = new SimpleDateFormat("yyyy-MM-dd");
+
+	public static String formatDateYYYYMMDDHHMMSS(Date date){
+	    String str=sdff.format(date);
+	    return str;
+    }
 
 	public static List<String> getModuleList(){
 		if(modulelist==null){
