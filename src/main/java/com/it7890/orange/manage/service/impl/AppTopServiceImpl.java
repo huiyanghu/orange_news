@@ -26,6 +26,7 @@ public class AppTopServiceImpl implements AppTopService {
         Map map;
         for (AVObject avObject:avObjectList) {
             map=new HashMap();
+
             map.put("objectId",avObject.getObjectId());
             if(avObject.get("createdAt")!=null){
                 Date createdAt=(Date)avObject.get("createdAt");
