@@ -92,25 +92,31 @@
                         </tr>
                         </tbody>
                     </table>
-                    <div class="col-sm-12 text-center">
-                        <ul class="pagination" id="pagination">
+                </div>
+                <div class="col-sm-12 text-center">
+                    <ul class="pagination" id="pagination">
 
-                        </ul>
-                        <ul id="countabs">
-                        </ul>
-                        <!-- 总条数 -->
-                        <input type="hidden" id="PageCount" runat="server" value="${listPaginator.totalCount}"/>
-                        <!-- 总页数 -->
-                        <input type="hidden" id="countindex" runat="server" value="${listPaginator.totalPages}"/>
-                        <!-- 当前第几页 -->
-                        <input type="hidden" id="Pagedq" runat="server" value="${listPaginator.page}"/>
-                        <!-- 请求的地址 -->
-                        <input type="hidden" id="pageUrl" runat="server" value="${ctx }/conrule/list"/>
-                        <!-- 请求的参数 -->
-                        <input type="hidden" id="pageParameter" runat="server" value="${searchstr}"/>
-                        <!--设置最多显示的页码数 可以手动设置 默认为7-->
-                        <input type="hidden" id="visiblePages" runat="server" value="10"/>
-                    </div>
+                    </ul>
+                    <ul id="countabs">
+                    </ul>
+                    <!-- 总条数 -->
+                    <input type="hidden" id="PageCount" runat="server" value="${listPaginator.totalCount}"/>
+                    <!-- 总页数 -->
+                    <input type="hidden" id="countindex" runat="server" value="${listPaginator.totalPages}"/>
+                    <!-- 当前第几页 -->
+                    <input type="hidden" id="Pagedq" runat="server" value="${listPaginator.page}"/>
+                    <!-- 请求的地址 -->
+                    <input type="hidden" id="pageUrl" runat="server" value="${ctx }/conrule/list"/>
+                    <!-- 请求的参数 -->
+                    <input type="hidden" id="pageParameter" runat="server" value="${searchstr}"/>
+                    <!--设置最多显示的页码数 可以手动设置 默认为7-->
+                    <input type="hidden" id="visiblePages" runat="server" value="10"/>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 </body>
 </html>
 

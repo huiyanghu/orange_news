@@ -85,12 +85,12 @@
             </a>
 
                 <ul class="dropdown-menu dropdown-user">
-                    <li><a href="${ctx }/user/editmyinfo" target="main"><i
+                    <li><a href="/user/editmyinfo" target="main"><i
                         class="fa fa-user fa-fw"></i>个人资料</a></li>
-                    <li><a href="${ctx }/user/editpassword" target="main"><i
+                    <li><a href="/user/editpassword" target="main"><i
                         class="fa fa-pencil fa-fw"></i>修改密码</a></li>
                     <li class="divider"></li>
-                    <li><a href="${ctx }/logout"><i
+                    <li><a href="/logout"><i
                         class="fa fa-sign-out fa-fw"></i>退出登陆</a></li>
                 </ul>
         </ul>
@@ -101,16 +101,16 @@
                     <li>
                         <a href="javascript:void(0);"><i class="fa fa-cog fa-fw"></i>应用管理</a>
                         <ul class="nav nav-second-level collapse">
-                            <li><a href="/listrule/list/"><i class="fa fa-tag fa-fw"></i>列表规则管理</a></li>
-                            <li><a href="/conrule/list/"><i class="fa fa-th fa-fw"></i>文章规则管理</a></li>
-                            <li><a href="/globalrule/list"><i class="fa fa-users fa-fw"></i>规则管理</a></li>
-                            <li><a href="/conpublication/list"><i class="fa fa-dashboard fa-fw"></i>媒体管理</a></li>
+                            <li><a href="javascript:void(0);" url="/listrule/list/"><i class="fa fa-tag fa-fw"></i>列表规则管理</a></li>
+                            <li><a href="javascript:void(0);" url="/conrule/list/"><i class="fa fa-th fa-fw"></i>文章规则管理</a></li>
+                            <li><a href="javascript:void(0);" url="/globalrule/list"><i class="fa fa-users fa-fw"></i>规则管理</a></li>
+                            <li><a href="javascript:void(0);" url="/conpublication/list"><i class="fa fa-dashboard fa-fw"></i>媒体管理</a></li>
                         </ul>
                     </li>
                     <li>
                         <a href="javascript:void(0);"><i class="fa fa-rss fa-fw"></i>内容相关</a>
                         <ul class="nav nav-second-level collapse">
-                            <li><a href="/article/list/"><i class="fa fa-file-o fa-fw"></i>文章管理</a></li>
+                            <li><a href="javascript:void(0);" url="/article/list/"><i class="fa fa-file-o fa-fw"></i>文章管理</a></li>
                         </ul>
                     </li>
                     <!--<li><a href="#"><i class="fa fa-dashboard fa-fw"></i>内容相关</a></li>-->
@@ -173,26 +173,33 @@
             <!-- /.sidebar-collapse -->
         </div>
     </nav>
-    <div id="page-wrapper">
-        <sitemesh:body/>
+    <div id="page-wrapper" style="padding: 0;">
+        <iframe src="" frameborder="0" id="rightFrame" width="100%"></iframe>
     </div>
 </div>
 <script type="text/javascript">
     $(function () {
-        $('#side-menu li').each(function () {
-            var len = $(this).children('ul').length;
+        $('#side-menu a').each(function () {
+            var len = $(this).siblings('ul').length;
             if (len != 0) {
                 $(this).attr('onclick', 'toggleMenu(this)');
             }
         });
+        var screenH = $(window).height();
+        var h = $('.navbar').height()+7;
+        $('#rightFrame').css('height',screenH-h);
     });
     function toggleMenu(obj) {
-        var childUl = $(obj).children('ul');
+        var childUl = $(obj).siblings('ul');
         if (childUl.hasClass('in')) {
             childUl.removeClass('in');
         } else {
             childUl.addClass('in');
         }
     }
+    $('.nav-second-level li').click(function(){
+        var url = $(this).children('a').attr('url');
+        $('#rightFrame').attr('src',url);
+    });
 </script>
 </body>

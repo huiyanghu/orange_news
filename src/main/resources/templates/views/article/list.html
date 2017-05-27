@@ -20,7 +20,6 @@
     <script type="text/javascript" src="/stylesheets/js/page/myPage.js"></script>
     <script type="text/javascript" src="/stylesheets/js/plugins/My97DatePicker/WdatePicker.js"></script>
     <style>
-        .row{ margin: 0;}
         #dataTables-example .dropdown-menu{ right: 0; left: auto;}
     </style>
 </head>
@@ -261,26 +260,27 @@
                         </tr>
                     </tbody>
                 </table>
-                <div class="col-sm-12 text-center">
-                    <ul class="pagination" id="pagination">
 
-                    </ul>
-                    <ul id="countabs">
+            </div>
+            <div class="col-sm-12 text-center">
+                <ul class="pagination" id="pagination">
 
-                    </ul>
-                    <!-- 总条数 -->
-                    <input type="hidden" id="PageCount" runat="server" th:value="${pageUtil.recordCount}"/>
-                    <!-- 总页数 -->
-                    <input type="hidden" id="countindex" runat="server" th:value="(${pageUtil.pagecount}>=1000?1000:${pageUtil.pagecount})"/>
-                    <!-- 当前第几页 -->
-                    <input type="hidden" id="Pagedq" runat="server" th:value="${pageUtil.currentPage}"/>
-                    <!-- 请求的地址 -->
-                    <input type="hidden" id="pageUrl" runat="server" th:value="@{/article/list}"/>
-                    <!-- 请求的参数 -->
-                    <input type="hidden" id="pageParameter" runat="server" th:value="${searchstr}"/>
-                    <!--设置最多显示的页码数 可以手动设置 默认为7-->
-                    <input type="hidden" id="visiblePages" runat="server" th:value="10" />
-                </div>
+                </ul>
+                <ul id="countabs">
+
+                </ul>
+                <!-- 总条数 -->
+                <input type="hidden" id="PageCount" runat="server" th:value="${pageUtil.recordCount}"/>
+                <!-- 总页数 -->
+                <input type="hidden" id="countindex" runat="server" th:value="(${pageUtil.pagecount}>=1000?1000:${pageUtil.pagecount})"/>
+                <!-- 当前第几页 -->
+                <input type="hidden" id="Pagedq" runat="server" th:value="${pageUtil.currentPage}"/>
+                <!-- 请求的地址 -->
+                <input type="hidden" id="pageUrl" runat="server" th:value="@{/article/list}"/>
+                <!-- 请求的参数 -->
+                <input type="hidden" id="pageParameter" runat="server" th:value="${searchstr}"/>
+                <!--设置最多显示的页码数 可以手动设置 默认为7-->
+                <input type="hidden" id="visiblePages" runat="server" th:value="10" />
             </div>
         </div>
     </div>
