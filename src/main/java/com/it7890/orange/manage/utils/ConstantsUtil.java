@@ -34,21 +34,21 @@ public class ConstantsUtil {
         }
         return "";
     }
-    public static Map getAppTopItypeAll(){
+    public static Map getAppTopCtypeAll(){
         Map map = new HashMap();
-        map.put(1, "文章");
-        map.put(2, "竞猜");
-        map.put(3, "广告");
+        map.put("1", "文章");
+        map.put("2", "竞猜");
+        map.put("3", "广告");
         return map;
     }
-    public static String getAppTopItypeStr(String itype) {
-        Map map = getAppTopItypeAll();
+    public static String getAppTopCtypeStr(String itype) {
+        Map map = getAppTopCtypeAll();
         if (StringUtil.isNotNull(itype)) {
             Pattern pattern = Pattern.compile("[0-9]*");
             Matcher isNum = pattern.matcher(itype);
             if (isNum.matches()) {
-                if (null != map.get(Integer.parseInt(itype))) {
-                    return "" + map.get(Integer.parseInt(itype));
+                if (null != map.get(itype)) {
+                    return ""+map.get(itype);
                 }
             }
         }

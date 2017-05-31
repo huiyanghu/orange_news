@@ -26,6 +26,9 @@ public class AppTopDaoImpl extends BaseDaoImpl<AppTop> implements AppTopDao {
         /*appTopList*/
         AVQuery<AVObject> query = new AVQuery<>("AppTop");
         query.whereNotEqualTo("status",-1);//status=-1删除
+        if (appTopQuery.getStatus() != null) {
+            query.whereEqualTo("status", appTopQuery.getStatus());
+        }
         if (appTopQuery.getCtype() != null) {
             query.whereEqualTo("cType", appTopQuery.getCtype());
         }
@@ -46,7 +49,7 @@ public class AppTopDaoImpl extends BaseDaoImpl<AppTop> implements AppTopDao {
                 Date createdAt = (Date) avObject.get("createdAt");
                 m.put("createdAt", StringUtil.formatDateYYYYMMDDHHMMSS(createdAt));
             }
-            m.put("iType", ConstantsUtil.getAppTopItypeStr("" + avObject.get("iType")));
+            m.put("ctype", ConstantsUtil.getAppTopCtypeStr("" + avObject.get("cType")));
             if (avObject.getAVObject("languagesObj") != null) {
                 m.put("languageRemark", avObject.getAVObject("languagesObj").get("remark"));
             }

@@ -43,10 +43,16 @@ public class AppTopController {
     public String getAll(Map map, AppTopQuery appTopQuery, @RequestParam(value = "page", required = false, defaultValue = "1") Integer page) throws AVException {
         Map appTopListAndPageUtilMap = appTopService.getAll(appTopQuery, page);//置顶大图列表
         List<HbCountrys> countryList = hbCountryService.getAll();//国家列表
+        map.remove("org.springframework.validation.BindingResult.appTopQuery");
         map.put("countryList", countryList);
-        map.put("AppTopItypeMap", ConstantsUtil.getAppTopItypeAll());//类型列表
+        map.put("AppTopCtypeMap", ConstantsUtil.getAppTopCtypeAll());//类型列表
         map.putAll(appTopListAndPageUtilMap);
-        //System.out.println(map);
+
+        //Object o= JSON.toJSON(map);
+        //System.out.println(o);
+
+
+
         return "views/appTop/list";
     }
     @RequestMapping(path = "/delete", method = RequestMethod.GET)
