@@ -1,17 +1,19 @@
 package com.it7890.orange.manage.controller;
 
 import com.avos.avoscloud.AVException;
+import com.it7890.orange.manage.model.HbCountrys;
 import com.it7890.orange.manage.po.AppTopQuery;
 import com.it7890.orange.manage.service.AppTopService;
+import com.it7890.orange.manage.service.applicationService.HbCountryService;
+import com.it7890.orange.manage.utils.ConstantsUtil;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 import java.util.Map;
@@ -26,19 +28,45 @@ public class AppTopController {
 
     @Autowired
     private AppTopService appTopService;
+    @Autowired
+    private HbCountryService hbCountryService;
 
+    /**
+     * 按条件查询
+     * @param map
+     * @param appTopQuery
+     * @param page
+     * @return
+     * @throws AVException
+     */
     @RequestMapping(path = "/list", method = RequestMethod.GET)
-    public String getAll(Model model,@ModelAttribute AppTopQuery appTopQuery, @RequestParam(value = "page", required = false, defaultValue = "1") Integer page) throws AVException {
+    public String getAll(Map map, AppTopQuery appTopQuery, @RequestParam(value = "page", required = false, defaultValue = "1") Integer page) throws AVException {
+        Map appTopListAndPageUtilMap = appTopService.getAll(appTopQuery, page);//置顶大图列表
+        List<HbCountrys> countryList = hbCountryService.getAll();//国家列表
 
-
-
-        List<Map> appTopList=appTopService.getAll(appTopQuery,page);
-        model.addAttribute("appTopList",appTopList);
-
-
-
-
+        map.put("countryList", hbCountryService.getAll());
+        map.put("AppTopItypeMap", ConstantsUtil.getAppTopItypeAll());//类型列表
+        map.putAll(appTopListAndPageUtilMap);
+        System.out.println(map);
         return "views/appTop/list";
+    }
+    @RequestMapping(path = "/delete", method = RequestMethod.GET)
+    public String deleteAppTop(AppTopQuery appTopQuery, Integer page, RedirectAttributes attributes) throws AVException {
+        appTopService.delete(appTopQuery.getObjectId());
+        attributes.addFlashAttribute("success", "删除成功!");
+
+        attributes.addAttribute("page",page);
+
+        attributes.addAttribute("countryCode",appTopQuery.getCountryCode());
+        attributes.addAttribute("ctype",appTopQuery.getCtype());
+        attributes.addAttribute("startTime",appTopQuery.getStartTime());
+        attributes.addAttribute("endTime",appTopQuery.getEndTime());
+
+        System.out.println(appTopQuery);
+        //attributes.addAttribute("appTopQuery",new HashMap());
+        System.out.println("++++++++++++++++++++++++++++");
+
+        return "redirect:/appTop/list";
     }
 
 }

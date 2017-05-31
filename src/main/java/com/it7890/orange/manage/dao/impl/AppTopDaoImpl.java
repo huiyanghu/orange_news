@@ -3,40 +3,69 @@ package com.it7890.orange.manage.dao.impl;
 import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.AVObject;
 import com.avos.avoscloud.AVQuery;
+import com.it7890.orange.manage.base.dao.impl.BaseDaoImpl;
 import com.it7890.orange.manage.dao.AppTopDao;
+import com.it7890.orange.manage.model.AppTop;
 import com.it7890.orange.manage.po.AppTopQuery;
+import com.it7890.orange.manage.utils.ConstantsUtil;
 import com.it7890.orange.manage.utils.PageUtil;
+import com.it7890.orange.manage.utils.StringUtil;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by Administrator on 2017/5/26.
  */
 @Repository
-public class AppTopDaoImpl implements AppTopDao {
-
-
+public class AppTopDaoImpl extends BaseDaoImpl<AppTop> implements AppTopDao {
     @Override
-    public List<AVObject> getAll(AppTopQuery appTopQuery, Integer page) throws AVException {
+    public Map getAll(AppTopQuery appTopQuery, Integer page) throws AVException {
+        Map map=new HashMap();
+
+        /*appTopList*/
         AVQuery<AVObject> query = new AVQuery<>("AppTop");
-
-        if (appTopQuery.getcType() != null) {
-            query.whereEqualTo("cType", appTopQuery.getcType());
+        query.whereNotEqualTo("status",-1);//status=-1删除
+        if (appTopQuery.getCtype() != null) {
+            query.whereEqualTo("cType", appTopQuery.getCtype());
         }
-
-
         PageUtil pageUtil = new PageUtil();
-        query.orderByDescending("createdAt");//按创建时间降序
+        query.orderByDescending("createdAt");
         Integer pageSize = pageUtil.getPageSize();
         query.skip((page - 1) * pageSize);
         query.limit(pageSize);
         query.include("languagesObj");
-        List<AVObject> appTopList = query.find();
-        /*for (AVObject avObject:appTopList){
-            System.out.println(avObject.getObjectId());
-            System.out.println(avObject.get("cType"));
-        }*/
-        return appTopList;
+        query.include("countryObj");
+        List<AVObject> avObjectList = query.find();
+        List<Map> appTopList = new ArrayList<Map>();
+        Map m;
+        for (AVObject avObject : avObjectList) {
+            m = new HashMap();
+            m.put("objectId", avObject.getObjectId());
+            if (avObject.get("createdAt") != null) {
+                Date createdAt = (Date) avObject.get("createdAt");
+                m.put("createdAt", StringUtil.formatDateYYYYMMDDHHMMSS(createdAt));
+            }
+            m.put("iType", ConstantsUtil.getAppTopItypeStr("" + avObject.get("iType")));
+            if (avObject.getAVObject("languagesObj") != null) {
+                m.put("languageRemark", avObject.getAVObject("languagesObj").get("remark"));
+            }
+            if (avObject.getAVObject("countryObj") != null) {
+                m.put("countryCnName", avObject.getAVObject("countryObj").get("cnName"));
+            }
+            appTopList.add(m);
+        }
+        map.put("appTopList",appTopList);
+
+        /*pageUtil*/
+        Integer count=query.count();
+        pageUtil.setCurrentPage(page);
+        pageUtil.setRecordCount(count);
+        pageUtil.setPagecount(pageUtil.getPagecount());
+        map.put("pageUtil",pageUtil);
+        return map;
     }
+
+
+
 }

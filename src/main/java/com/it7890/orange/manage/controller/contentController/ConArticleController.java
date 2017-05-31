@@ -1,41 +1,35 @@
 
 package com.it7890.orange.manage.controller.contentController;
 
-import java.util.Date;
-import java.util.List;
-import java.util.UUID;
-
-import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-
-import com.avos.avoscloud.AVCloudQueryResult;
 import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.AVObject;
 import com.avos.avoscloud.AVQuery;
 import com.it7890.orange.manage.model.ConArticle;
 import com.it7890.orange.manage.model.SysUser;
 import com.it7890.orange.manage.service.articalService.*;
-import com.it7890.orange.manage.service.articalService.IConArticleService;
-import com.it7890.orange.manage.service.articalService.IHbCountrysService;
 import com.it7890.orange.manage.utils.MD5;
 import com.it7890.orange.manage.utils.PageUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import java.util.Date;
+import java.util.List;
+import java.util.UUID;
 
 
 /**
  * @Description: 文章管理Controller
  * @date 2015年11月12日 下午2:42:49
  */
-@Controller
+//@Controller
 @RequestMapping("/article")
 public class ConArticleController {
     private final Logger logger = LoggerFactory.getLogger(this.getClass());

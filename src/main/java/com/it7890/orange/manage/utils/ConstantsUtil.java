@@ -9,7 +9,7 @@ import java.util.regex.Pattern;
  * Created by Administrator on 2017/5/27.
  */
 public class ConstantsUtil {
-    public static String getAppTopArtitypeStr(String artitype) {
+    public static Map getAppTopArtitypeAll(){
         Map map = new HashMap();
         map.put(0, "文字文章");
         map.put(1, "图文文章");
@@ -19,6 +19,10 @@ public class ConstantsUtil {
         map.put(5, "竞猜文章");
         map.put(6, "游戏文章");
         map.put(7, "其他");
+        return map;
+    }
+    public static String getAppTopArtitypeStr(String artitype) {
+        Map map = getAppTopArtitypeAll();
         if (StringUtil.isNotNull(artitype)) {
             Pattern pattern = Pattern.compile("[0-9]*");
             Matcher isNum = pattern.matcher(artitype);
@@ -26,17 +30,19 @@ public class ConstantsUtil {
                 if (null != map.get(Integer.parseInt(artitype))) {
                     return "" + map.get(Integer.parseInt(artitype));
                 }
-
             }
         }
         return "";
     }
-
-    public static String getAppTopItypeStr(String itype) {
+    public static Map getAppTopItypeAll(){
         Map map = new HashMap();
         map.put(1, "文章");
         map.put(2, "竞猜");
         map.put(3, "广告");
+        return map;
+    }
+    public static String getAppTopItypeStr(String itype) {
+        Map map = getAppTopItypeAll();
         if (StringUtil.isNotNull(itype)) {
             Pattern pattern = Pattern.compile("[0-9]*");
             Matcher isNum = pattern.matcher(itype);
@@ -44,7 +50,6 @@ public class ConstantsUtil {
                 if (null != map.get(Integer.parseInt(itype))) {
                     return "" + map.get(Integer.parseInt(itype));
                 }
-
             }
         }
         return "";

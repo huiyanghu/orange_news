@@ -20,6 +20,14 @@
 
     <script type="text/javascript" src="/stylesheets/js/plugins/My97DatePicker/WdatePicker.js"></script>
     <script type="text/javascript">
+
+        $(function () {
+            console.warn('success--------------------')
+            console.warn("${success}")
+            if($(success)!=null){
+                alert($(success));
+            }
+        })
         function refreshs(obj){
             var id=$(obj).attr("beanid");
             if(confirm("确认要修改更新时间吗?")){
@@ -156,7 +164,7 @@
                                 <tbody>
                                  <tr th:each="appTop:${appTopList}">
                                      <td th:text="${appTop.get('objectId')}"></td>
-                                     <td th:text="${appTop.get('languageRemark')}"></td>
+                                     <td th:text="${appTop.get('countryCnName')}"></td>
                                      <td th:text="${appTop.get('languageRemark')}"></td>
                                      <td th:text="${appTop.get('objectId')}"></td>
                                      <td th:text="${appTop.get('iType')}"></td>

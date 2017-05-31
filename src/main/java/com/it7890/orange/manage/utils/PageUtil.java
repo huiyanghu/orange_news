@@ -59,4 +59,14 @@ public class PageUtil {
     public void setRecordCount(int recordCount) {
         this.recordCount = recordCount;
     }
+
+    @Override
+    public String toString() {
+        return "PageUtil{" +
+            "pageSize=" + pageSize +
+            ", recordCount=" + recordCount +
+            ", currentPage=" + currentPage +
+            ", pagecount=" + pagecount +
+            '}';
+    }
 }
