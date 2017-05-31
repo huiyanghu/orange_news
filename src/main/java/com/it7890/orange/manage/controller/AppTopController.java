@@ -43,11 +43,10 @@ public class AppTopController {
     public String getAll(Map map, AppTopQuery appTopQuery, @RequestParam(value = "page", required = false, defaultValue = "1") Integer page) throws AVException {
         Map appTopListAndPageUtilMap = appTopService.getAll(appTopQuery, page);//置顶大图列表
         List<HbCountrys> countryList = hbCountryService.getAll();//国家列表
-
-        map.put("countryList", hbCountryService.getAll());
+        map.put("countryList", countryList);
         map.put("AppTopItypeMap", ConstantsUtil.getAppTopItypeAll());//类型列表
         map.putAll(appTopListAndPageUtilMap);
-        System.out.println(map);
+        //System.out.println(map);
         return "views/appTop/list";
     }
     @RequestMapping(path = "/delete", method = RequestMethod.GET)
@@ -64,7 +63,7 @@ public class AppTopController {
 
         System.out.println(appTopQuery);
         //attributes.addAttribute("appTopQuery",new HashMap());
-        System.out.println("++++++++++++++++++++++++++++");
+        //System.out.println("++++++++++++++++++++++++++++");
 
         return "redirect:/appTop/list";
     }
