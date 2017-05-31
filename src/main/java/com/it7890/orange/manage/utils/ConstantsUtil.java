@@ -41,14 +41,14 @@ public class ConstantsUtil {
         map.put("3", "广告");
         return map;
     }
-    public static String getAppTopCtypeStr(String itype) {
+    public static String getAppTopCtypeStr(String ctype) {
         Map map = getAppTopCtypeAll();
-        if (StringUtil.isNotNull(itype)) {
+        if (StringUtil.isNotNull(ctype)) {
             Pattern pattern = Pattern.compile("[0-9]*");
-            Matcher isNum = pattern.matcher(itype);
+            Matcher isNum = pattern.matcher(ctype);
             if (isNum.matches()) {
-                if (null != map.get(itype)) {
-                    return ""+map.get(itype);
+                if (null != map.get(ctype)) {
+                    return "" + map.get(ctype);
                 }
             }
         }

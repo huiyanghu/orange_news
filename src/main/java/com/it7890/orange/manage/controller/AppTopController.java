@@ -1,5 +1,6 @@
 package com.it7890.orange.manage.controller;
 
+import com.alibaba.fastjson.JSON;
 import com.avos.avoscloud.AVException;
 import com.it7890.orange.manage.model.HbCountrys;
 import com.it7890.orange.manage.po.AppTopQuery;
@@ -46,10 +47,12 @@ public class AppTopController {
         map.remove("org.springframework.validation.BindingResult.appTopQuery");
         map.put("countryList", countryList);
         map.put("AppTopCtypeMap", ConstantsUtil.getAppTopCtypeAll());//类型列表
+        map.put("appTopQuery",appTopQuery);
         map.putAll(appTopListAndPageUtilMap);
 
-        //Object o= JSON.toJSON(map);
-        //System.out.println(o);
+
+        Object o= JSON.toJSON(map);
+        System.out.println(o);
 
 
 
