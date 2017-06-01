@@ -15,14 +15,14 @@ import java.util.regex.Pattern;
 public class ConstantsUtil {
     public static Map getAppTopArtitypeAll(){
         Map map = new HashMap();
-        map.put(0, "文字文章");
-        map.put(1, "图文文章");
-        map.put(2, "视频文章");
-        map.put(3, "链接文章");
-        map.put(4, "H5游戏文章");
-        map.put(5, "竞猜文章");
-        map.put(6, "游戏文章");
-        map.put(7, "其他");
+        map.put("0", "文字文章");
+        map.put("1", "图文文章");
+        map.put("2", "视频文章");
+        map.put("3", "链接文章");
+        map.put("4", "H5游戏文章");
+        map.put("5", "竞猜文章");
+        map.put("6", "游戏文章");
+        map.put("7", "其他");
         return map;
     }
     public static String getAppTopArtitypeStr(String artitype) {
@@ -31,15 +31,15 @@ public class ConstantsUtil {
             Pattern pattern = Pattern.compile("[0-9]*");
             Matcher isNum = pattern.matcher(artitype);
             if (isNum.matches()) {
-                if (null != map.get(Integer.parseInt(artitype))) {
-                    return "" + map.get(Integer.parseInt(artitype));
+                if (null != map.get(artitype)) {
+                    return "" + map.get(artitype);
                 }
             }
         }
         return "";
     }
 
-    public static List<Map> getAppTopCtypeAll(){
+    public static List<Map> getAppTopItypeAll(){
         List<Map> list=new ArrayList<Map>();
         Map map = new HashMap();
         map.put("key", "1");
@@ -55,8 +55,8 @@ public class ConstantsUtil {
         list.add(map);
         return list;
     }
-    public static String getAppTopCtypeStr(String ctype) {
-        List<Map> list=getAppTopCtypeAll();
+    public static String getAppTopItypeStr(String ctype) {
+        List<Map> list=getAppTopItypeAll();
         if (StringUtil.isNotNull(ctype)) {
             Pattern pattern = Pattern.compile("[0-9]*");
             Matcher isNum = pattern.matcher(ctype);
@@ -72,8 +72,8 @@ public class ConstantsUtil {
     }
 
     public static void main(String[] args) {
-        System.out.println(JSON.toJSON(getAppTopCtypeAll()));
-        System.out.println(getAppTopCtypeStr("1ss"));
+        System.out.println(JSON.toJSON(getAppTopItypeAll()));
+        System.out.println(getAppTopItypeStr("1ss"));
     }
 
 }

@@ -339,7 +339,8 @@ public class ConArticle extends AVObject {
     }
 
     public AppTopics getTopicObj() {
-        return (AppTopics) get("topicObj");
+        //return (AppTopics) get("topicObj");
+        return null;
     }
 
     public void setTopicObj(AppTopics topicObj) {

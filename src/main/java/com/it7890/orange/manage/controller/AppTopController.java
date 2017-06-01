@@ -46,13 +46,13 @@ public class AppTopController {
         List<HbCountrys> countryList = hbCountryService.getAll();//国家列表
         map.remove("org.springframework.validation.BindingResult.appTopQuery");
         map.put("countryList", countryList);
-        map.put("appTopCtypeList", ConstantsUtil.getAppTopCtypeAll());//类型列表
+        map.put("appTopCtypeList", ConstantsUtil.getAppTopItypeAll());//类型列表
         map.put("appTopQuery",appTopQuery);
         map.putAll(appTopListAndPageUtilMap);
 
 
-        Object o= JSON.toJSON(map);
-        System.out.println(o);
+
+        System.out.println(JSON.toJSON(map));
 
 
 
@@ -61,7 +61,7 @@ public class AppTopController {
     @RequestMapping(path = "/delete", method = RequestMethod.GET)
     public String deleteAppTop(AppTopQuery appTopQuery, Integer page, RedirectAttributes attributes) throws AVException {
         appTopService.delete(appTopQuery.getObjectId());
-        attributes.addFlashAttribute("success", "删除成功!");
+        attributes.addFlashAttribute("msg", "删除成功!");
 
         attributes.addAttribute("page",page);
 
@@ -75,6 +75,13 @@ public class AppTopController {
         //System.out.println("++++++++++++++++++++++++++++");
 
         return "redirect:/appTop/list";
+    }
+
+    @RequestMapping(path = "/test", method = RequestMethod.GET)
+    public String test( ) throws AVException {
+
+
+        return "views/appTop/test";
     }
 
 }
