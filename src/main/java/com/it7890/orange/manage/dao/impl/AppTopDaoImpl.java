@@ -8,6 +8,7 @@ import com.it7890.orange.manage.dao.AppTopDao;
 import com.it7890.orange.manage.model.AppTop;
 import com.it7890.orange.manage.po.AppTopQuery;
 import com.it7890.orange.manage.utils.ConstantsUtil;
+import com.it7890.orange.manage.utils.DateUtil;
 import com.it7890.orange.manage.utils.PageUtil;
 import com.it7890.orange.manage.utils.StringUtil;
 import org.springframework.stereotype.Repository;
@@ -25,15 +26,24 @@ public class AppTopDaoImpl extends BaseDaoImpl<AppTop> implements AppTopDao {
 
         /*appTopList*/
         AVQuery<AVObject> query = new AVQuery<>("AppTop");
-        query.whereNotEqualTo("status",-1);//status=-1删除
+        if (appTopQuery.getCountryCode() != null&&!"".equals(appTopQuery.getCountryCode())) {
+            query.whereEqualTo("countryCode", appTopQuery.getCountryCode());
+        }
+        if (appTopQuery.getStartTime()!= null&&!"".equals(appTopQuery.getStartTime())) {
+            query.whereGreaterThanOrEqualTo("createdAt", DateUtil.getDateByStr(appTopQuery.getStartTime()));
+        }
+        if (appTopQuery.getEndTime()!= null&&!"".equals(appTopQuery.getEndTime())) {
+            query.whereLessThan("createdAt",DateUtil.addDay(DateUtil.getDateByStr(appTopQuery.getEndTime()),1) );
+        }
         if (appTopQuery.getStatus() != null) {
             query.whereEqualTo("status", appTopQuery.getStatus());
         }
         if (appTopQuery.getCtype() != null) {
             query.whereEqualTo("cType", appTopQuery.getCtype());
         }
-        PageUtil pageUtil = new PageUtil();
         query.orderByDescending("createdAt");
+
+        PageUtil pageUtil = new PageUtil();
         Integer pageSize = pageUtil.getPageSize();
         query.skip((page - 1) * pageSize);
         query.limit(pageSize);
