@@ -46,7 +46,7 @@ public class AppTopController {
         List<HbCountrys> countryList = hbCountryService.getAll();//国家列表
         map.remove("org.springframework.validation.BindingResult.appTopQuery");
         map.put("countryList", countryList);
-        map.put("AppTopCtypeMap", ConstantsUtil.getAppTopCtypeAll());//类型列表
+        map.put("appTopCtypeList", ConstantsUtil.getAppTopCtypeAll());//类型列表
         map.put("appTopQuery",appTopQuery);
         map.putAll(appTopListAndPageUtilMap);
 

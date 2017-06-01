@@ -1,6 +1,10 @@
 package com.it7890.orange.manage.utils;
 
+import com.alibaba.fastjson.JSON;
+
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -34,24 +38,42 @@ public class ConstantsUtil {
         }
         return "";
     }
-    public static Map getAppTopCtypeAll(){
+
+    public static List<Map> getAppTopCtypeAll(){
+        List<Map> list=new ArrayList<Map>();
         Map map = new HashMap();
-        map.put("1", "文章");
-        map.put("2", "竞猜");
-        map.put("3", "广告");
-        return map;
+        map.put("key", "1");
+        map.put("value", "文章");
+        list.add(map);
+        map = new HashMap();
+        map.put("key", "2");
+        map.put("value", "竞猜");
+        list.add(map);
+        map = new HashMap();
+        map.put("key", "3");
+        map.put("value", "广告");
+        list.add(map);
+        return list;
     }
     public static String getAppTopCtypeStr(String ctype) {
-        Map map = getAppTopCtypeAll();
+        List<Map> list=getAppTopCtypeAll();
         if (StringUtil.isNotNull(ctype)) {
             Pattern pattern = Pattern.compile("[0-9]*");
             Matcher isNum = pattern.matcher(ctype);
             if (isNum.matches()) {
-                if (null != map.get(ctype)) {
-                    return "" + map.get(ctype);
+                for (Map m:list) {
+                    if (m.get("key")!=null&&ctype.equals(""+m.get("key"))){
+                        return ""+m.get("value");
+                    }
                 }
             }
         }
         return "";
     }
+
+    public static void main(String[] args) {
+        System.out.println(JSON.toJSON(getAppTopCtypeAll()));
+        System.out.println(getAppTopCtypeStr("1ss"));
+    }
+
 }
