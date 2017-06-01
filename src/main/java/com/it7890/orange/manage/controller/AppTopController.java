@@ -3,9 +3,11 @@ package com.it7890.orange.manage.controller;
 import com.alibaba.fastjson.JSON;
 import com.avos.avoscloud.AVException;
 import com.it7890.orange.manage.model.HbCountrys;
+import com.it7890.orange.manage.model.HbLanguage;
 import com.it7890.orange.manage.po.AppTopQuery;
 import com.it7890.orange.manage.service.AppTopService;
 import com.it7890.orange.manage.service.applicationService.HbCountryService;
+import com.it7890.orange.manage.service.contentService.LanguageService;
 import com.it7890.orange.manage.utils.ConstantsUtil;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
@@ -31,9 +33,12 @@ public class AppTopController {
     private AppTopService appTopService;
     @Autowired
     private HbCountryService hbCountryService;
+    @Autowired
+    private LanguageService languageService;
 
     /**
      * 按条件查询
+     *
      * @param map
      * @param appTopQuery
      * @param page
@@ -47,35 +52,40 @@ public class AppTopController {
         map.remove("org.springframework.validation.BindingResult.appTopQuery");
         map.put("countryList", countryList);
         map.put("appTopCtypeList", ConstantsUtil.getAppTopItypeAll());//类型列表
-        map.put("appTopQuery",appTopQuery);
+        map.put("appTopQuery", appTopQuery);
         map.putAll(appTopListAndPageUtilMap);
         System.out.println(JSON.toJSON(map));
         return "views/appTop/list";
     }
+
     @RequestMapping(path = "/delete", method = RequestMethod.GET)
     public String deleteAppTop(AppTopQuery appTopQuery, Integer page, RedirectAttributes attributes) throws AVException {
         appTopService.delete(appTopQuery.getObjectId());
         attributes.addFlashAttribute("msg", "删除成功!");
-
-        attributes.addAttribute("page",page);
-
-        attributes.addAttribute("countryCode",appTopQuery.getCountryCode());
-        attributes.addAttribute("ctype",appTopQuery.getCtype());
-        attributes.addAttribute("startTime",appTopQuery.getStartTime());
-        attributes.addAttribute("endTime",appTopQuery.getEndTime());
-
-        System.out.println(appTopQuery);
-        //attributes.addAttribute("appTopQuery",new HashMap());
-        //System.out.println("++++++++++++++++++++++++++++");
-
+        attributes.addAttribute("page", page);
+        attributes.addAttribute("countryCode", appTopQuery.getCountryCode());
+        attributes.addAttribute("ctype", appTopQuery.getCtype());
+        attributes.addAttribute("startTime", appTopQuery.getStartTime());
+        attributes.addAttribute("endTime", appTopQuery.getEndTime());
         return "redirect:/appTop/list";
     }
 
-    @RequestMapping(path = "/test", method = RequestMethod.GET)
-    public String test( ) throws AVException {
+    @RequestMapping(path = "/toUpdate", method = RequestMethod.GET)
+    public String toUpdate(String objectId, Map map) throws AVException {
+        map.put("appTop", appTopService.getAppTop(objectId));
+        List<HbCountrys> countryList = hbCountryService.getAll();//国家列表
+        map.put("countryList", countryList);
+        List<HbLanguage> hbLanguageList = languageService.getAll();
+        map.put("languageList", hbLanguageList);
 
+        System.out.println(JSON.toJSON(map));
+        return "views/appTop/edit";
+    }
 
-        return "views/appTop/test";
+    @RequestMapping(path = "/saveOrUpdate", method = RequestMethod.POST)
+    public String saveOrUpdate(AppTopQuery appTopQuery) throws AVException {
+        appTopService.saveOrUpdate(appTopQuery);
+        return "redirect:/appTop/list";
     }
 
 }

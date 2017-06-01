@@ -6,6 +6,8 @@ package com.it7890.orange.manage.po;
 public class AppTopQuery {
     private String objectId;
     private String countryCode;
+    private String countryObjectId;
+    private String languagesObjectId;
     private Integer ctype;
     private String startTime;
     private String endTime;
@@ -26,6 +28,22 @@ public class AppTopQuery {
 
     public void setCountryCode(String countryCode) {
         this.countryCode = countryCode;
+    }
+
+    public String getCountryObjectId() {
+        return countryObjectId;
+    }
+
+    public void setCountryObjectId(String countryObjectId) {
+        this.countryObjectId = countryObjectId;
+    }
+
+    public String getLanguagesObjectId() {
+        return languagesObjectId;
+    }
+
+    public void setLanguagesObjectId(String languagesObjectId) {
+        this.languagesObjectId = languagesObjectId;
     }
 
     public Integer getCtype() {
@@ -73,9 +91,13 @@ public class AppTopQuery {
         return "AppTopQuery{" +
             "objectId='" + objectId + '\'' +
             ", countryCode='" + countryCode + '\'' +
+            ", countryObjectId='" + countryObjectId + '\'' +
+            ", languagesObjectId='" + languagesObjectId + '\'' +
             ", ctype=" + ctype +
             ", startTime='" + startTime + '\'' +
             ", endTime='" + endTime + '\'' +
+            ", status=" + status +
+            ", itype=" + itype +
             '}';
     }
 }

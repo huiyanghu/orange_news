@@ -22,8 +22,15 @@ public class AppTopServiceImpl implements AppTopService {
     }
 
     public Map getAll(AppTopQuery appTopQuery, Integer page) throws AVException {
-        return appTopDao.getAll(appTopQuery,page);
+        return appTopDao.getAll(appTopQuery, page);
     }
 
+    public Map getAppTop(String objectId) throws AVException {
+        return appTopDao.getAppTop(objectId);
+    }
+
+    public void saveOrUpdate(AppTopQuery appTopQuery)throws AVException{
+        appTopDao.saveOrUpdate(appTopQuery);
+    }
 
 }

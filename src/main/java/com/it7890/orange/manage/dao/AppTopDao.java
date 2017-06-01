@@ -11,4 +11,6 @@ import java.util.Map;
  */
 public interface AppTopDao  extends BaseDao{
     public Map getAll(AppTopQuery appTopQuery, Integer page) throws AVException;
+    public Map getAppTop(String objectId) throws AVException;
+    public void saveOrUpdate(AppTopQuery appTopQuery)throws AVException;
 }

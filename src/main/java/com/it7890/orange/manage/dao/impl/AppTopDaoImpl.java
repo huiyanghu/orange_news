@@ -51,6 +51,9 @@ public class AppTopDaoImpl extends BaseDaoImpl<AppTop> implements AppTopDao {
         query.include("countryObj");
         query.include("articleObj");
         query.include("articleObj.titlePicObjArr");
+
+
+
         List<AVObject> avObjectList = query.find();
         List<Map> appTopList = new ArrayList<Map>();
         Map m;
@@ -74,8 +77,8 @@ public class AppTopDaoImpl extends BaseDaoImpl<AppTop> implements AppTopDao {
                 m.put("articleTitle", avObject.getAVObject("articleObj").get("title"));
                 m.put("articleType", ConstantsUtil.getAppTopArtitypeStr("" + avObject.getAVObject("articleObj").get("attr")));
                 List<AVFile> avFileList = avObject.getAVObject("articleObj").getList("titlePicObjArr");
-                if (!avFileList.isEmpty()) {
-                    m.put("picUrl",avFileList.get(0).getUrl());
+                if (!avFileList.isEmpty() && avFileList.size() > 0) {
+                    m.put("picUrl", avFileList.get(0).getUrl());
                 }
             }
             appTopList.add(m);
@@ -89,6 +92,60 @@ public class AppTopDaoImpl extends BaseDaoImpl<AppTop> implements AppTopDao {
         pageUtil.setPagecount(pageUtil.getPagecount());
         map.put("pageUtil", pageUtil);
         return map;
+    }
+
+    public Map getAppTop(String objectId) throws AVException {
+        AVQuery<AVObject> query = new AVQuery<>("AppTop");
+        query.include("articleObj");
+        query.include("articleObj.titlePicObjArr");
+
+        AVObject avObject = query.get(objectId);
+
+        Map map = new HashMap();
+        map.put("objectId", avObject.getObjectId());
+        map.put("countryObjectId", avObject.getAVObject("countryObj").getObjectId());
+        map.put("languagesObjectId", avObject.getAVObject("languagesObj").getObjectId());
+        map.put("itype", ConstantsUtil.getAppTopItypeStr("" + avObject.get("iType")));
+        if (avObject.getAVObject("articleObj") != null) {
+            map.put("articleTitle", avObject.getAVObject("articleObj").get("title"));
+            map.put("articleType", ConstantsUtil.getAppTopArtitypeStr("" + avObject.getAVObject("articleObj").get("attr")));
+            List<AVFile> avFileList = avObject.getAVObject("articleObj").getList("titlePicObjArr");
+            if (!avFileList.isEmpty() && avFileList.size() > 0) {
+                map.put("picUrl", avFileList.get(0).getUrl());
+            }
+        }
+
+        if (avObject.get("status") != null) {
+            Date createdAt = (Date) avObject.get("createdAt");
+            map.put("status", avObject.getString("status"));
+
+        }
+        if (avObject.get("createdAt") != null) {
+            Date createdAt = (Date) avObject.get("createdAt");
+            map.put("createdAt", DateUtil.getTimeStampStr(createdAt));
+
+        }
+        return map;
+    }
+
+    public void saveOrUpdate(AppTopQuery appTopQuery) throws AVException {
+        if (appTopQuery.getObjectId() == null) {//save
+            AppTop avObject = (AppTop)new AVObject("AppTop");
+            avObject.put("countryObj", appTopQuery.getCountryObjectId());
+            avObject.put("content", "每周工程师会议，周一下午2点");
+            try {
+                avObject.save();
+                // 保存成功
+            } catch (AVException e) {
+                // 失败的话，请检查网络环境以及 SDK 配置是否正确
+                e.printStackTrace();
+            }
+        } else {
+            AVObject avObject = AVObject.createWithoutData("AppTop", appTopQuery.getObjectId());
+
+        }
+
+
     }
 
 
