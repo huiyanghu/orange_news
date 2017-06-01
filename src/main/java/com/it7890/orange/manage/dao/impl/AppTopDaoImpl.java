@@ -38,8 +38,8 @@ public class AppTopDaoImpl extends BaseDaoImpl<AppTop> implements AppTopDao {
         if (appTopQuery.getStatus() != null) {
             query.whereEqualTo("status", appTopQuery.getStatus());
         }
-        if (appTopQuery.getCtype() != null) {
-            query.whereEqualTo("cType", appTopQuery.getCtype());
+        if (appTopQuery.getItype() != null) {
+            query.whereEqualTo("iType", appTopQuery.getItype());
         }
         query.orderByDescending("createdAt");
 

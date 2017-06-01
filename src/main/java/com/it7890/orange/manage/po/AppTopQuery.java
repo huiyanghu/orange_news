@@ -10,6 +10,7 @@ public class AppTopQuery {
     private String startTime;
     private String endTime;
     private Integer status;//1正常 0禁用 -1删除
+    private Integer itype;
 
     public String getObjectId() {
         return objectId;
@@ -57,6 +58,14 @@ public class AppTopQuery {
 
     public void setStatus(Integer status) {
         this.status = status;
+    }
+
+    public Integer getItype() {
+        return itype;
+    }
+
+    public void setItype(Integer itype) {
+        this.itype = itype;
     }
 
     @Override
