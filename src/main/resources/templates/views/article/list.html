@@ -15,7 +15,6 @@
     <link rel="stylesheet" type="text/css" href="/stylesheets/css/page/myPage.css" />
     <script type="text/javascript" src="/stylesheets/js/jquery-1.11.0.js"></script>
     <script type="text/javascript" src="/stylesheets/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="/stylesheets/js/bootstrap-datetimepicker.zh-CN.js"></script>
     <script type="text/javascript" src="/stylesheets/js/page/jqPaginator.min.js"></script>
     <script type="text/javascript" src="/stylesheets/js/page/myPage.js"></script>
     <script type="text/javascript" src="/stylesheets/js/plugins/My97DatePicker/WdatePicker.js"></script>
@@ -278,7 +277,7 @@
                 <!-- 请求的地址 -->
                 <input type="hidden" id="pageUrl" runat="server" th:value="@{/article/list}"/>
                 <!-- 请求的参数 -->
-                <input type="hidden" id="pageParameter" runat="server" th:value="${searchstr}"/>
+                <input type="hidden" id="pageParameter" runat="server" th:value="${article}"/>
                 <!--设置最多显示的页码数 可以手动设置 默认为7-->
                 <input type="hidden" id="visiblePages" runat="server" th:value="10" />
             </div>

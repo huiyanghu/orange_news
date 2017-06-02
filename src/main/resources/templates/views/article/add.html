@@ -35,6 +35,14 @@
                 <div class="col">
                     <form th:action="@{/article/saveorupdate}" th:method="post" id="addUserInfoform" class="form-horizontal">
                         <input name="id" type="hidden" th:value="${article.id }" />
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label for="title" class="control-label col-sm-4">文章标题:</label>
+                                <div class="controls col-sm-8">
+                                    <input type="text" id="title" name="title" class="form-control" th:value="${article.title}">
+                                </div>
+                            </div>
+                        </div>
                     </form>
                 </div>
             </div>

@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans" xmlns:th="http://www.thymeleaf.org" xmlns:c="http://www.w3.org/1999/html">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+    <title></title>
+    <link href="/stylesheets/meAdmin/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+    <!--[if lt IE 9]>
+    <link rel="stylesheet" type="text/css" href="/stylesheets/meAdmin/plugins/jquery-ui/jquery.ui.1.10.2.ie.css"/>
+    <![endif]-->
+    <link href="/stylesheets/meAdmin/assets/css/main.css" rel="stylesheet" type="text/css" />
+    <link href="/stylesheets/meAdmin/assets/css/plugins.css" rel="stylesheet" type="text/css" />
+    <link href="/stylesheets/meAdmin/assets/css/responsive.css" rel="stylesheet" type="text/css"/>
+    <link href="/stylesheets/meAdmin/assets/css/icons.css" rel="stylesheet" type="text/css" />
+    <link href="/stylesheets/meAdmin/assets/css/fontawesome/font-awesome.min.css" rel="stylesheet" >
+    <!--[if IE 7]>
+    <link href="/stylesheets/meAdmin/assets/css/fontawesome/font-awesome-ie7.min.css" rel="stylesheet">
+    <![endif]-->
+    <!--[if IE 8]>
+    <link href="/stylesheets/meAdmin/assets/css/ie8.css" rel="stylesheet" type="text/css" />
+    <![endif]-->
+    <!--<link href='http://fonts.useso.com/css?family=Open+Sans:400,600,700' rel='stylesheet' type='text/css'>-->
+    <script type="text/javascript" src="/stylesheets/meAdmin/assets/js/libs/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src="/stylesheets/meAdmin/plugins/jquery-ui/jquery-ui-1.10.2.custom.min.js"></script>
+    <script type="text/javascript" src="/stylesheets/meAdmin/bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/stylesheets/meAdmin/assets/js/libs/lodash.compat.min.js"></script>
+    <!--[if lt IE 9]>
+    <script src="/stylesheets/meAdmin/assets/js/libs/html5shiv.js"></script>
+    <![endif]-->
+    <script type="text/javascript" src="/stylesheets/meAdmin/plugins/touchpunch/jquery.ui.touch-punch.min.js"></script>
+    <script type="text/javascript" src="/stylesheets/meAdmin/plugins/event.swipe/jquery.event.move.js"></script>
+    <script type="text/javascript" src="/stylesheets/meAdmin/plugins/event.swipe/jquery.event.swipe.js"></script>
+    <script type="text/javascript" src="/stylesheets/meAdmin/assets/js/libs/breakpoints.js"></script>
+    <script type="text/javascript" src="/stylesheets/meAdmin/plugins/respond/respond.min.js"></script>
+    <script type="text/javascript" src="/stylesheets/meAdmin/plugins/cookie/jquery.cookie.min.js"></script>
+    <script type="text/javascript" src="/stylesheets/meAdmin/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+    <script type="text/javascript" src="/stylesheets/meAdmin/plugins/slimscroll/jquery.slimscroll.horizontal.min.js"></script>
+    <script type="text/javascript" src="/stylesheets/meAdmin/plugins/sparkline/jquery.sparkline.min.js"></script>
+    <script type="text/javascript" src="/stylesheets/meAdmin/plugins/daterangepicker/moment.min.js"></script>
+    <script type="text/javascript" src="/stylesheets/meAdmin/plugins/daterangepicker/daterangepicker.js"></script>
+    <script type="text/javascript" src="/stylesheets/meAdmin/plugins/blockui/jquery.blockUI.min.js"></script>
+    <script type="text/javascript" src="/stylesheets/meAdmin/plugins/typeahead/typeahead.min.js"></script>
+    <script type="text/javascript" src="/stylesheets/meAdmin/plugins/autosize/jquery.autosize.min.js"></script>
+    <script type="text/javascript" src="/stylesheets/meAdmin/plugins/inputlimiter/jquery.inputlimiter.min.js"></script>
+    <script type="text/javascript" src="/stylesheets/meAdmin/plugins/uniform/jquery.uniform.min.js"></script>
+    <script type="text/javascript" src="/stylesheets/meAdmin/plugins/tagsinput/jquery.tagsinput.min.js"></script>
+    <script type="text/javascript" src="/stylesheets/meAdmin/plugins/select2/select2.min.js"></script>
+    <script type="text/javascript" src="/stylesheets/meAdmin/plugins/fileinput/fileinput.js"></script>
+    <script type="text/javascript" src="/stylesheets/meAdmin/plugins/duallistbox/jquery.duallistbox.min.js"></script>
+    <script type="text/javascript" src="/stylesheets/meAdmin/plugins/bootstrap-inputmask/jquery.inputmask.min.js"></script>
+    <script type="text/javascript" src="/stylesheets/meAdmin/plugins/bootstrap-wysihtml5/wysihtml5.min.js"></script>
+    <script type="text/javascript" src="/stylesheets/meAdmin/plugins/bootstrap-wysihtml5/bootstrap-wysihtml5.min.js"></script>
+    <script type="text/javascript" src="/stylesheets/meAdmin/plugins/bootstrap-multiselect/bootstrap-multiselect.min.js"></script>
+    <script type="text/javascript" src="/stylesheets/meAdmin/plugins/bootstrap-switch/bootstrap-switch.min.js"></script>
+    <script type="text/javascript" src="/stylesheets/meAdmin/plugins/globalize/globalize.js"></script>
+    <script type="text/javascript" src="/stylesheets/meAdmin/plugins/globalize/cultures/globalize.culture.de-DE.js"></script>
+    <script type="text/javascript" src="/stylesheets/meAdmin/plugins/globalize/cultures/globalize.culture.ja-JP.js"></script>
+    <script type="text/javascript" src="/stylesheets/meAdmin/plugins/datatables/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="/stylesheets/meAdmin/plugins/datatables/tabletools/TableTools.min.js"></script>
+    <script type="text/javascript" src="/stylesheets/meAdmin/plugins/datatables/colvis/ColVis.min.js"></script>
+    <script type="text/javascript" src="/stylesheets/meAdmin/plugins/datatables/columnfilter/jquery.dataTables.columnFilter.js"></script>
+    <script type="text/javascript" src="/stylesheets/meAdmin/plugins/datatables/DT_bootstrap.js"></script>
+    <script type="text/javascript" src="/stylesheets/meAdmin/plugins/My97DatePicker/WdatePicker.js"></script>
+    <script type="text/javascript" src="/stylesheets/meAdmin/assets/js/app.js"></script>
+    <script type="text/javascript" src="/stylesheets/meAdmin/assets/js/plugins.js"></script>
+    <script type="text/javascript" src="/stylesheets/meAdmin/assets/js/plugins.form-components.js"></script>
+</head>
+<body>
+<input type="hidden" name="" id="msg" th:value="${msg}">
+<div class="crumbs">
+    <ul class="breadcrumb">
+        <li>
+            <i class="icon-home"></i>
+            <a href="javascript:void(0);">
+                首页
+            </a>
+        </li>
+        <li>
+            <a th:href="@{/appTop/list}" title="置顶图列表">
+                置顶图列表
+            </a>
+        </li>
+        <li class="current">
+            <a href="javascript:void(0);" title="">
+                置顶图修改
+            </a>
+        </li>
+    </ul>
+</div>
+<div class="row" style="height: 20px;"></div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="widget box">
+            <div class="widget-header">
+                <h4>
+                    <i class="icon-reorder"></i>
+                    文章信息
+                </h4>
+            </div>
+            <div class="widget-content">
+                <form class="form-horizontal row-border" th:object="${appTop}" th:action="@{/appTop/toUpdate}" th:method="get">
+                    <div class="form-group">
+                        <div class="col-md-4">
+                            <label class="col-md-4 control-label" for="objectId">
+                                ID：
+                            </label>
+                            <div class="col-md-8">
+                                <input type="text" id="objectId" name="objectId" class="form-control" th:value="${appTop.objectId}">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="col-md-4 control-label" for="countryObjectId">
+                                国家：
+                            </label>
+                            <div class="col-md-8">
+                                <select name="countryObjectId" id="countryObjectId" class="select2-select-00 col-md-12 full-width-fix select2-offscreen" tabindex="-1">
+                                    <option value="00">请选择</option>
+                                    <option value="00">所有国家</option>
+                                    <option th:each="country:${countryList}" th:selected="(${appTop.countryObjectId == country.objectId})" th:value="${country.objectId}" th:text="${country.get('countryCode')}+'&nbsp;'+${country.get('cnName')}"></option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="col-md-4 control-label" for="languagesObjectId">
+                                语言：
+                            </label>
+                            <div class="col-md-8">
+                                <select name="languagesObjectId" id="languagesObjectId" class="select2-select-00 col-md-12 full-width-fix select2-offscreen" tabindex="-1">
+                                    <option value="00">请选择</option>
+                                    <option th:each="language:${languageList}" th:selected="(${appTop.languagesObjectId == language.objectId})" th:value="${language.objectId}" th:text="${language.get('codes')}+'&nbsp;'+${language.get('remark')}"></option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-4">
+                            <label class="col-md-4 control-label" for="articleTitle">
+                                标题：
+                            </label>
+                            <div class="col-md-8">
+                                <input type="text" id="articleTitle" name="articleTitle" class="form-control" th:value="${appTop.articleTitle}">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="col-md-4 control-label" for="itype">
+                                类型：
+                            </label>
+                            <div class="col-md-8">
+                                <input type="text" id="itype" name="itype" class="form-control" th:value="${appTop.itype}">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="col-md-4 control-label" for="articleType">
+                                文章类型：
+                            </label>
+                            <div class="col-md-8">
+                                <input type="text" id="articleType" name="articleType" class="form-control" th:value="${appTop.articleType}">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-4">
+                            <label class="col-md-4 control-label" for="status">
+                                状态：
+                            </label>
+                            <div class="col-md-8">
+                                <select name="status" id="status" class="form-control" tabindex="-1">
+                                    <option value="" selected>请选择</option>
+                                    <option value="1" th:selected="(${appTop.status == 1})">正常</option>
+                                    <option value="0" th:selected="(${appTop.status == 0})">禁用</option>
+                                    <option value="-1" th:selected="(${appTop.status == -1})">删除</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="col-md-4 control-label" for="createdAt">
+                                发布时间：
+                            </label>
+                            <div class="col-md-8">
+                                <input type="text" id="createdAt" name="createdAt" class="form-control" placeholder="输入发布时间" th:value="${appTop.createdAt}" onClick="WdatePicker()">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="col-md-4 control-label" for="order">
+                                排序：
+                            </label>
+                            <div class="col-md-8">
+                                <input type="text" id="order" name="order" class="form-control" th:value="${appTop.objectId}">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-12">
+                            <label class="col-md-4 control-label" for="titlepicimg">
+                                图片：
+                            </label>
+                            <div class="col-md-8">
+                                <img th:src="${appTop.picUrl}" id="titlepicimg" name="titlepicimg" class="col-sm-8" alt="">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-actions" style="text-align: center;">
+                        <a href="javascript:void(0);" class="btn button-previous" style="display: inline-block;" th:href="@{/appTop/list}">
+                            <i class="icon-angle-left"></i>
+                            返回
+                        </a>
+                        <button type="submit" class="btn btn-primary" th:action="@{/appTop/saveOrUpdate(objectId=${appTop.objectId})}" th:method="post">
+                            修改置顶图
+                            <i class="icon-angle-right"></i>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function(){
+        $('.select2-select-00').select2({
+            allowClear: true
+        });
+    });
+    if($("#msg").val() != ''){
+        alert($("#msg").val());
+    }
+</script>
+</body>
+</html>
