@@ -53,6 +53,13 @@ public class StringUtil {
 		}
 	}
 
+	public static boolean isNotEmpty(Object object){
+	    if(object!=null&&!"".equals(object)){
+	        return true;
+        }
+	    return false;
+    }
+
 	public static String doTimeString(String timeS) {
 		if (timeS != null && timeS.indexOf(".") != -1) {
 			timeS = timeS.substring(0, timeS.indexOf("."));

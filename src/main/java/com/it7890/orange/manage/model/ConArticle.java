@@ -1,12 +1,7 @@
 package com.it7890.orange.manage.model;
 
-import com.alibaba.fastjson.JSON;
 import com.avos.avoscloud.AVClassName;
 import com.avos.avoscloud.AVObject;
-
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
 
 
 /**
@@ -19,7 +14,11 @@ public class ConArticle extends AVObject {
     public ConArticle() {
         super();
     }
-    private long id;
+
+
+
+
+    /*private long id;
     private String abstracts;//简介
     private String articleid;
     private String countrycode;
@@ -388,6 +387,6 @@ public class ConArticle extends AVObject {
         result.put("createdAt", this.getCreatedAt());
         return JSON.toJSONString(result);
     }
-
+*/
 
 }

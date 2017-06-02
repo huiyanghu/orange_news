@@ -51,10 +51,9 @@ public class AppTopController {
         List<HbCountrys> countryList = hbCountryService.getAll();//国家列表
         map.remove("org.springframework.validation.BindingResult.appTopQuery");
         map.put("countryList", countryList);
-        map.put("appTopCtypeList", ConstantsUtil.getAppTopItypeAll());//类型列表
+        map.put("appTopItypeList", ConstantsUtil.getConstants("appTopItype"));//类型列表
         map.put("appTopQuery", appTopQuery);
         map.putAll(appTopListAndPageUtilMap);
-        //System.out.println(JSON.toJSON(map));
         return "views/appTop/list";
     }
 

@@ -59,13 +59,14 @@ public class AppTopDaoImpl extends BaseDaoImpl<AppTop> implements AppTopDao {
         for (AVObject avObject : avObjectList) {
             m = new HashMap();
             m.put("objectId", avObject.getObjectId());
-
+            map.put("status", avObject.getString("status"));
+            map.put("statusStr", ConstantsUtil.getConstants("appTopStatus",""+avObject.getString("status")));
             if (avObject.get("createdAt") != null) {
                 Date createdAt = (Date) avObject.get("createdAt");
                 m.put("createdAt", DateUtil.getTimeStampStr(createdAt));
-
             }
-            m.put("itype", ConstantsUtil.getAppTopItypeStr("" + avObject.get("iType")));
+            m.put("itype", ConstantsUtil.getConstants("appTopItype","" + avObject.get("iType")));
+            ;
             if (avObject.getAVObject("languagesObj") != null) {
                 m.put("languageRemark", avObject.getAVObject("languagesObj").get("remark"));
             }
@@ -74,7 +75,7 @@ public class AppTopDaoImpl extends BaseDaoImpl<AppTop> implements AppTopDao {
             }
             if (avObject.getAVObject("articleObj") != null) {
                 m.put("articleTitle", avObject.getAVObject("articleObj").get("title"));
-                m.put("articleType", ConstantsUtil.getAppTopArtitypeStr("" + avObject.getAVObject("articleObj").get("attr")));
+                m.put("articleType", ConstantsUtil.getConstants("appTopArtitype", "" + avObject.getAVObject("articleObj").get("attr")));
                 List<AVFile> avFileList = avObject.getAVObject("articleObj").getList("titlePicObjArr");
                 if (!avFileList.isEmpty() && avFileList.size() > 0) {
                     m.put("picUrl", avFileList.get(0).getUrl());
@@ -104,21 +105,19 @@ public class AppTopDaoImpl extends BaseDaoImpl<AppTop> implements AppTopDao {
         map.put("objectId", avObject.getObjectId());
         map.put("countryObjectId", avObject.getAVObject("countryObj") == null ? "" : avObject.getAVObject("countryObj").getObjectId());
         map.put("languagesObjectId", avObject.getAVObject("languagesObj") == null ? "" : avObject.getAVObject("languagesObj").getObjectId());
-        map.put("itype", ConstantsUtil.getAppTopItypeStr("" + avObject.get("iType")));
+        map.put("itype", ConstantsUtil.getConstants("appTopItype","" + avObject.get("iType")));
         if (avObject.getAVObject("articleObj") != null) {
             map.put("articleTitle", avObject.getAVObject("articleObj").get("title"));
-            map.put("articleType", ConstantsUtil.getAppTopArtitypeStr("" + avObject.getAVObject("articleObj").get("attr")));
+            map.put("articleType", ConstantsUtil.getConstants("appTopArtitype", "" + avObject.getAVObject("articleObj").get("attr")));
             List<AVFile> avFileList = avObject.getAVObject("articleObj").getList("titlePicObjArr");
             if (!avFileList.isEmpty() && avFileList.size() > 0) {
                 map.put("picUrl", avFileList.get(0).getUrl());
             }
         }
 
-        if (avObject.get("status") != null) {
-            Date createdAt = (Date) avObject.get("createdAt");
-            map.put("status", avObject.getString("status"));
+        map.put("status", avObject.getString("status"));
+        map.put("statusStr", ConstantsUtil.getConstants("appTopStatus",""+avObject.getString("status")));
 
-        }
         if (avObject.get("createdAt") != null) {
             Date createdAt = (Date) avObject.get("createdAt");
             map.put("createdAt", DateUtil.getTimeStampStr(createdAt));

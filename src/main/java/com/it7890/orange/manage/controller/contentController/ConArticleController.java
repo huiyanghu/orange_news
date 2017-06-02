@@ -1,14 +1,9 @@
 
 package com.it7890.orange.manage.controller.contentController;
 
-import com.avos.avoscloud.AVException;
-import com.avos.avoscloud.AVObject;
 import com.avos.avoscloud.AVQuery;
 import com.it7890.orange.manage.model.ConArticle;
-import com.it7890.orange.manage.model.SysUser;
 import com.it7890.orange.manage.service.articalService.*;
-import com.it7890.orange.manage.utils.MD5;
-import com.it7890.orange.manage.utils.PageUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.ui.Model;
@@ -19,10 +14,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import java.util.Date;
-import java.util.List;
-import java.util.UUID;
 
 
 /**
@@ -99,7 +90,7 @@ public class ConArticleController {
                               @RequestParam(value = "publicationid", required = false) Integer publicationid,
                               @RequestParam(value = "channelid", required = false) Integer channelid,
                               @RequestParam(value = "page", required = false, defaultValue = "1") Integer page) {
-        HttpSession session = request.getSession();
+        /*HttpSession session = request.getSession();
         session.setAttribute("page", page);
         ConArticle article = new ConArticle();
         StringBuffer searchstr = new StringBuffer();
@@ -178,7 +169,7 @@ public class ConArticleController {
         model.addAttribute("publications", conpublicationService.getAllConpublication());
         model.addAttribute("users", sysuserService.getAllSysUser());
         model.addAttribute("languagesSort", hblanguageService.getAllHbLanguageOrderByHbcode());
-        model.addAttribute("channellist", ruleService.getChannellist());
+        model.addAttribute("channellist", ruleService.getChannellist());*/
         return "views/article/list";
     }
 
@@ -194,7 +185,7 @@ public class ConArticleController {
     @RequestMapping(value = "/add", method = RequestMethod.GET)
     public String articleadd(HttpServletRequest rquest,
                              HttpServletResponse response, Model model, int id) {
-        ConArticle article;
+        /*ConArticle article;
         if (id == 0) {
             article = new ConArticle();
             article.setId(id);
@@ -202,9 +193,9 @@ public class ConArticleController {
             article.setSubtime(new Date());
         } else {
             article = conArticleService.getConArticleByIdES(id);
-        }
+        }*/
         //	model.addAttribute("upyunhttp", upyunutil.getUpyunhttp());
-        model.addAttribute("article", article);
+        //model.addAttribute("article", article);
         model.addAttribute("hbcountrys", hbcountryService.getHbCountrysAll());
         model.addAttribute("hbtopics", topicsService.getAllHbTopics());
         model.addAttribute("conchannels", conchannelService.getAllConChannelByStatus());
@@ -226,7 +217,7 @@ public class ConArticleController {
     public String articlesaveorupdate(HttpServletRequest request,
                                       HttpServletResponse response, ConArticle conarticle, Model model) {
         //搜索记忆
-        StringBuffer str = new StringBuffer();
+        /*StringBuffer str = new StringBuffer();
         str.append("page=" + request.getSession().getAttribute("page"));
         if (request.getSession().getAttribute("topicid") != null && !"".equals(request.getSession().getAttribute("topicid"))) {
             int topicid = (int) request.getSession().getAttribute("topicid");
@@ -324,7 +315,7 @@ public class ConArticleController {
 
         result = 1;
         request.getSession().setAttribute("message",
-            "添加或修改文章:" + (result > 0 ? "成功" : "失败"));
+            "添加或修改文章:" + (result > 0 ? "成功" : "失败"));*/
         return String.format("redirect:/message");
     }
 

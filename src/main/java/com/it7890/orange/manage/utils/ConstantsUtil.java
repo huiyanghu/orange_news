@@ -2,78 +2,47 @@ package com.it7890.orange.manage.utils;
 
 import com.alibaba.fastjson.JSON;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 /**
  * Created by Administrator on 2017/5/27.
  */
 public class ConstantsUtil {
-    public static Map getAppTopArtitypeAll(){
-        Map map = new HashMap();
-        map.put("0", "文字文章");
-        map.put("1", "图文文章");
-        map.put("2", "视频文章");
-        map.put("3", "链接文章");
-        map.put("4", "H5游戏文章");
-        map.put("5", "竞猜文章");
-        map.put("6", "游戏文章");
-        map.put("7", "其他");
-        return map;
-    }
-    public static String getAppTopArtitypeStr(String artitype) {
-        Map map = getAppTopArtitypeAll();
-        if (StringUtil.isNotNull(artitype)) {
-            Pattern pattern = Pattern.compile("[0-9]*");
-            Matcher isNum = pattern.matcher(artitype);
-            if (isNum.matches()) {
-                if (null != map.get(artitype)) {
-                    return "" + map.get(artitype);
-                }
-            }
-        }
-        return "";
+    public static Map constants = new HashMap();
+
+    static {
+        constants.put("appTopArtitype", "[{'key':'0','value':'文字文章'},{'key':'1','value':'图文文章'},{'key':'2','value':'视频文章'},{'key':'3','value':'链接文章'},{'key':'4','value':'H5游戏文章'},{'key':'5','value':'竞猜文章'},{'key':'6','value':'游戏文章'},{'key':'7','value':'其他'}]");
+        constants.put("appTopItype", "[{'key':'1','value':'文章'},{'key':'2','value':'竞猜'},{'key':'3','value':'广告'}]");
+        constants.put("appTopStatus", "[{'key':'0','value':'正常'},{'key':'1','value':'禁用'},{'key':'2','value':'删除'}]");
+        constants.put("conArticleCtype", "[{'key':'0','value':'普通'},{'key':'1','value':'推荐'},{'key':'2','value':'置顶'},{'key':'3','value':'视频'}]");
+        constants.put("conArticleStatus", "[{'key':'0','value':'正常'},{'key':'1','value':'未审核'},{'key':'2','value':'预发布'}]");
     }
 
-    public static List<Map> getAppTopItypeAll(){
-        List<Map> list=new ArrayList<Map>();
-        Map map = new HashMap();
-        map.put("key", "1");
-        map.put("value", "文章");
-        list.add(map);
-        map = new HashMap();
-        map.put("key", "2");
-        map.put("value", "竞猜");
-        list.add(map);
-        map = new HashMap();
-        map.put("key", "3");
-        map.put("value", "广告");
-        list.add(map);
+    public static List<Map> getConstants(String constantsKey) {
+        List<Map> list = (List<Map>) JSON.parse("" + constants.get(constantsKey));
         return list;
     }
-    public static String getAppTopItypeStr(String ctype) {
-        List<Map> list=getAppTopItypeAll();
-        if (StringUtil.isNotNull(ctype)) {
-            Pattern pattern = Pattern.compile("[0-9]*");
-            Matcher isNum = pattern.matcher(ctype);
-            if (isNum.matches()) {
-                for (Map m:list) {
-                    if (m.get("key")!=null&&ctype.equals(""+m.get("key"))){
-                        return ""+m.get("value");
-                    }
+
+    public static String getConstants(String constantsKey, String key) {
+        List<Map> list = getConstants(constantsKey);
+        if (StringUtil.isNotEmpty(key)) {
+            for (Map m : list) {
+                if (m.get("key") != null && key.equals("" + m.get("key"))) {
+                    return "" + m.get("value");
                 }
             }
         }
         return "";
     }
 
+
     public static void main(String[] args) {
-        System.out.println(JSON.toJSON(getAppTopItypeAll()));
-        System.out.println(getAppTopItypeStr("1ss"));
+        List<Map> list = ConstantsUtil.getConstants("appTopArtitype");
+        System.out.println(list);
+        String value = ConstantsUtil.getConstants("appTopArtitype", "5");
+        System.out.println(value);
     }
 
 }

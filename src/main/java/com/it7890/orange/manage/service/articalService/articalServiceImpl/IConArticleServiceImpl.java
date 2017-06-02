@@ -1,17 +1,14 @@
 package com.it7890.orange.manage.service.articalService.articalServiceImpl;
 
 import com.avos.avoscloud.AVCloudQueryResult;
-import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.AVObject;
 import com.avos.avoscloud.AVQuery;
 import com.it7890.orange.manage.model.AppPushInfo;
 import com.it7890.orange.manage.model.ConArticle;
-import com.it7890.orange.manage.model.GlobalNode;
 import com.it7890.orange.manage.service.articalService.IConArticleService;
 import com.it7890.orange.manage.utils.PageUtil;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -73,17 +70,17 @@ public class IConArticleServiceImpl implements IConArticleService {
 
     @Override
     public List<AVObject> getarticlelist(ConArticle article, PageUtil pageUtil) {
-        List<AVObject> list = new ArrayList<AVObject>();
+        /*List<AVObject> list = new ArrayList<AVObject>();
         AVQuery avQuery = new AVQuery<>("conarticle");
         avQuery.include("topicObj");
         avQuery.include("publicationObj");
         AVCloudQueryResult result;
-  /*      String cql = "";
+        String cql = "";
         try {
             result = AVQuery.doCloudQuery(cql, ConArticle.class);
             list = (List<ConArticle>) result.getResults();
         } catch (Exception e) {
-        }*/
+        }
         // 查询条件
         if (article.getAuthor() != null || article.getStatus() >= 0 || article.getCountrycode() != null || article.getKeywords() != null ||
             article.getTopicsid() > 0 || article.getStarttime() != null || article.getEndtime() != null || article.getPublicationid() > 0
@@ -128,8 +125,8 @@ public class IConArticleServiceImpl implements IConArticleService {
                 e.printStackTrace();
             }
         } else {
-        }
-        return list;
+        }*/
+        return null;
 
     }
 
