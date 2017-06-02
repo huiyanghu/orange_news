@@ -3,7 +3,7 @@ package com.it7890.orange.manage.po;
 /**
  * Created by Administrator on 2017/6/2.
  */
-public class ConArticleQuery {
+public class ConArticleQuery implements java.io.Serializable {
     private String objectId;
     private String countryCode;
     private String publicationObjectId;

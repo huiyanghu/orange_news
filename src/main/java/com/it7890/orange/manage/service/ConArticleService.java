@@ -10,4 +10,6 @@ import java.util.Map;
  */
 public interface ConArticleService {
     public Map getAll(ConArticleQuery conArticleQuery, Integer page) throws AVException;
+    public void deleteBatch(String ids)throws AVException;
+    public void publishBatch(String ids)throws AVException;
 }

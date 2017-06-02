@@ -13,4 +13,7 @@ public interface ConArticleDao {
 
     public Map getById(String objectId) throws AVException;
 
+    public void delete(String id) throws AVException;
+
+    public void publish(String id) throws AVException;
 }

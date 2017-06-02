@@ -24,6 +24,7 @@ public class ConArticleDaoImpl implements ConArticleDao {
 
         /*conArticleList*/
         AVQuery<AVObject> query = new AVQuery<>("conarticle");
+        query.whereNotEqualTo("status", -1);
         if (StringUtil.isNotEmpty(conArticleQuery.getObjectId())) {
             query.whereEqualTo("objectId", conArticleQuery.getObjectId());
         }
@@ -139,6 +140,38 @@ public class ConArticleDaoImpl implements ConArticleDao {
 
         }*/
         return map;
+    }
+
+    public void delete(String id) throws AVException {
+        AVObject avObject = AVObject.createWithoutData("conarticle", id);
+        avObject.put("status", -1);
+        try {
+            avObject.save();
+        } catch (AVException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void publish(String id) throws AVException {
+        AVQuery<AVObject> query = new AVQuery<>("conarticle");
+        AVObject avObject = query.get(id);
+        Date now = new Date();
+        Date subtime = (Date) avObject.get("subtime");//subtime 提交时间
+        if(subtime==null){
+            avObject.put("status", 2);
+        }else{
+            if (subtime.before(now)) {//在当前时间前为0=正常
+                avObject.put("status", 0);
+            } else if (subtime.after(now)) {//在当前时间后为2=预发布
+                avObject.put("status", 2);
+            }
+        }
+
+        try {
+            avObject.save();
+        } catch (AVException e) {
+            e.printStackTrace();
+        }
     }
 
 }

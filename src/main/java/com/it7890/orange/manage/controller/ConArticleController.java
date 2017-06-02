@@ -15,6 +15,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.Map;
 
@@ -58,7 +60,6 @@ public class ConArticleController {
         map.putAll(conArticleListAndPageUtilMap);
 
 
-
         map.put("topicList", topicsService.getAllHbTopics());
         map.put("channelList", conchannelService.getAllConChannel());
         map.put("publicationList", conpublicationService.getAllConpublication());
@@ -69,4 +70,59 @@ public class ConArticleController {
         return "views/appTop/list";
     }
 
+    /**
+     * 批量删除
+     *
+     * @param ids
+     * @param attributes
+     * @return
+     * @throws AVException
+     */
+    @RequestMapping(path = "/deleteBatch", method = RequestMethod.GET)
+    public String deleteBatch(String ids, RedirectAttributes attributes, ConArticleQuery conArticleQuery, @RequestParam(value = "page", required = false, defaultValue = "1") Integer page) throws AVException {
+        ModelAndView mv = new ModelAndView();
+        conArticleService.deleteBatch(ids);
+        attributes.addFlashAttribute("msg", "删除成功!");
+        attributes.addAttribute("countryCode",conArticleQuery.getCountryCode());
+        attributes.addAttribute("publicationObjectId",conArticleQuery.getPublicationObjectId());
+        attributes.addAttribute("languageObjectId",conArticleQuery.getLanguageObjectId());
+        attributes.addAttribute("channelObjectId",conArticleQuery.getChannelObjectId());
+        attributes.addAttribute("attr",conArticleQuery.getAttr());
+        attributes.addAttribute("status",conArticleQuery.getStatus());
+        attributes.addAttribute("keywords",conArticleQuery.getKeywords());
+        attributes.addAttribute("topicObjectId",conArticleQuery.getTopicObjectId());
+        attributes.addAttribute("startTime",conArticleQuery.getStartTime());
+        attributes.addAttribute("endTime",conArticleQuery.getEndTime());
+        attributes.addAttribute("page",page);
+
+        return "redirect:/conArticle/list";
+    }
+
+    /**
+     * 批量发布
+     *
+     * @param ids
+     * @param attributes
+     * @return
+     * @throws AVException
+     */
+    @RequestMapping(path = "/publishBatch", method = RequestMethod.GET)
+    public String publishBatch(String ids, RedirectAttributes attributes, ConArticleQuery conArticleQuery, @RequestParam(value = "page", required = false, defaultValue = "1") Integer page) throws AVException {
+        ModelAndView mv = new ModelAndView();
+        conArticleService.publishBatch(ids);
+        attributes.addFlashAttribute("msg", "发布成功!");
+        attributes.addAttribute("countryCode",conArticleQuery.getCountryCode());
+        attributes.addAttribute("publicationObjectId",conArticleQuery.getPublicationObjectId());
+        attributes.addAttribute("languageObjectId",conArticleQuery.getLanguageObjectId());
+        attributes.addAttribute("channelObjectId",conArticleQuery.getChannelObjectId());
+        attributes.addAttribute("attr",conArticleQuery.getAttr());
+        attributes.addAttribute("status",conArticleQuery.getStatus());
+        attributes.addAttribute("keywords",conArticleQuery.getKeywords());
+        attributes.addAttribute("topicObjectId",conArticleQuery.getTopicObjectId());
+        attributes.addAttribute("startTime",conArticleQuery.getStartTime());
+        attributes.addAttribute("endTime",conArticleQuery.getEndTime());
+        attributes.addAttribute("page",page);
+
+        return "redirect:/conArticle/list";
+    }
 }

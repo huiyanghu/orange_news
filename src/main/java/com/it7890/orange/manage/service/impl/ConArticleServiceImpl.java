@@ -20,4 +20,20 @@ public class ConArticleServiceImpl implements ConArticleService {
     public Map getAll(ConArticleQuery conArticleQuery, Integer page) throws AVException {
         return conArticleDao.getAll(conArticleQuery, page);
     }
+
+    public void deleteBatch(String ids) throws AVException {
+        String[] idArr = ids.split(",");
+        for (String id : idArr) {
+            conArticleDao.delete(id);
+        }
+
+    }
+
+    public void publishBatch(String ids) throws AVException {
+        String[] idArr = ids.split(",");
+        for (String id : idArr) {
+            conArticleDao.publish(id);
+        }
+
+    }
 }

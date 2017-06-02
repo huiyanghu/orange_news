@@ -78,7 +78,7 @@ public class AppTopController {
         map.put("languageList", hbLanguageList);
 
         System.out.println(JSON.toJSON(map));
-        return "views/appTop/test";
+        return "views/appTop/edit";
     }
 
     @RequestMapping(path = "/saveOrUpdate", method = RequestMethod.POST)

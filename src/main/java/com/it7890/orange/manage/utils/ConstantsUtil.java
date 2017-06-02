@@ -17,7 +17,7 @@ public class ConstantsUtil {
         constants.put("appTopItype", "[{'key':'1','value':'文章'},{'key':'2','value':'竞猜'},{'key':'3','value':'广告'}]");
         constants.put("appTopStatus", "[{'key':'0','value':'正常'},{'key':'1','value':'禁用'},{'key':'2','value':'删除'}]");
         constants.put("conArticleCtype", "[{'key':'0','value':'普通'},{'key':'1','value':'推荐'},{'key':'2','value':'置顶'},{'key':'3','value':'视频'}]");
-        constants.put("conArticleStatus", "[{'key':'0','value':'正常'},{'key':'1','value':'未审核'},{'key':'2','value':'预发布'}]");
+        constants.put("conArticleStatus", "[{'key':'0','value':'正常'},{'key':'1','value':'未审核'},{'key':'2','value':'预发布'}]");//-1删除
     }
 
     public static List<Map> getConstants(String constantsKey) {
