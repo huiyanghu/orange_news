@@ -53,7 +53,6 @@ public class AppTopDaoImpl extends BaseDaoImpl<AppTop> implements AppTopDao {
         query.include("articleObj.titlePicObjArr");
 
 
-
         List<AVObject> avObjectList = query.find();
         List<Map> appTopList = new ArrayList<Map>();
         Map m;
@@ -129,20 +128,26 @@ public class AppTopDaoImpl extends BaseDaoImpl<AppTop> implements AppTopDao {
     }
 
     public void saveOrUpdate(AppTopQuery appTopQuery) throws AVException {
-        if (appTopQuery.getObjectId() == null) {//save
-            AppTop avObject = (AppTop)new AVObject("AppTop");
-            avObject.put("countryObj", appTopQuery.getCountryObjectId());
-            avObject.put("content", "每周工程师会议，周一下午2点");
-            try {
-                avObject.save();
-                // 保存成功
-            } catch (AVException e) {
-                // 失败的话，请检查网络环境以及 SDK 配置是否正确
-                e.printStackTrace();
-            }
-        } else {
-            AVObject avObject = AVObject.createWithoutData("AppTop", appTopQuery.getObjectId());
-
+        System.out.println(appTopQuery);
+        AVObject avObject = AVObject.createWithoutData("AppTop", appTopQuery.getObjectId());
+        if(appTopQuery.getCountryObjectId()!=null&&!"".equals(appTopQuery.getCountryObjectId())){
+            avObject.put("countryObj", AVObject.createWithoutData("hb_countrys", appTopQuery.getCountryObjectId()));
+        }
+        if(appTopQuery.getLanguagesObjectId()!=null&&!"".equals(appTopQuery.getLanguagesObjectId())){
+            avObject.put("languagesObj", AVObject.createWithoutData("hb_languages", appTopQuery.getLanguagesObjectId()));
+        }
+        if (appTopQuery.getStatus()!=null){
+            avObject.put("status",appTopQuery.getStatus());//1正常 0禁用 -1删除
+        }
+        //avObject.put("iType", 1);//1文章 2竞猜 3广告
+        //avObject.put("longitude", appTopQuery.getLongitude());
+        //avObject.put("latitude", appTopQuery.getLatitude());
+        try {
+            avObject.save();
+            // 保存成功
+        } catch (AVException e) {
+            // 失败的话，请检查网络环境以及 SDK 配置是否正确
+            e.printStackTrace();
         }
 
 

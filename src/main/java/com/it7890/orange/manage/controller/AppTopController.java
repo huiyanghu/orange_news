@@ -79,12 +79,19 @@ public class AppTopController {
         map.put("languageList", hbLanguageList);
 
         System.out.println(JSON.toJSON(map));
-        return "views/appTop/edit";
+        return "views/appTop/test";
     }
 
     @RequestMapping(path = "/saveOrUpdate", method = RequestMethod.POST)
-    public String saveOrUpdate(AppTopQuery appTopQuery) throws AVException {
+    public String saveOrUpdate(AppTopQuery appTopQuery, RedirectAttributes attributes) throws AVException {
+        String msg="";
+        if (appTopQuery.getObjectId() != null&&!"".equals(appTopQuery.getObjectId())) {
+            msg="修改成功!";
+        }else{
+            msg="保持成功!";
+        }
         appTopService.saveOrUpdate(appTopQuery);
+        attributes.addFlashAttribute("msg", msg);
         return "redirect:/appTop/list";
     }
 

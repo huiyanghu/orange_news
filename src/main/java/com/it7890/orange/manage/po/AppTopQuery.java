@@ -13,6 +13,8 @@ public class AppTopQuery {
     private String endTime;
     private Integer status;//1正常 0禁用 -1删除
     private Integer itype;
+    private Integer longitude;
+    private Integer latitude;
 
     public String getObjectId() {
         return objectId;
@@ -86,6 +88,22 @@ public class AppTopQuery {
         this.itype = itype;
     }
 
+    public Integer getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(Integer longitude) {
+        this.longitude = longitude;
+    }
+
+    public Integer getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(Integer latitude) {
+        this.latitude = latitude;
+    }
+
     @Override
     public String toString() {
         return "AppTopQuery{" +
@@ -98,6 +116,8 @@ public class AppTopQuery {
             ", endTime='" + endTime + '\'' +
             ", status=" + status +
             ", itype=" + itype +
+            ", longitude=" + longitude +
+            ", latitude=" + latitude +
             '}';
     }
 }
