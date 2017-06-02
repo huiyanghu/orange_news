@@ -54,7 +54,7 @@ public class AppTopController {
         map.put("appTopCtypeList", ConstantsUtil.getAppTopItypeAll());//类型列表
         map.put("appTopQuery", appTopQuery);
         map.putAll(appTopListAndPageUtilMap);
-        System.out.println(JSON.toJSON(map));
+        //System.out.println(JSON.toJSON(map));
         return "views/appTop/list";
     }
 

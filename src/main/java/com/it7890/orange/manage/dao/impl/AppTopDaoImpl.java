@@ -102,8 +102,8 @@ public class AppTopDaoImpl extends BaseDaoImpl<AppTop> implements AppTopDao {
 
         Map map = new HashMap();
         map.put("objectId", avObject.getObjectId());
-        map.put("countryObjectId", avObject.getAVObject("countryObj").getObjectId());
-        map.put("languagesObjectId", avObject.getAVObject("languagesObj").getObjectId());
+        map.put("countryObjectId", avObject.getAVObject("countryObj") == null ? "" : avObject.getAVObject("countryObj").getObjectId());
+        map.put("languagesObjectId", avObject.getAVObject("languagesObj") == null ? "" : avObject.getAVObject("languagesObj").getObjectId());
         map.put("itype", ConstantsUtil.getAppTopItypeStr("" + avObject.get("iType")));
         if (avObject.getAVObject("articleObj") != null) {
             map.put("articleTitle", avObject.getAVObject("articleObj").get("title"));
@@ -128,16 +128,11 @@ public class AppTopDaoImpl extends BaseDaoImpl<AppTop> implements AppTopDao {
     }
 
     public void saveOrUpdate(AppTopQuery appTopQuery) throws AVException {
-        System.out.println(appTopQuery);
         AVObject avObject = AVObject.createWithoutData("AppTop", appTopQuery.getObjectId());
-        if(appTopQuery.getCountryObjectId()!=null&&!"".equals(appTopQuery.getCountryObjectId())){
-            avObject.put("countryObj", AVObject.createWithoutData("hb_countrys", appTopQuery.getCountryObjectId()));
-        }
-        if(appTopQuery.getLanguagesObjectId()!=null&&!"".equals(appTopQuery.getLanguagesObjectId())){
-            avObject.put("languagesObj", AVObject.createWithoutData("hb_languages", appTopQuery.getLanguagesObjectId()));
-        }
-        if (appTopQuery.getStatus()!=null){
-            avObject.put("status",appTopQuery.getStatus());//1正常 0禁用 -1删除
+        avObject.put("countryObj", AVObject.createWithoutData("hb_countrys", appTopQuery.getCountryObjectId()));
+        avObject.put("languagesObj", AVObject.createWithoutData("hb_languages", appTopQuery.getLanguagesObjectId()));
+        if (appTopQuery.getStatus() != null) {
+            avObject.put("status", appTopQuery.getStatus());//1正常 0禁用 -1删除
         }
         //avObject.put("iType", 1);//1文章 2竞猜 3广告
         //avObject.put("longitude", appTopQuery.getLongitude());
