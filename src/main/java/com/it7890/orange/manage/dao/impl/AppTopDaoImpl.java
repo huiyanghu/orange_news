@@ -65,7 +65,8 @@ public class AppTopDaoImpl extends BaseDaoImpl<AppTop> implements AppTopDao {
                 Date createdAt = (Date) avObject.get("createdAt");
                 m.put("createdAt", DateUtil.getTimeStampStr(createdAt));
             }
-            m.put("itype", ConstantsUtil.getConstants("appTopItype","" + avObject.get("iType")));
+            m.put("itype", avObject.get("iType"));
+            m.put("itypeStr", ConstantsUtil.getConstants("appTopItype","" + avObject.get("iType")));
             ;
             if (avObject.getAVObject("languagesObj") != null) {
                 m.put("languageRemark", avObject.getAVObject("languagesObj").get("remark"));
@@ -105,7 +106,8 @@ public class AppTopDaoImpl extends BaseDaoImpl<AppTop> implements AppTopDao {
         map.put("objectId", avObject.getObjectId());
         map.put("countryObjectId", avObject.getAVObject("countryObj") == null ? "" : avObject.getAVObject("countryObj").getObjectId());
         map.put("languagesObjectId", avObject.getAVObject("languagesObj") == null ? "" : avObject.getAVObject("languagesObj").getObjectId());
-        map.put("itype", ConstantsUtil.getConstants("appTopItype","" + avObject.get("iType")));
+        map.put("itypeStr", ConstantsUtil.getConstants("appTopItype","" + avObject.get("iType")));
+        map.put("itype", avObject.get("iType"));
         if (avObject.getAVObject("articleObj") != null) {
             map.put("articleTitle", avObject.getAVObject("articleObj").get("title"));
             map.put("articleType", ConstantsUtil.getConstants("appTopArtitype", "" + avObject.getAVObject("articleObj").get("attr")));

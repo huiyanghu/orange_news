@@ -343,7 +343,7 @@ public class ConArticleController {
             /*model.addAttribute("appPushInfo",conarticleService.getAppPushInfoByArticleid(con.getArticleid()));*/
         } else if (appPushInfo2 != null && appPushInfo2.getStatus() != 2) {//推送过但没有成功的情况下可以再次推送
 
-            //String cid = String.valueOf(appPushInfo2.getCid());
+            String cid = String.valueOf(appPushInfo2.getCountryObjectId());
             String codeAnd = "200";
             //PushMessage pushMessage = new PushMessage(appkey2, appMasterSecret2, iosappkey, iosappMasterSecret);
             try {
@@ -367,18 +367,10 @@ public class ConArticleController {
 
                 appPushInfo2.setStatus(failcode);
             }
-            //result = conArticleService.updateAppPushInfo(appPushInfo2);
+            appPushInfoService.saveOrUpdate(appPushInfo2);
             /*model.addAttribute("appPushInfo",appPushInfo);*/
         }
-		/*else{
-			model.addAttribute("appPushInfo",appPushInfo);
-		}*/
-		/*model.addAttribute("countrys",countrysService.getAllHbCountrys());
-		return "recommend/pushlist";*/
-
-
-        //request.getSession().setAttribute("message",desc);
-        //request.getSession().setAttribute("url", "article/list?" + str);
-        return String.format("redirect:/message");
+        attributes.addFlashAttribute("msg", desc);
+        return "redirect:conArticle/list";
     }
 }

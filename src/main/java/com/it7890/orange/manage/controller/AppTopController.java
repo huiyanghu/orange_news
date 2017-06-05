@@ -96,4 +96,11 @@ public class AppTopController {
         return "redirect:/appTop/list";
     }
 
+
+    @RequestMapping(path = "/toTest1", method = RequestMethod.GET)
+    public String toTest1(String objectId, Map map) throws AVException {
+
+        return "views/appTop/test1";
+    }
+
 }
