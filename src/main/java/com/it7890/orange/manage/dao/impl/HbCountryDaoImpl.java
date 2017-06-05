@@ -1,9 +1,11 @@
 package com.it7890.orange.manage.dao.impl;
 
+import com.avos.avoscloud.AVCloudQueryResult;
+import com.avos.avoscloud.AVException;
+import com.avos.avoscloud.AVQuery;
 import com.it7890.orange.manage.dao.HbCountryDao;
 import com.it7890.orange.manage.model.HbCountrys;
-import com.avos.avoscloud.AVCloudQueryResult;
-import com.avos.avoscloud.AVQuery;
+import com.it7890.orange.manage.po.HbCountryQuery;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -20,11 +22,21 @@ public class HbCountryDaoImpl implements HbCountryDao {
         AVCloudQueryResult result;
         try {
             String cql = "select * from hb_countrys where status = 0";
-            result =  AVQuery.doCloudQuery(cql, HbCountrys.class);
+            result = AVQuery.doCloudQuery(cql, HbCountrys.class);
             list = (List<HbCountrys>) result.getResults();
         } catch (Exception e) {
         }
-        return   list;
+        return list;
+    }
+
+    public List<HbCountrys> get(HbCountryQuery hbCountryQuery) throws AVException {
+        AVQuery<HbCountrys> query = new AVQuery<>("hb_countrys");
+        query.whereEqualTo("countryCode", hbCountryQuery.getCountryCode());
+        List<HbCountrys> avObjectList = query.find();
+        if (!avObjectList.isEmpty()) {
+            return avObjectList;
+        }
+        return null;
     }
 
 }

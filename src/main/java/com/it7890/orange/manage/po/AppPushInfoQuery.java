@@ -1,41 +1,23 @@
-
-package com.it7890.orange.manage.model;
-
-import com.avos.avoscloud.AVClassName;
-import com.avos.avoscloud.AVObject;
+package com.it7890.orange.manage.po;
 
 import java.util.Date;
 
-
 /**
- * @Description:
- * @date 2015年12月10日 下午2:04:59
+ * Created by Administrator on 2017/6/5.
  */
-@AVClassName("AppPushInfo")
-public class AppPushInfo extends AVObject {
-    private static final long serialVersionUID = 1L;
-
-    public AppPushInfo() {
-        super();
-    }
-
-    /**
-     * 表中字段
-     */
-    private String objectId;
+public class AppPushInfoQuery {
+    public String objectId;
     private String countryObjectId;
     private String articleObjectId;
     private String title;
     private Integer status;//0:未推送，1推送中，2已推送
-    private Date pushTime=new Date();
+    private Date pushTime;
     private Integer pushNum;
 
-    @Override
     public String getObjectId() {
         return objectId;
     }
 
-    @Override
     public void setObjectId(String objectId) {
         this.objectId = objectId;
     }
@@ -87,7 +69,4 @@ public class AppPushInfo extends AVObject {
     public void setPushNum(Integer pushNum) {
         this.pushNum = pushNum;
     }
-
-
 }
-

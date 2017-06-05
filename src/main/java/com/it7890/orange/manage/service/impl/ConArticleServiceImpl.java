@@ -2,11 +2,13 @@ package com.it7890.orange.manage.service.impl;
 
 import com.avos.avoscloud.AVException;
 import com.it7890.orange.manage.dao.ConArticleDao;
+import com.it7890.orange.manage.model.ConArticle;
 import com.it7890.orange.manage.po.ConArticleQuery;
 import com.it7890.orange.manage.service.ConArticleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -19,6 +21,14 @@ public class ConArticleServiceImpl implements ConArticleService {
 
     public Map getAll(ConArticleQuery conArticleQuery, Integer page) throws AVException {
         return conArticleDao.getAll(conArticleQuery, page);
+    }
+
+    public List<ConArticle> get(ConArticleQuery conArticleQuery) throws AVException {
+        return conArticleDao.get(conArticleQuery);
+    }
+
+    public ConArticle getById(String objectId) throws AVException {
+        return conArticleDao.getById(objectId);
     }
 
     public void deleteBatch(String ids) throws AVException {
@@ -34,6 +44,7 @@ public class ConArticleServiceImpl implements ConArticleService {
         for (String id : idArr) {
             conArticleDao.publish(id);
         }
-
     }
+
+
 }

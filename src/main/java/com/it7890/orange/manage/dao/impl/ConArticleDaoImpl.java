@@ -4,6 +4,7 @@ import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.AVObject;
 import com.avos.avoscloud.AVQuery;
 import com.it7890.orange.manage.dao.ConArticleDao;
+import com.it7890.orange.manage.model.ConArticle;
 import com.it7890.orange.manage.po.ConArticleQuery;
 import com.it7890.orange.manage.utils.ConstantsUtil;
 import com.it7890.orange.manage.utils.DateUtil;
@@ -107,40 +108,27 @@ public class ConArticleDaoImpl implements ConArticleDao {
     }
 
 
-    public Map getById(String objectId) throws AVException {
-        AVQuery<AVObject> query = new AVQuery<>("conarticle");
-        Map map = new HashMap();
-        /*query.include("articleObj");
-        query.include("articleObj.titlePicObjArr");
-
-        AVObject avObject = query.get(objectId);
-
-
-        map.put("objectId", avObject.getObjectId());
-        map.put("countryObjectId", avObject.getAVObject("countryObj") == null ? "" : avObject.getAVObject("countryObj").getObjectId());
-        map.put("languagesObjectId", avObject.getAVObject("languagesObj") == null ? "" : avObject.getAVObject("languagesObj").getObjectId());
-        map.put("itype", ConstantsUtil.getAppTopItypeStr("" + avObject.get("iType")));
-        if (avObject.getAVObject("articleObj") != null) {
-            map.put("articleTitle", avObject.getAVObject("articleObj").get("title"));
-            map.put("articleType", ConstantsUtil.getAppTopArtitypeStr("" + avObject.getAVObject("articleObj").get("attr")));
-            List<AVFile> avFileList = avObject.getAVObject("articleObj").getList("titlePicObjArr");
-            if (!avFileList.isEmpty() && avFileList.size() > 0) {
-                map.put("picUrl", avFileList.get(0).getUrl());
-            }
+    public List<ConArticle> get(ConArticleQuery conArticleQuery) throws AVException {
+        AVQuery<ConArticle> query = new AVQuery<>("conarticle");
+        query.whereEqualTo("objectId", conArticleQuery.getObjectId());
+        List<ConArticle> avObjectList = query.find();
+        if (!avObjectList.isEmpty()) {
+            return avObjectList;
         }
-
-        if (avObject.get("status") != null) {
-            Date createdAt = (Date) avObject.get("createdAt");
-            map.put("status", avObject.getString("status"));
-
-        }
-        if (avObject.get("createdAt") != null) {
-            Date createdAt = (Date) avObject.get("createdAt");
-            map.put("createdAt", DateUtil.getTimeStampStr(createdAt));
-
-        }*/
-        return map;
+        return null;
     }
+
+    public ConArticle getById(String objectId) throws AVException{
+        AVQuery<ConArticle> query = new AVQuery<>("conarticle");
+        query.whereEqualTo("objectId", objectId);
+        List<ConArticle> avObjectList = query.find();
+        if (!avObjectList.isEmpty()) {
+            ConArticle conArticle=avObjectList.get(0);
+            return conArticle;
+        }
+        return null;
+    }
+
 
     public void delete(String id) throws AVException {
         AVObject avObject = AVObject.createWithoutData("conarticle", id);
@@ -157,9 +145,9 @@ public class ConArticleDaoImpl implements ConArticleDao {
         AVObject avObject = query.get(id);
         Date now = new Date();
         Date subtime = (Date) avObject.get("subtime");//subtime 提交时间
-        if(subtime==null){
+        if (subtime == null) {
             avObject.put("status", 2);
-        }else{
+        } else {
             if (subtime.before(now)) {//在当前时间前为0=正常
                 avObject.put("status", 0);
             } else if (subtime.after(now)) {//在当前时间后为2=预发布

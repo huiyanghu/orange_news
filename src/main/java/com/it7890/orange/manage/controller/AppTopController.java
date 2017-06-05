@@ -9,6 +9,7 @@ import com.it7890.orange.manage.service.AppTopService;
 import com.it7890.orange.manage.service.applicationService.HbCountryService;
 import com.it7890.orange.manage.service.contentService.LanguageService;
 import com.it7890.orange.manage.utils.ConstantsUtil;
+import com.it7890.orange.manage.utils.StringUtil;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,6 +55,7 @@ public class AppTopController {
         map.put("appTopItypeList", ConstantsUtil.getConstants("appTopItype"));//类型列表
         map.put("appTopQuery", appTopQuery);
         map.putAll(appTopListAndPageUtilMap);
+        System.out.println(JSON.toJSON(map));
         return "views/appTop/list";
     }
 
@@ -84,10 +86,10 @@ public class AppTopController {
     @RequestMapping(path = "/saveOrUpdate", method = RequestMethod.POST)
     public String saveOrUpdate(AppTopQuery appTopQuery, RedirectAttributes attributes) throws AVException {
         String msg="";
-        if (appTopQuery.getObjectId() != null&&!"".equals(appTopQuery.getObjectId())) {
+        if (StringUtil.isNotEmpty(appTopQuery.getObjectId())) {
             msg="修改成功!";
         }else{
-            msg="保持成功!";
+            msg="保存成功!";
         }
         appTopService.saveOrUpdate(appTopQuery);
         attributes.addFlashAttribute("msg", msg);
