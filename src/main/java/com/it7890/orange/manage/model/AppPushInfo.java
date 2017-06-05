@@ -1,99 +1,93 @@
 
 package com.it7890.orange.manage.model;
 
-import java.io.Serializable;
-import java.sql.Timestamp;
+import com.avos.avoscloud.AVClassName;
+import com.avos.avoscloud.AVObject;
 
+import java.util.Date;
 
 
 /**
- * @Description: 
+ * @Description:
  * @date 2015年12月10日 下午2:04:59
  */
-public class AppPushInfo  implements Serializable{
-	
-	private int id;
-	//国家ID
-	private int cid;
-	//文章中的articleid
-	private String articleid;
-	//文章标题
-	private String title;
-	//状态
-	private int status;
-	//推送时间
-	private Timestamp pushtime;
-	//推送数量
-	private int pushnum;
-	
-	private String starttime;
-	
-	private String endtime;
-	
-	private String countrycode;
-	
-	
-	public String getCountrycode() {
-		return countrycode;
-	}
-	public void setCountrycode(String countrycode) {
-		this.countrycode = countrycode;
-	}
-	public String getStarttime() {
-		return starttime;
-	}
-	public void setStarttime(String starttime) {
-		this.starttime = starttime;
-	}
-	public String getEndtime() {
-		return endtime;
-	}
-	public void setEndtime(String endtime) {
-		this.endtime = endtime;
-	}
-	public int getId() {
-		return id;
-	}
-	public void setId(int id) {
-		this.id = id;
-	}
-	public int getCid() {
-		return cid;
-	}
-	public void setCid(int cid) {
-		this.cid = cid;
-	}
-	public String getArticleid() {
-		return articleid;
-	}
-	public void setArticleid(String articleid) {
-		this.articleid = articleid;
-	}
-	public String getTitle() {
-		return title;
-	}
-	public void setTitle(String title) {
-		this.title = title;
-	}
-	public int getStatus() {
-		return status;
-	}
-	public void setStatus(int status) {
-		this.status = status;
-	}
-	public Timestamp getPushtime() {
-		return pushtime;
-	}
-	public void setPushtime(Timestamp pushtime) {
-		this.pushtime = pushtime;
-	}
-	public int getPushnum() {
-		return pushnum;
-	}
-	public void setPushnum(int pushnum) {
-		this.pushnum = pushnum;
-	}
-	
-	
+@AVClassName("AppPushInfo")
+public class AppPushInfo extends AVObject {
+    private static final long serialVersionUID = 1L;
+
+    public AppPushInfo() {
+        super();
+    }
+
+    /**
+     * 表中字段
+     */
+    private String objectId;
+    private String countryObjectId;
+    private String articleObjectId;
+    private String title;
+    private Integer status;//0:未推送，1推送中，2已推送
+    private Date pushTime=new Date();
+    private Integer pushNum;
+
+    @Override
+    public String getObjectId() {
+        return objectId;
+    }
+
+    @Override
+    public void setObjectId(String objectId) {
+        this.objectId = objectId;
+    }
+
+    public String getCountryObjectId() {
+        return countryObjectId;
+    }
+
+    public void setCountryObjectId(String countryObjectId) {
+        this.countryObjectId = countryObjectId;
+    }
+
+    public String getArticleObjectId() {
+        return articleObjectId;
+    }
+
+    public void setArticleObjectId(String articleObjectId) {
+        this.articleObjectId = articleObjectId;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
+    }
+
+    public Date getPushTime() {
+        return pushTime;
+    }
+
+    public void setPushTime(Date pushTime) {
+        this.pushTime = pushTime;
+    }
+
+    public Integer getPushNum() {
+        return pushNum;
+    }
+
+    public void setPushNum(Integer pushNum) {
+        this.pushNum = pushNum;
+    }
+
+
 }
 
