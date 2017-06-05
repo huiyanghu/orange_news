@@ -56,160 +56,165 @@
     <script type="text/javascript" src="/stylesheets/meAdmin/plugins/globalize/cultures/globalize.culture.de-DE.js"></script>
     <script type="text/javascript" src="/stylesheets/meAdmin/plugins/globalize/cultures/globalize.culture.ja-JP.js"></script>
     <script type="text/javascript" src="/stylesheets/meAdmin/plugins/datatables/jquery.dataTables.min.js"></script>
-    <script type="text/javascript" src="/stylesheets/meAdmin/plugins/datatables/tabletools/TableTools.min.js"></script>
-    <script type="text/javascript" src="/stylesheets/meAdmin/plugins/datatables/colvis/ColVis.min.js"></script>
-    <script type="text/javascript" src="/stylesheets/meAdmin/plugins/datatables/columnfilter/jquery.dataTables.columnFilter.js"></script>
     <script type="text/javascript" src="/stylesheets/meAdmin/plugins/datatables/DT_bootstrap.js"></script>
     <script type="text/javascript" src="/stylesheets/meAdmin/plugins/My97DatePicker/WdatePicker.js"></script>
+    <script type="text/javascript" src="/stylesheets/meAdmin/plugins/bootbox/bootbox.min.js"></script>
     <script type="text/javascript" src="/stylesheets/meAdmin/assets/js/app.js"></script>
     <script type="text/javascript" src="/stylesheets/meAdmin/assets/js/plugins.js"></script>
     <script type="text/javascript" src="/stylesheets/meAdmin/assets/js/plugins.form-components.js"></script>
+    <script>
+        $(document).ready(function() {
+            App.init();
+            Plugins.init();
+            FormComponents.init()
+        });
+    </script>
 </head>
 <body>
 <input type="hidden" name="" id="msg" th:value="${msg}">
-<div class="crumbs">
-    <ul class="breadcrumb">
-        <li>
-            <i class="icon-home"></i>
-            <a href="javascript:void(0);">
-                首页
-            </a>
-        </li>
-        <li>
-            <a th:href="@{/appTop/list}" title="置顶图列表">
-                置顶图列表
-            </a>
-        </li>
-        <li class="current">
-            <a href="javascript:void(0);" title="">
-                置顶图修改
-            </a>
-        </li>
-    </ul>
-</div>
-<div class="row" style="height: 20px;"></div>
-<div class="row">
-    <div class="col-md-12">
-        <div class="widget box">
-            <div class="widget-header">
-                <h4>
-                    <i class="icon-reorder"></i>
-                    文章信息
-                </h4>
-            </div>
-            <div class="widget-content">
-                <form class="form-horizontal row-border" th:object="${appTop}" th:action="@{/appTop/toUpdate}" th:method="get">
-                    <div class="form-group">
-                        <div class="col-md-4">
-                            <label class="col-md-4 control-label" for="objectId">
-                                ID：
-                            </label>
-                            <div class="col-md-8">
-                                <input type="text" id="objectId" name="objectId" class="form-control" th:value="${appTop.objectId}">
+<div class="container">
+    <div class="crumbs">
+        <ul class="breadcrumb">
+            <li>
+                <i class="icon-home"></i>
+                <a th:href="@{/orangeIndex/toDefault}" title="首页">
+                    首页
+                </a>
+            </li>
+            <li>
+                <a th:href="@{/appTop/list}" title="置顶图列表">
+                    置顶图管理
+                </a>
+            </li>
+            <li class="current">
+                <a href="javascript:void(0);" title="置顶图修改">
+                    置顶图修改
+                </a>
+            </li>
+        </ul>
+    </div>
+    <div class="row" style="height: 20px;"></div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="widget box">
+                <div class="widget-header">
+                    <h4>
+                        <i class="icon-reorder"></i>
+                        文章信息
+                    </h4>
+                </div>
+                <div class="widget-content">
+                    <form class="form-horizontal row-border" id="testForm" th:object="${appTop}" th:action="@{/appTop/saveOrUpdate}" th:method="post">
+                        <!--action="../appTop/saveOrUpdate" method="post"-->
+                        <div class="form-group">
+                            <div class="col-md-4">
+                                <label class="col-md-4 control-label" for="objectId">
+                                    ID：
+                                </label>
+                                <div class="col-md-8">
+                                    <input type="text" id="objectId" name="objectId" class="form-control" th:value="${appTop.objectId}">
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="col-md-4 control-label" for="countryObjectId">
+                                    国家：
+                                </label>
+                                <div class="col-md-8">
+                                    <select name="countryObjectId" id="countryObjectId" class="select2-select-00 col-md-12 full-width-fix select2-offscreen" tabindex="-1">
+                                        <option value="00">请选择</option>
+                                        <option value="00">所有国家</option>
+                                        <option th:each="country:${countryList}" th:selected="(${appTop.countryObjectId == country.objectId})" th:value="${country.objectId}" th:text="${country.get('countryCode')}+'&nbsp;'+${country.get('cnName')}"></option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="col-md-4 control-label" for="languagesObjectId">
+                                    语言：
+                                </label>
+                                <div class="col-md-8">
+                                    <select name="languagesObjectId" id="languagesObjectId" class="select2-select-00 col-md-12 full-width-fix select2-offscreen" tabindex="-1">
+                                        <option value="00">请选择</option>
+                                        <option th:each="language:${languageList}" th:selected="(${appTop.languagesObjectId == language.objectId})" th:value="${language.objectId}" th:text="${language.get('codes')}+'&nbsp;'+${language.get('remark')}"></option>
+                                    </select>
+                                </div>
                             </div>
                         </div>
-                        <div class="col-md-4">
-                            <label class="col-md-4 control-label" for="countryObjectId">
-                                国家：
-                            </label>
-                            <div class="col-md-8">
-                                <select name="countryObjectId" id="countryObjectId" class="select2-select-00 col-md-12 full-width-fix select2-offscreen" tabindex="-1">
-                                    <option value="00">请选择</option>
-                                    <option value="00">所有国家</option>
-                                    <option th:each="country:${countryList}" th:selected="(${appTop.countryObjectId == country.objectId})" th:value="${country.objectId}" th:text="${country.get('countryCode')}+'&nbsp;'+${country.get('cnName')}"></option>
-                                </select>
+                        <div class="form-group">
+                            <div class="col-md-4">
+                                <label class="col-md-4 control-label" for="articleTitle">
+                                    标题：
+                                </label>
+                                <div class="col-md-8">
+                                    <input type="text" id="articleTitle" name="articleTitle" class="form-control" th:value="${appTop.articleTitle}">
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="col-md-4 control-label" for="itype">
+                                    类型：
+                                </label>
+                                <div class="col-md-8">
+                                    <input type="text" id="itype" name="itype" class="form-control" th:value="${appTop.itype}">
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="col-md-4 control-label" for="articleType">
+                                    文章类型：
+                                </label>
+                                <div class="col-md-8">
+                                    <input type="text" id="articleType" name="articleType" class="form-control" th:value="${appTop.articleType}">
+                                </div>
                             </div>
                         </div>
-                        <div class="col-md-4">
-                            <label class="col-md-4 control-label" for="languagesObjectId">
-                                语言：
-                            </label>
-                            <div class="col-md-8">
-                                <select name="languagesObjectId" id="languagesObjectId" class="select2-select-00 col-md-12 full-width-fix select2-offscreen" tabindex="-1">
-                                    <option value="00">请选择</option>
-                                    <option th:each="language:${languageList}" th:selected="(${appTop.languagesObjectId == language.objectId})" th:value="${language.objectId}" th:text="${language.get('codes')}+'&nbsp;'+${language.get('remark')}"></option>
-                                </select>
+                        <div class="form-group">
+                            <div class="col-md-4">
+                                <label class="col-md-4 control-label" for="status">
+                                    状态：
+                                </label>
+                                <div class="col-md-8">
+                                    <select name="status" id="status" class="form-control" tabindex="-1">
+                                        <option value="" selected>请选择</option>
+                                        <option value="1" th:selected="(${appTop.status == 1})">正常</option>
+                                        <option value="0" th:selected="(${appTop.status == 0})">禁用</option>
+                                        <option value="-1" th:selected="(${appTop.status == -1})">删除</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="col-md-4 control-label" for="createdAt">
+                                    发布时间：
+                                </label>
+                                <div class="col-md-8">
+                                    <input type="text" id="createdAt" name="createdAt" class="form-control" placeholder="输入发布时间" th:value="${appTop.createdAt}" onClick="WdatePicker()">
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="col-md-4 control-label" for="order">
+                                    排序：
+                                </label>
+                                <div class="col-md-8">
+                                    <input type="text" id="order" name="order" class="form-control" th:value="${appTop.objectId}">
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="col-md-4">
-                            <label class="col-md-4 control-label" for="articleTitle">
-                                标题：
-                            </label>
-                            <div class="col-md-8">
-                                <input type="text" id="articleTitle" name="articleTitle" class="form-control" th:value="${appTop.articleTitle}">
+                        <div class="form-group">
+                            <div class="col-md-12">
+                                <label class="col-md-4 control-label" for="titlepicimg">
+                                    图片：
+                                </label>
+                                <div class="col-md-8">
+                                    <img th:src="${appTop.picUrl}" id="titlepicimg" name="titlepicimg" class="col-sm-8" alt="">
+                                </div>
                             </div>
                         </div>
-                        <div class="col-md-4">
-                            <label class="col-md-4 control-label" for="itype">
-                                类型：
-                            </label>
-                            <div class="col-md-8">
-                                <input type="text" id="itype" name="itype" class="form-control" th:value="${appTop.itype}">
-                            </div>
+                        <div class="form-actions" style="text-align: center;">
+                            <a href="javascript:void(0);" class="btn button-previous" style="display: inline-block;" th:href="@{/appTop/list}">
+                                <i class="icon-angle-left"></i>
+                                返回
+                            </a>
+                            <input type="submit" value="修改置顶图" class="btn btn-primary" id="edit">
                         </div>
-                        <div class="col-md-4">
-                            <label class="col-md-4 control-label" for="articleType">
-                                文章类型：
-                            </label>
-                            <div class="col-md-8">
-                                <input type="text" id="articleType" name="articleType" class="form-control" th:value="${appTop.articleType}">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="col-md-4">
-                            <label class="col-md-4 control-label" for="status">
-                                状态：
-                            </label>
-                            <div class="col-md-8">
-                                <select name="status" id="status" class="form-control" tabindex="-1">
-                                    <option value="" selected>请选择</option>
-                                    <option value="1" th:selected="(${appTop.status == 1})">正常</option>
-                                    <option value="0" th:selected="(${appTop.status == 0})">禁用</option>
-                                    <option value="-1" th:selected="(${appTop.status == -1})">删除</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <label class="col-md-4 control-label" for="createdAt">
-                                发布时间：
-                            </label>
-                            <div class="col-md-8">
-                                <input type="text" id="createdAt" name="createdAt" class="form-control" placeholder="输入发布时间" th:value="${appTop.createdAt}" onClick="WdatePicker()">
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <label class="col-md-4 control-label" for="order">
-                                排序：
-                            </label>
-                            <div class="col-md-8">
-                                <input type="text" id="order" name="order" class="form-control" th:value="${appTop.objectId}">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="col-md-12">
-                            <label class="col-md-4 control-label" for="titlepicimg">
-                                图片：
-                            </label>
-                            <div class="col-md-8">
-                                <img th:src="${appTop.picUrl}" id="titlepicimg" name="titlepicimg" class="col-sm-8" alt="">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-actions" style="text-align: center;">
-                        <a href="javascript:void(0);" class="btn button-previous" style="display: inline-block;" th:href="@{/appTop/list}">
-                            <i class="icon-angle-left"></i>
-                            返回
-                        </a>
-                        <button type="submit" class="btn btn-primary" th:action="@{/appTop/saveOrUpdate(objectId=${appTop.objectId})}" th:method="post">
-                            修改置顶图
-                            <i class="icon-angle-right"></i>
-                        </button>
-                    </div>
-                </form>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
@@ -221,8 +226,37 @@
         });
     });
     if($("#msg").val() != ''){
-        alert($("#msg").val());
+        bootbox.alert($("#msg").val());
     }
+    $('#edit').click(function(e){
+        e.preventDefault();
+        $.ajax({
+            url:'',
+            data:{},
+            dataType:'JSON',
+            type:'post',
+        })
+        var alertBox = bootbox.dialog({
+            message: "确认要修改吗?",
+            title: "修改",
+            buttons: {
+                success: {
+                    label: "取消",
+                    className: "btn-default",
+                    callback: function() {
+                        alertBox.modal("hide");
+                    }
+                },
+                main: {
+                    label: "确认",
+                    className: "btn-primary",
+                    callback: function() {
+                        $('#testForm').submit();
+                    }
+                }
+            }
+        });
+    });
 </script>
 </body>
 </html>

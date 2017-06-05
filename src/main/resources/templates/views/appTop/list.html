@@ -56,11 +56,11 @@
     <script type="text/javascript" src="/stylesheets/meAdmin/plugins/globalize/cultures/globalize.culture.de-DE.js"></script>
     <script type="text/javascript" src="/stylesheets/meAdmin/plugins/globalize/cultures/globalize.culture.ja-JP.js"></script>
     <script type="text/javascript" src="/stylesheets/meAdmin/plugins/datatables/jquery.dataTables.min.js"></script>
-    <script type="text/javascript" src="/stylesheets/meAdmin/plugins/datatables/tabletools/TableTools.min.js"></script>
-    <script type="text/javascript" src="/stylesheets/meAdmin/plugins/datatables/colvis/ColVis.min.js"></script>
-    <script type="text/javascript" src="/stylesheets/meAdmin/plugins/datatables/columnfilter/jquery.dataTables.columnFilter.js"></script>
     <script type="text/javascript" src="/stylesheets/meAdmin/plugins/datatables/DT_bootstrap.js"></script>
     <script type="text/javascript" src="/stylesheets/meAdmin/plugins/My97DatePicker/WdatePicker.js"></script>
+    <script type="text/javascript" src="/stylesheets/meAdmin/plugins/page/jqPaginator.min.js"></script>
+    <script type="text/javascript" src="/stylesheets/meAdmin/plugins/page/myPage.js"></script>
+    <script type="text/javascript" src="/stylesheets/meAdmin/plugins/bootbox/bootbox.min.js"></script>
     <script type="text/javascript" src="/stylesheets/meAdmin/assets/js/app.js"></script>
     <script type="text/javascript" src="/stylesheets/meAdmin/assets/js/plugins.js"></script>
     <script type="text/javascript" src="/stylesheets/meAdmin/assets/js/plugins.form-components.js"></script>
@@ -79,13 +79,13 @@
         <ul class="breadcrumb">
             <li>
                 <i class="icon-home"></i>
-                <a href="javascript:void(0);">
+                <a th:href="@{/orangeIndex/toDefault}" href="" title="首页">
                     首页
                 </a>
             </li>
             <li class="current">
-                <a href="javascript:void(0);" title="">
-                    置顶图列表
+                <a href="javascript:void(0);" title="置顶图管理">
+                    置顶图管理
                 </a>
             </li>
         </ul>
@@ -96,7 +96,7 @@
             <div class="widget box">
                 <div class="widget-header">
                     <h4>
-                        <i class="icon-reorder"></i>
+                        <i class="icon-search"></i>
                         搜索条件
                     </h4>
                     <div class="toolbar no-padding">
@@ -166,7 +166,7 @@
                             </div>
                         </div>
                         <div class="form-actions">
-                            <input type="submit" value="Validate Me" class="btn btn-primary pull-right">
+                            <input type="submit" value="搜索" class="btn btn-primary pull-right">
                         </div>
                     </form>
                 </div>
@@ -182,8 +182,8 @@
                         置顶图文章列表
                     </h4>
                 </div>
-                <div class="widget-content no-padding">
-                    <table class="table table-striped table-bordered table-hover table-checkable table-colvis datatable">
+                <div class="widget-content">
+                    <table class="table table-striped table-bordered table-checkable table-highlight-head table-no-inner-border table-hover">
                         <thead>
                             <tr>
                                 <th>ID</th>
@@ -210,7 +210,7 @@
                                 <td th:text="${appTop.get('itype')}"></td>
                                 <td th:text="${appTop.get('articleType')}"></td>
                                 <td>
-                                    <img th:src="${appTop.get('picUrl')}" alt="" height="30">
+                                    <img th:src="${appTop.get('picUrl')}" alt="">
                                 </td>
                                 <td th:text="${appTop.get('createdAt')}"></td>
                                 <td th:text="${appTop.get('createdAt')}"></td>
@@ -222,13 +222,13 @@
                                 <td th:text="${appTop.get('cType')}"></td>
                                 <td class="align-center">
                                     <span class="btn-group">
-                                        <a href="javascript:void(0);" class="btn btn-xs bs-tooltip" title="" data-original-title="Edit" th:onclick="'javascript:editAppTop(this,\''+${appTop.get('objectId')}+'\');'">
+                                        <a href="javascript:void(0);" th:href="@{/appTop/toUpdate(objectId=${appTop.get('objectId')})}" th:attr="objectid=${appTop.get('objectId')}" class="btn btn-xs bs-tooltip edit-app-top" title="" data-original-title="修改">
                                             <i class="icon-pencil"></i>
                                         </a>
-                                        <a href="javascript:void(0);" class="btn btn-xs bs-tooltip" title="" data-original-title="Delete" th:onclick="'javascript:delAppTop(this,\''+${appTop.get('objectId')}+'\');'">
+                                        <a href="javascript:void(0);" th:attr="objectid=${appTop.get('objectId')}" class="btn btn-xs bs-tooltip del-app-top" title="" data-original-title="删除">
                                             <i class="icon-trash"></i>
                                         </a>
-                                        <a href="javascript:void(0);" class="btn btn-xs bs-tooltip" title="" data-original-title="Search">
+                                        <a href="javascript:void(0);" th:attr="objectid=${appTop.get('objectId')}" class="btn btn-xs bs-tooltip ref-app-top" title="" data-original-title="刷新">
                                             <i class="icon-refresh"></i>
                                         </a>
                                       </span>
@@ -236,6 +236,26 @@
                             </tr>
                         </tbody>
                     </table>
+                    <div class="col-sm-12 text-center">
+                        <ul class="pagination" id="pagination">
+
+                        </ul>
+                        <ul id="countabs">
+
+                        </ul>
+                        <!-- 总条数 -->
+                        <input type="hidden" id="PageCount" runat="server" th:value="${pageUtil.recordCount}"/>
+                        <!-- 总页数 -->
+                        <input type="hidden" id="countindex" runat="server" th:value="(${pageUtil.pagecount}>=1000?1000:${pageUtil.pagecount})"/>
+                        <!-- 当前第几页 -->
+                        <input type="hidden" id="Pagedq" runat="server" th:value="${pageUtil.currentPage}"/>
+                        <!-- 请求的地址 -->
+                        <input type="hidden" id="pageUrl" runat="server" th:value="@{/appTop/list}"/>
+                        <!-- 请求的参数 -->
+                        <input type="hidden" id="pageParameter" runat="server" th:value="${appTopQuery}"/>
+                        <!--设置最多显示的页码数 可以手动设置 默认为7-->
+                        <input type="hidden" id="visiblePages" runat="server" th:value="10" />
+                    </div>
                 </div>
             </div>
         </div>
@@ -248,18 +268,32 @@
         });
     });
     if($("#msg").val() != ''){
-        alert($("#msg").val());
+        bootbox.alert($("#msg").val());
     }
-    function editAppTop(obj,id){
-        if(confirm("确认要修改吗?")){
-            $(obj).attr('href','toUpdate?objectId='+id);
-        }
-    }
-    function delAppTop(obj,id){
-        if(confirm("确认要删除吗?")){
-            $(obj).attr('href','delete?objectId='+id);
-        }
-    }
+    $('.del-app-top').click(function(e){
+        var id = $(this).attr('objectid');
+        e.preventDefault();
+        var alertBox = bootbox.dialog({
+            message: "确认要删除吗?",
+            title: "删除",
+            buttons: {
+                success: {
+                    label: "取消",
+                    className: "btn-default",
+                    callback: function() {
+                        alertBox.modal("hide");
+                    }
+                },
+                main: {
+                    label: "确认",
+                    className: "btn-primary",
+                    callback: function() {
+                        window.location.href = '../appTop/delete?objectId='+id;
+                    }
+                }
+            }
+        })
+    });
 </script>
 </body>
 </html>

@@ -55,6 +55,7 @@
     <script type="text/javascript" src="/stylesheets/meAdmin/plugins/uniform/jquery.uniform.min.js"></script>
     <script type="text/javascript" src="/stylesheets/meAdmin/plugins/select2/select2.min.js"></script>
     <script type="text/javascript" src="/stylesheets/meAdmin/plugins/My97DatePicker/WdatePicker.js"></script>
+    <script type="text/javascript" src="/stylesheets/meAdmin/plugins/bootbox/bootbox.min.js"></script>
     <script type="text/javascript" src="/stylesheets/meAdmin/assets/js/app.js"></script>
     <script type="text/javascript" src="/stylesheets/meAdmin/assets/js/plugins.js"></script>
     <script type="text/javascript" src="/stylesheets/meAdmin/assets/js/plugins.form-components.js"></script>
@@ -109,12 +110,12 @@
         </ul>
     </div>
 </header>
-<div id="container" class="fixed-header">
+<div id="container" class="fixed-header" style="border-right: 1px solid #d9d9d9;">
     <div id="sidebar" class="sidebar-fixed">
         <div id="sidebar-content">
             <ul id="nav">
-                <li class="current">
-                    <a href="localhost:3000">
+                <li id="home" class="current">
+                    <a href="javascript:void(0);">
                         <i class="icon-home"></i>
                         首页
                     </a>
@@ -145,7 +146,7 @@
                                 置顶图管理
                             </a>
                         </li>
-                        <li url="/article/list">
+                        <li url="/conArticle/list">
                             <a href="javascript:void(0);">
                                 <i class="icon-bookmark"></i>
                                 文章管理
@@ -164,6 +165,9 @@
     $("#nav li").click(function(){
         $(this).addClass('current').siblings().removeClass('current');
     });
+    $('#home').click(function(){
+        $('#rightFrame').attr('src','../orangeIndex/toDefault');
+    })
     $('.sub-menu li').click(function(){
         $('#rightFrame').attr('src',$(this).attr('url'));
     });
