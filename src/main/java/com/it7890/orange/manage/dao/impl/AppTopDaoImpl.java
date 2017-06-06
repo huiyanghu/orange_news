@@ -11,6 +11,7 @@ import com.it7890.orange.manage.po.AppTopQuery;
 import com.it7890.orange.manage.utils.ConstantsUtil;
 import com.it7890.orange.manage.utils.DateUtil;
 import com.it7890.orange.manage.utils.PageUtil;
+import com.it7890.orange.manage.utils.StringUtil;
 import org.springframework.stereotype.Repository;
 
 import java.util.*;
@@ -129,8 +130,14 @@ public class AppTopDaoImpl extends BaseDaoImpl<AppTop> implements AppTopDao {
 
     public void saveOrUpdate(AppTopQuery appTopQuery) throws AVException {
         AVObject avObject = AVObject.createWithoutData("AppTop", appTopQuery.getObjectId());
-        avObject.put("countryObj", AVObject.createWithoutData("hb_countrys", appTopQuery.getCountryObjectId()));
-        avObject.put("languagesObj", AVObject.createWithoutData("hb_languages", appTopQuery.getLanguagesObjectId()));
+        if(StringUtil.isNotEmpty(appTopQuery.getCountryObjectId())){
+            avObject.put("countryObj", AVObject.createWithoutData("hb_countrys", appTopQuery.getCountryObjectId()));
+        }
+        if(StringUtil.isNotEmpty(appTopQuery.getLanguagesObjectId())){
+            avObject.put("languagesObj", AVObject.createWithoutData("hb_languages", appTopQuery.getLanguagesObjectId()));
+        }
+
+
         if (appTopQuery.getStatus() != null) {
             avObject.put("status", appTopQuery.getStatus());//1正常 0禁用 -1删除
         }
