@@ -26,7 +26,7 @@ public class AppLockScreen extends AVObject {
     private Double imgSize;
     private Integer isScroll;
     private Integer isShow;
-    private AVObject languageObj;
+    private HbLanguage languageObj;
     private String objectId;
     private Integer rank;
     private String sourceId;
@@ -138,7 +138,7 @@ public class AppLockScreen extends AVObject {
         return languageObj;
     }
 
-    public void setLanguageObj(AVObject languageObj) {
+    public void setLanguageObj(HbLanguage languageObj) {
         this.languageObj = languageObj;
     }
 

@@ -9,6 +9,7 @@ import com.it7890.orange.manage.po.AppPushInfoQuery;
 import com.it7890.orange.manage.po.ConArticleQuery;
 import com.it7890.orange.manage.po.HbCountryQuery;
 import com.it7890.orange.manage.service.AppAdvertService;
+import com.it7890.orange.manage.service.AppLockScreenService;
 import com.it7890.orange.manage.service.AppPushInfoService;
 import com.it7890.orange.manage.service.ConArticleService;
 import com.it7890.orange.manage.service.applicationService.HbCountryService;
@@ -60,6 +61,8 @@ public class ConArticleController {
     private HbCountryService hbCountryService;
     @Autowired
     private AppAdvertService appAdvertService;
+    @Autowired
+    private AppLockScreenService appLockScreenService;
 
 
     /**
@@ -425,7 +428,12 @@ public class ConArticleController {
                 } else {
                     lockscreen.setCountryCode("00");
                 }
-                lockscreen.setLanguageObj(AVObject.createWithoutData("hb_languages",advert.getLanguageObj().getObjectId()));
+                System.out.println(advert.getLanguageObj());
+                if(advert.getLanguageObj()!=null){
+                    HbLanguage hbLanguage=new HbLanguage();
+                    hbLanguage.setObjectId(advert.getLanguageObj().getObjectId());
+                    lockscreen.setLanguageObj(hbLanguage);
+                }
                 lockscreen.setAttr(3);
 
 
@@ -440,7 +448,9 @@ public class ConArticleController {
                 lockscreen.setSrc(advert.getAdUrl());
                 lockscreen.setRank(0);
                 lockscreen.setVersionId("0");
-                lockscreen.setCreateUserObj(AVObject.createWithoutData("SysUser",""+sysuer.getObjectId()));
+                if(sysuer!=null){
+                    lockscreen.setCreateUserObj(AVObject.createWithoutData("SysUser", "" + sysuer.getObjectId()));
+                }
 
                 //lockscreen.setCreatetime(advert.getCreatetime());
                 //lockscreen.setCountryid(0);
@@ -451,8 +461,8 @@ public class ConArticleController {
                 //Map<String, String> map = upyunutil.getFileInfo(lockscreen.getImg());
                 //lockscreen.setImgsize(map != null ? Integer.parseInt(map.get("size")) : 0);
 
-                //result = appLockScreenService.insertAppLockScreen(lockscreen);
-
+                String lockScreenObjectId = appLockScreenService.saveOrUpdate(lockscreen);
+                System.out.println(lockScreenObjectId);
             }
 
 

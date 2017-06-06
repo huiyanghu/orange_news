@@ -59,15 +59,14 @@ public class AppTopDaoImpl extends BaseDaoImpl<AppTop> implements AppTopDao {
         for (AVObject avObject : avObjectList) {
             m = new HashMap();
             m.put("objectId", avObject.getObjectId());
-            map.put("status", avObject.getString("status"));
-            map.put("statusStr", ConstantsUtil.getConstants("appTopStatus",""+avObject.getString("status")));
+            m.put("status", avObject.getString("status"));
+            m.put("statusStr", ConstantsUtil.getConstants("appTopStatus",""+avObject.getInt("status")));
             if (avObject.get("createdAt") != null) {
                 Date createdAt = (Date) avObject.get("createdAt");
                 m.put("createdAt", DateUtil.getTimeStampStr(createdAt));
             }
             m.put("itype", avObject.get("iType"));
             m.put("itypeStr", ConstantsUtil.getConstants("appTopItype","" + avObject.get("iType")));
-            ;
             if (avObject.getAVObject("languagesObj") != null) {
                 m.put("languageRemark", avObject.getAVObject("languagesObj").get("remark"));
             }

@@ -18,93 +18,55 @@ public class HbLanguage extends AVObject {
         super();
     }
 
-   /* private int id;
-    private String hbcode;
-    private String hbid;
-    private String hbname;
-    //语言的本地名称
-    private String localname;
-    //语言的中文名称
-    private String cnname;
-    private int status;*/
-    //TODO 不一样的字段
-//    private int isopen;
+    private String codes;
+    private String name;
+    private String remark;
+    private Integer status;
 
-//    public int getIsopen() {
-//        return getString(""); isopen;
-//    }
-//    public void setIsopen(int isopen) {
-//        this.put("", );isopen = isopen;
-//    }
 
-    public int getStatus() {
+    public String getCodes() {
+        return getString("codes");
+    }
+
+    public void setCodes(String codes) {
+        this.put("codes", codes);
+    }
+
+    public String getName() {
+        return getString("name");
+    }
+
+    public void setName(String name) {
+        this.put("name", name);
+    }
+
+    public String getRemark() {
+        return getString("remark");
+    }
+
+    public void setRemark(String remark) {
+        this.put("remark", remark);
+    }
+
+    public Integer getStatus() {
         return getInt("status");
     }
 
-    public void setStatus(int status) {
+    public void setStatus(Integer status) {
         this.put("status", status);
-    }
-
-    public String getLocalname() {
-        return getString("localname");
-    }
-
-    public void setLocalname(String localname) {
-        this.put("localname", localname);
-    }
-
-    public String getCnname() {
-        return getString("cnname");
-    }
-
-    public void setCnname(String cnname) {
-        this.put("cnname", cnname);
-    }
-
-    public int getId() {
-        return getInt("id");
-    }
-
-    public void setId(int id) {
-        this.put("id", id);
-    }
-
-    public String getHbcode() {
-        return getString("hbcode");
-    }
-
-    public void setHbcode(String hbcode) {
-        this.put("hbcode", hbcode);
-    }
-
-    public String getHbid() {
-        return getString("hbid");
-    }
-
-    public void setHbid(String hbid) {
-        this.put("hbid", hbid);
-    }
-
-    public String getHbname() {
-        return getString("hbname");
-    }
-
-    public void setHbname(String hbname) {
-        this.put("hbname", hbname);
     }
 
     @Override
     public String toString() {
         Map<String, Object> result = new HashMap<String, Object>();
-        result.put("id", this.getInt("id"));
-        result.put("hbcode", this.getString("hbcode"));
-        result.put("hbid", this.getString("hbid"));
-        result.put("hbname", this.getString("hbname"));
-        result.put("localname", this.getString("localname"));
-        result.put("cnname", this.getString("cnname"));
-        result.put("status", this.getInt("status"));
-        result.put("objectId", this.getObjectId());
-        result.put("createdAt", this.getCreatedAt());
+
+        result.put("codes", getCodes());
+        result.put("createdAt", getCreatedAt());
+        result.put("name", getName());
+        result.put("objectId", getObjectId());
+        result.put("remark", getRemark());
+        result.put("status", getStatus());
+        result.put("updatedAt", getUpdatedAt());
         return JSON.toJSONString(result);
     }
 

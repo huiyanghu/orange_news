@@ -2,7 +2,7 @@ package com.it7890.orange.manage.dao;
 
 import com.avos.avoscloud.AVException;
 import com.it7890.orange.manage.model.AppLockScreen;
-import com.it7890.orange.manage.po.AppAdvertQuery;
+import com.it7890.orange.manage.po.AppLockScreenQuery;
 
 import java.util.List;
 
@@ -14,5 +14,5 @@ public interface AppLockScreenDao {
 
     public AppLockScreen get(String objectId) throws AVException;
 
-    public List<AppLockScreen> get(AppAdvertQuery appAdvertQuery) throws AVException;
+    public List<AppLockScreen> get(AppLockScreenQuery appLockScreenQuery) throws AVException;
 }

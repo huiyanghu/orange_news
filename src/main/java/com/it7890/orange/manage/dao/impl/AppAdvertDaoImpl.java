@@ -42,13 +42,14 @@ public class AppAdvertDaoImpl implements AppAdvertDao {
 
     public List<AppAdvert> get(AppAdvertQuery appAdvertQuery) throws AVException {
         AVQuery<AppAdvert> query = new AVQuery<>("AppAdvert");
-
         if (StringUtil.isNotEmpty(appAdvertQuery.getObjectId())) {
             query.whereEqualTo("objectId", appAdvertQuery.getObjectId());
         }
         if (StringUtil.isNotEmpty(appAdvertQuery.getArticleObjectId())) {
             query.whereEqualTo("articleObj", AVObject.createWithoutData("conarticle",appAdvertQuery.getArticleObjectId()));
         }
+
+        query.include("languageObj");
         List<AppAdvert> appAdvertList = query.find();
 
         return appAdvertList;

@@ -26,7 +26,7 @@ public class AppAdvert extends AVObject {
     private AVObject advertTypeObj;
     private String adUrl;
     private AVObject applicationObj;
-    private AVObject articleObj;
+    private ConArticle articleObj;
     private Integer conType;//内容类型0=广告、1=应用、2=游戏
     private String countryCode;
     private AVObject createUserObj;
@@ -36,7 +36,7 @@ public class AppAdvert extends AVObject {
     private String jointCom;
     private String jointId;
     private Integer jointType;//合作类型0=CPA、1=CPC、2=CPM、3=CPD
-    private AVObject languageObj;
+    private HbLanguage languageObj;
     private String objectId;
     private Integer starlv;
     private Date startTime;
@@ -140,12 +140,12 @@ public class AppAdvert extends AVObject {
         this.applicationObj = applicationObj;
     }
 
-    public AVObject getArticleObj() {
-        return articleObj;
+    public ConArticle getArticleObj() {
+        return getAVObject("articleObj");
     }
 
-    public void setArticleObj(AVObject articleObj) {
-        this.articleObj = articleObj;
+    public void setArticleObj(ConArticle articleObj) {
+        this.put("articleObj",articleObj);
     }
 
     public Integer getConType() {
@@ -221,12 +221,12 @@ public class AppAdvert extends AVObject {
         this.jointType = jointType;
     }
 
-    public AVObject getLanguageObj() {
-        return languageObj;
+    public HbLanguage getLanguageObj() {
+        return getAVObject("languageObj");
     }
 
-    public void setLanguageObj(AVObject languageObj) {
-        this.languageObj = languageObj;
+    public void setLanguageObj(HbLanguage languageObj) {
+        this.put("languageObj", languageObj);
     }
 
     @Override
