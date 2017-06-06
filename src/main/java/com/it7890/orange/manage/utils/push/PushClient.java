@@ -56,43 +56,43 @@ public class PushClient {
         return status+"";
     }
 	
-	public static void main(String[] args) {
-		PushClient c=new PushClient();
-		IOSGroupcast groupcast;
-		try {
-			String title="IOS 测试";
-			groupcast = new IOSGroupcast("568cc89567e58e7fe0001420","gbpgro5tdmbemyrt44lx9lgkrshoympx");
-			JSONObject filterJson = new JSONObject();
-			//JSONArray andJson = new JSONArray();
-			JSONObject whereJson = new JSONObject();
-			JSONArray andArray = new JSONArray();
-			JSONArray orArray = new JSONArray();
-			JSONObject countryTag = new JSONObject();
-			JSONObject orTag = new JSONObject();
-			ReadCountry rc = new ReadCountry();
-			String countryName = "中国";
-			countryTag.put("country", countryName);
-			orArray.put(countryTag);
-			orTag.put("or", orArray);
-			andArray.put(orTag);
-			whereJson.put("and", andArray);
-			filterJson.put("where", whereJson);
-			/*System.out.println(filterJson.toString());*/
-			groupcast.setFilter(filterJson);
-			if(title.length()>40){
-				title = title.substring(0, 40);
-			}
-			groupcast.setAlert(title);
-			groupcast.setDescription(countryName+":"+title);
-			groupcast.setTestMode();
-			String conjson="{\"id\":12411735,\"isgame\":1,\"linkurl\":\"http://www.coolook.top/article/12411735.html\",\"titlepic\":\"http://zuoyoo-hk.b0.upaiyun.com/2016-03-08/07904ab2aa66c28399ecb5576598850e.jpg!240\"}";
-			groupcast.setConjson(conjson);
-//			groupcast.setType("unicast");
-//			groupcast.setDeviceTokens("35543edde2c4e1660cc3deabb2e5086342bac5eecbf2a07c348ee7ec570b3a31");
-			c.send(groupcast);
-		}catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
+//	public static void main(String[] args) {
+//		PushClient c=new PushClient();
+//		IOSGroupcast groupcast;
+//		try {
+//			String title="IOS 测试";
+//			groupcast = new IOSGroupcast("568cc89567e58e7fe0001420","gbpgro5tdmbemyrt44lx9lgkrshoympx");
+//			JSONObject filterJson = new JSONObject();
+//			//JSONArray andJson = new JSONArray();
+//			JSONObject whereJson = new JSONObject();
+//			JSONArray andArray = new JSONArray();
+//			JSONArray orArray = new JSONArray();
+//			JSONObject countryTag = new JSONObject();
+//			JSONObject orTag = new JSONObject();
+//			ReadCountry rc = new ReadCountry();
+//			String countryName = "中国";
+//			countryTag.put("country", countryName);
+//			orArray.put(countryTag);
+//			orTag.put("or", orArray);
+//			andArray.put(orTag);
+//			whereJson.put("and", andArray);
+//			filterJson.put("where", whereJson);
+//			/*System.out.println(filterJson.toString());*/
+//			groupcast.setFilter(filterJson);
+//			if(title.length()>40){
+//				title = title.substring(0, 40);
+//			}
+//			groupcast.setAlert(title);
+//			groupcast.setDescription(countryName+":"+title);
+//			groupcast.setTestMode();
+//			String conjson="{\"id\":12411735,\"isgame\":1,\"linkurl\":\"http://www.coolook.top/article/12411735.html\",\"titlepic\":\"http://zuoyoo-hk.b0.upaiyun.com/2016-03-08/07904ab2aa66c28399ecb5576598850e.jpg!240\"}";
+//			groupcast.setConjson(conjson);
+////			groupcast.setType("unicast");
+////			groupcast.setDeviceTokens("35543edde2c4e1660cc3deabb2e5086342bac5eecbf2a07c348ee7ec570b3a31");
+//			c.send(groupcast);
+//		}catch (Exception e) {
+//			e.printStackTrace();
+//		}
+//	}
 
 }

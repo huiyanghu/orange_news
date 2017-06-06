@@ -211,8 +211,8 @@ public class ReadCountry {
 		return countryMap;
 	}
 	
-	public static void main(String[] args) {
-		
-		System.out.println(getCountryMap().get("36"));
-	}
+//	public static void main(String[] args) {
+//
+//		System.out.println(getCountryMap().get("36"));
+//	}
 }

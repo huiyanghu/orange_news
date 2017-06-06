@@ -38,11 +38,11 @@ public class ConstantsUtil {
     }
 
 
-    public static void main(String[] args) {
-        List<Map> list = ConstantsUtil.getConstants("appTopArtitype");
-        System.out.println(list);
-        String value = ConstantsUtil.getConstants("appTopArtitype", "5");
-        System.out.println(value);
-    }
+//    public static void main(String[] args) {
+//        List<Map> list = ConstantsUtil.getConstants("appTopArtitype");
+//        System.out.println(list);
+//        String value = ConstantsUtil.getConstants("appTopArtitype", "5");
+//        System.out.println(value);
+//    }
 
 }

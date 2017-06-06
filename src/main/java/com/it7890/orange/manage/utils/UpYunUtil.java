@@ -100,23 +100,23 @@ public class UpYunUtil {
         this.openmycdn = openmycdn;
     }
 
-    public static void main(String[] args) throws FileNotFoundException {
-        /**
-         * http://zuoyoo-hk.b0.upaiyun.com
-         * upyunmaster=zuoyoo-hk
-         upyunusers=zuoyoo
-         upyunpasswd=1qaz@WSX
-         */
-        UpYunUtil u = new UpYunUtil();
-        u.setUpyunmaster("zuoyoo-hk");
-        u.setUpyunusers("zuoyoo");
-        u.setUpyunpasswd("1qaz@WSX");
-//		String img="/Users/fujian/Downloads/191632175807023974.jpg";
-//		FileOutputStream is=new FileOutputStream(img);
-        u.delFile("/listruledata/bj_rule.json");
-//		u.writeFile("/2016-05-09/ff1.jpg", bs);
-
-    }
+//    public static void main(String[] args) throws FileNotFoundException {
+//        /**
+//         * http://zuoyoo-hk.b0.upaiyun.com
+//         * upyunmaster=zuoyoo-hk
+//         upyunusers=zuoyoo
+//         upyunpasswd=1qaz@WSX
+//         */
+//        UpYunUtil u = new UpYunUtil();
+//        u.setUpyunmaster("zuoyoo-hk");
+//        u.setUpyunusers("zuoyoo");
+//        u.setUpyunpasswd("1qaz@WSX");
+////		String img="/Users/fujian/Downloads/191632175807023974.jpg";
+////		FileOutputStream is=new FileOutputStream(img);
+//        u.delFile("/listruledata/bj_rule.json");
+////		u.writeFile("/2016-05-09/ff1.jpg", bs);
+//
+//    }
 
     public byte[] toBArray(InputStream is) throws IOException {
         ByteArrayOutputStream outp = new ByteArrayOutputStream();
