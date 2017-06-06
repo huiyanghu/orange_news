@@ -43,7 +43,7 @@ public class RecommendArtDaoImpl implements RecommendArtDao {
         if (StringUtil.isNotEmpty(endDate)){
             avQueryArt.whereLessThan("createdAt",DateUtil.getDateByStr(endDate));
         }
-        avQueryArt.limit(5);
+        avQueryArt.limit(pageSize);
         avQueryArt.skip(skip);
         try {
             ls = avQueryArt.find();

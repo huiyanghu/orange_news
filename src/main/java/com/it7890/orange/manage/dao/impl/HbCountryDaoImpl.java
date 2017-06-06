@@ -44,7 +44,6 @@ public class HbCountryDaoImpl implements HbCountryDao {
     public List<AVObject> getAvoList() {
         AVQuery query = new AVQuery("hb_countrys");
         query.whereEqualTo("status",0);
-        query.limit(5);
         List<AVObject> ls = new ArrayList<>();
         try {
            ls =  query.find();

@@ -39,10 +39,10 @@ public class HbCountryServiceImpl implements HbCountryService {
         for (AVObject avObject : ls) {
             m = new HashMap();
             m.put("objectId", avObject.getObjectId());
-            m.put("status", avObject.getString("status"));
+//            m.put("status", avObject.getInt("status"));
             m.put("createdAt", DateUtil.getTimeStampStr(avObject.getCreatedAt()));
             m.put("cnName", avObject.getString("cnName"));
-            m.put("countrycode",avObject.getString("countrycode"));
+            m.put("countryCode",avObject.getString("countryCode"));
             countryList.add(m);
         }
         map.put("countryList", countryList);
