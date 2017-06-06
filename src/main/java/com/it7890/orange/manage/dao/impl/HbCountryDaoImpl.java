@@ -2,6 +2,7 @@ package com.it7890.orange.manage.dao.impl;
 
 import com.avos.avoscloud.AVCloudQueryResult;
 import com.avos.avoscloud.AVException;
+import com.avos.avoscloud.AVObject;
 import com.avos.avoscloud.AVQuery;
 import com.it7890.orange.manage.dao.HbCountryDao;
 import com.it7890.orange.manage.model.HbCountrys;
@@ -37,6 +38,20 @@ public class HbCountryDaoImpl implements HbCountryDao {
             return avObjectList;
         }
         return null;
+    }
+
+    @Override
+    public List<AVObject> getAvoList() {
+        AVQuery query = new AVQuery("hb_countrys");
+        query.whereEqualTo("status",0);
+        query.limit(5);
+        List<AVObject> ls = new ArrayList<>();
+        try {
+           ls =  query.find();
+        } catch (AVException e) {
+            e.printStackTrace();
+        }
+        return ls;
     }
 
 }

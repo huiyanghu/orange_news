@@ -3,6 +3,7 @@ package com.it7890.orange.manage.utils;
 import org.apache.log4j.Logger;
 
 import java.sql.Timestamp;
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -19,6 +20,7 @@ public class DateUtil {
     public static final String TIME_WITH_MINUTE_PATTERN = "HH:mm";
 
     public static final long DAY_MILLI = 24 * 60 * 60 * 1000; // 一天的MilliSecond
+    public static final String FORMATER_YYYY_MM_DD_HH_MM_SS = "yyyy-MM-dd HH:mm:ss";
 
 
     // 取值范围：就是临界点包不包含等于
@@ -1364,6 +1366,27 @@ public class DateUtil {
 
         return value;
 
+    }
+    public static Date stringToDate(String strTime, String formatType)
+        throws ParseException {
+        SimpleDateFormat formatter = new SimpleDateFormat(formatType);
+        Date date = null;
+        date = formatter.parse(strTime);
+        return date;
+    }
+    public static Date long2Date(long time) throws ParseException {
+        String str  = formatFromDate(FORMATER_YYYY_MM_DD_HH_MM_SS, time);
+        return stringToDate(str,FORMATER_YYYY_MM_DD_HH_MM_SS);
+    }
+    /**
+     * 按照给定的格式，格式化日期
+     * @param formater	需要的格式，常用的例如"yyyy-MM-dd HH:mm:ss"
+     * @param time 日期
+     * @return
+     */
+    public static String formatFromDate(String formater, Long time) {
+        DateFormat df = new SimpleDateFormat(formater);
+        return df.format(time);
     }
 
 

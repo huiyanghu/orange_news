@@ -1,6 +1,7 @@
 package com.it7890.orange.manage.dao;
 
 import com.avos.avoscloud.AVException;
+import com.avos.avoscloud.AVObject;
 import com.it7890.orange.manage.model.HbCountrys;
 import com.it7890.orange.manage.po.HbCountryQuery;
 
@@ -13,5 +14,6 @@ public interface HbCountryDao {
 
     public List<HbCountrys> getAll();
     public List<HbCountrys> get(HbCountryQuery hbCountryQuery) throws AVException;
+    public List<AVObject> getAvoList();
 
 }
