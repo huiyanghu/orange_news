@@ -79,13 +79,13 @@
         <ul class="breadcrumb">
             <li>
                 <i class="icon-home"></i>
-                <a th:href="@{/orangeIndex/toDefault}" href="" title="首页">
+                <a th:href="@{/orangeIndex/toDefault}" title="首页">
                     首页
                 </a>
             </li>
             <li class="current">
-                <a href="javascript:void(0);" title="置顶图管理">
-                    置顶图管理
+                <a href="javascript:void(0);" title="推荐新闻">
+                    推荐新闻
                 </a>
             </li>
         </ul>
@@ -107,8 +107,8 @@
                         </div>
                     </div>
                 </div>
-                <div class="widget-content">
-                    <form class="form-horizontal row-border" th:object="${appTopQuery}" th:action="@{/appTop/list}" th:method="get">
+                <div class="widget-content"><!--th:object="${Query}"-->
+                    <form class="form-horizontal row-border" th:object="${recommendQuery}" th:action="@{/applicationRecommedArt/list}" th:method="get">
                         <div class="form-group">
                             <div class="col-md-4">
                                 <label class="col-md-4 control-label" for="countrycode">
@@ -118,42 +118,16 @@
                                     <select name="countrycode" id="countrycode" class="select2-select-00 col-md-12 full-width-fix select2-offscreen" tabindex="-1" th:field="*{countryCode}">
                                         <option value="">请选择</option>
                                         <option value="">所有国家</option>
-                                        <option th:each="country:${countryList}" th:selected="(${appTopQuery.countryCode == country.get('countryCode')})" th:value="${country.get('countryCode')}" th:text="${country.get('countryCode')}+'&nbsp;'+${country.get('cnName')}"></option>
+                                        <option th:each="country:${countryList}" th:selected="(${recommendQuery.countryCode == country.get('countryCode')})" th:value="${country.get('countryCode')}" th:text="${country.get('countryCode')}+'&nbsp;'+${country.get('cnName')}"></option>
                                     </select>
                                 </div>
                             </div>
-                            <div class="col-md-4">
-                                <label class="col-md-4 control-label" for="ctype">
-                                    类型：
-                                </label>
-                                <div class="col-md-8">
-                                    <select name="ctype" id="ctype" class="form-control" tabindex="-1" th:field="*{ctype}">
-                                        <option value="" selected>请选择</option>
-                                        <option th:each="cType:${appTopItypeList}" th:selected="(${appTopQuery.ctype == cType.get('key')})" th:value="${cType.get('key')}" th:text="${cType.get('value')}"></option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <label class="col-md-4 control-label" for="status">
-                                    状态：
-                                </label>
-                                <div class="col-md-8">
-                                    <select name="status" id="status" class="form-control" tabindex="-1" th:field="*{status}">
-                                        <option value="" selected>请选择</option>
-                                        <option value="1" th:selected="(${appTopQuery.status== 1})">正常</option>
-                                        <option value="0" th:selected="(${appTopQuery.status== 0})">禁用</option>
-                                        <option value="-1" th:selected="(${appTopQuery.status == -1})">删除</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-group">
                             <div class="col-md-4">
                                 <label class="col-md-4 control-label" for="starttime">
                                     开始日期：
                                 </label>
                                 <div class="col-md-8">
-                                    <input type="text" id="starttime" name="starttime" class="form-control" placeholder="输入开始日期" th:field="*{startTime}" th:value="${appTopQuery.startTime}" onClick="WdatePicker()">
+                                    <input type="text" id="starttime" name="starttime" class="form-control" placeholder="输入开始日期" th:field="*{startTime}" th:value="${recommendQuery.startTime}" onClick="WdatePicker()">
                                 </div>
                             </div>
                             <div class="col-md-4">
@@ -161,7 +135,7 @@
                                     结束日期：
                                 </label>
                                 <div class="col-md-8">
-                                    <input type="text" id="endtime" name="endtime" class="form-control" placeholder="输入结束日期" th:field="*{endTime}" th:value="${appTopQuery.endTime}" onClick="WdatePicker()">
+                                    <input type="text" id="endtime" name="endtime" class="form-control" placeholder="输入结束日期" th:field="*{endTime}" th:value="${recommendQuery.endTime}" onClick="WdatePicker()">
                                 </div>
                             </div>
                         </div>
@@ -179,121 +153,44 @@
                 <div class="widget-header">
                     <h4>
                         <i class="icon-table"></i>
-                        置顶图文章列表
+                        推荐新闻列表
                     </h4>
                 </div>
                 <div class="widget-content">
                     <table class="table table-striped table-bordered table-checkable table-highlight-head table-no-inner-border table-hover">
                         <thead>
                         <tr>
-                            <th>ID</th>
-                            <th>国家</th>
-                            <th>语言</th>
-                            <th>标题</th>
-                            <th>类型</th>
+                            <th>文章标题</th>
                             <th>文章类型</th>
-                            <th>图片</th>
-                            <th>创建时间</th>
+                            <th>国家</th>
                             <th>发布时间</th>
-                            <th>更新时间</th>
-                            <th>状态</th>
-                            <th>排序</th>
+                            <th>推送状态</th>
+                            <th>推送时间</th>
                             <th>操作</th>
                         </tr>
                         </thead>
                         <tbody>
-                        <tr th:each="appTop:${appTopList}">
-                            <td th:text="${appTop.get('objectId')}"></td>
-                            <td th:text="${appTop.get('countryCnName')}"></td>
-                            <td th:text="${appTop.get('languageRemark')}"></td>
-                            <td th:text="${appTop.get('articleTitle')}"></td>
-                            <td th:text="${appTop.get('itypeStr')}"></td>
-                            <td th:text="${appTop.get('articleType')}"></td>
-                            <td>
-                                <img th:src="${appTop.get('picUrl')}" alt="">
-                            </td>
-                            <td th:text="${appTop.get('createdAt')}"></td>
-                            <td th:text="${appTop.get('createdAt')}"></td>
-                            <td th:text="${appTop.get('createdAt')}"></td>
-                            <!--<td th:text="${#calendars.format({appTop.get('createdAt')},'yyyy-MM-dd HH:mm'}"></td>
-                            <td th:text="${#calendars.format({appTop.get('createdAt')},'yyyy-MM-dd HH:mm'}"></td>
-                            <td th:text="${#calendars.format({appTop.get('createdAt')},'yyyy-MM-dd HH:mm'}"></td>-->
-                            <td th:text="${appTop.get('cType')}"></td>
-                            <td th:text="${appTop.get('cType')}"></td>
+                        <tr th:each="art:${artList}">
+                            <td th:text="${art.get('title')}"></td>
+                            <td th:text="${art.get('artType')}"></td>
+                            <td th:text="${art.get('countryCode')}"></td>
+                            <td th:text="${art.get('createdAt')}"></td>
+                            <td></td>
+                            <td th:text="${art.get('pushNum')}"></td>
                             <td class="align-center">
                                     <span class="btn-group">
-                                        <a href="javascript:void(0);" th:href="@{/appTop/toUpdate(objectId=${appTop.get('objectId')})}" th:attr="objectid=${appTop.get('objectId')}" class="btn btn-xs bs-tooltip edit-app-top" title="" data-original-title="修改">
-                                            <i class="icon-pencil"></i>
+                                        <a href="javascript:void(0);" th:attr="objectid=${art.get('objectId')}" class="btn btn-xs bs-tooltip push-article" title="" data-original-title="推送">
+                                            <i class="icon-share-sign"></i>
                                         </a>
-                                        <a href="javascript:void(0);" th:attr="objectid=${appTop.get('objectId')}" class="btn btn-xs bs-tooltip del-app-top" title="" data-original-title="删除">
-                                            <i class="icon-trash"></i>
-                                        </a>
-                                        <a href="javascript:void(0);" th:attr="objectid=${appTop.get('objectId')}" class="btn btn-xs bs-tooltip ref-app-top" title="" data-original-title="刷新">
-                                            <i class="icon-refresh"></i>
-                                        </a>
-                                      </span>
+                                    </span>
                             </td>
                         </tr>
                         </tbody>
                     </table>
-                    <div class="col-sm-12 text-center">
-                        <ul class="pagination" id="pagination">
-
-                        </ul>
-                        <ul id="countabs">
-
-                        </ul>
-                        <!-- 总条数 -->
-                        <input type="hidden" id="PageCount" runat="server" th:value="${pageUtil.recordCount}"/>
-                        <!-- 总页数 -->
-                        <input type="hidden" id="countindex" runat="server" th:value="(${pageUtil.pagecount}>=1000?1000:${pageUtil.pagecount})"/>
-                        <!-- 当前第几页 -->
-                        <input type="hidden" id="Pagedq" runat="server" th:value="${pageUtil.currentPage}"/>
-                        <!-- 请求的地址 -->
-                        <input type="hidden" id="pageUrl" runat="server" th:value="@{/appTop/list}"/>
-                        <!-- 请求的参数 -->
-                        <input type="hidden" id="pageParameter" runat="server" th:value="${appTopQuery}"/>
-                        <!--设置最多显示的页码数 可以手动设置 默认为7-->
-                        <input type="hidden" id="visiblePages" runat="server" th:value="10" />
-                    </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
-<script type="text/javascript">
-    $(document).ready(function(){
-        $('.select2-select-00').select2({
-            allowClear: true
-        });
-    });
-    if($("#msg").val() != ''){
-        bootbox.alert($("#msg").val());
-    }
-    $('.del-app-top').click(function(e){
-        var id = $(this).attr('objectid');
-        e.preventDefault();
-        var alertBox = bootbox.dialog({
-            message: "确认要删除吗?",
-            title: "删除",
-            buttons: {
-                success: {
-                    label: "取消",
-                    className: "btn-default",
-                    callback: function() {
-                        alertBox.modal("hide");
-                    }
-                },
-                main: {
-                    label: "确认",
-                    className: "btn-primary",
-                    callback: function() {
-                        window.location.href = '../appTop/delete?objectId='+id;
-                    }
-                }
-            }
-        });
-    });
-</script>
 </body>
 </html>

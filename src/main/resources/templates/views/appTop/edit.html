@@ -121,8 +121,8 @@
                                 </label>
                                 <div class="col-md-8">
                                     <select name="countryObjectId" id="countryObjectId" class="select2-select-00 col-md-12 full-width-fix select2-offscreen" tabindex="-1">
-                                        <option value="00">请选择</option>
-                                        <option value="00">所有国家</option>
+                                        <option value="">请选择</option>
+                                        <option value="">所有国家</option>
                                         <option th:each="country:${countryList}" th:selected="(${appTop.countryObjectId == country.objectId})" th:value="${country.objectId}" th:text="${country.get('countryCode')}+'&nbsp;'+${country.get('cnName')}"></option>
                                     </select>
                                 </div>
@@ -133,7 +133,7 @@
                                 </label>
                                 <div class="col-md-8">
                                     <select name="languagesObjectId" id="languagesObjectId" class="select2-select-00 col-md-12 full-width-fix select2-offscreen" tabindex="-1">
-                                        <option value="00">请选择</option>
+                                        <option value="">请选择</option>
                                         <option th:each="language:${languageList}" th:selected="(${appTop.languagesObjectId == language.objectId})" th:value="${language.objectId}" th:text="${language.get('codes')}+'&nbsp;'+${language.get('remark')}"></option>
                                     </select>
                                 </div>
