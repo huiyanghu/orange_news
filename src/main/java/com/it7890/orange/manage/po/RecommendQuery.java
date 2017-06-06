@@ -4,19 +4,10 @@ package com.it7890.orange.manage.po;
  * Created by wyq on 2017/6/6.
  */
 public class RecommendQuery {
-    private int page;
     private int pushNum;
     private String countryCode;
     private String startTime;
     private String endTime;
-
-    public int getPage() {
-        return page;
-    }
-
-    public void setPage(int page) {
-        this.page = page;
-    }
 
     public int getPushNum() {
         return pushNum;
