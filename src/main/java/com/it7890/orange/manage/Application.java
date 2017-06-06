@@ -36,6 +36,9 @@ public class Application {
         AVObject.registerSubclass(ConChannel.class);
         AVObject.registerSubclass(AppPushInfo.class);
         AVObject.registerSubclass(HbCountrys.class);
+        AVObject.registerSubclass(AppAdvert.class);
+        AVObject.registerSubclass(AppLockScreen.class);
+
 
 
         // 初始化AVOSCloud，请保证在整个项目中间只初始化一次

@@ -2,12 +2,13 @@ package com.it7890.orange.manage.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.avos.avoscloud.AVException;
-import com.it7890.orange.manage.model.AppPushInfo;
-import com.it7890.orange.manage.model.ConArticle;
-import com.it7890.orange.manage.model.HbCountrys;
+import com.avos.avoscloud.AVObject;
+import com.it7890.orange.manage.model.*;
+import com.it7890.orange.manage.po.AppAdvertQuery;
 import com.it7890.orange.manage.po.AppPushInfoQuery;
 import com.it7890.orange.manage.po.ConArticleQuery;
 import com.it7890.orange.manage.po.HbCountryQuery;
+import com.it7890.orange.manage.service.AppAdvertService;
 import com.it7890.orange.manage.service.AppPushInfoService;
 import com.it7890.orange.manage.service.ConArticleService;
 import com.it7890.orange.manage.service.applicationService.HbCountryService;
@@ -17,14 +18,21 @@ import com.it7890.orange.manage.service.articalService.IConPublicationService;
 import com.it7890.orange.manage.service.articalService.ITopicsService;
 import com.it7890.orange.manage.service.contentService.LanguageService;
 import com.it7890.orange.manage.utils.ConstantsUtil;
+import com.it7890.orange.manage.utils.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -50,6 +58,8 @@ public class ConArticleController {
     private AppPushInfoService appPushInfoService;
     @Autowired
     private HbCountryService hbCountryService;
+    @Autowired
+    private AppAdvertService appAdvertService;
 
 
     /**
@@ -373,4 +383,129 @@ public class ConArticleController {
         attributes.addFlashAttribute("msg", desc);
         return "redirect:conArticle/list";
     }
+
+    @RequestMapping(value = "/importscreen", method = RequestMethod.GET)
+    public String importscreen(HttpSession session, HttpServletResponse response,
+                               @RequestParam(value = "screenstatus", required = false, defaultValue = "1") Integer screenstatus,
+                               @RequestParam(value = "screenid", required = false) String screenid,
+                               Model model) throws AVException {
+
+        int result = 0;
+        SysUser sysuer = (SysUser) session.getAttribute("sysuser");
+        AppLockScreen lockscreen = null;
+        Date d = new Date();
+        Calendar ca = Calendar.getInstance();
+        long current = d.getTime();
+        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
+        String d1 = sdf.format(d);
+        if (d1.equals("00:00:00")) {
+            current = current + 1000;
+            ca.setTimeInMillis(current);
+            d = ca.getTime();
+        } else {
+            ca.setTimeInMillis(current);
+            d = ca.getTime();
+        }
+
+        if (screenstatus == 2) {//广告导入
+            lockscreen = new AppLockScreen();
+            AppAdvert advert = null;
+            AppAdvertQuery appAdvertQuery = new AppAdvertQuery();
+            appAdvertQuery.setArticleObjectId(screenid);
+            List<AppAdvert> appAdvertList = appAdvertService.get(appAdvertQuery);
+            if (appAdvertList != null && !appAdvertList.isEmpty()) {
+                advert = appAdvertList.get(0);
+            }
+
+            if (advert != null) {
+                lockscreen.setTitle(advert.getAdName());
+                lockscreen.setAbstracts(advert.getAdDesc());
+                if (StringUtil.isNotEmpty(advert.getCountryCode())) {
+                    lockscreen.setCountryCode(advert.getCountryCode());
+                } else {
+                    lockscreen.setCountryCode("00");
+                }
+                lockscreen.setLanguageObj(AVObject.createWithoutData("hb_languages",advert.getLanguageObj().getObjectId()));
+                lockscreen.setAttr(3);
+
+
+                if (advert.getAdImg() != null && advert.getAdImg().indexOf("|") != -1) {
+                    lockscreen.setImg(advert.getAdImg().split("\\|")[0]);
+                } else {
+                    lockscreen.setImg(advert.getAdImg());
+                }
+                lockscreen.setType(2);
+                lockscreen.setDataTime(d);
+                lockscreen.setIsShow(1);
+                lockscreen.setSrc(advert.getAdUrl());
+                lockscreen.setRank(0);
+                lockscreen.setVersionId("0");
+                lockscreen.setCreateUserObj(AVObject.createWithoutData("SysUser",""+sysuer.getObjectId()));
+
+                //lockscreen.setCreatetime(advert.getCreatetime());
+                //lockscreen.setCountryid(0);
+                lockscreen.setSourceId(screenid);
+                lockscreen.setIsScroll(0);
+                //lockscreen.setChannelid(0);
+                //lockscreen.setTopicsid(0);
+                //Map<String, String> map = upyunutil.getFileInfo(lockscreen.getImg());
+                //lockscreen.setImgsize(map != null ? Integer.parseInt(map.get("size")) : 0);
+
+                //result = appLockScreenService.insertAppLockScreen(lockscreen);
+
+            }
+
+
+            /*request.getSession().setAttribute("message", "导入:" + (result > 0 ? "成功" : "失败"));
+            request.getSession().setAttribute("url", "advert/list");*/
+            return String.format("redirect:/message");
+
+        } else {//文章导入
+
+
+            /*lockscreen = new AppLockScreen();
+            List<top.coolook.esmodel.ConArticle> list = conArticleService.getarticleByid(screenid);
+            ConArticle article = list.get(0);
+
+            lockscreen.setTitle(article.getTitle());
+            lockscreen.setAbstracts(article.getAbstracts());
+            lockscreen.setCountrycode(article.getCountrycode());
+            if (article.getLangid() != null && !"".equals(article.getLangid())) {
+                lockscreen.setLangid(Integer.parseInt(article.getLangid()));
+            } else {
+                lockscreen.setLangid(0);
+            }
+            lockscreen.setAttr(article.getAttr());
+            if (article.getTitlepic() != null && !"".equals(article.getTitlepic())) {
+                if (article.getTitlepic() != null && article.getTitlepic().indexOf("|") != -1) {
+                    lockscreen.setImg(article.getTitlepic().split("\\|")[0]);
+                } else {
+                    lockscreen.setImg(article.getTitlepic());
+                }
+            }
+            lockscreen.setType(1);
+            lockscreen.setDatatime(article.getSubtime());
+            lockscreen.setIsshow(1);
+            lockscreen.setSrc("http://www.coolook.top/news/" + screenid + ".html");
+            lockscreen.setRank(0);
+            lockscreen.setVersionid(0);
+            lockscreen.setCreateuid(sysuer.getUserid());
+            lockscreen.setCreatetime(article.getCreatetime());
+            lockscreen.setCountryid(0);
+            lockscreen.setSourceid(screenid);
+            lockscreen.setIsscroll(0);
+            lockscreen.setChannelid(0);
+            lockscreen.setTopicsid(0);
+            Map<String, String> map = upyunutil.getFileInfo(lockscreen.getImg());
+            lockscreen.setImgsize(map != null ? Integer.parseInt(map.get("size")) : 0);
+            result = appLockScreenService.insertAppLockScreen(lockscreen);
+
+            request.getSession().setAttribute("message", "导入:" + (result > 0 ? "成功" : "失败"));
+            request.getSession().setAttribute("url", "article/list?" + str);*/
+            return String.format("redirect:/message");
+        }
+
+
+    }
+
 }

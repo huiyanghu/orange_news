@@ -13,7 +13,7 @@ import java.util.Date;
  */
 @AVClassName("AppTopics")
 public class AppTopics extends AVObject {
-    AppTopics() {
+    public AppTopics() {
         super();
     }
 
