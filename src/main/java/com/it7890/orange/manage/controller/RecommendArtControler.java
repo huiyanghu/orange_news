@@ -40,7 +40,7 @@ public class RecommendArtControler {
      */
     @RequestMapping(path = "/list", method = RequestMethod.GET)
     public String getRecommendList(ModelMap map,RecommendQuery query,
-                                   @RequestParam(value = "page", required = false, defaultValue = "1") Integer page,
+                                   @RequestParam(value = "page", required = false, defaultValue = "1") int page,
                                    @RequestParam(value = "pushNum", required = false, defaultValue = "0") Integer pushNum,
                                    @RequestParam(value = "countryCode", required = false, defaultValue = "") String countryCode,
                                    @RequestParam(value = "startTime", required = false, defaultValue = "") String startTime,
@@ -59,7 +59,6 @@ public class RecommendArtControler {
         map.put("countryCode", countryCode);
         map.put("startTime", startTime);
         map.put("endTime", endTime);
-        map.put("page", page);
 //        map.put("queryParams",query);
         map.putAll(listAndPageUtilMap);
         map.putAll(hbCountryService.getAvoList());
