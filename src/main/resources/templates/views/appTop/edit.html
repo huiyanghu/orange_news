@@ -112,7 +112,7 @@
                                     ID：
                                 </label>
                                 <div class="col-md-8">
-                                    <input type="text" id="objectId" name="objectId" class="form-control" th:value="${appTop.objectId}">
+                                    <input type="text" id="objectId" name="objectId" readonly class="form-control" th:value="${appTop.objectId}">
                                 </div>
                             </div>
                             <div class="col-md-4">
@@ -145,7 +145,7 @@
                                     标题：
                                 </label>
                                 <div class="col-md-8">
-                                    <input type="text" id="articleTitle" name="articleTitle" class="form-control" th:value="${appTop.articleTitle}">
+                                    <input type="text" id="articleTitle" readonly class="form-control" th:value="${appTop.articleTitle}">
                                 </div>
                             </div>
                             <div class="col-md-4">
@@ -153,7 +153,7 @@
                                     类型：
                                 </label>
                                 <div class="col-md-8">
-                                    <input type="text" id="itype" name="itype" class="form-control" th:value="${appTop.itype}">
+                                    <input type="text" id="itype" readonly class="form-control" th:value="${appTop.itypeStr}">
                                 </div>
                             </div>
                             <div class="col-md-4">
@@ -161,7 +161,7 @@
                                     文章类型：
                                 </label>
                                 <div class="col-md-8">
-                                    <input type="text" id="articleType" name="articleType" class="form-control" th:value="${appTop.articleType}">
+                                    <input type="text" id="articleType" readonly class="form-control" th:value="${appTop.articleType}">
                                 </div>
                             </div>
                         </div>
@@ -184,7 +184,7 @@
                                     发布时间：
                                 </label>
                                 <div class="col-md-8">
-                                    <input type="text" id="createdAt" name="createdAt" class="form-control" placeholder="输入发布时间" th:value="${appTop.createdAt}" onClick="WdatePicker()">
+                                    <input type="text" id="createdAt" readonly class="form-control" placeholder="输入发布时间" th:value="${appTop.createdAt}" onClick="WdatePicker()">
                                 </div>
                             </div>
                             <div class="col-md-4">
@@ -192,7 +192,7 @@
                                     排序：
                                 </label>
                                 <div class="col-md-8">
-                                    <input type="text" id="order" name="order" class="form-control" th:value="${appTop.objectId}">
+                                    <input type="text" id="order" readonly class="form-control" th:value="${appTop.objectId}">
                                 </div>
                             </div>
                         </div>
@@ -202,7 +202,7 @@
                                     图片：
                                 </label>
                                 <div class="col-md-8">
-                                    <img th:src="${appTop.picUrl}" id="titlepicimg" name="titlepicimg" class="col-sm-8" alt="">
+                                    <img th:src="${appTop.picUrl}" id="titlepicimg" class="col-sm-8" alt="">
                                 </div>
                             </div>
                         </div>

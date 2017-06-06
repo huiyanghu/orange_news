@@ -140,9 +140,9 @@
                                 <div class="col-md-8">
                                     <select name="status" id="status" class="form-control" tabindex="-1" th:field="*{status}">
                                         <option value="" selected>请选择</option>
-                                        <option value="1" th:selected="(${appTopQuery.get('status') == 1})">正常</option>
-                                        <option value="0" th:selected="(${appTopQuery.get('status') == 0})">禁用</option>
-                                        <option value="-1" th:selected="(${appTopQuery.get('status') == -1})">删除</option>
+                                        <option value="1" th:selected="(${appTopQuery.status== 1})">正常</option>
+                                        <option value="0" th:selected="(${appTopQuery.status== 0})">禁用</option>
+                                        <option value="-1" th:selected="(${appTopQuery.status == -1})">删除</option>
                                     </select>
                                 </div>
                             </div>
@@ -153,7 +153,7 @@
                                     开始日期：
                                 </label>
                                 <div class="col-md-8">
-                                    <input type="text" id="starttime" name="starttime" class="form-control" placeholder="输入开始日期" th:field="*{startTime}" th:value="${appTopQuery.get('startTime')}" onClick="WdatePicker()">
+                                    <input type="text" id="starttime" name="starttime" class="form-control" placeholder="输入开始日期" th:field="*{startTime}" th:value="${appTopQuery.startTime}" onClick="WdatePicker()">
                                 </div>
                             </div>
                             <div class="col-md-4">
@@ -161,7 +161,7 @@
                                     结束日期：
                                 </label>
                                 <div class="col-md-8">
-                                    <input type="text" id="endtime" name="endtime" class="form-control" placeholder="输入结束日期" th:field="*{endTime}" th:value="${appTopQuery.get('endTime')}" onClick="WdatePicker()">
+                                    <input type="text" id="endtime" name="endtime" class="form-control" placeholder="输入结束日期" th:field="*{endTime}" th:value="${appTopQuery.endTime}" onClick="WdatePicker()">
                                 </div>
                             </div>
                         </div>
@@ -207,7 +207,7 @@
                                 <td th:text="${appTop.get('countryCnName')}"></td>
                                 <td th:text="${appTop.get('languageRemark')}"></td>
                                 <td th:text="${appTop.get('articleTitle')}"></td>
-                                <td th:text="${appTop.get('itype')}"></td>
+                                <td th:text="${appTop.get('itypeStr')}"></td>
                                 <td th:text="${appTop.get('articleType')}"></td>
                                 <td>
                                     <img th:src="${appTop.get('picUrl')}" alt="">
@@ -244,11 +244,11 @@
 
                         </ul>
                         <!-- 总条数 -->
-                        <input type="hidden" id="PageCount" runat="server" th:value="${pageUtil.get('recordCount')}"/>
+                        <input type="hidden" id="PageCount" runat="server" th:value="${pageUtil.recordCount}"/>
                         <!-- 总页数 -->
-                        <input type="hidden" id="countindex" runat="server" th:value="(${pageUtil.get('pagecount')}>=1000?1000:${pageUtil.get('pagecount')})"/>
+                        <input type="hidden" id="countindex" runat="server" th:value="(${pageUtil.pagecount}>=1000?1000:${pageUtil.pagecount})"/>
                         <!-- 当前第几页 -->
-                        <input type="hidden" id="Pagedq" runat="server" th:value="${pageUtil.get('currentPage')}"/>
+                        <input type="hidden" id="Pagedq" runat="server" th:value="${pageUtil.currentPage}"/>
                         <!-- 请求的地址 -->
                         <input type="hidden" id="pageUrl" runat="server" th:value="@{/appTop/list}"/>
                         <!-- 请求的参数 -->
@@ -292,7 +292,7 @@
                     }
                 }
             }
-        })
+        });
     });
 </script>
 </body>

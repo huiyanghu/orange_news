@@ -2,52 +2,93 @@
 <html lang="zh-cmn-Hans" xmlns:th="http://www.thymeleaf.org" xmlns:c="http://www.w3.org/1999/html">
 <head>
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <link rel="stylesheet" type="text/css" href="/stylesheets/css/bootstrap.css">
-    <link rel="stylesheet" type="text/css" href="/stylesheets/css/bootstrap-theme.min.css">
-    <link rel="stylesheet" type="text/css" href="/stylesheets/css/plugins/timeline.css">
-    <link rel="stylesheet" type="text/css" href="/stylesheets/css/sb-admin-2.css">
-    <link rel="stylesheet" type="text/css" href="/stylesheets/css/plugins/morris.css">
-    <link rel="stylesheet" type="text/css" href="/stylesheets/css/font-awesome-4.3.0/css/font-awesome.min.css">
-    <link rel="stylesheet" type="text/css" href="/stylesheets/css/page/myPage.css" />
-    <script type="text/javascript" src="/stylesheets/js/jquery-1.11.0.js"></script>
-    <script type="text/javascript" src="/stylesheets/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="/stylesheets/js/bootstrap-datetimepicker.zh-CN.js"></script>
-    <script type="text/javascript" src="/stylesheets/js/page/jqPaginator.min.js"></script>
-    <script type="text/javascript" src="/stylesheets/js/page/myPage.js"></script>
-    <script type="text/javascript" src="/stylesheets/js/plugins/My97DatePicker/WdatePicker.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+    <title></title>
+    <link href="/stylesheets/meAdmin/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+    <!--[if lt IE 9]>
+    <link rel="stylesheet" type="text/css" href="/stylesheets/meAdmin/plugins/jquery-ui/jquery.ui.1.10.2.ie.css"/>
+    <![endif]-->
+    <link href="/stylesheets/meAdmin/assets/css/main.css" rel="stylesheet" type="text/css" />
+    <link href="/stylesheets/meAdmin/assets/css/plugins.css" rel="stylesheet" type="text/css" />
+    <link href="/stylesheets/meAdmin/assets/css/responsive.css" rel="stylesheet" type="text/css"/>
+    <link href="/stylesheets/meAdmin/assets/css/icons.css" rel="stylesheet" type="text/css" />
+    <link href="/stylesheets/meAdmin/assets/css/fontawesome/font-awesome.min.css" rel="stylesheet" >
+    <!--[if IE 7]>
+    <link href="/stylesheets/meAdmin/assets/css/fontawesome/font-awesome-ie7.min.css" rel="stylesheet">
+    <![endif]-->
+    <!--[if IE 8]>
+    <link href="/stylesheets/meAdmin/assets/css/ie8.css" rel="stylesheet" type="text/css" />
+    <![endif]-->
+    <!--<link href='http://fonts.useso.com/css?family=Open+Sans:400,600,700' rel='stylesheet' type='text/css'>-->
+    <script type="text/javascript" src="/stylesheets/meAdmin/assets/js/libs/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src="/stylesheets/meAdmin/plugins/jquery-ui/jquery-ui-1.10.2.custom.min.js"></script>
+    <script type="text/javascript" src="/stylesheets/meAdmin/bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/stylesheets/meAdmin/assets/js/libs/lodash.compat.min.js"></script>
+    <!--[if lt IE 9]>
+    <script src="/stylesheets/meAdmin/assets/js/libs/html5shiv.js"></script>
+    <![endif]-->
+    <script type="text/javascript" src="/stylesheets/meAdmin/plugins/touchpunch/jquery.ui.touch-punch.min.js"></script>
+    <script type="text/javascript" src="/stylesheets/meAdmin/plugins/event.swipe/jquery.event.move.js"></script>
+    <script type="text/javascript" src="/stylesheets/meAdmin/plugins/event.swipe/jquery.event.swipe.js"></script>
+    <script type="text/javascript" src="/stylesheets/meAdmin/assets/js/libs/breakpoints.js"></script>
+    <script type="text/javascript" src="/stylesheets/meAdmin/plugins/respond/respond.min.js"></script>
+    <script type="text/javascript" src="/stylesheets/meAdmin/plugins/cookie/jquery.cookie.min.js"></script>
+    <script type="text/javascript" src="/stylesheets/meAdmin/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+    <script type="text/javascript" src="/stylesheets/meAdmin/plugins/slimscroll/jquery.slimscroll.horizontal.min.js"></script>
+    <script type="text/javascript" src="/stylesheets/meAdmin/plugins/sparkline/jquery.sparkline.min.js"></script>
+    <script type="text/javascript" src="/stylesheets/meAdmin/plugins/daterangepicker/moment.min.js"></script>
+    <script type="text/javascript" src="/stylesheets/meAdmin/plugins/daterangepicker/daterangepicker.js"></script>
+    <script type="text/javascript" src="/stylesheets/meAdmin/plugins/blockui/jquery.blockUI.min.js"></script>
+    <script type="text/javascript" src="/stylesheets/meAdmin/plugins/typeahead/typeahead.min.js"></script>
+    <script type="text/javascript" src="/stylesheets/meAdmin/plugins/autosize/jquery.autosize.min.js"></script>
+    <script type="text/javascript" src="/stylesheets/meAdmin/plugins/inputlimiter/jquery.inputlimiter.min.js"></script>
+    <script type="text/javascript" src="/stylesheets/meAdmin/plugins/uniform/jquery.uniform.min.js"></script>
+    <script type="text/javascript" src="/stylesheets/meAdmin/plugins/tagsinput/jquery.tagsinput.min.js"></script>
+    <script type="text/javascript" src="/stylesheets/meAdmin/plugins/select2/select2.min.js"></script>
+    <script type="text/javascript" src="/stylesheets/meAdmin/plugins/fileinput/fileinput.js"></script>
+    <script type="text/javascript" src="/stylesheets/meAdmin/plugins/duallistbox/jquery.duallistbox.min.js"></script>
+    <script type="text/javascript" src="/stylesheets/meAdmin/plugins/bootstrap-inputmask/jquery.inputmask.min.js"></script>
+    <script type="text/javascript" src="/stylesheets/meAdmin/plugins/bootstrap-wysihtml5/wysihtml5.min.js"></script>
+    <script type="text/javascript" src="/stylesheets/meAdmin/plugins/bootstrap-wysihtml5/bootstrap-wysihtml5.min.js"></script>
+    <script type="text/javascript" src="/stylesheets/meAdmin/plugins/bootstrap-multiselect/bootstrap-multiselect.min.js"></script>
+    <script type="text/javascript" src="/stylesheets/meAdmin/plugins/bootstrap-switch/bootstrap-switch.min.js"></script>
+    <script type="text/javascript" src="/stylesheets/meAdmin/plugins/globalize/globalize.js"></script>
+    <script type="text/javascript" src="/stylesheets/meAdmin/plugins/globalize/cultures/globalize.culture.de-DE.js"></script>
+    <script type="text/javascript" src="/stylesheets/meAdmin/plugins/globalize/cultures/globalize.culture.ja-JP.js"></script>
+    <script type="text/javascript" src="/stylesheets/meAdmin/plugins/datatables/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="/stylesheets/meAdmin/plugins/datatables/DT_bootstrap.js"></script>
+    <script type="text/javascript" src="/stylesheets/meAdmin/plugins/My97DatePicker/WdatePicker.js"></script>
+    <script type="text/javascript" src="/stylesheets/meAdmin/plugins/bootbox/bootbox.min.js"></script>
+    <script type="text/javascript" src="/stylesheets/meAdmin/assets/js/app.js"></script>
+    <script type="text/javascript" src="/stylesheets/meAdmin/assets/js/plugins.js"></script>
+    <script type="text/javascript" src="/stylesheets/meAdmin/assets/js/plugins.form-components.js"></script>
+    <script>
+        $(document).ready(function() {
+            App.init();
+            Plugins.init();
+            FormComponents.init()
+        });
+    </script>
 </head>
 <body>
-<div class="row">
-    <div class="col-sm-12">
-        <h1 class="page-header">添加文章</h1>
+<input type="hidden" name="" id="msg" th:value="${msg}">
+<div class="container">
+    <div class="crumbs">
+        <ul class="breadcrumb">
+            <li>
+                <i class="icon-home"></i>
+                <a th:href="@{/orangeIndex/toDefault}" title="首页">
+                    首页
+                </a>
+            </li>
+            <li class="current">
+                <a th:href="@{/conArticle/list}" title="文章管理">
+                    文章管理
+                </a>
+            </li>
+        </ul>
     </div>
-</div>
-
-<div class="row">
-    <div class="col-sm-12">
-        <div class="panel panel-default">
-            <div class="panel-heading">请填写以下选项：</div>
-            <div class="panel-body">
-                <div class="col">
-                    <form th:action="@{/article/saveorupdate}" th:method="post" id="addUserInfoform" class="form-horizontal">
-                        <input name="id" type="hidden" th:value="${article.id }" />
-                        <div class="col-sm-6">
-                            <div class="form-group">
-                                <label for="title" class="control-label col-sm-4">文章标题:</label>
-                                <div class="controls col-sm-8">
-                                    <input type="text" id="title" name="title" class="form-control" th:value="${article.title}">
-                                </div>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
+    <div class="row" style="height: 20px;"></div>
 </div>
 </body>
 </html>
