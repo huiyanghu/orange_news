@@ -43,7 +43,8 @@ public class HbCountryDaoImpl implements HbCountryDao {
     @Override
     public List<AVObject> getAvoList() {
         AVQuery query = new AVQuery("hb_countrys");
-        query.whereEqualTo("status",0);
+        query.include("iconFileObj");
+        query.whereEqualTo("status",1);
         List<AVObject> ls = new ArrayList<>();
         try {
            ls =  query.find();

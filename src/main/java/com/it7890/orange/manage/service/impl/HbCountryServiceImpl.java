@@ -2,11 +2,15 @@ package com.it7890.orange.manage.service.impl;
 
 import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.AVObject;
+import com.it7890.orange.manage.controller.RecommendArtControler;
+import com.it7890.orange.manage.dao.AppTopicsDao;
 import com.it7890.orange.manage.dao.HbCountryDao;
 import com.it7890.orange.manage.model.HbCountrys;
 import com.it7890.orange.manage.po.HbCountryQuery;
 import com.it7890.orange.manage.service.HbCountryService;
 import com.it7890.orange.manage.utils.DateUtil;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
@@ -17,9 +21,12 @@ import java.util.*;
  */
 @Component
 public class HbCountryServiceImpl implements HbCountryService {
+    private static final Logger logger = LogManager.getLogger(HbCountryServiceImpl.class);
 
     @Resource
     HbCountryDao hbCountryDao;
+    @Resource
+    AppTopicsDao appTopicsDao;
 
     @Override
     public List<HbCountrys> getAll() {
@@ -35,14 +42,25 @@ public class HbCountryServiceImpl implements HbCountryService {
         Map map = new HashMap();
         List<AVObject> ls = hbCountryDao.getAvoList();
         List<Map> countryList = new ArrayList<Map>();
+
         Map m;
         for (AVObject avObject : ls) {
             m = new HashMap();
             m.put("objectId", avObject.getObjectId());
-//            m.put("status", avObject.getInt("status"));
-            m.put("createdAt", DateUtil.getTimeStampStr(avObject.getCreatedAt()));
+            m.put("countryIcon",avObject.getAVFile("iconFileObj").getUrl());
             m.put("cnName", avObject.getString("cnName"));
             m.put("countryCode",avObject.getString("countryCode"));
+            m.put("shortName",avObject.getString("shortName"));
+            m.put("continent",avObject.getString("continent"));
+            List<AVObject> topicLs = appTopicsDao.getListByCId(avObject.getObjectId());
+            logger.info(":::>>>>>>>>>>"+avObject.getString("cnName")+topicLs.size());
+            List<String> topicList = new ArrayList<>();
+            for(AVObject obj:topicLs) {
+                topicList.add(obj.getString("topicName"));
+            }
+            m.put("topicList",topicList);
+//            m.put("status", avObject.getInt("status"));
+            m.put("createdAt", DateUtil.getTimeStampStr(avObject.getCreatedAt()));
             countryList.add(m);
         }
         map.put("countryList", countryList);

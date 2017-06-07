@@ -55,10 +55,10 @@ public class RecommendArtControler {
         Map listAndPageUtilMap = recommendArtService.getList(pushNum, countryCode, startTime, endTime, page);
 //        logger.info("map;;;;;;;;;;;;;"+map.keySet());
         map.remove("org.springframework.validation.BindingResult.recommendQuery");
-        map.put("pushNum", pushNum);
-        map.put("countryCode", countryCode);
-        map.put("startTime", startTime);
-        map.put("endTime", endTime);
+//        map.put("pushNum", pushNum);
+//        map.put("countryCode", countryCode);
+//        map.put("startTime", startTime);
+//        map.put("endTime", endTime);
 //        map.put("queryParams",query);
         map.putAll(listAndPageUtilMap);
         map.putAll(hbCountryService.getAvoList());
