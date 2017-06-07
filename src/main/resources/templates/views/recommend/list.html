@@ -110,19 +110,29 @@
                 <div class="widget-content"><!--th:object="${Query}"-->
                     <form class="form-horizontal row-border" th:object="${recommendQuery}" th:action="@{/applicationRecommedArt/list}" th:method="get">
                         <div class="form-group">
-                            <div class="col-md-4">
-                                <label class="col-md-4 control-label" for="countrycode">
+                            <div class="col-md-6">
+                                <label class="col-md-4 control-label" for="pushNum">
+                                    国家的推送次数：
+                                </label>
+                                <div class="col-md-8">
+                                    <input type="number" id="pushNum" name="pushNum" min="0" class="form-control" placeholder="输入推送次数" th:field="*{pushNum}" th:value="${recommendQuery.pushNum}">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="col-md-4 control-label" for="countryCode">
                                     国家：
                                 </label>
                                 <div class="col-md-8">
-                                    <select name="countrycode" id="countrycode" class="select2-select-00 col-md-12 full-width-fix select2-offscreen" tabindex="-1" th:field="*{countryCode}">
+                                    <select name="countryCode" id="countryCode" class="select2-select-00 col-md-12 full-width-fix select2-offscreen" tabindex="-1" th:field="*{countryCode}">
                                         <option value="">请选择</option>
                                         <option value="">所有国家</option>
                                         <option th:each="country:${countryList}" th:selected="(${recommendQuery.countryCode == country.get('countryCode')})" th:value="${country.get('countryCode')}" th:text="${country.get('countryCode')}+'&nbsp;'+${country.get('cnName')}"></option>
                                     </select>
                                 </div>
                             </div>
-                            <div class="col-md-4">
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-6">
                                 <label class="col-md-4 control-label" for="starttime">
                                     开始日期：
                                 </label>
@@ -130,7 +140,7 @@
                                     <input type="text" id="starttime" name="starttime" class="form-control" placeholder="输入开始日期" th:field="*{startTime}" th:value="${recommendQuery.startTime}" onClick="WdatePicker()">
                                 </div>
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-md-6">
                                 <label class="col-md-4 control-label" for="endtime">
                                     结束日期：
                                 </label>
@@ -187,10 +197,37 @@
                         </tr>
                         </tbody>
                     </table>
+                    <div class="col-sm-12 text-center">
+                        <ul class="pagination" id="pagination">
+
+                        </ul>
+                        <ul id="countabs">
+
+                        </ul>
+                        <!-- 总条数 -->
+                        <input type="hidden" id="PageCount" runat="server" th:value="${pageUtil.recordCount}"/>
+                        <!-- 总页数 -->
+                        <input type="hidden" id="countindex" runat="server" th:value="(${pageUtil.pagecount}>=1000?1000:${pageUtil.pagecount})"/>
+                        <!-- 当前第几页 -->
+                        <input type="hidden" id="Pagedq" runat="server" th:value="${pageUtil.currentPage}"/>
+                        <!-- 请求的地址 -->
+                        <input type="hidden" id="pageUrl" runat="server" th:value="@{/applicationRecommedArt/list}"/>
+                        <!-- 请求的参数 -->
+                        <input type="hidden" id="pageParameter" runat="server" th:value="${recommendQuery}"/>
+                        <!--设置最多显示的页码数 可以手动设置 默认为7-->
+                        <input type="hidden" id="visiblePages" runat="server" th:value="10" />
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+<script type="text/javascript">
+    $(document).ready(function(){
+        $('.select2-select-00').select2({
+            allowClear: true
+        });
+    });
+</script>
 </body>
 </html>

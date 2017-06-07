@@ -364,6 +364,11 @@
     </div>
 </div>
 <script type="text/javascript">
+    $(document).ready(function(){
+        $('.select2-select-00').select2({
+            allowClear: true
+        });
+    });
     if($("#msg").val() != ''){
         bootbox.alert($("#msg").val());
     }
