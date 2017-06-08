@@ -13,7 +13,6 @@ import com.it7890.orange.manage.service.articalService.IConChannelService;
 import com.it7890.orange.manage.service.articalService.IConGrabRuleService;
 import com.it7890.orange.manage.service.articalService.IConPublicationService;
 import com.it7890.orange.manage.service.articalService.ITopicsService;
-import com.it7890.orange.manage.service.contentService.LanguageService;
 import com.it7890.orange.manage.utils.ConstantsUtil;
 import com.it7890.orange.manage.utils.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;

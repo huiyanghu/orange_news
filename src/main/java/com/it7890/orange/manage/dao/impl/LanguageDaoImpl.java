@@ -1,5 +1,7 @@
 package com.it7890.orange.manage.dao.impl;
 
+import com.avos.avoscloud.AVException;
+import com.avos.avoscloud.AVObject;
 import com.it7890.orange.manage.dao.LanguageDao;
 import com.it7890.orange.manage.model.HbLanguage;
 import com.avos.avoscloud.AVCloudQueryResult;
@@ -25,5 +27,17 @@ public class LanguageDaoImpl implements LanguageDao {
         } catch (Exception e) {
         }
         return   list;
+    }
+
+    @Override
+    public List<AVObject> getLangList() {
+        AVQuery avQuery = new AVQuery("hb_languages");
+        List<AVObject> ls = new ArrayList<>();
+        try {
+           ls = avQuery.find();
+        } catch (AVException e) {
+            e.printStackTrace();
+        }
+        return ls;
     }
 }

@@ -7,7 +7,7 @@ import com.it7890.orange.manage.model.HbLanguage;
 import com.it7890.orange.manage.po.AppTopQuery;
 import com.it7890.orange.manage.service.AppTopService;
 import com.it7890.orange.manage.service.HbCountryService;
-import com.it7890.orange.manage.service.contentService.LanguageService;
+import com.it7890.orange.manage.service.LanguageService;
 import com.it7890.orange.manage.utils.ConstantsUtil;
 import com.it7890.orange.manage.utils.StringUtil;
 import org.apache.log4j.LogManager;

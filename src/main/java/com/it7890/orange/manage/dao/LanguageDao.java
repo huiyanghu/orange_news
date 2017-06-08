@@ -1,5 +1,6 @@
 package com.it7890.orange.manage.dao;
 
+import com.avos.avoscloud.AVObject;
 import com.it7890.orange.manage.model.HbLanguage;
 
 import java.util.List;
@@ -9,4 +10,6 @@ import java.util.List;
  */
 public interface LanguageDao {
     public List<HbLanguage> getAll();
+
+    public List<AVObject> getLangList();
 }
