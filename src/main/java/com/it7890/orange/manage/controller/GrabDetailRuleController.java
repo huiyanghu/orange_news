@@ -2,12 +2,13 @@ package com.it7890.orange.manage.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.avos.avoscloud.AVException;
-import com.it7890.orange.manage.model.*;
+import com.it7890.orange.manage.model.GrabDetailRule;
+import com.it7890.orange.manage.model.GrabListRule;
 import com.it7890.orange.manage.po.GrabDetailRuleQuery;
 import com.it7890.orange.manage.po.GrabListRuleQuery;
 import com.it7890.orange.manage.service.GrabDetailRuleService;
 import com.it7890.orange.manage.service.GrabListRuleService;
-import com.sun.org.apache.regexp.internal.RE;
+import com.it7890.orange.manage.utils.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -50,13 +51,13 @@ public class GrabDetailRuleController {
     public String toUpdate(Map map, String objectId) throws AVException {
         Map grabDetailRule = grabDetailRuleService.get(objectId);
         map.put("grabDetailRule", grabDetailRule);
-        List<GrabListRule> grabListRuleList=grabListRuleService.get(new GrabListRuleQuery());
+        List<GrabListRule> grabListRuleList = grabListRuleService.get(new GrabListRuleQuery());
         map.put("grabListRuleList", grabListRuleList);
         System.out.println(JSON.toJSONString(map));
         return "views/grabListRule/edit";
     }
 
-    @RequestMapping(path = "/update",method = RequestMethod.POST)
+    @RequestMapping(path = "/update", method = RequestMethod.POST)
     public String update(GrabDetailRuleQuery grabDetailRuleQuery, RedirectAttributes attributes, @RequestParam(value = "page", required = false, defaultValue = "1") Integer page) throws AVException {
 
 
@@ -66,9 +67,12 @@ public class GrabDetailRuleController {
         GrabDetailRule grabDetailRule = new GrabDetailRule();
         grabDetailRule.setObjectId(grabDetailRuleQuery.getObjectId());
 
-        GrabListRule grabListRule=new GrabListRule();
-        grabListRule.setObjectId(grabDetailRuleQuery.getGrabDetailRuleObjectId());
-        grabDetailRule.setGrabListRule(grabListRule);
+        if (StringUtil.isNotEmpty(grabDetailRuleQuery.getGrabDetailRuleObjectId())) {
+            GrabListRule grabListRule = new GrabListRule();
+            grabListRule.setObjectId(grabDetailRuleQuery.getGrabDetailRuleObjectId());
+            grabDetailRule.setGrabListRule(grabListRule);
+        }
+
 
         grabDetailRule.setTitleCssPath(grabDetailRuleQuery.getTitleCssPath());
         grabDetailRule.setStatus(grabDetailRuleQuery.getStatus());
@@ -93,16 +97,21 @@ public class GrabDetailRuleController {
         return "redirect:/grabDetailRule/list";
     }
 
-    @RequestMapping(path = "/add",method = RequestMethod.POST)
+    @RequestMapping(path = "/add", method = RequestMethod.POST)
     public String add(GrabDetailRuleQuery grabDetailRuleQuery, RedirectAttributes attributes) throws AVException {
         System.out.println("========================");
         System.out.println(JSON.toJSONString(grabDetailRuleQuery));
         System.out.println("========================");
-        GrabListRule grabListRule=new GrabListRule();
-        grabListRule.setObjectId(grabDetailRuleQuery.getGrabDetailRuleObjectId());
+
 
         GrabDetailRule grabDetailRule = new GrabDetailRule();
-        grabDetailRule.setGrabListRule(grabListRule);
+
+        if (StringUtil.isNotEmpty(grabDetailRuleQuery.getGrabDetailRuleObjectId())) {
+            GrabListRule grabListRule = new GrabListRule();
+            grabListRule.setObjectId(grabDetailRuleQuery.getGrabDetailRuleObjectId());
+            grabDetailRule.setGrabListRule(grabListRule);
+        }
+
         grabDetailRule.setTitleCssPath(grabDetailRuleQuery.getTitleCssPath());
         grabDetailRule.setStatus(grabDetailRuleQuery.getStatus());
         grabDetailRule.setKeywordCssPath(grabDetailRuleQuery.getKeywordCssPath());
@@ -116,7 +125,7 @@ public class GrabDetailRuleController {
         grabDetailRule.setTestUrl(grabDetailRuleQuery.getTestUrl());
         grabDetailRule.save();
 
-        attributes.addFlashAttribute("msg", "修改成功!");
+        attributes.addFlashAttribute("msg", "添加成功!");
         return "redirect:/grabDetailRule/list";
     }
 

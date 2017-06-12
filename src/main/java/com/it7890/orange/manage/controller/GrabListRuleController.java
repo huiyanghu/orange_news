@@ -5,6 +5,7 @@ import com.avos.avoscloud.AVException;
 import com.it7890.orange.manage.model.*;
 import com.it7890.orange.manage.po.GrabListRuleQuery;
 import com.it7890.orange.manage.service.*;
+import com.it7890.orange.manage.utils.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -88,7 +89,7 @@ public class GrabListRuleController {
      * @return
      * @throws AVException
      */
-    @RequestMapping(path = "/update",method = RequestMethod.POST)
+    @RequestMapping(path = "/update", method = RequestMethod.POST)
     public String update(GrabListRuleQuery grabListRuleQuery, RedirectAttributes attributes, @RequestParam(value = "page", required = false, defaultValue = "1") Integer page) throws AVException {
         System.out.println("========================");
         System.out.println(JSON.toJSONString(grabListRuleQuery));
@@ -106,25 +107,35 @@ public class GrabListRuleController {
         grabListRule.setNextPageCssPath(grabListRuleQuery.getNextPageCssPath());
         grabListRule.setGrabTime(grabListRuleQuery.getGrabTime());
 
-        ConPublication conPublication = new ConPublication();
-        conPublication.setObjectId(grabListRuleQuery.getPublicationObjectId());
-        grabListRule.setConPublication(conPublication);
+        if (StringUtil.isNotEmpty(grabListRuleQuery.getPublicationObjectId())) {
+            ConPublication conPublication = new ConPublication();
+            conPublication.setObjectId(grabListRuleQuery.getPublicationObjectId());
+            grabListRule.setConPublication(conPublication);
+        }
 
-        GlobalNode globalNode = new GlobalNode();
-        globalNode.setObjectId(grabListRuleQuery.getNodeObjectId());
-        grabListRule.setGlobalNode(globalNode);
+        if (StringUtil.isNotEmpty(grabListRuleQuery.getNodeObjectId())) {
+            GlobalNode globalNode = new GlobalNode();
+            globalNode.setObjectId(grabListRuleQuery.getNodeObjectId());
+            grabListRule.setGlobalNode(globalNode);
+        }
 
-        ConChannel conChannel = new ConChannel();
-        conChannel.setObjectId(grabListRuleQuery.getChannelObjectId());
-        grabListRule.setConChannel(conChannel);
+        if (StringUtil.isNotEmpty(grabListRuleQuery.getChannelObjectId())) {
+            ConChannel conChannel = new ConChannel();
+            conChannel.setObjectId(grabListRuleQuery.getChannelObjectId());
+            grabListRule.setConChannel(conChannel);
+        }
 
-        HbLanguage hbLanguage = new HbLanguage();
-        hbLanguage.setObjectId(grabListRuleQuery.getLanguageObjectId());
-        grabListRule.setHbLanguage(hbLanguage);
+        if (StringUtil.isNotEmpty(grabListRuleQuery.getLanguageObjectId())) {
+            HbLanguage hbLanguage = new HbLanguage();
+            hbLanguage.setObjectId(grabListRuleQuery.getLanguageObjectId());
+            grabListRule.setHbLanguage(hbLanguage);
+        }
 
-        HbTopics hbTopics = new HbTopics();
-        hbTopics.setObjectId(grabListRuleQuery.getTopicObjectId());
-        grabListRule.setHbTopics(hbTopics);
+        if (StringUtil.isNotEmpty(grabListRuleQuery.getTopicObjectId())) {
+            HbTopics hbTopics = new HbTopics();
+            hbTopics.setObjectId(grabListRuleQuery.getTopicObjectId());
+            grabListRule.setHbTopics(hbTopics);
+        }
 
         grabListRule.setStatus(grabListRuleQuery.getStatus());
         grabListRule.setListStatus(grabListRuleQuery.getListStatus());
@@ -140,6 +151,72 @@ public class GrabListRuleController {
         attributes.addAttribute("topicObjectId", grabListRuleQuery.getTopicObjectId());
         attributes.addAttribute("page", page);
         attributes.addFlashAttribute("msg", "修改成功!");
+        return "redirect:/grabListRule/list";
+    }
+
+    /**
+     * 修改
+     *
+     * @param grabListRuleQuery
+     * @return
+     * @throws AVException
+     */
+    @RequestMapping(path = "/add", method = RequestMethod.POST)
+    public String add(GrabListRuleQuery grabListRuleQuery, RedirectAttributes attributes) throws AVException {
+        System.out.println("========================");
+        System.out.println(JSON.toJSONString(grabListRuleQuery));
+        System.out.println("========================");
+        GrabListRule grabListRule = new GrabListRule();
+
+        grabListRule.setRuleName(grabListRuleQuery.getRuleName());
+        grabListRule.setCssPath(grabListRuleQuery.getCssPath());
+        grabListRule.setSiteUrl(grabListRuleQuery.getSiteUrl());
+        grabListRule.setCountryCode(grabListRuleQuery.getCountryCode());
+        grabListRule.setFindPre(grabListRuleQuery.getFindPre());
+        grabListRule.setConstant(grabListRuleQuery.getConstant());
+        grabListRule.setKeywords(grabListRuleQuery.getKeywords());
+        grabListRule.setTitlePicCssPath(grabListRuleQuery.getTitlePicCssPath());
+        grabListRule.setNextPageCssPath(grabListRuleQuery.getNextPageCssPath());
+        grabListRule.setGrabTime(grabListRuleQuery.getGrabTime());
+
+        if (StringUtil.isNotEmpty(grabListRuleQuery.getPublicationObjectId())) {
+            ConPublication conPublication = new ConPublication();
+            conPublication.setObjectId(grabListRuleQuery.getPublicationObjectId());
+            grabListRule.setConPublication(conPublication);
+        }
+
+        if (StringUtil.isNotEmpty(grabListRuleQuery.getNodeObjectId())) {
+            GlobalNode globalNode = new GlobalNode();
+            globalNode.setObjectId(grabListRuleQuery.getNodeObjectId());
+            grabListRule.setGlobalNode(globalNode);
+        }
+
+        if (StringUtil.isNotEmpty(grabListRuleQuery.getChannelObjectId())) {
+            ConChannel conChannel = new ConChannel();
+            conChannel.setObjectId(grabListRuleQuery.getChannelObjectId());
+            grabListRule.setConChannel(conChannel);
+        }
+
+        if (StringUtil.isNotEmpty(grabListRuleQuery.getLanguageObjectId())) {
+            HbLanguage hbLanguage = new HbLanguage();
+            hbLanguage.setObjectId(grabListRuleQuery.getLanguageObjectId());
+            grabListRule.setHbLanguage(hbLanguage);
+        }
+
+        if (StringUtil.isNotEmpty(grabListRuleQuery.getTopicObjectId())) {
+            HbTopics hbTopics = new HbTopics();
+            hbTopics.setObjectId(grabListRuleQuery.getTopicObjectId());
+            grabListRule.setHbTopics(hbTopics);
+        }
+
+
+        grabListRule.setStatus(grabListRuleQuery.getStatus());
+        grabListRule.setListStatus(grabListRuleQuery.getListStatus());
+
+        grabListRule.save();
+
+
+        attributes.addFlashAttribute("msg", "添加成功!");
         return "redirect:/grabListRule/list";
     }
 
