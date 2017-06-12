@@ -69,6 +69,7 @@ public class GrabDetailRuleDaoImpl implements GrabDetailRuleDao {
 
     public GrabDetailRule get(String objectId) throws AVException {
         AVQuery<GrabDetailRule> query = new AVQuery<>("GrabDetailRule");
+        query.include("grabListRuleObj");
         GrabDetailRule grabDetailRule = query.get(objectId);
         return grabDetailRule;
     }

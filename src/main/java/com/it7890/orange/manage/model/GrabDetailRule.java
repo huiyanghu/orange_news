@@ -26,7 +26,11 @@ public class GrabDetailRule extends AVObject {
     private String authorCssPath;   //作者规则
     private String keywordCssPath;  //关键字规则
     private String testUrl;         //测试url
-    private GrabListRule grabListRule;*/
+    private Integer status;
+    private GrabListRule grabListRule;
+
+    */
+
 
 
     public String getTitleCssPath() {

@@ -8,6 +8,7 @@ import com.it7890.orange.manage.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -56,6 +57,7 @@ public class GrabListRuleController {
     public String detail(Map map, String objectId) throws AVException {
         Map grabListRule = grabListRuleService.get(objectId);
         map.put("grabListRule", grabListRule);
+        System.out.println(JSON.toJSONString(map));
         return "views/grabListRule/detail";
     }
 
@@ -86,7 +88,7 @@ public class GrabListRuleController {
      * @return
      * @throws AVException
      */
-    @RequestMapping("/update")
+    @RequestMapping(path = "/update",method = RequestMethod.POST)
     public String update(GrabListRuleQuery grabListRuleQuery, RedirectAttributes attributes, @RequestParam(value = "page", required = false, defaultValue = "1") Integer page) throws AVException {
         System.out.println("========================");
         System.out.println(JSON.toJSONString(grabListRuleQuery));

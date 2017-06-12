@@ -21,6 +21,8 @@ public class ConstantsUtil {
         constants.put("grabDetailRuleStatus", "[{'key':'0','value':'正常'},{'key':'1','value':'禁用'},{'key':'2','value':'删除'}]");//-1删除
         constants.put("grabListRuleStatus", "[{'key':'0','value':'正常'},{'key':'1','value':'禁用'},{'key':'2','value':'删除'}]");//-1删除
         constants.put("grabListRuleListStatus", "[{'key':'0','value':'正常'},{'key':'1','value':'禁用'},{'key':'2','value':'删除'}]");//-1删除
+        constants.put("grabDetailRuleStatus", "[{'key':'0','value':'正常'},{'key':'1','value':'禁用'},{'key':'2','value':'删除'}]");//-1删除
+
     }
 
     public static List<Map> getConstants(String constantsKey) {
