@@ -1,14 +1,68 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-cmn-Hans" xmlns:th="http://www.thymeleaf.org" xmlns:c="http://www.w3.org/1999/html">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <script type="text/javascript" src="/stylesheets/meAdmin/assets/js/libs/jquery-1.10.2.min.js"></script>
+    <script>
+        function submit_this() {
+            var obj={};
+            obj.objectId=$('#objectId').val();
+            obj.ruleName=$('#ruleName').val();
+            obj.publicationObjectId=$('#publicationObjectId').val();
+            obj.nodeObjectId=$('#nodeObjectId').val();
+            obj.channelObjectId=$('#channelObjectId').val();
+            obj.topicObjectId=$('#topicObjectId').val();
+            obj.languageObjectId=$('#languageObjectId').val();
+            obj.countryObjectId=$('#countryObjectId').val();
+            obj.cssPath=$('#cssPath').val();
+            obj.siteUrl=$('#siteUrl').val();
+            obj.objectId=$('#objectId').val();
+
+            obj=JSON.stringify(obj);
+            console.warn(""+obj);
+            $.ajax({
+                url:"http://192.168.0.106:8080/checkGrabListRule",
+                type:"post",
+                data:{grabListRuleJSON:obj},
+                success:function (data) {
+                    
+                }
+            })
+        }
+
+    </script>
 </head>
 <body>
-<form method="post" action="../appTop/saveOrUpdate">
-    <input name="countryCode">
-    <br>
-    <input type="submit" value="提交">
-</form>
+
+
+channelObjectId:<input id="channelObjectId" th:value="${grabListRule.channelObjectId}"/>
+<br>
+countryObjectId:<input id="countryObj" th:value="${grabListRule.countryObjectId}"/>
+<br>
+cssPath:<input id="cssPath" th:value="${grabListRule.cssPath}"/>
+<br>
+grabTime:<input id="grabTime" th:value="${grabListRule.grabTime}"/>
+<br>
+languageObjectId:<input id="languageObjectId" th:value="${grabListRule.languageObjectId}"/>
+<br>
+listStatus:<input id="listStatus" th:value="${grabListRule.listStatus}"/>
+<br>
+nodeObjectId:<input id="nodeObjectId" th:value="${grabListRule.nodeObjectId}"/>
+<br>
+publicationObjectId:<input id="publicationObjectId" th:value="${grabListRule.publicationObjectId}"/>
+<br>
+ruleName:<input id="ruleName" th:value="${grabListRule.ruleName}"/>
+<br>
+status:<input id="status" th:value="${grabListRule.status}"/>
+<br>
+topicObjectId:<input id="topicObjectId" th:value="${grabListRule.topicObjectId}"/>
+<br>
+siteUrl:<input id="siteUrl" th:value="${grabListRule.siteUrl}"/>
+<br>
+<br>
+<br>
+<input type="button" value="提交" onclick="submit_this()">
+
 </body>
 </html>

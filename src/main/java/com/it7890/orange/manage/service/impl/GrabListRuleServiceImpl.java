@@ -29,6 +29,7 @@ public class GrabListRuleServiceImpl implements GrabListRuleService {
     public Map get(String objectId) throws AVException {
         GrabListRule grabListRule = grabListRuleDao.get(objectId);
         Map map = new HashMap();
+        map.put("objectId", grabListRule.getObjectId());
         map.put("ruleName", grabListRule.getRuleName());
         map.put("publicationObjectId", grabListRule.getConPublication() == null ? "" : grabListRule.getConPublication().getObjectId());
         map.put("publicationName", grabListRule.getConPublication() == null ? "" : grabListRule.getConPublication().getName());
@@ -38,12 +39,14 @@ public class GrabListRuleServiceImpl implements GrabListRuleService {
         map.put("channelName", grabListRule.getConChannel() == null ? "" : grabListRule.getConChannel().getChannelName());
         map.put("createdAt", DateUtil.getTimeStampStr(grabListRule.getCreatedAt()));
         map.put("zifu", grabListRule.getSiteUrl());
-        map.put("countryCode", grabListRule.getCountryCode());
+        map.put("siteUrl", grabListRule.getSiteUrl());
+
         map.put("languageObjectId", grabListRule.getHbLanguage() == null ? "" : grabListRule.getHbLanguage().getObjectId());
         map.put("languageCode", grabListRule.getHbLanguage() == null ? "" : grabListRule.getHbLanguage().getCodes());
 
         map.put("countryObjectId", grabListRule.getCountry() == null ? "" : grabListRule.getCountry().getObjectId());
         map.put("countryCnName", grabListRule.getCountry() == null ? "" : grabListRule.getCountry().getCnName());
+        map.put("countryCode", grabListRule.getCountry() == null ? "" : grabListRule.getCountry().getCountryCode());
 
         map.put("topicObjectId", grabListRule.getHbTopics() == null ? "" : grabListRule.getHbTopics().getObjectId());
         map.put("topicName", grabListRule.getHbTopics() == null ? "" : grabListRule.getHbTopics().getName());

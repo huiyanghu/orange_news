@@ -19,7 +19,6 @@ public class GrabListRule extends AVObject {
     private String channelId;   //渠道id
     private String cssPath;     //目标区域规则
     private String siteUrl;     //源url
-    private String countryCode; //国家编码
     private String languageId;  //语言id
     private String topicId;     //话题id
     private String findPre;     //目标文章url规则
@@ -66,14 +65,6 @@ public class GrabListRule extends AVObject {
 
     public void setSiteUrl(String siteUrl) {
         this.put("siteUrl", siteUrl);
-    }
-
-    public String getCountryCode() {
-        return this.getString("countryCode");
-    }
-
-    public void setCountryCode(String countryCode) {
-        this.put("countryCode", countryCode);
     }
 
 

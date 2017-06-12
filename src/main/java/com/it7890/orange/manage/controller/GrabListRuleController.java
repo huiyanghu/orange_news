@@ -99,7 +99,6 @@ public class GrabListRuleController {
         grabListRule.setRuleName(grabListRuleQuery.getRuleName());
         grabListRule.setCssPath(grabListRuleQuery.getCssPath());
         grabListRule.setSiteUrl(grabListRuleQuery.getSiteUrl());
-        grabListRule.setCountryCode(grabListRuleQuery.getCountryCode());
         grabListRule.setFindPre(grabListRuleQuery.getFindPre());
         grabListRule.setConstant(grabListRuleQuery.getConstant());
         grabListRule.setKeywords(grabListRuleQuery.getKeywords());
@@ -154,6 +153,24 @@ public class GrabListRuleController {
         return "redirect:/grabListRule/list";
     }
 
+
+    @RequestMapping("/toAdd")
+    public String toAdd(Map map) throws AVException {
+        List<Map> globalNodeList = globalNodeService.getGlobalNodeList();
+        List<Map> appTopicsList = appTopicsService.getAppTopicsList();
+        List<Map> publicationList = publicationService.getPublictionList();
+        List<Map> channelList = conChannelService.getChannelList();
+        List<Map> countryList = hbCountryService.getCountryList();
+        map.put("globalNodeList", globalNodeList);
+        map.put("appTopicsList", appTopicsList);
+        map.put("publicationList", publicationList);
+        map.put("channelList", channelList);
+        map.put("countryList", countryList);
+
+        System.out.println(JSON.toJSONString(map));
+        return "views/grabListRule/add";
+    }
+
     /**
      * 修改
      *
@@ -171,7 +188,6 @@ public class GrabListRuleController {
         grabListRule.setRuleName(grabListRuleQuery.getRuleName());
         grabListRule.setCssPath(grabListRuleQuery.getCssPath());
         grabListRule.setSiteUrl(grabListRuleQuery.getSiteUrl());
-        grabListRule.setCountryCode(grabListRuleQuery.getCountryCode());
         grabListRule.setFindPre(grabListRuleQuery.getFindPre());
         grabListRule.setConstant(grabListRuleQuery.getConstant());
         grabListRule.setKeywords(grabListRuleQuery.getKeywords());
@@ -238,5 +254,25 @@ public class GrabListRuleController {
         attributes.addAttribute("page", page);
         attributes.addFlashAttribute("msg", "删除成功!");
         return "redirect:/grabListRule/list";
+    }
+
+    @RequestMapping("/toTest")
+    public String test(Map map, String objectId) throws AVException{
+        Map grabListRule = grabListRuleService.get(objectId);
+        map.put("grabListRule", grabListRule);
+
+        List<Map> globalNodeList = globalNodeService.getGlobalNodeList();
+        List<Map> appTopicsList = appTopicsService.getAppTopicsList();
+        List<Map> publicationList = publicationService.getPublictionList();
+        List<Map> channelList = conChannelService.getChannelList();
+        List<Map> countryList = hbCountryService.getCountryList();
+        map.put("globalNodeList", globalNodeList);
+        map.put("appTopicsList", appTopicsList);
+        map.put("publicationList", publicationList);
+        map.put("channelList", channelList);
+        map.put("countryList", countryList);
+
+        System.out.println(JSON.toJSONString(map));
+        return "views/appTop/test1";
     }
 }

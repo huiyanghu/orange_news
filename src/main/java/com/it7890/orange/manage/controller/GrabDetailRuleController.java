@@ -97,6 +97,14 @@ public class GrabDetailRuleController {
         return "redirect:/grabDetailRule/list";
     }
 
+    @RequestMapping("/toAdd")
+    public String toAdd(Map map) throws AVException {
+        List<GrabListRule> grabListRuleList = grabListRuleService.get(new GrabListRuleQuery());
+        map.put("grabListRuleList", grabListRuleList);
+        System.out.println(JSON.toJSONString(map));
+        return "views/grabListRule/add";
+    }
+
     @RequestMapping(path = "/add", method = RequestMethod.POST)
     public String add(GrabDetailRuleQuery grabDetailRuleQuery, RedirectAttributes attributes) throws AVException {
         System.out.println("========================");
