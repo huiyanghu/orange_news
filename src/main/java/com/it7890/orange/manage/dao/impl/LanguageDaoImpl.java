@@ -52,7 +52,7 @@ public class LanguageDaoImpl implements LanguageDao {
         for (HbLanguage language : languageList) {
             map = new HashMap();
             map.put("objectId", language.getObjectId());
-            map.put("language", language.getName());
+            map.put("languageName", language.getName());
             list.add(map);
         }
         return list;

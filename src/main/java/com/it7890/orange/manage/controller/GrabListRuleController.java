@@ -5,6 +5,7 @@ import com.avos.avoscloud.AVException;
 import com.it7890.orange.manage.model.*;
 import com.it7890.orange.manage.po.GrabListRuleQuery;
 import com.it7890.orange.manage.service.*;
+import com.it7890.orange.manage.utils.ConstantsUtil;
 import com.it7890.orange.manage.utils.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -34,6 +35,8 @@ public class GrabListRuleController {
     ConChannelService conChannelService;
     @Autowired
     HbCountryService hbCountryService;
+    @Autowired
+    LanguageService languageService;
 
     @RequestMapping("/list")
     public String getList(Map map, GrabListRuleQuery grabListRuleQuery, @RequestParam(value = "page", required = false, defaultValue = "1") Integer page) throws AVException {
@@ -72,11 +75,15 @@ public class GrabListRuleController {
         List<Map> publicationList = publicationService.getPublictionList();
         List<Map> channelList = conChannelService.getChannelList();
         List<Map> countryList = hbCountryService.getCountryList();
+        List<Map> languageList = languageService.getLanguageList();
         map.put("globalNodeList", globalNodeList);
         map.put("appTopicsList", appTopicsList);
         map.put("publicationList", publicationList);
         map.put("channelList", channelList);
         map.put("countryList", countryList);
+        map.put("languageList", languageList);
+        map.put("grabListRuleStatusList", ConstantsUtil.getConstants("grabListRuleStatus"));
+        map.put("grabListRuleListStatusList", ConstantsUtil.getConstants("grabListRuleListStatus"));
 
         System.out.println(JSON.toJSONString(map));
         return "views/grabListRule/edit";

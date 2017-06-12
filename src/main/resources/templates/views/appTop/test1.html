@@ -6,27 +6,31 @@
     <script type="text/javascript" src="/stylesheets/meAdmin/assets/js/libs/jquery-1.10.2.min.js"></script>
     <script>
         function submit_this() {
-            var obj={};
-            obj.objectId=$('#objectId').val();
-            obj.ruleName=$('#ruleName').val();
-            obj.publicationObjectId=$('#publicationObjectId').val();
-            obj.nodeObjectId=$('#nodeObjectId').val();
-            obj.channelObjectId=$('#channelObjectId').val();
-            obj.topicObjectId=$('#topicObjectId').val();
-            obj.languageObjectId=$('#languageObjectId').val();
-            obj.countryObjectId=$('#countryObjectId').val();
-            obj.cssPath=$('#cssPath').val();
-            obj.siteUrl=$('#siteUrl').val();
-            obj.objectId=$('#objectId').val();
+            var obj = {};
+            obj.objectId = $('#objectId').val();
+            obj.ruleName = $('#ruleName').val();
+            obj.publicationObjectId = $('#publicationObjectId').val();
+            obj.nodeObjectId = $('#nodeObjectId').val();
+            obj.channelObjectId = $('#channelObjectId').val();
+            obj.topicObjectId = $('#topicObjectId').val();
+            obj.languageObjectId = $('#languageObjectId').val();
+            obj.countryObjectId = $('#countryObjectId').val();
+            obj.cssPath = $('#cssPath').val();
+            obj.siteUrl = $('#siteUrl').val();
+            obj.objectId = $('#objectId').val();
 
-            obj=JSON.stringify(obj);
-            console.warn(""+obj);
+            obj = JSON.stringify(obj);
+            console.warn("" + obj);
             $.ajax({
-                url:"http://192.168.0.106:8080/checkGrabListRule",
-                type:"post",
-                data:{grabListRuleJSON:obj},
-                success:function (data) {
-                    
+                url: "http://192.168.0.106:8080/checkGrabListRule",
+                type: "post",
+                data: {
+                    "cssPath": "div[role=main]", // 目标区域规则
+                    "findPre": "div.cb-mask > a",  // 目标文章url规则
+                    "siteUrl": "http://www.esquire.tw/category/style/fashion/"  // 测试文章url
+                },
+                success: function (data) {
+                    console.warn(data);
                 }
             })
         }

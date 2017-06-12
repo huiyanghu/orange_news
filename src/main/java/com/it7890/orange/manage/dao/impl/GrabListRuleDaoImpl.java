@@ -69,7 +69,7 @@ public class GrabListRuleDaoImpl implements GrabListRuleDao {
             m.put("publicationName", grabListRule.getConPublication() == null ? "" : grabListRule.getConPublication().getName());
             m.put("topicName", grabListRule.getHbTopics() == null ? "" : grabListRule.getHbTopics().getName());
             m.put("nodeName", grabListRule.getGlobalNode() == null ? "" : grabListRule.getGlobalNode().getNodename());
-            m.put("countryCode", grabListRule.getCountryCode());
+            m.put("countryCode", grabListRule.getCountry()==null?"":grabListRule.getCountry().getCountryCode());
             m.put("createdAt", DateUtil.getTimeStampStr(grabListRule.getCreatedAt()));
             m.put("status", grabListRule.getStatus());
             m.put("listStatus", grabListRule.getListStatus());
