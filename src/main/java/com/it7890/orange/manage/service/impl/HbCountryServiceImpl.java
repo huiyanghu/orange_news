@@ -49,7 +49,9 @@ public class HbCountryServiceImpl implements HbCountryService {
         for (AVObject avObject : ls) {
             m = new HashMap();
             m.put("objectId", avObject.getObjectId());
-            m.put("countryIcon",avObject.getAVFile("iconFileObj").getUrl());
+            if (avObject.getAVFile("iconFileObj")!=null){
+                m.put("countryIcon",avObject.getAVFile("iconFileObj").getUrl());
+            }
             m.put("cnName", avObject.getString("cnName"));
             m.put("countryCode",avObject.getString("countryCode"));
             m.put("shortName",avObject.getString("shortName"));
