@@ -38,6 +38,12 @@ public class Application {
         AVObject.registerSubclass(HbCountrys.class);
         AVObject.registerSubclass(AppAdvert.class);
         AVObject.registerSubclass(AppLockScreen.class);
+        AVObject.registerSubclass(GrabListRule.class);
+        AVObject.registerSubclass(GlobalNode.class);
+        AVObject.registerSubclass(AppAplication.class);
+        AVObject.registerSubclass(AppTopics.class);
+
+
 
 
 

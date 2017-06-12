@@ -4,10 +4,13 @@ import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.AVObject;
 import com.avos.avoscloud.AVQuery;
 import com.it7890.orange.manage.dao.AppTopicsDao;
+import com.it7890.orange.manage.model.AppTopics;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author gg
@@ -19,12 +22,26 @@ public class AppTopicsDaoImpl implements AppTopicsDao {
     public List<AVObject> getListByCId(String cid) {
         AVQuery avQuery = new AVQuery("AppTopics");
         List<AVObject> ls = new ArrayList<>();
-        avQuery.whereEqualTo("countryObj",AVObject.createWithoutData("hb_countrys",cid));
+        avQuery.whereEqualTo("countryObj", AVObject.createWithoutData("hb_countrys", cid));
         try {
             ls = avQuery.find();
         } catch (AVException e) {
             e.printStackTrace();
         }
         return ls;
+    }
+
+    public List<Map> getAppTopicsList() throws AVException {
+        AVQuery<AppTopics> query = new AVQuery("AppTopics");
+        List<AppTopics> appTopicsList = query.find();
+        List<Map> list = new ArrayList<>();
+        Map map;
+        for (AppTopics appTopics : appTopicsList) {
+            map=new HashMap();
+            map.put("objectId", appTopics.getObjectId());
+            map.put("topicName", appTopics.getTopicName());
+            list.add(map);
+        }
+        return list;
     }
 }

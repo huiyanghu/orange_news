@@ -1,5 +1,6 @@
 package com.it7890.orange.manage.service.impl;
 
+import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.AVObject;
 import com.it7890.orange.manage.dao.LanguageDao;
 import com.it7890.orange.manage.model.HbLanguage;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Component;
 import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Administrator on 2017/5/12.
@@ -30,16 +32,20 @@ public class LanguageServiceImpl implements LanguageService {
         return avo2dto(ls);
     }
 
-    public List<HbLanguageDTO> avo2dto(List<AVObject> ls){
+    public List<HbLanguageDTO> avo2dto(List<AVObject> ls) {
         HbLanguageDTO hbLanguageDTO;
         List<HbLanguageDTO> dtoList = new ArrayList<>();
-        for (AVObject avo : ls){
+        for (AVObject avo : ls) {
             hbLanguageDTO = HbLanguageDTO.avo2Dto(avo);
-            if (null!=hbLanguageDTO){
+            if (null != hbLanguageDTO) {
                 dtoList.add(hbLanguageDTO);
             }
         }
         return dtoList;
+    }
+
+    public List<Map> getLanguageList() throws AVException {
+        return languageDao.getLanguageList();
     }
 
 }

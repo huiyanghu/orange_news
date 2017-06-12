@@ -1,96 +1,96 @@
 package com.it7890.orange.manage.model;
 
-import com.alibaba.fastjson.JSON;
 import com.avos.avoscloud.AVClassName;
 import com.avos.avoscloud.AVObject;
 
 import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * The persistent class for the con_channel database table.
  */
-@AVClassName("con_channel")
+@AVClassName("ConChannel")
 public class ConChannel extends AVObject {
     private static final long serialVersionUID = 1L;
-    private int id;
-    private Date createtime;
-    private String channelname;
-    private int countryid;
-    private int createuid;
-    private String email;
-    private String mobile;
-    private String password;
-    private int status;
-    private String telphone;
-
-    public ConChannel() {
+    /*public ConChannel() {
         super();
+    }*/
+    private AppAplication aplication;
+    private String channelName;
+    private String channelCode;
+    private String channelPass;
+    private String channelDesc;
+    private Date startTime;
+    private Date endTime;
+    private String contact;
+    private String mobile;
+    private String email;
+    private Integer proportion;
+    private Integer status;
+    private SysUser creater;
+
+
+    public AppAplication getAplication() {
+        return getAVObject("applicationObj");
     }
 
-//    public int getId() {
-//        return getString(""); this.put("", );id;
-//    }
-//
-//    public void setId(int id) {
-//        this.put("", );id = id;
-//    }
-//
-//    public Date getCreatetime() {
-//        return getString(""); createtime;
-//    }
-//
-//    public void setCreatetime(Date createtime) {
-//        this.put("", );createtime = createtime;
-//    }
-
-    public String getChannelname() {
-        return getString("channelname");
+    public void setAplication(AppAplication aplication) {
+        this.put("applicationObj", aplication);
     }
 
-    public void setChannelname(String channelname) {
-        this.put("channelname", channelname);
+    public String getChannelName() {
+        return getString("channelName");
     }
 
-//    public String getConconstant() {
-//        return getString("conconstant");
-//    }
-//
-//    public void setConconstant(String conconstant) {
-//        this.put("conconstant", conconstant);
-//    }
-
-    public int getCountryid() {
-        return getInt("countryid");
+    public void setChannelName(String channelName) {
+        this.put("channelName", channelName);
     }
 
-    public void setCountryid(int countryid) {
-        this.put("countryid", countryid);
+    public String getChannelCode() {
+        return getString("channelCode");
     }
 
-    public int getId() {
-        return getInt("id");
+    public void setChannelCode(String channelCode) {
+        this.put("channelCode", channelCode);
     }
 
-    public void setId(int id) {
-        this.put("id", id);
+    public String getChannelPass() {
+        return getString("channelPass");
     }
 
-    public int getCreateuid() {
-        return getInt("createuid");
+    public void setChannelPass(String channelPass) {
+        this.put("channelPass", channelPass);
     }
 
-    public void setCreateuid(int createuid) {
-        this.put("createuid", createuid);
+    public String getChannelDesc() {
+        return getString("channelDesc");
     }
 
-    public String getEmail() {
-        return getString("email");
+    public void setChannelDesc(String channelDesc) {
+        this.put("channelDesc", channelDesc);
     }
 
-    public void setEmail(String email) {
-        this.put("email", email);
+    public Date getStartTime() {
+        return getDate("startTime");
+    }
+
+    public void setStartTime(Date startTime) {
+        this.put("startTime", startTime);
+    }
+
+    public Date getEndTime() {
+        return getDate("endTime");
+    }
+
+    public void setEndTime(Date endTime) {
+        this.put("endTime", endTime);
+    }
+
+    public String getContact() {
+        return getString("contact");
+    }
+
+    public void setContact(String contact) {
+        this.put("contact", contact);
     }
 
     public String getMobile() {
@@ -101,47 +101,35 @@ public class ConChannel extends AVObject {
         this.put("mobile", mobile);
     }
 
-    public String getPassword() {
-        return getString("password");
+    public String getEmail() {
+        return getString("email");
     }
 
-    public void setPassword(String password) {
-        this.put("password", password);
+    public void setEmail(String email) {
+        this.put("email", email);
     }
 
-    public int getStatus() {
+    public Integer getProportion() {
+        return getInt("proportion");
+    }
+
+    public void setProportion(Integer proportion) {
+        this.put("proportion", proportion);
+    }
+
+    public Integer getStatus() {
         return getInt("status");
     }
 
-    public void setStatus(int status) {
+    public void setStatus(Integer status) {
         this.put("status", status);
     }
 
-    public String getTelphone() {
-        return getString("telphone");
+    public SysUser getCreater() {
+        return getAVObject("createrObj");
     }
 
-    public void setTelphone(String telphone) {
-        this.put("telphone", telphone);
+    public void setCreater(SysUser creater) {
+        this.put("creater", creater);
     }
-
-    @Override
-    public String toString() {
-        Map<String, Object> result = new HashMap<String, Object>();
-        result.put("channelname", this.getString("channelname"));
-//        result.put("conconstant", this.getString("conconstant"));
-        result.put("countryid", this.getInt("countryid"));
-        result.put("id", this.getInt("id"));
-        result.put("createuid", this.getInt("createuid"));
-        result.put("email", this.getString("email"));
-        result.put("mobile", this.getString("mobile"));
-        result.put("password", this.getString("password"));
-        result.put("status", this.getInt("status"));
-        result.put("telphone", this.getString("telphone"));
-        result.put("objectId", this.getObjectId());
-        result.put("createdAt", this.getCreatedAt());
-        return JSON.toJSONString(result);
-    }
-
-
 }

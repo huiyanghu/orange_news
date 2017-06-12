@@ -1,22 +1,14 @@
 package com.it7890.orange.manage.dao.impl;
 
-import com.avos.avoscloud.AVCloudQueryResult;
-import com.avos.avoscloud.AVException;
-import com.avos.avoscloud.AVObject;
-import com.avos.avoscloud.AVQuery;
 import com.it7890.orange.manage.dao.ListManagerRuleDao;
-import com.it7890.orange.manage.model.ConGrabLRule;
 import org.springframework.stereotype.Component;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by Administrator on 2017/5/11.
  */
 @Component
 public class ListManagerRuleDaoImpl implements ListManagerRuleDao {
-    @Override
+    /*@Override
     public List<ConGrabLRule> getAll() {
         List<ConGrabLRule> list = new ArrayList<>();
         AVCloudQueryResult result;
@@ -154,5 +146,5 @@ public class ListManagerRuleDaoImpl implements ListManagerRuleDao {
         } catch (AVException e) {
         }
 
-    }
+    }*/
 }

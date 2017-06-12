@@ -1,8 +1,10 @@
 package com.it7890.orange.manage.dao;
 
+import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.AVObject;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author gg
@@ -10,4 +12,5 @@ import java.util.List;
  **/
 public interface AppTopicsDao {
     public List<AVObject> getListByCId(String cid);
+    public List<Map> getAppTopicsList() throws AVException;
 }

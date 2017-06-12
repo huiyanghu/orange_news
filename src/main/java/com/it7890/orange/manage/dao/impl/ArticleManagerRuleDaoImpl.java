@@ -1,22 +1,14 @@
 package com.it7890.orange.manage.dao.impl;
 
-import com.avos.avoscloud.AVCloudQueryResult;
-import com.avos.avoscloud.AVException;
-import com.avos.avoscloud.AVObject;
-import com.avos.avoscloud.AVQuery;
 import com.it7890.orange.manage.dao.ArticleManagerRuleDao;
-import com.it7890.orange.manage.model.ConGrabCRule;
 import org.springframework.stereotype.Component;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by Administrator on 2017/5/15.
  */
 @Component
 public class ArticleManagerRuleDaoImpl implements ArticleManagerRuleDao {
-
+/*
     @Override
     public List<ConGrabCRule> getAll() {
         List<ConGrabCRule> list = new ArrayList<ConGrabCRule>();
@@ -158,5 +150,5 @@ public class ArticleManagerRuleDaoImpl implements ArticleManagerRuleDao {
         } catch (Exception e) {
         }
         return list;
-    }
+    }*/
 }

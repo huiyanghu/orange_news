@@ -1,15 +1,17 @@
 package com.it7890.orange.manage.dao.impl;
 
+import com.avos.avoscloud.AVCloudQueryResult;
 import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.AVObject;
+import com.avos.avoscloud.AVQuery;
 import com.it7890.orange.manage.dao.LanguageDao;
 import com.it7890.orange.manage.model.HbLanguage;
-import com.avos.avoscloud.AVCloudQueryResult;
-import com.avos.avoscloud.AVQuery;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Administrator on 2017/5/12.
@@ -39,5 +41,20 @@ public class LanguageDaoImpl implements LanguageDao {
             e.printStackTrace();
         }
         return ls;
+    }
+
+    @Override
+    public List<Map> getLanguageList() throws AVException {
+        AVQuery query = new AVQuery("hb_languages");
+        List<HbLanguage> languageList = query.find();
+        List<Map> list = new ArrayList<>();
+        Map map;
+        for (HbLanguage language : languageList) {
+            map = new HashMap();
+            map.put("objectId", language.getObjectId());
+            map.put("language", language.getName());
+            list.add(map);
+        }
+        return list;
     }
 }

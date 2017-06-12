@@ -27,4 +27,6 @@ public class GlobalNodeDaoImpl implements GlobalNodeDao {
         }
         return   list;
     }
+
+
 }

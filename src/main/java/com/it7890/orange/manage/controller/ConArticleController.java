@@ -9,10 +9,6 @@ import com.it7890.orange.manage.po.AppPushInfoQuery;
 import com.it7890.orange.manage.po.ConArticleQuery;
 import com.it7890.orange.manage.po.HbCountryQuery;
 import com.it7890.orange.manage.service.*;
-import com.it7890.orange.manage.service.articalService.IConChannelService;
-import com.it7890.orange.manage.service.articalService.IConGrabRuleService;
-import com.it7890.orange.manage.service.articalService.IConPublicationService;
-import com.it7890.orange.manage.service.articalService.ITopicsService;
 import com.it7890.orange.manage.utils.ConstantsUtil;
 import com.it7890.orange.manage.utils.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,15 +37,13 @@ public class ConArticleController {
     @Autowired
     private ConArticleService conArticleService;
     @Autowired
-    private IConPublicationService conpublicationService;
+    private PublicationService publicationService;
     @Autowired
-    private IConChannelService conchannelService;
+    private ConChannelService conChannelService;
     @Autowired
-    private ITopicsService topicsService;
+    private AppTopicsService topicsService;
     @Autowired
     private LanguageService languageService;
-    @Autowired
-    private IConGrabRuleService ruleService;
     @Autowired
     private AppPushInfoService appPushInfoService;
     @Autowired
@@ -80,11 +74,11 @@ public class ConArticleController {
         map.putAll(conArticleListAndPageUtilMap);
 
 
-        map.put("topicList", topicsService.getAllHbTopics());
-        map.put("channelList", conchannelService.getAllConChannel());
-        map.put("publicationList", conpublicationService.getAllConpublication());
-        map.put("languageList", languageService.getAll());
-        //map.put("channellist", ruleService.getChannellist());
+        map.put("topicList", topicsService.getAppTopicsList());
+        map.put("channelList", conChannelService.getChannelList());
+        map.put("publicationList", publicationService.getPublictionList());
+        map.put("languageList", languageService.getLanguageList());
+
 
         System.out.println(JSON.toJSON(map));
         return "views/article/list";
@@ -424,8 +418,8 @@ public class ConArticleController {
                     lockscreen.setCountryCode("00");
                 }
                 System.out.println(advert.getLanguageObj());
-                if(advert.getLanguageObj()!=null){
-                    HbLanguage hbLanguage=new HbLanguage();
+                if (advert.getLanguageObj() != null) {
+                    HbLanguage hbLanguage = new HbLanguage();
                     hbLanguage.setObjectId(advert.getLanguageObj().getObjectId());
                     lockscreen.setLanguageObj(hbLanguage);
                 }
@@ -443,7 +437,7 @@ public class ConArticleController {
                 lockscreen.setSrc(advert.getAdUrl());
                 lockscreen.setRank(0);
                 lockscreen.setVersionId("0");
-                if(sysuer!=null){
+                if (sysuer != null) {
                     lockscreen.setCreateUserObj(AVObject.createWithoutData("SysUser", "" + sysuer.getObjectId()));
                 }
 
