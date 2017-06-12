@@ -96,6 +96,7 @@ public class HbCountryControler {
                             @RequestParam(value = "countryCode", required = false, defaultValue = "") String countryCode,
                             @RequestParam(value = "shortName", required = false, defaultValue = "") String shortName,
                             @RequestParam(value = "langId", required = false, defaultValue = "") String langId,
+                            @RequestParam(value = "picId", required = false, defaultValue = "") String picId,
                             @RequestParam(value = "status", required = false, defaultValue = "1") int status,
                             @RequestParam(value = "continent", required = false, defaultValue = "") String continent){
         map.remove("org.springframework.validation.BindingResult.countryQuery");
@@ -103,38 +104,39 @@ public class HbCountryControler {
             AVQuery avQuery = new AVQuery("hb_countrys");
             try {
                 AVObject avo = avQuery.get(cid);
-                buildAvoObj(avo, cnName, countryCode, shortName, langId, status, continent);
+                buildAvoObj(avo, cnName, countryCode, shortName, langId,picId, status, continent);
                 hbCountryDao.saveHbAvo(avo);
             } catch (AVException e) {
                 logger.info(e.getMessage());
             }
         }else {
-           AVObject avObject = buildAvoObj(null, cnName, countryCode, shortName, langId, status, continent);
+           AVObject avObject = buildAvoObj(null, cnName, countryCode, shortName, langId,picId, status, continent);
            hbCountryDao.saveHbAvo(avObject);
         }
         return "redirect:/views/country/edit";
     }
 
-    public static AVObject buildAvoObj(AVObject avObject,String cnName,String countryCode,String shortName,String langId,int status,String continent){
+    public static AVObject buildAvoObj(AVObject avObject,String cnName,String countryCode,String shortName,String langId,String picId,int status,String continent){
         if(avObject==null){
             avObject = new AVObject("hb_countrys");
         }
         if(StringUtils.isNotBlank(cnName)){
             avObject.put("cnName",cnName);
         }
-        if(StringUtils.isNotBlank(cnName)){
+        if(StringUtils.isNotBlank(countryCode)){
             avObject.put("countryCode",countryCode);
         }
-        if(StringUtils.isNotBlank(cnName)){
+        if(StringUtils.isNotBlank(shortName)){
             avObject.put("shortName",shortName);
         }
-        if(StringUtils.isNotBlank(cnName)){
+        if(StringUtils.isNotBlank(langId)){
             avObject.put("langId",langId);
         }
-        if(StringUtils.isNotBlank(cnName)){
-            avObject.put("status",status);
+        if(StringUtils.isNotBlank(picId)){
+            avObject.put("iconFileObj",picId);
         }
-        if(StringUtils.isNotBlank(cnName)){
+        avObject.put("status",status);
+        if(StringUtils.isNotBlank(continent)){
             avObject.put("continent",continent);
         }
         return avObject;
