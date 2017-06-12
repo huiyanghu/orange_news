@@ -82,10 +82,11 @@ public class GrabListRuleController {
         map.put("channelList", channelList);
         map.put("countryList", countryList);
         map.put("languageList", languageList);
-        map.put("grabListRuleStatusList", ConstantsUtil.getConstants("grabListRuleStatus"));
-        map.put("grabListRuleListStatusList", ConstantsUtil.getConstants("grabListRuleListStatus"));
+        map.put("grabListRuleStatusList", ConstantsUtil.getConstants("grabListRuleStatus"));//规则状态
+        map.put("grabListRuleListStatusList", ConstantsUtil.getConstants("grabListRuleListStatus"));//列表文章状态
 
-        System.out.println(JSON.toJSONString(map));
+        Object object=JSON.toJSON(map);
+        System.out.println(JSON.toJSON(map));
         return "views/grabListRule/edit";
     }
 

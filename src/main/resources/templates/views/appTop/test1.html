@@ -7,7 +7,7 @@
     <script>
         function submit_this() {
             var obj = {};
-            obj.objectId = $('#objectId').val();
+            /*obj.objectId = $('#objectId').val();
             obj.ruleName = $('#ruleName').val();
             obj.publicationObjectId = $('#publicationObjectId').val();
             obj.nodeObjectId = $('#nodeObjectId').val();
@@ -17,20 +17,26 @@
             obj.countryObjectId = $('#countryObjectId').val();
             obj.cssPath = $('#cssPath').val();
             obj.siteUrl = $('#siteUrl').val();
-            obj.objectId = $('#objectId').val();
+            obj.objectId = $('#objectId').val();*/
+            obj.cssPath="div[role=main]";
+            obj.findPre="div.cb-mask > a";
+            obj.siteUrl="http://www.esquire.tw/category/style/fashion/";
 
             obj = JSON.stringify(obj);
             console.warn("" + obj);
             $.ajax({
                 url: "http://192.168.0.106:8080/checkGrabListRule",
-                type: "post",
+                type: "get",
                 data: {
-                    "cssPath": "div[role=main]", // 目标区域规则
-                    "findPre": "div.cb-mask > a",  // 目标文章url规则
-                    "siteUrl": "http://www.esquire.tw/category/style/fashion/"  // 测试文章url
+                    "grabListRuleJSON":obj
                 },
                 success: function (data) {
+                    console.warn("----------success-----------")
                     console.warn(data);
+                },
+                error:function (error) {
+                    console.warn("----------error-----------")
+                    console.warn(error)
                 }
             })
         }
@@ -66,7 +72,7 @@ siteUrl:<input id="siteUrl" th:value="${grabListRule.siteUrl}"/>
 <br>
 <br>
 <br>
-<input type="button" value="提交" onclick="submit_this()">
+<input type="button" value="提交" onclick="submit_this()"/>
 
 </body>
 </html>

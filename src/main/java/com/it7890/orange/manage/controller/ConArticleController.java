@@ -67,7 +67,6 @@ public class ConArticleController {
     public String getAll(Map map, ConArticleQuery conArticleQuery, @RequestParam(value = "page", required = false, defaultValue = "1") Integer page) throws AVException {
         Map conArticleListAndPageUtilMap = conArticleService.getAll(conArticleQuery, page);//置顶大图列表
 
-        System.out.println(map.keySet());
         map.remove("org.springframework.validation.BindingResult.conArticleQuery");
         map.put("appTopArtitypeList", ConstantsUtil.getConstants("appTopArtitype"));
         map.put("conArticleQuery", conArticleQuery);
