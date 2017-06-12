@@ -100,19 +100,23 @@ public class HbCountryControler {
                             @RequestParam(value = "status", required = false, defaultValue = "1") int status,
                             @RequestParam(value = "continent", required = false, defaultValue = "") String continent){
         map.remove("org.springframework.validation.BindingResult.countryQuery");
+        boolean tmp = false;
         if(StringUtils.isNotBlank(cid)){
             AVQuery avQuery = new AVQuery("hb_countrys");
             try {
                 AVObject avo = avQuery.get(cid);
                 buildAvoObj(avo, cnName, countryCode, shortName, langId,picId, status, continent);
                 hbCountryDao.saveHbAvo(avo);
+                tmp = true;
             } catch (AVException e) {
                 logger.info(e.getMessage());
             }
         }else {
            AVObject avObject = buildAvoObj(null, cnName, countryCode, shortName, langId,picId, status, continent);
            hbCountryDao.saveHbAvo(avObject);
+            tmp = true;
         }
+        map.addAttribute("tmp",tmp);
         return "redirect:/views/country/edit";
     }
 
