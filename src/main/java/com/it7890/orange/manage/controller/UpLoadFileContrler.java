@@ -1,5 +1,7 @@
 package com.it7890.orange.manage.controller;
 
+import com.alibaba.fastjson.JSON;
+import com.it7890.orange.manage.po.FileInfo;
 import com.it7890.orange.manage.utils.UpLoadFileUtil;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -37,7 +39,9 @@ public class UpLoadFileContrler {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        logger.info("上传图片生成的id是::::::::::>>>>"+fileId);
-        return fileId;
+        FileInfo fileInfo = new FileInfo();
+        fileInfo.setFileId(fileId);
+        logger.info("上传图片生成的id是::::::::::>>>>\""+JSON.toJSONString(fileInfo));
+        return JSON.toJSONString(fileInfo);
     }
 }
