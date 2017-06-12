@@ -42,6 +42,9 @@ public class Application {
         AVObject.registerSubclass(GlobalNode.class);
         AVObject.registerSubclass(AppAplication.class);
         AVObject.registerSubclass(AppTopics.class);
+        AVObject.registerSubclass(SysUser.class);
+
+
 
 
 

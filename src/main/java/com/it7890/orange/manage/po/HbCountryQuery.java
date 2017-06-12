@@ -6,6 +6,7 @@ package com.it7890.orange.manage.po;
 public class HbCountryQuery {
     private String cnName;
     private String countryCode;
+    private Integer status;
 
     public String getCnName() {
         return cnName;
@@ -21,5 +22,13 @@ public class HbCountryQuery {
 
     public void setCountryCode(String countryCode) {
         this.countryCode = countryCode;
+    }
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
     }
 }

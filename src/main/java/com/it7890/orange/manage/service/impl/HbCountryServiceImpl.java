@@ -2,7 +2,6 @@ package com.it7890.orange.manage.service.impl;
 
 import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.AVObject;
-import com.it7890.orange.manage.controller.RecommendArtControler;
 import com.it7890.orange.manage.dao.AppTopicsDao;
 import com.it7890.orange.manage.dao.HbCountryDao;
 import com.it7890.orange.manage.model.HbCountrys;
@@ -14,7 +13,10 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Administrator on 2017/5/12.
@@ -65,5 +67,21 @@ public class HbCountryServiceImpl implements HbCountryService {
         }
         map.put("countryList", countryList);
         return map;
+    }
+
+    public List<Map> getCountryList() throws AVException{
+        List<HbCountrys> hbCountrysList= hbCountryDao.get(new HbCountryQuery());
+        List<Map> list = new ArrayList<>();
+        Map map ;
+        for (HbCountrys hbCountrys : hbCountrysList) {
+            map = new HashMap();
+            map.put("objectId", hbCountrys.getObjectId());
+            map.put("cnName", hbCountrys.getCnName());
+            map.put("continent", hbCountrys.getContinent());
+            map.put("countryCode", hbCountrys.getCountryCode());
+            map.put("shortName", hbCountrys.getShortName());
+            list.add(map);
+        }
+        return list;
     }
 }
