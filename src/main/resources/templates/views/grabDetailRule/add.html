@@ -83,13 +83,13 @@
                 </a>
             </li>
             <li class="">
-                <a th:href="@{/grabListRule/list}" title="列表规则管理">
-                    列表规则管理
+                <a th:href="@{/grabDetailRule/list}" title="文章规则管理">
+                    文章规则管理
                 </a>
             </li>
             <li class="current">
-                <a href="javascript:void(0);" title="列表规则修改">
-                    列表规则修改
+                <a href="javascript:void(0);" title="文章规则管理修改">
+                    文章规则管理修改
                 </a>
             </li>
         </ul>
@@ -112,14 +112,14 @@
                     </div>
                 </div>
                 <div class="widget-content"><!--th:object="${Query}"-->
-                    <form class="form-horizontal row-border" th:object="${grabListRule}" th:action="@{/grabListRule/update}" th:method="post" id="dataForm">
+                    <form class="form-horizontal row-border" th:object="${grabDetailRule}" th:action="@{/grabDetailRule/update}" th:method="post" id="dataForm">
                         <input type="hidden" id="objectIdFromUrl" name="objectId">
                         <div class="form-group">
                             <label class="col-md-3 control-label" for="ruleName">
                                 规则名称：
                             </label>
                             <div class="col-md-9">
-                                <input type="text" id="ruleName" name="ruleName" class="form-control" placeholder="输入规则名称" th:value="${grabListRule.get('ruleName')}">
+                                <input type="text" id="ruleName" name="ruleName" class="form-control" placeholder="输入规则名称">
                             </div>
                         </div>
                         <div class="form-group">
@@ -129,97 +129,7 @@
                             <div class="col-md-9">
                                 <select class="form-control" name="nodeObjectId" id="nodeObjectId">
                                     <option value="" selected>请选择</option>
-                                    <option th:each="node:${globalNodeList}" th:selected="(${grabListRule.nodeObjectId == node.objectId})" th:value="${node.objectId}" th:text="${node.get('nodeName')}"></option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-md-3 control-label" for="countryObjectId">
-                                国家：
-                            </label>
-                            <div class="col-md-9">
-                                <select name="countryObjectId" id="countryObjectId" class="select2-select-00 col-md-12 full-width-fix select2-offscreen" tabindex="-1">
-                                    <option value="" selected>请选择</option>
-                                    <option th:each="country:${countryList}" th:selected="(${grabListRule.countryObjectId == country.get('objectId')})" th:value="${country.get('objectId')}" th:text="${country.get('countryCode')}+'&nbsp;'+${country.get('cnName')}"></option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-md-3 control-label" for="publicationObjectId">
-                                媒体：
-                            </label>
-                            <div class="col-md-9">
-                                <select name="publicationObjectId" id="publicationObjectId" class="select2-select-00 col-md-12 full-width-fix select2-offscreen" tabindex="-1">
-                                    <option value="" selected>请选择</option>
-                                    <option th:each="publication:${publicationList}" th:selected="(${grabListRule.publicationObjectId == publication.get('objectId')})" th:value="${publication.get('objectId')}" th:text="${publication.get('publicationName')}"></option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-md-3 control-label" for="channelObjectId">
-                                渠道：
-                            </label>
-                            <div class="col-md-9">
-                                <select class="form-control" name="channelObjectId" id="channelObjectId">
-                                    <option value="" selected>请选择</option>
-                                    <option th:each="channel:${channelList}" th:selected="(${grabListRule.channelObjectId == channel.get('objectId')})" th:value="${channel.get('objectId')}" th:text="${channel.get('channelName')}"></option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-md-3 control-label" for="cssPath">
-                                cssPath：
-                            </label>
-                            <div class="col-md-9">
-                                <input type="text" id="cssPath" name="cssPath" min="0" class="form-control" placeholder="输入cssPath" th:value="${grabListRule.cssPath}">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-md-3 control-label" for="siteUrl">
-                                url：
-                            </label>
-                            <div class="col-md-9">
-                                <input type="text" id="siteUrl" name="siteUrl" min="0" class="form-control" placeholder="输入siteUrl" th:value="${grabListRule.siteUrl}">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-md-3 control-label" for="findPre">
-                                findpre：
-                            </label>
-                            <div class="col-md-9">
-                                <input type="text" id="findPre" name="findPre" min="0" class="form-control" placeholder="输入findpre" th:value="${grabListRule.findPre}">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-md-3 control-label" for="topicObjectId">
-                                话题：
-                            </label>
-                            <div class="col-md-9">
-                                <select class="form-control" name="topicObjectId" id="topicObjectId">
-                                    <option value="" selected>请选择</option>
-                                    <option th:each="topic:${appTopicsList}" th:selected="(${grabListRule.topicObjectId == topic.get('objectId')})" th:value="${topic.get('objectId')}" th:text="${topic.get('topicName')}"></option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-md-3 control-label" for="languageObjectId">
-                                语言：
-                            </label>
-                            <div class="col-md-9">
-                                <select name="languageObjectId" id="languageObjectId" class="select2-select-00 col-md-12 full-width-fix select2-offscreen" tabindex="-1">
-                                    <option value="" selected>请选择</option>
-                                    <option th:each="language:${languageList}" th:selected="(${grabListRule.languageObjectId == language.get('objectId')})" th:value="${language.get('objectId')}" th:text="${language.get('languageName')}"></option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-md-3 control-label" for="listStatus">
-                                列表文章状态：
-                            </label>
-                            <div class="col-md-9">
-                                <select class="form-control" name="listStatus" id="listStatus">
-                                    <option value="">请选择</option>
-                                    <option th:each="grabListRuleList:${grabListRuleListStatusList}" th:selected="(${grabListRule.get('listStatus') == grabListRuleList.get('key')})" th:value="${grabListRuleList.get('key')}" th:text="${grabListRuleList.get('value')}"></option>
+                                    <option th:each="node:${globalNodeList}" th:text="${node.get('nodeName')}"></option>
                                 </select>
                             </div>
                         </div>
@@ -228,43 +138,129 @@
                                 规则状态：
                             </label>
                             <div class="col-md-9">
-                                <select class="form-control" name="status" id="status">
-                                    <option value="">请选择</option>
-                                    <option th:each="grabRuleList:${grabListRuleStatusList}" th:selected="(${grabListRule.get('status') == grabRuleList.get('key')})" th:value="${grabRuleList.get('key')}" th:text="${grabRuleList.get('value')}"></option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-md-3 control-label" for="constant">
-                                字符：
-                            </label>
-                            <div class="col-md-9">
-                                <select class="form-control" name="constant" id="constant">
+                                <select name="status" id="status" class="select2-select-00 col-md-12 full-width-fix select2-offscreen" tabindex="-1">
                                     <option value="" selected>请选择</option>
-                                    <option th:each="constant:${constantList}" th:selected="(${grabListRule.constant == constant.get('key')})" th:value="${constant.get('key')}" th:text="${constant.get('value')}"></option>
+                                    <option th:each="grabListRuleListStatus:${grabListRuleListStatusList}" th:value="${grabListRuleListStatus.get('key')}" th:text="${grabListRuleListStatus.get('value')}"></option>
                                 </select>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-md-3 control-label" for="nextPageCssPath">
-                                列表分页规则：
+                            <label class="col-md-3 control-label" for="grabListRuleObjectId">
+                                对应列表名称：
                             </label>
                             <div class="col-md-9">
-                                <input type="text" id="nextPageCssPath" name="nextPageCssPath" min="0" class="form-control" placeholder="输入列表分页规则" th:value="${grabListRule.nextPageCssPath}">
+                                <select name="grabListRuleObjectId" id="grabListRuleObjectId" class="select2-select-00 col-md-12 full-width-fix select2-offscreen" tabindex="-1">
+                                    <option value="" selected>请选择</option>
+                                    <option th:each="grabListRule:${grabListRuleList}" th:value="${grabListRule.get('objectId')}" th:text="${grabListRule.get('ruleName')}"></option>
+                                </select>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-md-3 control-label" for="titlePicCssPath">
-                                文章标题图片规则：
+                            <label class="col-md-3 control-label" for="titleCssPath">
+                                标题：
                             </label>
                             <div class="col-md-9">
-                                <input type="text" id="titlePicCssPath" name="titlePicCssPath" min="0" class="form-control" placeholder="输入文章标题图片规则" th:value="${grabListRule.titlePicCssPath}">
+                                <input type="text" id="titleCssPath" name="titleCssPath" class="form-control" placeholder="输入标题">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 control-label" for="keywordCssPath">
+                                关键字：
+                            </label>
+                            <div class="col-md-9">
+                                <input type="text" id="keywordCssPath" name="keywordCssPath" class="form-control" placeholder="输入关键字">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 control-label" for="conCssPath">
+                                cssPath：
+                            </label>
+                            <div class="col-md-9">
+                                <input type="text" id="conCssPath" name="conCssPath" class="form-control" placeholder="输入cssPath">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 control-label" for="conCssPath1">
+                                cssPath1：
+                            </label>
+                            <div class="col-md-9">
+                                <input type="text" id="conCssPath1" name="conCssPath1" class="form-control" placeholder="输入cssPath1">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 control-label" for="conCssPath2">
+                                cssPath2：
+                            </label>
+                            <div class="col-md-9">
+                                <input type="text" id="conCssPath2" name="conCssPath2" class="form-control" placeholder="输入cssPath2">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 control-label" for="replaceRule">
+                                replaceRule：
+                            </label>
+                            <div class="col-md-9">
+                                <input type="text" id="replaceRule" name="replaceRule" class="form-control" placeholder="输入replaceRule">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 control-label" for="replaceCssPath">
+                                replaceCssPath：
+                            </label>
+                            <div class="col-md-9">
+                                <input type="text" id="replaceCssPath" name="replaceCssPath" class="form-control" placeholder="输入replaceCssPath">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 control-label" for="testUrl">
+                                测试url：
+                            </label>
+                            <div class="col-md-9">
+                                <div class="col-md-6" style="padding: 0;">
+                                    <input type="text" id="testUrl" name="testUrl" class="form-control" placeholder="输入testUrl">
+                                </div>
+                                <div class="col-md-4">
+                                    <input type="button" id="viewUrl" class="btn btn-primary" value="预览">
+                                    <input type="button" id="editUrl" class="btn btn-primary" value="删除">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 control-label" for="souCssPath">
+                                来源：
+                            </label>
+                            <div class="col-md-9">
+                                <input type="text" id="souCssPath" name="souCssPath" class="form-control" placeholder="输入来源">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 control-label" for="imgCssPath">
+                                图片：
+                            </label>
+                            <div class="col-md-9">
+                                <input type="text" id="imgCssPath" name="imgCssPath" class="form-control" placeholder="输入图片">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 control-label" for="videoCssPath">
+                                视频：
+                            </label>
+                            <div class="col-md-9">
+                                <input type="text" id="videoCssPath" name="videoCssPath" class="form-control" placeholder="输入视频">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 control-label" for="authorCssPath">
+                                作者：
+                            </label>
+                            <div class="col-md-9">
+                                <input type="text" id="authorCssPath" name="authorCssPath" class="form-control" placeholder="输入作者">
                             </div>
                         </div>
                         <div class="form-actions">
                             <input type="submit" value="提交" class="btn btn-primary pull-right" id="edit">
                             <input type="button" value="测试" class="btn btn-primary pull-right" id="test">
-                            <a href="javascript:void(0);" class="btn button-previous pull-right" style="display: inline-block;" th:href="@{/grabListRule/list}">
+                            <a href="javascript:void(0);" class="btn button-previous pull-right" style="display: inline-block;" th:href="@{/grabDetailRule/list}">
                                 返回
                             </a>
                         </div>
@@ -277,7 +273,7 @@
 <script type="text/javascript">
     $(document).ready(function(){
         $.each($('.select2-select-00'),function(index){
-            $(this).select2();
+            $(this).select2().select2('val','');
         });
     });
     function UrlSearch() {
@@ -323,13 +319,17 @@
     });
     $('#test').click(function (){
         var dataJson ={};
-        dataJson.findPre = $('#findPre').val();
-        dataJson.cssPath = $('#cssPath').val();
-        dataJson.siteUrl = $('#siteUrl').val();
+        dataJson.testUrl = $('#testUrl').val();
+        dataJson.authorCssPath = $('#authorCssPath').val();
+        dataJson.titleCssPath = $('#titleCssPath').val();
+        dataJson.descCssPath = $('#descCssPath').val();
+        dataJson.keywordCssPath = $('#keywordCssPath').val();
+        dataJson.conCssPath = $('#conCssPath').val();
+        dataJson.replaceCssPath = $('#replaceCssPath').val();
         var dataJsonStr = encodeURIComponent(JSON.stringify(dataJson));
         var base = new Base64();
         dataJsonStr = base.encode(dataJsonStr);
-        window.open("../grabListRule/toTestResult?flag=grabRule&dataJson="+dataJsonStr,"_blank");
+        window.open("../grabListRule/toTestResult?flag=detailRule&dataJson="+dataJsonStr,"_blank");
     });
 </script>
 </body>
