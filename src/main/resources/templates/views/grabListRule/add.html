@@ -245,13 +245,13 @@
                                 </div>
                             </div>
                             <div class="col-md-4">
-                                <label class="col-md-4 control-label" for="zifu">
+                                <label class="col-md-4 control-label" for="constant">
                                     字符：
                                 </label>
                                 <div class="col-md-8">
-                                    <select class="form-control" name="zifu" id="zifu">
+                                    <select class="form-control" name="constant" id="constant">
                                         <option value="" selected>请选择</option>
-                                        <option th:each="constant:${constantList}" th:selected="(${grabListRule.constant == constant..get('key')})" th:value="${constant.get('key')}" th:text="${constant.get('value')}"></option>
+                                        <option th:each="constant:${constantList}" th:selected="(${grabListRule.constant == constant.get('key')})" th:value="${constant.get('key')}" th:text="${constant.get('value')}"></option>
                                     </select>
                                 </div>
                             </div>
