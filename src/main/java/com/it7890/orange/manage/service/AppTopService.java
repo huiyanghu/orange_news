@@ -9,7 +9,6 @@ import java.util.Map;
  * Created by Administrator on 2017/5/26.
  */
 public interface AppTopService {
-    public void delete(String objectId) throws AVException;
     public Map getAll(AppTopQuery appTopQuery, Integer page) throws AVException;
     public Map getAppTop(String objectId) throws AVException;
     public void saveOrUpdate(AppTopQuery appTopQuery)throws AVException;

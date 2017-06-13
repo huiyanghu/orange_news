@@ -32,9 +32,9 @@ public class GrabDetailRule extends AVObject {
     private String testUrl;         //测试url
     private Integer status;
     private GrabListRule grabListRule;
-    private String ruleName;
+    private String ruleName;//规则名称
     private GlobalNode globalNode;
-    private String replaceRule;
+    private String replaceRule;//正则剔除规则
     */
 
 

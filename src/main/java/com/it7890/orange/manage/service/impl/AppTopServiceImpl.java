@@ -17,9 +17,7 @@ public class AppTopServiceImpl implements AppTopService {
     @Autowired
     AppTopDao appTopDao;
 
-    public void delete(String objectId) throws AVException {
-        appTopDao.delete(objectId);
-    }
+
 
     public Map getAll(AppTopQuery appTopQuery, Integer page) throws AVException {
         return appTopDao.getAll(appTopQuery, page);

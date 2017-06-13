@@ -4,9 +4,7 @@ import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.AVFile;
 import com.avos.avoscloud.AVObject;
 import com.avos.avoscloud.AVQuery;
-import com.it7890.orange.manage.base.dao.impl.BaseDaoImpl;
 import com.it7890.orange.manage.dao.AppTopDao;
-import com.it7890.orange.manage.model.AppTop;
 import com.it7890.orange.manage.po.AppTopQuery;
 import com.it7890.orange.manage.utils.ConstantsUtil;
 import com.it7890.orange.manage.utils.DateUtil;
@@ -20,7 +18,7 @@ import java.util.*;
  * Created by Administrator on 2017/5/26.
  */
 @Repository
-public class AppTopDaoImpl extends BaseDaoImpl<AppTop> implements AppTopDao {
+public class AppTopDaoImpl  implements AppTopDao {
     @Override
     public Map getAll(AppTopQuery appTopQuery, Integer page) throws AVException {
         Map map = new HashMap();

@@ -2,6 +2,7 @@ package com.it7890.orange.manage.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.avos.avoscloud.AVException;
+import com.it7890.orange.manage.model.AppTop;
 import com.it7890.orange.manage.model.HbCountrys;
 import com.it7890.orange.manage.model.HbLanguage;
 import com.it7890.orange.manage.po.AppTopQuery;
@@ -61,7 +62,11 @@ public class AppTopController {
 
     @RequestMapping(path = "/delete", method = RequestMethod.GET)
     public String deleteAppTop(AppTopQuery appTopQuery, Integer page, RedirectAttributes attributes) throws AVException {
-        appTopService.delete(appTopQuery.getObjectId());
+        AppTop appTop=new AppTop();
+        appTop.setObjectId(appTopQuery.getObjectId());
+        appTop.setStatus(2);//删除
+        appTop.save();
+
         attributes.addFlashAttribute("msg", "删除成功!");
         attributes.addAttribute("page", page);
         attributes.addAttribute("countryCode", appTopQuery.getCountryCode());
