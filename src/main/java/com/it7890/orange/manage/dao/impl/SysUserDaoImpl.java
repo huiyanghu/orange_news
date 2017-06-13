@@ -36,4 +36,22 @@ public class SysUserDaoImpl implements SysUserDao {
         }
         return null;
     }
+
+    @Override
+    public SysUser findByUsername(String username)  {
+        AVQuery<SysUser> query = new AVQuery("SysUser");
+        query.whereEqualTo("userName", username);
+
+
+        List<SysUser> userList = null;
+        try {
+            userList = query.find();
+        } catch (AVException e) {
+            e.printStackTrace();
+        }
+        if (userList!=null&&!userList.isEmpty()){
+            return userList.get(0);
+        }
+        return null;
+    }
 }

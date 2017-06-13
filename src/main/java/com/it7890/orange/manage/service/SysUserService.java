@@ -1,6 +1,7 @@
 package com.it7890.orange.manage.service;
 
 import com.avos.avoscloud.AVException;
+import com.it7890.orange.manage.model.SysUser;
 
 import java.util.Map;
 
@@ -9,4 +10,5 @@ import java.util.Map;
  */
 public interface SysUserService {
     public Map getLoginUser(String userName, String password) throws AVException;
+    public SysUser findByUsername(String username);
 }
