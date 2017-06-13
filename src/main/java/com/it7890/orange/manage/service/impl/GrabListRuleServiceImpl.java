@@ -10,6 +10,7 @@ import com.it7890.orange.manage.utils.DateUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -62,7 +63,17 @@ public class GrabListRuleServiceImpl implements GrabListRuleService {
         return map;
     }
 
-    public List<GrabListRule> get(GrabListRuleQuery grabListRuleQuery) throws AVException {
-        return grabListRuleDao.get(grabListRuleQuery);
+    public List<Map> get(GrabListRuleQuery grabListRuleQuery) throws AVException {
+        List<GrabListRule> grabListRuleList=grabListRuleDao.get(grabListRuleQuery);
+        List<Map> list=new ArrayList<>();
+        Map map;
+        for(GrabListRule grabListRule:grabListRuleList){
+            map=new HashMap();
+            map.put("objectId",grabListRule.getObjectId());
+            map.put("ruleName",grabListRule.getRuleName());
+            list.add(map);
+        }
+
+        return list;
     }
 }

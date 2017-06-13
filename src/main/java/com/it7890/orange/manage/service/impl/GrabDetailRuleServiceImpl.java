@@ -31,14 +31,19 @@ public class GrabDetailRuleServiceImpl implements GrabDetailRuleService {
         Map map = new HashMap();
 
         map.put("objectId", grabDetailRule.getObjectId());
-        map.put("ruleName", grabDetailRule.getGrabListRule().getRuleName());
-        map.put("ruleObjectId", grabDetailRule.getGrabListRule().getObjectId());
-        map.put("nodeName", grabDetailRule.getGrabListRule().getGlobalNode().getNodename());
+        map.put("ruleName", grabDetailRule.getRuleName());
+        map.put("grabListRuleObjectId", grabDetailRule.getGrabListRule()==null?"":grabDetailRule.getGrabListRule().getObjectId());
+        map.put("grabListRuleRuleName", grabDetailRule.getGrabListRule()==null?"":grabDetailRule.getGrabListRule().getRuleName());
+        map.put("globalNodeName", grabDetailRule.getGlobalNode()==null?"":grabDetailRule.getGlobalNode().getNodename());
+        map.put("globalNodeObjectId", grabDetailRule.getGlobalNode()==null?"":grabDetailRule.getGlobalNode().getObjectId());
         map.put("titleCssPath", grabDetailRule.getTitleCssPath());
         map.put("descCssPath", grabDetailRule.getDescCssPath());
         map.put("keywordCssPath", grabDetailRule.getKeywordCssPath());
         map.put("conCssPath", grabDetailRule.getConCssPath());
+        map.put("conCssPath1", grabDetailRule.getConCssPath1());
+        map.put("conCssPath2", grabDetailRule.getConCssPath2());
         map.put("replaceCssPath", grabDetailRule.getReplaceCssPath());
+        map.put("replaceRule", grabDetailRule.getReplaceRule());
         map.put("souCssPath", grabDetailRule.getSouCssPath());
         map.put("imgCssPath", grabDetailRule.getImgCssPath());
         map.put("videoCssPath", grabDetailRule.getVideoCssPath());

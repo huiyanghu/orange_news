@@ -2,10 +2,12 @@ package com.it7890.orange.manage.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.avos.avoscloud.AVException;
+import com.it7890.orange.manage.model.GlobalNode;
 import com.it7890.orange.manage.model.GrabDetailRule;
 import com.it7890.orange.manage.model.GrabListRule;
 import com.it7890.orange.manage.po.GrabDetailRuleQuery;
 import com.it7890.orange.manage.po.GrabListRuleQuery;
+import com.it7890.orange.manage.service.GlobalNodeService;
 import com.it7890.orange.manage.service.GrabDetailRuleService;
 import com.it7890.orange.manage.service.GrabListRuleService;
 import com.it7890.orange.manage.utils.StringUtil;
@@ -29,6 +31,8 @@ public class GrabDetailRuleController {
     GrabDetailRuleService grabDetailRuleService;
     @Autowired
     GrabListRuleService grabListRuleService;
+    @Autowired
+    GlobalNodeService globalNodeService;
 
     @RequestMapping("/list")
     public String getList(Map map, GrabDetailRuleQuery grabDetailRuleQuery, @RequestParam(value = "page", required = false, defaultValue = "1") Integer page) throws AVException {
@@ -45,6 +49,7 @@ public class GrabDetailRuleController {
     public String detail(Map map, String objectId) throws AVException {
         Map grabDetailRule = grabDetailRuleService.get(objectId);
         map.put("grabDetailRule", grabDetailRule);
+        System.out.println(JSON.toJSONString(grabDetailRule));
         return "views/grabDetailRule/detail";
     }
 
@@ -52,8 +57,10 @@ public class GrabDetailRuleController {
     public String toUpdate(Map map, String objectId) throws AVException {
         Map grabDetailRule = grabDetailRuleService.get(objectId);
         map.put("grabDetailRule", grabDetailRule);
-        List<GrabListRule> grabListRuleList = grabListRuleService.get(new GrabListRuleQuery());
+        List<Map> grabListRuleList = grabListRuleService.get(new GrabListRuleQuery());
         map.put("grabListRuleList", grabListRuleList);
+        List<Map> globalNodeList=globalNodeService.getGlobalNodeList();
+        map.put("globalNodeList", globalNodeList);
         System.out.println(JSON.toJSONString(map));
         return "views/grabDetailRule/edit";
     }
@@ -67,25 +74,32 @@ public class GrabDetailRuleController {
         System.out.println("========================");
         GrabDetailRule grabDetailRule = new GrabDetailRule();
         grabDetailRule.setObjectId(grabDetailRuleQuery.getObjectId());
-
-        if (StringUtil.isNotEmpty(grabDetailRuleQuery.getGrabListRuleObjectId())) {
-            GrabListRule grabListRule = new GrabListRule();
-            grabListRule.setObjectId(grabDetailRuleQuery.getGrabListRuleObjectId());
-            grabDetailRule.setGrabListRule(grabListRule);
-        }
-
-
+        grabDetailRule.setRuleName(grabDetailRuleQuery.getRuleName());
         grabDetailRule.setTitleCssPath(grabDetailRuleQuery.getTitleCssPath());
         grabDetailRule.setStatus(grabDetailRuleQuery.getStatus());
         grabDetailRule.setKeywordCssPath(grabDetailRuleQuery.getKeywordCssPath());
         grabDetailRule.setDescCssPath(grabDetailRuleQuery.getDescCssPath());
         grabDetailRule.setConCssPath(grabDetailRuleQuery.getConCssPath());
+        grabDetailRule.setConCssPath1(grabDetailRuleQuery.getConCssPath1());
+        grabDetailRule.setConCssPath2(grabDetailRuleQuery.getConCssPath2());
         grabDetailRule.setReplaceCssPath(grabDetailRuleQuery.getReplaceCssPath());
+        grabDetailRule.setReplaceRule(grabDetailRuleQuery.getReplaceRule());
         grabDetailRule.setSouCssPath(grabDetailRuleQuery.getSouCssPath());
         grabDetailRule.setImgCssPath(grabDetailRuleQuery.getImgCssPath());
         grabDetailRule.setVideoCssPath(grabDetailRuleQuery.getVideoCssPath());
         grabDetailRule.setAuthorCssPath(grabDetailRuleQuery.getAuthorCssPath());
         grabDetailRule.setTestUrl(grabDetailRuleQuery.getTestUrl());
+
+        if (StringUtil.isNotEmpty(grabDetailRuleQuery.getGlobalNodeObjectId())) {
+            GlobalNode globalNode=new GlobalNode();
+            globalNode.setObjectId(grabDetailRuleQuery.getGlobalNodeObjectId());
+            grabDetailRule.setGlobalNode(globalNode);
+        }
+        if (StringUtil.isNotEmpty(grabDetailRuleQuery.getGrabListRuleObjectId())) {
+            GrabListRule grabListRule = new GrabListRule();
+            grabListRule.setObjectId(grabDetailRuleQuery.getGrabListRuleObjectId());
+            grabDetailRule.setGrabListRule(grabListRule);
+        }
 
 
         grabDetailRule.save();
@@ -100,10 +114,12 @@ public class GrabDetailRuleController {
 
     @RequestMapping("/toAdd")
     public String toAdd(Map map) throws AVException {
-        List<GrabListRule> grabListRuleList = grabListRuleService.get(new GrabListRuleQuery());
+        List<Map> grabListRuleList = grabListRuleService.get(new GrabListRuleQuery());
         map.put("grabListRuleList", grabListRuleList);//列表规则
+        List<Map> globalNodeList=globalNodeService.getGlobalNodeList();
+        map.put("globalNodeList", globalNodeList);
         System.out.println(JSON.toJSONString(map));
-        return "views/grabListRule/add";
+        return "views/grabDetailRule/add";
     }
 
     @RequestMapping(path = "/add", method = RequestMethod.POST)
@@ -115,23 +131,33 @@ public class GrabDetailRuleController {
 
         GrabDetailRule grabDetailRule = new GrabDetailRule();
 
-        if (StringUtil.isNotEmpty(grabDetailRuleQuery.getGrabListRuleObjectId())) {
-            GrabListRule grabListRule = new GrabListRule();
-            grabListRule.setObjectId(grabDetailRuleQuery.getGrabListRuleObjectId());
-            grabDetailRule.setGrabListRule(grabListRule);
-        }
 
+        grabDetailRule.setRuleName(grabDetailRuleQuery.getRuleName());
         grabDetailRule.setTitleCssPath(grabDetailRuleQuery.getTitleCssPath());
         grabDetailRule.setStatus(grabDetailRuleQuery.getStatus());
         grabDetailRule.setKeywordCssPath(grabDetailRuleQuery.getKeywordCssPath());
         grabDetailRule.setDescCssPath(grabDetailRuleQuery.getDescCssPath());
         grabDetailRule.setConCssPath(grabDetailRuleQuery.getConCssPath());
+        grabDetailRule.setConCssPath1(grabDetailRuleQuery.getConCssPath1());
+        grabDetailRule.setConCssPath2(grabDetailRuleQuery.getConCssPath2());
         grabDetailRule.setReplaceCssPath(grabDetailRuleQuery.getReplaceCssPath());
+        grabDetailRule.setReplaceRule(grabDetailRuleQuery.getReplaceRule());
         grabDetailRule.setSouCssPath(grabDetailRuleQuery.getSouCssPath());
         grabDetailRule.setImgCssPath(grabDetailRuleQuery.getImgCssPath());
         grabDetailRule.setVideoCssPath(grabDetailRuleQuery.getVideoCssPath());
         grabDetailRule.setAuthorCssPath(grabDetailRuleQuery.getAuthorCssPath());
         grabDetailRule.setTestUrl(grabDetailRuleQuery.getTestUrl());
+
+        if (StringUtil.isNotEmpty(grabDetailRuleQuery.getGlobalNodeObjectId())) {
+            GlobalNode globalNode=new GlobalNode();
+            globalNode.setObjectId(grabDetailRuleQuery.getGlobalNodeObjectId());
+            grabDetailRule.setGlobalNode(globalNode);
+        }
+        if (StringUtil.isNotEmpty(grabDetailRuleQuery.getGrabListRuleObjectId())) {
+            GrabListRule grabListRule = new GrabListRule();
+            grabListRule.setObjectId(grabDetailRuleQuery.getGrabListRuleObjectId());
+            grabDetailRule.setGrabListRule(grabListRule);
+        }
         grabDetailRule.save();
 
         attributes.addFlashAttribute("msg", "添加成功!");

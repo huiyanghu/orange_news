@@ -1,7 +1,6 @@
 package com.it7890.orange.manage.service;
 
 import com.avos.avoscloud.AVException;
-import com.it7890.orange.manage.model.GrabListRule;
 import com.it7890.orange.manage.po.GrabListRuleQuery;
 
 import java.util.List;
@@ -15,6 +14,6 @@ public interface GrabListRuleService {
 
     public Map get(String objectId) throws AVException;
 
-    public List<GrabListRule> get(GrabListRuleQuery grabListRuleQuery) throws AVException;
+    public List<Map> get(GrabListRuleQuery grabListRuleQuery) throws AVException;
 
 }

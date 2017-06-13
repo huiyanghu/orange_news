@@ -48,7 +48,7 @@ public class GrabDetailRuleDaoImpl implements GrabDetailRuleDao {
         for (GrabDetailRule grabDetailRule : grabDetailRuleList) {
             m = new HashMap();
             m.put("objectId", grabDetailRule.getObjectId());
-            m.put("ruleName", grabDetailRule.getGrabListRule() == null ? "" : grabDetailRule.getGrabListRule().getRuleName());
+            m.put("ruleName", grabDetailRule.getRuleName());
             m.put("createdAt", DateUtil.getTimeStampStr(grabDetailRule.getCreatedAt()));
             m.put("status", grabDetailRule.getStatus());
             m.put("statusStr", ConstantsUtil.getConstants("grabDetailRuleStatus", "" + grabDetailRule.getStatus()));
