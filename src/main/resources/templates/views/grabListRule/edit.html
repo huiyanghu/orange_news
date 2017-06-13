@@ -245,13 +245,13 @@
                                 </div>
                             </div>
                             <div class="col-md-4">
-                                <label class="col-md-4 control-label" for="zifu">
+                                <label class="col-md-4 control-label" for="constant">
                                     字符：
                                 </label>
                                 <div class="col-md-8">
-                                    <select class="form-control" name="zifu" id="zifu"  th:field="*{zifu}">
+                                    <select class="form-control" name="constant" id="constant">
                                         <option value="" selected>请选择</option>
-                                        <option th:each="zifu:${constantList}" th:selected="(${grabListRule.zifu == zifu..get('key')})" th:value="${zifu.get('key')}" th:text="${zifu.get('value')}"></option>
+                                        <option th:each="constant:${constantList}" th:selected="(${grabListRule.constant == constant.get('key')})" th:value="${constant.get('key')}" th:text="${constant.get('value')}"></option>
                                     </select>
                                 </div>
                             </div>
@@ -268,9 +268,8 @@
                         </div>
                         <div class="form-actions">
                             <input type="submit" value="提交" class="btn btn-primary pull-right" id="edit">
-                            <input type="submit" value="测试" class="btn btn-primary pull-right">
+                            <input type="button" value="测试" class="btn btn-primary pull-right" id="test">
                             <a href="javascript:void(0);" class="btn button-previous pull-right" style="display: inline-block;" th:href="@{/grabListRule/list}">
-                                <i class="icon-angle-left"></i>
                                 返回
                             </a>
                         </div>
@@ -324,6 +323,36 @@
                         $('#dataForm').submit();
                     }
                 }
+            }
+        });
+    });
+    $('#test').click(function (){
+        var dataJson ={};
+        dataJson.objectId = $('#objectIdFromUrl').val();
+        dataJson.ruleName = $('#ruleName').val();
+        dataJson.publicationObjectId = $('#publicationObjectId').val();
+        dataJson.nodeObjectId = $('#nodeObjectId').val();
+        dataJson.channelObjectId = $('#channelObjectId').val();
+        dataJson.topicObjectId = $('#topicObjectId').val();
+        dataJson.languageObjectId = $('#languageObjectId').val();
+        dataJson.countryObjectId = $('#countryObjectId').val();
+        dataJson.cssPath = $('#cssPath').val();
+        dataJson.siteUrl = $('#siteUrl').val();
+        $.ajax({
+            url: "http://54.219.221.173:80/checkGrabDetailRule",
+            type: "get",
+            data: {
+                "grabDetailRuleJSON": dataJson
+            },
+            success: function (data) {
+                if(data.success == 1){
+                    bootbox.alert(data.msg);
+                }else{
+                    bootbox.alert(data.msg);
+                }
+            },
+            error: function (error) {
+                bootbox.alert(data.msg);
             }
         });
     });

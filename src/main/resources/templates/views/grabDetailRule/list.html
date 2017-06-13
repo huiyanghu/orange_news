@@ -84,8 +84,8 @@
                 </a>
             </li>
             <li class="current">
-                <a href="javascript:void(0);" title="列表规则管理">
-                    列表规则管理
+                <a href="javascript:void(0);" title="文章规则管理">
+                    文章规则管理
                 </a>
             </li>
         </ul>
@@ -108,7 +108,7 @@
                     </div>
                 </div>
                 <div class="widget-content"><!--th:object="${Query}"-->
-                    <form class="form-horizontal row-border" th:object="${grabListRuleQuery}" th:action="@{/grabListRule/list}" th:method="get">
+                    <form class="form-horizontal row-border" th:object="${grabDetailRuleQuery}" th:action="@{/grabDetailRule/list}" th:method="get">
                         <input type="hidden" name="page" id="page" value="1">
                         <div class="form-group">
                             <div class="col-md-6">
@@ -116,62 +116,17 @@
                                     规则名称：
                                 </label>
                                 <div class="col-md-8">
-                                    <input type="text" id="ruleName" name="ruleName" min="0" class="form-control" placeholder="输入规则名称" th:field="*{ruleName}" th:value="${grabListRuleQuery.ruleName}">
+                                    <input type="text" id="ruleName" name="ruleName" min="0" class="form-control" placeholder="输入规则名称" th:field="*{ruleName}" th:value="${grabDetailRuleQuery.ruleName}">
                                 </div>
                             </div>
                             <div class="col-md-6">
-                                <label class="col-md-4 control-label" for="countryCode">
-                                    国家码：
+                                <label class="col-md-4 control-label" for="status">
+                                    状态：
                                 </label>
                                 <div class="col-md-8">
-                                    <input type="text" id="countryCode" name="countryCode" min="0" class="form-control" placeholder="输入规则名称" th:field="*{countryCode}" th:value="${grabListRuleQuery.countryCode}">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="col-md-6">
-                                <label class="col-md-4 control-label" for="nodeObjectId">
-                                    节点：
-                                </label>
-                                <div class="col-md-8">
-                                    <select class="form-control" name="nodeObjectId" id="nodeObjectId"  th:field="*{nodeObjectId}">
+                                    <select class="form-control" name="status" id="status"  th:field="*{status}">
                                         <option value="" selected>请选择</option>
-                                        <option th:each="node:${globalNodeList}" th:selected="(${grabListRuleQuery.nodeObjectId == node.objectId})" th:value="${node.objectId}" th:text="${node.get('nodeName')}"></option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <label class="col-md-4 control-label" for="topicObjectId">
-                                    话题：
-                                </label>
-                                <div class="col-md-8">
-                                    <select class="form-control" name="topicObjectId" id="topicObjectId"  th:field="*{topicObjectId}">
-                                        <option value="" selected>请选择</option>
-                                        <option th:each="topic:${appTopicsList}" th:selected="(${grabListRuleQuery.topicObjectId == topic.objectId})" th:value="${topic.objectId}" th:text="${topic.get('topicName')}"></option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="col-md-6">
-                                <label class="col-md-4 control-label" for="publicationObjectId">
-                                    媒体：
-                                </label>
-                                <div class="col-md-8">
-                                    <select name="publicationObjectId" id="publicationObjectId" class="select2-select-00 col-md-12 full-width-fix select2-offscreen" tabindex="-1" th:field="*{publicationObjectId}">
-                                        <option value=""  selected="selected">请选择</option>
-                                        <option th:each="publication:${publicationList}" th:selected="(${grabListRuleQuery.publicationObjectId == publication.objectId})" th:value="${publication.objectId}" th:text="${publication.get('publicationName')}"></option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <label class="col-md-4 control-label" for="channelObjectId">
-                                    渠道：
-                                </label>
-                                <div class="col-md-8">
-                                    <select class="form-control" name="channelObjectId" id="channelObjectId"  th:field="*{channelObjectId}">
-                                        <option value="" selected>请选择</option>
-                                        <option th:each="channel:${channelList}" th:selected="(${grabListRuleQuery.channelObjectId == channel.objectId})" th:value="${channel.objectId}" th:text="${channel.get('channelName')}"></option>
+                                        <option th:each="grabDetail:${grabDetailRuleList}" th:selected="(${grabDetailRuleQuery.status == grabDetail.objectId})" th:value="${grabDetail.objectId}" th:text="${grabDetail.get('ruleName')}"></option>
                                     </select>
                                 </div>
                             </div>
@@ -190,13 +145,13 @@
                 <div class="widget-header">
                     <h4>
                         <i class="icon-table"></i>
-                        列表规则管理列表
+                        文章规则管理列表
                     </h4>
                     <div class="toolbar no-padding">
                         <div class="btn-group">
-                            <span class="btn btn-xs" id="addGrabRules">
+                            <span class="btn btn-xs" id="addGrabDetail">
                                 <i class="icon-plus"></i>
-                                添加列表规则
+                                添加文章规则
                             </span>
                         </div>
                     </div>
@@ -205,35 +160,25 @@
                     <table class="table table-striped table-bordered table-checkable table-highlight-head table-no-inner-border table-hover">
                         <thead>
                         <tr>
-                            <th>媒体id</th>
                             <th>规则名称</th>
-                            <th>话题</th>
-                            <th>节点</th>
-                            <th>国家码</th>
                             <th>创建时间</th>
-                            <th>列表文章状态</th>
-                            <th>规则状态</th>
+                            <th>状态</th>
                             <th>操作</th>
                         </tr>
                         </thead>
                         <tbody>
-                        <tr th:each="grab:${grabListRuleList}">
-                            <td th:text="${grab.get('objectId')}"></td>
+                        <tr th:each="grab:${grabDetailRuleList}">
                             <td th:text="${grab.get('ruleName')}"></td>
-                            <td th:text="${grab.get('topicName')}"></td>
-                            <td th:text="${grab.get('nodeName')}"></td>
-                            <td th:text="${grab.get('nodeName')}"></td>
                             <td th:text="${grab.get('createdAt')}"></td>
-                            <td th:text="${grab.get('listStatusStr')}"></td>
                             <td th:text="${grab.get('statusStr')}"></td>
                             <td class="align-center">
                                 <span class="btn-group">
-                                    <a href="javascript:void(0);" th:attr="objectid=${grab.get('objectId')}" class="btn btn-xs bs-tooltip view-grabRule" title="" data-original-title="查看详情">
+                                    <a href="javascript:void(0);" th:attr="objectid=${grab.get('objectId')}" class="btn btn-xs bs-tooltip view-grabDetail" title="" data-original-title="查看详情">
                                         <i class="icon-file-text"></i>
                                     </a>
                                 </span>
                                 <span class="btn-group">
-                                    <a href="javascript:void(0);" th:attr="objectid=${grab.get('objectId')}" class="btn btn-xs bs-tooltip edit-grabRule" title="" data-original-title="修改">
+                                    <a href="javascript:void(0);" th:attr="objectid=${grab.get('objectId')}" class="btn btn-xs bs-tooltip edit-grabDetail" title="" data-original-title="修改">
                                         <i class="icon-pencil"></i>
                                     </a>
                                 </span>
@@ -285,14 +230,14 @@
     if($("#msg").val() != ''){
         bootbox.alert($("#msg").val());
     }
-    $('#addGrabRules').click(function(){
-        window.location.href='../grabListRule/toAdd';
+    $('#addGrabDetail').click(function(){
+        window.location.href='../grabDetailRule/toAdd';
     });
-    $('.view-grabRule').click(function(){
-        window.location.href='../grabListRule/toDetail?objectId='+$(this).attr('objectid');
+    $('.view-grabDetail').click(function(){
+        window.location.href='../grabDetailRule/toDetail?objectId='+$(this).attr('objectid');
     });
-    $('.edit-grabRule').click(function(){
-        window.location.href='../grabListRule/toUpdate?objectId='+$(this).attr('objectid');
+    $('.edit-grabDetail').click(function(){
+        window.location.href='../grabDetailRule/toUpdate?objectId='+$(this).attr('objectid');
     });
 </script>
 </body>
