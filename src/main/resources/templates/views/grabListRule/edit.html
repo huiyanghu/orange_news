@@ -58,8 +58,6 @@
     <script type="text/javascript" src="/stylesheets/meAdmin/plugins/datatables/jquery.dataTables.min.js"></script>
     <script type="text/javascript" src="/stylesheets/meAdmin/plugins/datatables/DT_bootstrap.js"></script>
     <script type="text/javascript" src="/stylesheets/meAdmin/plugins/My97DatePicker/WdatePicker.js"></script>
-    <script type="text/javascript" src="/stylesheets/meAdmin/plugins/page/jqPaginator.min.js"></script>
-    <script type="text/javascript" src="/stylesheets/meAdmin/plugins/page/myPage.js"></script>
     <script type="text/javascript" src="/stylesheets/meAdmin/plugins/bootbox/bootbox.min.js"></script>
     <script type="text/javascript" src="/stylesheets/meAdmin/assets/js/app.js"></script>
     <script type="text/javascript" src="/stylesheets/meAdmin/assets/js/plugins.js"></script>
@@ -108,23 +106,14 @@
                     </div>
                 </div>
                 <div class="widget-content"><!--th:object="${Query}"-->
-                    <form class="form-horizontal row-border" th:object="${grabListRuleQuery}" th:action="@{/grabListRule/list}" th:method="get">
-                        <input type="hidden" name="page" id="page" value="1">
+                    <form class="form-horizontal row-border" th:object="${grabListRule}" th:action="@{/grabListRule/toUpdate}" th:method="get">
                         <div class="form-group">
                             <div class="col-md-6">
                                 <label class="col-md-4 control-label" for="ruleName">
                                     规则名称：
                                 </label>
                                 <div class="col-md-8">
-                                    <input type="text" id="ruleName" name="ruleName" min="0" class="form-control" placeholder="输入规则名称" th:field="*{ruleName}" th:value="${grabListRuleQuery.ruleName}">
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <label class="col-md-4 control-label" for="countryCode">
-                                    国家码：
-                                </label>
-                                <div class="col-md-8">
-                                    <input type="text" id="countryCode" name="countryCode" min="0" class="form-control" placeholder="输入规则名称" th:field="*{countryCode}" th:value="${grabListRuleQuery.countryCode}">
+                                    <input type="text" id="ruleName" name="ruleName" class="form-control" placeholder="输入规则名称" th:value="${grabListRule.get('ruleName')}">
                                 </div>
                             </div>
                         </div>
@@ -134,135 +123,150 @@
                                     节点：
                                 </label>
                                 <div class="col-md-8">
-                                    <select class="form-control" name="nodeObjectId" id="nodeObjectId"  th:field="*{nodeObjectId}">
+                                    <select class="form-control" name="nodeObjectId" id="nodeObjectId">
                                         <option value="" selected>请选择</option>
-                                        <option th:each="node:${globalNodeList}" th:selected="(${grabListRuleQuery.nodeObjectId == node.objectId})" th:value="${node.objectId}" th:text="${node.get('nodeName')}"></option>
+                                        <option th:each="node:${globalNodeList}" th:selected="(${grabListRule.nodeObjectId == node.objectId})" th:value="${node.objectId}" th:text="${node.get('nodeName')}"></option>
                                     </select>
                                 </div>
                             </div>
                             <div class="col-md-6">
-                                <label class="col-md-4 control-label" for="topicObjectId">
-                                    话题：
+                                <label class="col-md-4 control-label" for="countryObjectId">
+                                    国家：
                                 </label>
                                 <div class="col-md-8">
-                                    <select class="form-control" name="topicObjectId" id="topicObjectId"  th:field="*{topicObjectId}">
+                                    <select name="countryObjectId" id="countryObjectId" class="select2-select-00 col-md-12 full-width-fix select2-offscreen" tabindex="-1">
                                         <option value="" selected>请选择</option>
-                                        <option th:each="topic:${appTopicsList}" th:selected="(${grabListRuleQuery.topicObjectId == topic.objectId})" th:value="${topic.objectId}" th:text="${topic.get('topicName')}"></option>
+                                        <option th:each="country:${countryList}" th:selected="(${grabListRule.countryObjectId == country.get('objectId')})" th:value="${country.get('objectId')}" th:text="${country.get('countryCode')}+'&nbsp;'+${country.get('cnName')}"></option>
                                     </select>
                                 </div>
                             </div>
                         </div>
                         <div class="form-group">
-                            <div class="col-md-6">
+                            <div class="col-md-8">
                                 <label class="col-md-4 control-label" for="publicationObjectId">
                                     媒体：
                                 </label>
                                 <div class="col-md-8">
-                                    <select name="publicationObjectId" id="publicationObjectId" class="select2-select-00 col-md-12 full-width-fix select2-offscreen" tabindex="-1"  th:field="*{publicationObjectId}">
+                                    <select name="publicationObjectId" id="publicationObjectId" class="select2-select-00 col-md-12 full-width-fix select2-offscreen" tabindex="-1">
                                         <option value="" selected>请选择</option>
-                                        <option th:each="publication:${publicationList}" th:selected="(${grabListRuleQuery.publicationObjectId == publication.objectId})" th:value="${publication.objectId}" th:text="${publication.get('publicationName')}"></option>
+                                        <option th:each="publication:${publicationList}" th:selected="(${grabListRule.publicationObjectId == publication.get('objectId')})" th:value="${publication.get('objectId')}" th:text="${publication.get('publicationName')}"></option>
                                     </select>
                                 </div>
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-md-4">
                                 <label class="col-md-4 control-label" for="channelObjectId">
                                     渠道：
                                 </label>
                                 <div class="col-md-8">
-                                    <select class="form-control" name="channelObjectId" id="channelObjectId"  th:field="*{channelObjectId}">
+                                    <select class="form-control" name="channelObjectId" id="channelObjectId">
                                         <option value="" selected>请选择</option>
-                                        <option th:each="channel:${channelList}" th:selected="(${grabListRuleQuery.channelObjectId == channel.objectId})" th:value="${channel.objectId}" th:text="${channel.get('channelName')}"></option>
+                                        <option th:each="channel:${channelList}" th:selected="(${grabListRule.channelObjectId == channel.get('objectId')})" th:value="${channel.get('objectId')}" th:text="${channel.get('channelName')}"></option>
                                     </select>
                                 </div>
                             </div>
                         </div>
+                        <div class="form-group">
+                            <div class="col-md-4">
+                                <label class="col-md-4 control-label" for="csspath">
+                                    csspath：
+                                </label>
+                                <div class="col-md-8">
+                                    <input type="text" id="csspath" name="csspath" min="0" class="form-control" placeholder="输入cssPath" th:value="${grabListRule.cssPath}">
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="col-md-4 control-label" for="siteUrl">
+                                    url：
+                                </label>
+                                <div class="col-md-8">
+                                    <input type="text" id="siteUrl" name="siteUrl" min="0" class="form-control" placeholder="输入siteUrl" th:value="${grabListRule.siteUrl}">
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="col-md-4 control-label" for="findPre">
+                                    findpre：
+                                </label>
+                                <div class="col-md-8">
+                                    <input type="text" id="findPre" name="findPre" min="0" class="form-control" placeholder="输入findpre" th:value="${grabListRule.findPre}">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-6">
+                                <label class="col-md-4 control-label" for="topicObjectId">
+                                    话题：
+                                </label>
+                                <div class="col-md-8">
+                                    <select class="form-control" name="topicObjectId" id="topicObjectId">
+                                        <option value="" selected>请选择</option>
+                                        <option th:each="topic:${appTopicsList}" th:selected="(${grabListRule.topicObjectId == topic.get('objectId')})" th:value="${topic.get('objectId')}" th:text="${topic.get('topicName')}"></option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="col-md-4 control-label" for="languageObjectId">
+                                    语言：
+                                </label>
+                                <div class="col-md-8">
+                                    <select name="languageObjectId" id="languageObjectId" class="select2-select-00 col-md-12 full-width-fix select2-offscreen" tabindex="-1">
+                                        <option value="" selected>请选择</option>
+                                        <option th:each="language:${languageList}" th:selected="(${grabListRule.languageObjectId == language.get('objectId')})" th:value="${language.get('objectId')}" th:text="${language.get('languageName')}"></option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-4">
+                                <label class="col-md-4 control-label" for="listStatus">
+                                    列表文章状态：
+                                </label>
+                                <div class="col-md-8">
+                                    <select class="form-control" name="listStatus" id="listStatus">
+                                        <option value="">请选择</option>
+                                        <option th:each="grabListRuleList:${grabListRuleListStatusList}" th:selected="(${grabListRule.get('listStatus') == grabListRuleList.get('key')})" th:value="${grabListRuleList.get('key')}" th:text="${grabListRuleList.get('value')}"></option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="col-md-4 control-label" for="status">
+                                    规则状态：
+                                </label>
+                                <div class="col-md-8">
+                                    <select class="form-control" name="status" id="status">
+                                        <option value="">请选择</option>
+                                        <option th:each="grabRuleList:${grabListRuleStatusList}" th:selected="(${grabListRule.get('status') == grabRuleList.get('key')})" th:value="${grabRuleList.get('key')}" th:text="${grabRuleList.get('value')}"></option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="col-md-4 control-label" for="zifu">
+                                    字符：
+                                </label>
+                                <div class="col-md-8">
+                                    <input type="text" id="zifu" name="zifu" min="0" class="form-control" placeholder="输入字符" th:value="${grabListRule.zifu}">
+                                   <!-- <select class="form-control" name="zifu" id="zifu"  th:field="*{zifu}">
+                                        <option value="" selected>请选择</option>
+                                        <option th:each="zifu:${channelList}" th:selected="(${grabListRule.zifu == zifu.objectId})" th:value="${zifu.objectId}" th:text="${zifu.get('topicName')}"></option>
+                                    </select>-->
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-6">
+                                <label class="col-md-4 control-label" for="grabTime">
+                                    抓取时间间隔(秒)：
+                                </label>
+                                <div class="col-md-8">
+                                    <input type="text" id="grabTime" name="grabTime" min="0" class="form-control" placeholder="输入抓取时间间隔" th:value="${grabListRule.grabTime}">
+                                </div>
+                            </div>
+                        </div>
                         <div class="form-actions">
-                            <input type="submit" value="搜索" class="btn btn-primary pull-right">
+                            <input type="submit" value="提交" class="btn btn-primary pull-right">
+                            <input type="submit" value="测试" class="btn btn-primary pull-right">
+                            <input type="submit" value="返回" class="btn btn-primary pull-right">
                         </div>
                     </form>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-12">
-            <div class="widget box">
-                <div class="widget-header">
-                    <h4>
-                        <i class="icon-table"></i>
-                        列表规则管理列表
-                    </h4>
-                </div>
-                <div class="widget-content">
-                    <table class="table table-striped table-bordered table-checkable table-highlight-head table-no-inner-border table-hover">
-                        <thead>
-                        <tr>
-                            <th>媒体id</th>
-                            <th>规则名称</th>
-                            <th>话题</th>
-                            <th>节点</th>
-                            <th>国家码</th>
-                            <th>创建时间</th>
-                            <th>列表文章状态</th>
-                            <th>规则状态</th>
-                            <th>操作</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr th:each="grab:${grabListRuleList}">
-                            <td th:text="${grab.get('objectId')}"></td>
-                            <td th:text="${grab.get('ruleName')}"></td>
-                            <td th:text="${grab.get('topicName')}"></td>
-                            <td th:text="${grab.get('nodeName')}"></td>
-                            <td th:text="${grab.get('nodeName')}"></td>
-                            <td th:text="${grab.get('createdAt')}"></td>
-                            <td th:text="${grab.get('listStatusStr')}"></td>
-                            <td th:text="${grab.get('statusStr')}"></td>
-                            <td class="align-center">
-                                <span class="btn-group">
-                                    <a href="javascript:void(0);" th:attr="objectid=${grab.get('objectId')}" class="btn btn-xs bs-tooltip view-grabRule" title="" data-original-title="查看详情">
-                                        <i class="icon-file-text"></i>
-                                    </a>
-                                </span>
-                                <span class="btn-group">
-                                    <a href="javascript:void(0);" th:attr="objectid=${grab.get('objectId')}" class="btn btn-xs bs-tooltip edit-grabRule" title="" data-original-title="修改">
-                                        <i class="icon-pencil"></i>
-                                    </a>
-                                </span>
-                                <span class="btn-group">
-                                    <a href="javascript:void(0);" th:attr="objectid=${grab.get('objectId')}" class="btn btn-xs bs-tooltip push-article" title="" data-original-title="删除">
-                                        <i class="icon-trash"></i>
-                                    </a>
-                                </span>
-                                <span class="btn-group">
-                                    <a href="javascript:void(0);" th:attr="objectid=${grab.get('objectId')}" class="btn btn-xs bs-tooltip push-article" title="" data-original-title="查看关联规则">
-                                        <i class="icon-sitemap"></i>
-                                    </a>
-                                </span>
-                            </td>
-                        </tr>
-                        </tbody>
-                    </table>
-                    <div class="col-sm-12 text-center">
-                        <ul class="pagination" id="pagination">
-
-                        </ul>
-                        <ul id="countabs">
-
-                        </ul>
-                        <!-- 总条数 -->
-                        <input type="hidden" id="PageCount" runat="server" th:value="${pageUtil.recordCount}"/>
-                        <!-- 总页数 -->
-                        <input type="hidden" id="countindex" runat="server" th:value="(${pageUtil.pagecount}>=1000?1000:${pageUtil.pagecount})"/>
-                        <!-- 当前第几页 -->
-                        <input type="hidden" id="Pagedq" runat="server" th:value="${pageUtil.currentPage}"/>
-                        <!-- 请求的地址 -->
-                        <input type="hidden" id="pageUrl" runat="server" th:value="@{/grabListRule/list}"/>
-                        <!-- 请求的参数 -->
-                        <input type="hidden" id="pageParameter" runat="server" th:value="${grabListRuleQuery}"/>
-                        <!--设置最多显示的页码数 可以手动设置 默认为7-->
-                        <input type="hidden" id="visiblePages" runat="server" th:value="10" />
-                    </div>
                 </div>
             </div>
         </div>
@@ -273,12 +277,6 @@
         $('.select2-select-00').select2({
             allowClear: true
         });
-    });
-    $('.view-grabRule').click(function(){
-        window.location.href='../grabListRule/toDetail?objectId='+$(this).attr('objectid');
-    });
-    $('.edit-grabRule').click(function(){
-        window.location.href='../grabListRule/toUpdate?objectId='+$(this).attr('objectid');
     });
 </script>
 </body>
