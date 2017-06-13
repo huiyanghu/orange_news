@@ -115,6 +115,8 @@ public class GrabListRuleController {
         grabListRule.setNextPageCssPath(grabListRuleQuery.getNextPageCssPath());
         grabListRule.setGrabTime(grabListRuleQuery.getGrabTime());
 
+
+
         if (StringUtil.isNotEmpty(grabListRuleQuery.getPublicationObjectId())) {
             ConPublication conPublication = new ConPublication();
             conPublication.setObjectId(grabListRuleQuery.getPublicationObjectId());

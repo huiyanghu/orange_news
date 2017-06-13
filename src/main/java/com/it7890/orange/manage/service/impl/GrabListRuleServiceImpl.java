@@ -58,6 +58,9 @@ public class GrabListRuleServiceImpl implements GrabListRuleService {
         map.put("listStatus", grabListRule.getListStatus());
         map.put("statusStr", ConstantsUtil.getConstants("grabListRuleStatus", "" + grabListRule.getStatus()));
         map.put("listStatusStr", ConstantsUtil.getConstants("grabListRuleListStatus", "" + grabListRule.getListStatus()));
+
+        map.put("nextPageCssPath", grabListRule.getNextPageCssPath());
+        map.put("titlePicCssPath", grabListRule.getTitlePicCssPath());
         map.put("grabTime", grabListRule.getGrabTime());
 
         return map;
