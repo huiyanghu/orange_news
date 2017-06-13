@@ -10,6 +10,7 @@ import com.it7890.orange.manage.po.GrabListRuleQuery;
 import com.it7890.orange.manage.service.GlobalNodeService;
 import com.it7890.orange.manage.service.GrabDetailRuleService;
 import com.it7890.orange.manage.service.GrabListRuleService;
+import com.it7890.orange.manage.utils.ConstantsUtil;
 import com.it7890.orange.manage.utils.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -61,6 +62,7 @@ public class GrabDetailRuleController {
         map.put("grabListRuleList", grabListRuleList);
         List<Map> globalNodeList=globalNodeService.getGlobalNodeList();
         map.put("globalNodeList", globalNodeList);
+        map.put("grabListRuleListStatusList", ConstantsUtil.getConstants("grabListRuleListStatus"));//列表文章状态
         System.out.println(JSON.toJSONString(map));
         return "views/grabDetailRule/edit";
     }
@@ -118,6 +120,7 @@ public class GrabDetailRuleController {
         map.put("grabListRuleList", grabListRuleList);//列表规则
         List<Map> globalNodeList=globalNodeService.getGlobalNodeList();
         map.put("globalNodeList", globalNodeList);
+        map.put("grabListRuleListStatusList", ConstantsUtil.getConstants("grabListRuleListStatus"));//列表文章状态
         System.out.println(JSON.toJSONString(map));
         return "views/grabDetailRule/add";
     }
