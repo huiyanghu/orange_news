@@ -249,11 +249,10 @@
                                     字符：
                                 </label>
                                 <div class="col-md-8">
-                                    <input type="text" id="zifu" name="zifu" min="0" class="form-control" placeholder="输入字符" >
-                                    <!-- <select class="form-control" name="zifu" id="zifu"  th:field="*{zifu}">
-                                         <option value="" selected>请选择</option>
-                                         <option th:each="zifu:${channelList}" th:selected="(${grabListRule.zifu == zifu.objectId})" th:value="${zifu.objectId}" th:text="${zifu.get('topicName')}"></option>
-                                     </select>-->
+                                    <select class="form-control" name="zifu" id="zifu"  th:field="*{zifu}">
+                                        <option value="" selected>请选择</option>
+                                        <option th:each="zifu:${constantList}" th:selected="(${grabListRule.zifu == zifu..get('key')})" th:value="${zifu.get('key')}" th:text="${zifu.get('value')}"></option>
+                                    </select>
                                 </div>
                             </div>
                         </div>
