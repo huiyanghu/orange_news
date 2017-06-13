@@ -39,7 +39,7 @@ public class GrabListRuleServiceImpl implements GrabListRuleService {
         map.put("channelObjectId", grabListRule.getConChannel() == null ? "" : grabListRule.getConChannel().getObjectId());
         map.put("channelName", grabListRule.getConChannel() == null ? "" : grabListRule.getConChannel().getChannelName());
         map.put("createdAt", DateUtil.getTimeStampStr(grabListRule.getCreatedAt()));
-        map.put("zifu", grabListRule.getSiteUrl());
+        map.put("constant", grabListRule.getConstant());
         map.put("siteUrl", grabListRule.getSiteUrl());
 
         map.put("languageObjectId", grabListRule.getHbLanguage() == null ? "" : grabListRule.getHbLanguage().getObjectId());
