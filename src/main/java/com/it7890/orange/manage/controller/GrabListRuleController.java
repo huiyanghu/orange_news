@@ -170,11 +170,13 @@ public class GrabListRuleController {
         List<Map> publicationList = publicationService.getPublictionList();
         List<Map> channelList = conChannelService.getChannelList();
         List<Map> countryList = hbCountryService.getCountryList();
+        List<Map> languageList = languageService.getLanguageList();
         map.put("globalNodeList", globalNodeList);
         map.put("appTopicsList", appTopicsList);
         map.put("publicationList", publicationList);
         map.put("channelList", channelList);
         map.put("countryList", countryList);
+        map.put("languageList", languageList);
         map.put("constantList",ConstantsUtil.getConstants("grabListRuleConstant"));
 
         System.out.println(JSON.toJSONString(map));
