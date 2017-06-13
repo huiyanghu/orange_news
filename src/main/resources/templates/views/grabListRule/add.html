@@ -251,7 +251,7 @@
                                 <div class="col-md-8">
                                     <select class="form-control" name="constant" id="constant">
                                         <option value="" selected>请选择</option>
-                                        <option th:each="constant:${constantList}" th:selected="(${grabListRule.constant == constant.get('key')})" th:value="${constant.get('key')}" th:text="${constant.get('value')}"></option>
+                                        <option th:each="constant:${constantList}" th:value="${constant.get('key')}" th:text="${constant.get('value')}"></option>
                                     </select>
                                 </div>
                             </div>
@@ -328,7 +328,7 @@
                 "grabDetailRuleJSON": dataJson
             },
             success: function (data) {
-                if(data.code == 1){
+                if(data.success == 1){
                     bootbox.alert(data.msg);
                 }else{
                     bootbox.alert(data.msg);
