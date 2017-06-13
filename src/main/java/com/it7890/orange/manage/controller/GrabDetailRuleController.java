@@ -34,7 +34,8 @@ public class GrabDetailRuleController {
     public String getList(Map map, GrabDetailRuleQuery grabDetailRuleQuery, @RequestParam(value = "page", required = false, defaultValue = "1") Integer page) throws AVException {
         Map m = grabDetailRuleService.getAll(grabDetailRuleQuery, page);
         map.putAll(m);
-        map.put("grabListRuleQuery", grabDetailRuleQuery);
+        map.put("grabDetailRuleQuery", grabDetailRuleQuery);
+        System.out.println(map.keySet());
         map.remove("org.springframework.validation.BindingResult.grabDetailRuleQuery");
         System.out.println(JSON.toJSONString(map));
         return "views/grabDetailRule/list";
@@ -54,7 +55,7 @@ public class GrabDetailRuleController {
         List<GrabListRule> grabListRuleList = grabListRuleService.get(new GrabListRuleQuery());
         map.put("grabListRuleList", grabListRuleList);
         System.out.println(JSON.toJSONString(map));
-        return "views/grabListRule/edit";
+        return "views/grabDetailRule/edit";
     }
 
     @RequestMapping(path = "/update", method = RequestMethod.POST)
@@ -67,9 +68,9 @@ public class GrabDetailRuleController {
         GrabDetailRule grabDetailRule = new GrabDetailRule();
         grabDetailRule.setObjectId(grabDetailRuleQuery.getObjectId());
 
-        if (StringUtil.isNotEmpty(grabDetailRuleQuery.getGrabDetailRuleObjectId())) {
+        if (StringUtil.isNotEmpty(grabDetailRuleQuery.getGrabListRuleObjectId())) {
             GrabListRule grabListRule = new GrabListRule();
-            grabListRule.setObjectId(grabDetailRuleQuery.getGrabDetailRuleObjectId());
+            grabListRule.setObjectId(grabDetailRuleQuery.getGrabListRuleObjectId());
             grabDetailRule.setGrabListRule(grabListRule);
         }
 
@@ -100,7 +101,7 @@ public class GrabDetailRuleController {
     @RequestMapping("/toAdd")
     public String toAdd(Map map) throws AVException {
         List<GrabListRule> grabListRuleList = grabListRuleService.get(new GrabListRuleQuery());
-        map.put("grabListRuleList", grabListRuleList);
+        map.put("grabListRuleList", grabListRuleList);//列表规则
         System.out.println(JSON.toJSONString(map));
         return "views/grabListRule/add";
     }
@@ -114,9 +115,9 @@ public class GrabDetailRuleController {
 
         GrabDetailRule grabDetailRule = new GrabDetailRule();
 
-        if (StringUtil.isNotEmpty(grabDetailRuleQuery.getGrabDetailRuleObjectId())) {
+        if (StringUtil.isNotEmpty(grabDetailRuleQuery.getGrabListRuleObjectId())) {
             GrabListRule grabListRule = new GrabListRule();
-            grabListRule.setObjectId(grabDetailRuleQuery.getGrabDetailRuleObjectId());
+            grabListRule.setObjectId(grabDetailRuleQuery.getGrabListRuleObjectId());
             grabDetailRule.setGrabListRule(grabListRule);
         }
 

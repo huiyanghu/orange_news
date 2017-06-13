@@ -21,8 +21,9 @@ public class ConstantsUtil {
         constants.put("grabDetailRuleStatus", "[{'key':'0','value':'正常'},{'key':'1','value':'禁用'},{'key':'2','value':'删除'}]");//-1删除
         constants.put("grabListRuleStatus", "[{'key':0,'value':'正常'},{'key':1,'value':'禁用'},{'key':2,'value':'删除'}]");//-1删除////规则状态
         constants.put("grabListRuleListStatus", "[{'key':0,'value':'正常'},{'key':1,'value':'禁用'},{'key':2,'value':'删除'}]");//-1删除////列表文章状态
-        constants.put("grabDetailRuleStatus", "[{'key':'0','value':'正常'},{'key':'1','value':'禁用'},{'key':'2','value':'删除'}]");//-1删除
+        constants.put("grabDetailRuleStatus", "[{'key':0,'value':'正常'},{'key':1,'value':'禁用'},{'key':2,'value':'删除'}]");//-1删除
 
+        constants.put("grabListRuleConstant", "[{'key':'auto','value':'auto'},{'key':'utf8','value':'utf8'},{'key':'jbk','value':'jbk'},{'key':'jb2312','value':'jb2312'}]");//列表页抓取规则 字符编码
     }
 
     public static List<Map> getConstants(String constantsKey) {
@@ -43,11 +44,11 @@ public class ConstantsUtil {
     }
 
 
-//    public static void main(String[] args) {
-//        List<Map> list = ConstantsUtil.getConstants("appTopArtitype");
-//        System.out.println(list);
-//        String value = ConstantsUtil.getConstants("appTopArtitype", "5");
-//        System.out.println(value);
-//    }
+    /*public static void main(String[] args) {
+        List<Map> list = ConstantsUtil.getConstants("grabListRuleListStatus");
+        System.out.println(list);
+        String value = ConstantsUtil.getConstants("grabListRuleListStatus", "1");
+        System.out.println(value);
+    }*/
 
 }
