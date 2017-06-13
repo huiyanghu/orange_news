@@ -16,5 +16,6 @@ public interface HbCountryDao {
     public List<HbCountrys> get(HbCountryQuery hbCountryQuery) throws AVException;
     public List<AVObject> getAvoList();
     public String saveHbAvo(AVObject avObject);
+    public AVObject getByCid(String cId);
 
 }

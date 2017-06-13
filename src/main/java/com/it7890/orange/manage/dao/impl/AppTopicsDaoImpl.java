@@ -5,6 +5,7 @@ import com.avos.avoscloud.AVObject;
 import com.avos.avoscloud.AVQuery;
 import com.it7890.orange.manage.dao.AppTopicsDao;
 import com.it7890.orange.manage.model.AppTopics;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -21,8 +22,12 @@ public class AppTopicsDaoImpl implements AppTopicsDao {
     @Override
     public List<AVObject> getListByCId(String cid) {
         AVQuery avQuery = new AVQuery("AppTopics");
+        avQuery.include("topicIconFile");
+        avQuery.include("HbTopicsObj");
         List<AVObject> ls = new ArrayList<>();
-        avQuery.whereEqualTo("countryObj", AVObject.createWithoutData("hb_countrys", cid));
+        if (StringUtils.isNotBlank(cid)){
+            avQuery.whereEqualTo("countryObj", AVObject.createWithoutData("hb_countrys", cid));
+        }
         try {
             ls = avQuery.find();
         } catch (AVException e) {

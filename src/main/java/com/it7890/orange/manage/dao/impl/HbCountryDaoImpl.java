@@ -75,4 +75,16 @@ public class HbCountryDaoImpl implements HbCountryDao {
         return cid;
     }
 
+    @Override
+    public AVObject getByCid(String cId) {
+        AVQuery avQuery = new AVQuery("hb_countrys");
+        AVObject avObject = null;
+        try {
+            avObject = avQuery.get(cId);
+        } catch (AVException e) {
+            e.printStackTrace();
+        }
+        return avObject;
+    }
+
 }

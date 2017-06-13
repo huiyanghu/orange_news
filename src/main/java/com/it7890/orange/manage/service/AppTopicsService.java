@@ -1,6 +1,8 @@
 package com.it7890.orange.manage.service;
 
 import com.avos.avoscloud.AVException;
+import com.it7890.orange.manage.model.AppTopics;
+import com.it7890.orange.manage.vo.AppTopicsDTO;
 
 import java.util.List;
 import java.util.Map;
@@ -10,4 +12,6 @@ import java.util.Map;
  */
 public interface AppTopicsService {
     public List<Map> getAppTopicsList() throws AVException;
+
+    public List<AppTopicsDTO> getDtoList(String cid);
 }

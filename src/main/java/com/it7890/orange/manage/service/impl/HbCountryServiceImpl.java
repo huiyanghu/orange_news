@@ -8,6 +8,7 @@ import com.it7890.orange.manage.model.HbCountrys;
 import com.it7890.orange.manage.po.HbCountryQuery;
 import com.it7890.orange.manage.service.HbCountryService;
 import com.it7890.orange.manage.utils.DateUtil;
+import com.it7890.orange.manage.vo.HbCountrysDTO;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Component;
@@ -85,5 +86,29 @@ public class HbCountryServiceImpl implements HbCountryService {
             list.add(map);
         }
         return list;
+    }
+
+    @Override
+    public List<HbCountrysDTO> getDtoList() {
+        List<AVObject> ls = hbCountryDao.getAvoList();
+        return buildDtoList(ls);
+    }
+
+    @Override
+    public HbCountrysDTO getByCid(String cId) {
+        AVObject avo = hbCountryDao.getByCid(cId);
+        return HbCountrysDTO.avo2dto(avo);
+    }
+
+    public List<HbCountrysDTO> buildDtoList(List<AVObject> ls){
+        List<HbCountrysDTO> dtols = null;
+        if (ls!=null){
+            dtols = new ArrayList<>();
+            for (AVObject avo : ls){
+                HbCountrysDTO dto = HbCountrysDTO.avo2dto(avo);
+                dtols.add(dto);
+            }
+        }
+        return dtols;
     }
 }
