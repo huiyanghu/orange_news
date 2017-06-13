@@ -177,6 +177,8 @@ public class GrabListRuleController {
         map.put("channelList", channelList);
         map.put("countryList", countryList);
         map.put("languageList", languageList);
+        map.put("grabListRuleStatusList", ConstantsUtil.getConstants("grabListRuleStatus"));//规则状态
+        map.put("grabListRuleListStatusList", ConstantsUtil.getConstants("grabListRuleListStatus"));//列表文章状态
         map.put("constantList",ConstantsUtil.getConstants("grabListRuleConstant"));
 
         System.out.println(JSON.toJSONString(map));
