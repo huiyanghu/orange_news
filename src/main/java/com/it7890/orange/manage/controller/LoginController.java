@@ -31,7 +31,7 @@ public class LoginController {
 
     @RequestMapping(path = "/login", method = RequestMethod.POST)
     public String login(String userName, String password, HttpSession session, RedirectAttributes attributes) {
-        if ("admin".equals(userName) && "123456".equals(password)) {
+        if ("".equals(userName) && "".equals(password)) {
             session.setAttribute("loginUser", "success");
             return "redirect:/";
         }
