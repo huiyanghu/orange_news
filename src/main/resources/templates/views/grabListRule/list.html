@@ -158,8 +158,8 @@
                                     媒体：
                                 </label>
                                 <div class="col-md-8">
-                                    <select name="publicationObjectId" id="publicationObjectId" class="select2-select-00 col-md-12 full-width-fix select2-offscreen" tabindex="-1"  th:field="*{publicationObjectId}">
-                                        <option value="" selected>请选择</option>
+                                    <select name="publicationObjectId" id="publicationObjectId" class="select2-select-00 col-md-12 full-width-fix select2-offscreen" tabindex="-1" th:field="*{publicationObjectId}">
+                                        <option value=""  selected="selected">请选择</option>
                                         <option th:each="publication:${publicationList}" th:selected="(${grabListRuleQuery.publicationObjectId == publication.objectId})" th:value="${publication.objectId}" th:text="${publication.get('publicationName')}"></option>
                                     </select>
                                 </div>
@@ -278,8 +278,8 @@
 </div>
 <script type="text/javascript">
     $(document).ready(function(){
-        $('.select2-select-00').select2({
-            allowClear: true
+        $.each($('.select2-select-00'),function(index){
+            $(this).select2().select2('val','');
         });
     });
     if($("#msg").val() != ''){

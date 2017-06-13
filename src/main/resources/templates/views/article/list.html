@@ -365,8 +365,8 @@
 </div>
 <script type="text/javascript">
     $(document).ready(function(){
-        $('.select2-select-00').select2({
-            allowClear: true
+        $.each($('.select2-select-00'),function(index){
+            $(this).select2().select2('val','');
         });
     });
     if($("#msg").val() != ''){

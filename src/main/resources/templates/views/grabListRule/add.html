@@ -141,7 +141,7 @@
                                 </label>
                                 <div class="col-md-8">
                                     <select name="countryObjectId" id="countryObjectId" class="select2-select-00 col-md-12 full-width-fix select2-offscreen" tabindex="-1">
-                                        <option value="" selected>请选择</option>
+                                        <option value="" selected="selected">请选择</option>
                                         <option th:each="country:${countryList}" th:value="${country.get('objectId')}" th:text="${country.get('countryCode')}+'&nbsp;'+${country.get('cnName')}"></option>
                                     </select>
                                 </div>
@@ -154,7 +154,7 @@
                                 </label>
                                 <div class="col-md-8">
                                     <select name="publicationObjectId" id="publicationObjectId" class="select2-select-00 col-md-12 full-width-fix select2-offscreen" tabindex="-1">
-                                        <option value="" selected>请选择</option>
+                                        <option value=""  selected="selected">请选择</option>
                                         <option th:each="publication:${publicationList}" th:value="${publication.get('objectId')}" th:text="${publication.get('publicationName')}"></option>
                                     </select>
                                 </div>
@@ -215,7 +215,7 @@
                                 </label>
                                 <div class="col-md-8">
                                     <select name="languageObjectId" id="languageObjectId" class="select2-select-00 col-md-12 full-width-fix select2-offscreen" tabindex="-1">
-                                        <option value="" selected>请选择</option>
+                                        <option value=""  selected="selected">请选择</option>
                                         <option th:each="language:${languageList}" th:value="${language.get('objectId')}" th:text="${language.get('languageName')}"></option>
                                     </select>
                                 </div>
@@ -283,8 +283,8 @@
 </div>
 <script type="text/javascript">
     $(document).ready(function(){
-        $('.select2-select-00').select2({
-            allowClear: true
+        $.each($('.select2-select-00'),function(index){
+            $(this).select2().select2('val','');
         });
     });
     $('#add').click(function(e){
