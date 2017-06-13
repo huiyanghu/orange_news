@@ -291,4 +291,9 @@ public class GrabListRuleController {
         System.out.println(JSON.toJSONString(map));*/
         return "views/appTop/test1";
     }
+
+    @RequestMapping("/toTestResult")
+    public String toTestResult(Map map) throws AVException{
+        return "/testResult";
+    }
 }

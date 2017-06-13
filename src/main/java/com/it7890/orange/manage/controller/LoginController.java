@@ -1,5 +1,8 @@
 package com.it7890.orange.manage.controller;
 
+import com.avos.avoscloud.AVException;
+import com.it7890.orange.manage.service.SysUserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -13,6 +16,9 @@ import java.util.Map;
  */
 @Controller
 public class LoginController {
+    @Autowired
+    SysUserService sysUserService;
+
     @RequestMapping(path = "/toLogin")
     public String toLogin(Map map, HttpSession session) {
         return "login";
@@ -30,9 +36,10 @@ public class LoginController {
     }
 
     @RequestMapping(path = "/login", method = RequestMethod.POST)
-    public String login(String userName, String password, HttpSession session, RedirectAttributes attributes) {
-        if ("".equals(userName) && "".equals(password)) {
-            session.setAttribute("loginUser", "success");
+    public String login(String userName, String password, HttpSession session, RedirectAttributes attributes) throws AVException {
+        Map loginUser = sysUserService.getLoginUser(userName, password);
+        if(loginUser!=null){
+            session.setAttribute("loginUser", loginUser);
             return "redirect:/";
         }
         attributes.addFlashAttribute("msg", "用户名或密码错误,请重新登录!");

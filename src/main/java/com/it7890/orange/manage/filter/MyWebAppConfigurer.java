@@ -13,14 +13,18 @@ public class MyWebAppConfigurer extends WebMvcConfigurerAdapter {
     public void addInterceptors(InterceptorRegistry registry) {
         super.addInterceptors(registry);
 
+        String[] addPath = {
+            "/",
+            "/grabListRule/**",
+            "/grabDetailRule/**",
+            "/appTop/**",
+            "/conArticle/**"
+        };
+        String[] excludePath = {
+            "/toLogin",
+            "/toDefault"
+        };
         LoginInterceptor loginInterceptor1 = new LoginInterceptor();
-        registry.addInterceptor(loginInterceptor1)
-            .addPathPatterns("/")
-            .addPathPatterns("/grabListRule/**")
-            .addPathPatterns("/grabDetailRule/**")
-            .addPathPatterns("/appTop/**")
-            .addPathPatterns("/conArticle/**")
-            .excludePathPatterns("/toLogin")
-            .excludePathPatterns("/toDefault");
+        registry.addInterceptor(loginInterceptor1).addPathPatterns(addPath).excludePathPatterns(excludePath);
     }
 }

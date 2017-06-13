@@ -7,13 +7,12 @@ import java.util.Date;
 
 @AVClassName("SysUser")
 public class SysUser extends AVObject {
-    public SysUser() {
+    /*public SysUser() {
         super();
-    }
+    }*/
 
-    private String allowIp;
-    private AVObject createUserObj;
-    private Date createdAt;
+    /*private String allowIp;
+    private SysUser createUser;
     private String email;
     private String fax;
     private String identityCode;
@@ -27,143 +26,126 @@ public class SysUser extends AVObject {
     private String telphone;
     private String trueName;
     private Date updatedAt;
-    private String userName;
+    private String userName;*/
 
     public String getAllowIp() {
-        return allowIp;
+        return getString("allowIp");
     }
 
     public void setAllowIp(String allowIp) {
-        this.allowIp = allowIp;
+        this.put("allowIp", allowIp);
     }
 
-    public AVObject getCreateUserObj() {
-        return createUserObj;
+    public SysUser getCreateUser() {
+        return getAVObject("createUserObj");
     }
 
-    public void setCreateUserObj(AVObject createUserObj) {
-        this.createUserObj = createUserObj;
-    }
-
-    @Override
-    public Date getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(Date createdAt) {
-        this.createdAt = createdAt;
+    public void setCreateUser(SysUser createUser) {
+        this.put("createUserObj", createUser);
     }
 
     public String getEmail() {
-        return email;
+        return getString("email");
     }
 
     public void setEmail(String email) {
-        this.email = email;
+        this.put("email", email);
     }
 
     public String getFax() {
-        return fax;
+        return getString("fax");
     }
 
     public void setFax(String fax) {
-        this.fax = fax;
+        this.put("fax", fax);
     }
 
     public String getIdentityCode() {
-        return identityCode;
+        return getString("identityCode");
     }
 
     public void setIdentityCode(String identityCode) {
-        this.identityCode = identityCode;
+        this.put("identityCode", identityCode);
     }
 
     public Date getLastLoginTime() {
-        return lastLoginTime;
+        return getDate("lastLoginTime");
     }
 
     public void setLastLoginTime(Date lastLoginTime) {
-        this.lastLoginTime = lastLoginTime;
+        this.put("lastLoginTime", lastLoginTime);
     }
 
     public String getMobilephone() {
-        return mobilephone;
+        return getString("mobilephone");
     }
 
     public void setMobilephone(String mobilephone) {
-        this.mobilephone = mobilephone;
+        this.put("mobilephone", mobilephone);
     }
 
     public String getPassword() {
-        return password;
+        return getString("password");
     }
 
     public void setPassword(String password) {
-        this.password = password;
+        this.put("password", password);
     }
 
     public String getQq() {
-        return qq;
+        return getString("qq");
     }
 
     public void setQq(String qq) {
-        this.qq = qq;
+        this.put("qq", qq);
     }
 
     public String getRoleId() {
-        return roleId;
+        return getString("roleId");
     }
 
     public void setRoleId(String roleId) {
-        this.roleId = roleId;
+        this.put("roleId", roleId);
     }
 
     public Integer getSex() {
-        return sex;
+        return getInt("sex");
     }
 
     public void setSex(Integer sex) {
-        this.sex = sex;
+        this.put("sex", sex);
     }
 
     public Integer getState() {
-        return state;
+        return getInt("state");
     }
 
     public void setState(Integer state) {
-        this.state = state;
+        this.put("state", state);
     }
 
     public String getTelphone() {
-        return telphone;
+        return getString("telphone");
     }
 
     public void setTelphone(String telphone) {
-        this.telphone = telphone;
+        this.put("telphone", telphone);
     }
 
     public String getTrueName() {
-        return trueName;
+        return getString("trueName");
     }
 
     public void setTrueName(String trueName) {
-        this.trueName = trueName;
+        this.put("trueName", trueName);
     }
 
-    @Override
-    public Date getUpdatedAt() {
-        return updatedAt;
-    }
-
-    public void setUpdatedAt(Date updatedAt) {
-        this.updatedAt = updatedAt;
-    }
 
     public String getUserName() {
-        return userName;
+        return getString("userName");
     }
 
     public void setUserName(String userName) {
-        this.userName = userName;
+        this.put("userName", userName);
     }
 }
