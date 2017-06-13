@@ -32,15 +32,24 @@ public class GrabListRule extends AVObject {
     private GlobalNode globalNode;
     private ConChannel conChannel;
     private HbLanguage hbLanguage;
-    private HbTopics hbTopics;
+
+
 
 
     private Integer status;//规则状态
     private Integer listStatus;//列表文章状态
-
+    private AppTopics topics;
     private HbCountrys country;
      */
 
+
+    public AppTopics getTopics() {
+        return getAVObject("topicObj");
+    }
+
+    public void setTopics(AppTopics topics) {
+        this.put("topicObj",topics);
+    }
 
     public String getRuleName() {
         return this.getString("ruleName");
@@ -148,13 +157,7 @@ public class GrabListRule extends AVObject {
         this.put("languageObj", hbLanguage);
     }
 
-    public HbTopics getHbTopics() {
-        return this.getAVObject("topicObj");
-    }
 
-    public void setHbTopics(HbTopics hbTopics) {
-        this.put("topicObj", hbTopics);
-    }
 
     public Integer getStatus() {
         return getInt("status");

@@ -67,7 +67,7 @@ public class GrabListRuleDaoImpl implements GrabListRuleDao {
             m.put("objectId", grabListRule.getObjectId());
             m.put("ruleName", grabListRule.getRuleName());
             m.put("publicationName", grabListRule.getConPublication() == null ? "" : grabListRule.getConPublication().getName());
-            m.put("topicName", grabListRule.getHbTopics() == null ? "" : grabListRule.getHbTopics().getName());
+            m.put("topicName", grabListRule.getTopics() == null ? "" : grabListRule.getTopics().getTopicName());
             m.put("nodeName", grabListRule.getGlobalNode() == null ? "" : grabListRule.getGlobalNode().getNodename());
             m.put("countryCode", grabListRule.getCountry()==null?"":grabListRule.getCountry().getCountryCode());
             m.put("createdAt", DateUtil.getTimeStampStr(grabListRule.getCreatedAt()));

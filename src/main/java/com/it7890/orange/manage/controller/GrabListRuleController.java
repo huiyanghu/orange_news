@@ -140,9 +140,9 @@ public class GrabListRuleController {
         }
 
         if (StringUtil.isNotEmpty(grabListRuleQuery.getTopicObjectId())) {
-            HbTopics hbTopics = new HbTopics();
-            hbTopics.setObjectId(grabListRuleQuery.getTopicObjectId());
-            grabListRule.setHbTopics(hbTopics);
+            AppTopics topics=new AppTopics();
+            topics.setObjectId(grabListRuleQuery.getTopicObjectId());
+            grabListRule.setTopics(topics);
         }
 
         grabListRule.setStatus(grabListRuleQuery.getStatus());
@@ -230,9 +230,9 @@ public class GrabListRuleController {
         }
 
         if (StringUtil.isNotEmpty(grabListRuleQuery.getTopicObjectId())) {
-            HbTopics hbTopics = new HbTopics();
-            hbTopics.setObjectId(grabListRuleQuery.getTopicObjectId());
-            grabListRule.setHbTopics(hbTopics);
+            AppTopics topics=new AppTopics();
+            topics.setObjectId(grabListRuleQuery.getTopicObjectId());
+            grabListRule.setTopics(topics);
         }
 
 

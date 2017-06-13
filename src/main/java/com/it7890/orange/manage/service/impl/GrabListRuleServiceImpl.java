@@ -48,8 +48,8 @@ public class GrabListRuleServiceImpl implements GrabListRuleService {
         map.put("countryCnName", grabListRule.getCountry() == null ? "" : grabListRule.getCountry().getCnName());
         map.put("countryCode", grabListRule.getCountry() == null ? "" : grabListRule.getCountry().getCountryCode());
 
-        map.put("topicObjectId", grabListRule.getHbTopics() == null ? "" : grabListRule.getHbTopics().getObjectId());
-        map.put("topicName", grabListRule.getHbTopics() == null ? "" : grabListRule.getHbTopics().getName());
+        map.put("topicObjectId", grabListRule.getTopics() == null ? "" : grabListRule.getTopics().getObjectId());
+        map.put("topicName", grabListRule.getTopics() == null ? "" : grabListRule.getTopics().getTopicName());
         map.put("cssPath", grabListRule.getCssPath());
         map.put("findPre", grabListRule.getFindPre());
 
