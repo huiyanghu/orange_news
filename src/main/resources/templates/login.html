@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans" xmlns:th="http://www.thymeleaf.org" xmlns:c="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script type="text/javascript" src="/stylesheets/meAdmin/assets/js/libs/jquery-1.10.2.min.js"></script>
+    <script>
+        $(function () {
+            if ($('#msg').val() != "") {
+                alert($('#msg').val());
+            }
+        })
+    </script>
+</head>
+<body>
+<input th:value="${msg}" id="msg"/>
+<form action="/login" method="post">
+    用户名:<input name="userName"/>
+    <br>
+    密码:<input name="password" type="password"/>
+    <br><br>
+    <input type="submit" value="登录">
+</form>
+
+</body>
+</html>
