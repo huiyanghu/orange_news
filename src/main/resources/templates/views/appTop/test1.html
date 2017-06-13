@@ -6,35 +6,40 @@
     <script type="text/javascript" src="/stylesheets/meAdmin/assets/js/libs/jquery-1.10.2.min.js"></script>
     <script>
         function submit_this() {
-            var obj = {};
+            var obj = {
+                "testUrl": "http://www.esquire.tw/people/%e5%85%a8%e8%83%bd%e5%a5%b3%e8%8b%b1%e9%9b%84%e3%80%80%e8%94%bb%e7%a2%a7%ef%bc%8e%e5%8f%b2%e8%8e%ab%e5%be%b7/",
+                "authorCssPath": "div.cb-author.cb-byline-element > a",
+                "titleCssPath": "h1.entry-title",
+                "descCssPath": "section[itemprop=articleBody] > p > strong",
+                "keywordCssPath": "",
+                "conCssPath": "section[itemprop=articleBody]",
+                "replaceCssPath": "div.fbcb_container&&div.sharedaddy"
+            };
             /*obj.objectId = $('#objectId').val();
-            obj.ruleName = $('#ruleName').val();
-            obj.publicationObjectId = $('#publicationObjectId').val();
-            obj.nodeObjectId = $('#nodeObjectId').val();
-            obj.channelObjectId = $('#channelObjectId').val();
-            obj.topicObjectId = $('#topicObjectId').val();
-            obj.languageObjectId = $('#languageObjectId').val();
-            obj.countryObjectId = $('#countryObjectId').val();
-            obj.cssPath = $('#cssPath').val();
-            obj.siteUrl = $('#siteUrl').val();
-            obj.objectId = $('#objectId').val();*/
-            obj.cssPath="div[role=main]";
-            obj.findPre="div.cb-mask > a";
-            obj.siteUrl="http://www.esquire.tw/category/style/fashion/";
+             obj.ruleName = $('#ruleName').val();
+             obj.publicationObjectId = $('#publicationObjectId').val();
+             obj.nodeObjectId = $('#nodeObjectId').val();
+             obj.channelObjectId = $('#channelObjectId').val();
+             obj.topicObjectId = $('#topicObjectId').val();
+             obj.languageObjectId = $('#languageObjectId').val();
+             obj.countryObjectId = $('#countryObjectId').val();
+             obj.cssPath = $('#cssPath').val();
+             obj.siteUrl = $('#siteUrl').val();
+             obj.objectId = $('#objectId').val();*/
 
             obj = JSON.stringify(obj);
             console.warn("" + obj);
             $.ajax({
-                url: "http://192.168.0.106:8080/checkGrabListRule",
+                url: "http://192.168.0.106:8080/checkGrabDetailRule",
                 type: "get",
                 data: {
-                    "grabListRuleJSON":obj
+                    "grabDetailRuleJSON": obj
                 },
                 success: function (data) {
                     console.warn("----------success-----------")
                     console.warn(data);
                 },
-                error:function (error) {
+                error: function (error) {
                     console.warn("----------error-----------")
                     console.warn(error)
                 }
@@ -45,7 +50,7 @@
 </head>
 <body>
 
-
+<!--
 channelObjectId:<input id="channelObjectId" th:value="${grabListRule.channelObjectId}"/>
 <br>
 countryObjectId:<input id="countryObj" th:value="${grabListRule.countryObjectId}"/>
@@ -69,6 +74,7 @@ status:<input id="status" th:value="${grabListRule.status}"/>
 topicObjectId:<input id="topicObjectId" th:value="${grabListRule.topicObjectId}"/>
 <br>
 siteUrl:<input id="siteUrl" th:value="${grabListRule.siteUrl}"/>
+-->
 <br>
 <br>
 <br>

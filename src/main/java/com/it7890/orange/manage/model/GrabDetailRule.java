@@ -1,6 +1,7 @@
 package com.it7890.orange.manage.model;
 
 import com.alibaba.fastjson.JSON;
+import com.avos.avoscloud.AVClassName;
 import com.avos.avoscloud.AVObject;
 
 import java.util.HashMap;
@@ -9,6 +10,7 @@ import java.util.Map;
 /**
  * Created by Astro on 17/5/16.
  */
+@AVClassName("GrabDetailRule")
 public class GrabDetailRule extends AVObject {
     /*public GrabDetailRule() {
         super();

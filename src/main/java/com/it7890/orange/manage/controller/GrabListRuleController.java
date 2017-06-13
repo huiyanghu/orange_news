@@ -84,6 +84,7 @@ public class GrabListRuleController {
         map.put("languageList", languageList);
         map.put("grabListRuleStatusList", ConstantsUtil.getConstants("grabListRuleStatus"));//规则状态
         map.put("grabListRuleListStatusList", ConstantsUtil.getConstants("grabListRuleListStatus"));//列表文章状态
+        map.put("constantList",ConstantsUtil.getConstants("grabListRuleConstant"));
 
         Object object=JSON.toJSON(map);
         System.out.println(JSON.toJSON(map));
@@ -174,6 +175,7 @@ public class GrabListRuleController {
         map.put("publicationList", publicationList);
         map.put("channelList", channelList);
         map.put("countryList", countryList);
+        map.put("constantList",ConstantsUtil.getConstants("grabListRuleConstant"));
 
         System.out.println(JSON.toJSONString(map));
         return "views/grabListRule/add";
@@ -266,7 +268,7 @@ public class GrabListRuleController {
 
     @RequestMapping("/toTest")
     public String test(Map map, String objectId) throws AVException{
-        Map grabListRule = grabListRuleService.get(objectId);
+        /*Map grabListRule = grabListRuleService.get(objectId);
         map.put("grabListRule", grabListRule);
 
         List<Map> globalNodeList = globalNodeService.getGlobalNodeList();
@@ -280,7 +282,7 @@ public class GrabListRuleController {
         map.put("channelList", channelList);
         map.put("countryList", countryList);
 
-        System.out.println(JSON.toJSONString(map));
+        System.out.println(JSON.toJSONString(map));*/
         return "views/appTop/test1";
     }
 }

@@ -5,7 +5,7 @@ package com.it7890.orange.manage.po;
  */
 public class GrabDetailRuleQuery {
     private String objectId;
-    private String grabDetailRuleObjectId;
+    private String grabListRuleObjectId;
     private String ruleName;
     private Integer status;
 
@@ -28,12 +28,12 @@ public class GrabDetailRuleQuery {
         this.objectId = objectId;
     }
 
-    public String getGrabDetailRuleObjectId() {
-        return grabDetailRuleObjectId;
+    public String getGrabListRuleObjectId() {
+        return grabListRuleObjectId;
     }
 
-    public void setGrabDetailRuleObjectId(String grabDetailRuleObjectId) {
-        this.grabDetailRuleObjectId = grabDetailRuleObjectId;
+    public void setGrabListRuleObjectId(String grabListRuleObjectId) {
+        this.grabListRuleObjectId = grabListRuleObjectId;
     }
 
     public String getRuleName() {
