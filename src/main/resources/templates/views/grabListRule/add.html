@@ -81,14 +81,14 @@
                     首页
                 </a>
             </li>
-            <li>
-                <a th:href="@{/appTop/list}" title="置顶图列表">
-                    置顶图管理
+            <li class="">
+                <a th:href="@{/grabListRule/list}" title="列表规则管理">
+                    列表规则管理
                 </a>
             </li>
             <li class="current">
-                <a href="javascript:void(0);" title="置顶图修改">
-                    置顶图修改
+                <a href="javascript:void(0);" title="列表规则添加">
+                    列表规则添加
                 </a>
             </li>
         </ul>
@@ -99,20 +99,40 @@
             <div class="widget box">
                 <div class="widget-header">
                     <h4>
-                        <i class="icon-reorder"></i>
-                        文章信息
+                        <i class="icon-search"></i>
+                        搜索条件
                     </h4>
+                    <div class="toolbar no-padding">
+                        <div class="btn-group">
+                            <span class="btn btn-xs widget-collapse">
+                                <i class="icon-angle-down"></i>
+                            </span>
+                        </div>
+                    </div>
                 </div>
-                <div class="widget-content">
-                    <form class="form-horizontal row-border" id="dataForm" th:object="${appTop}" th:action="@{/appTop/saveOrUpdate}" th:method="post">
-                        <!--action="../appTop/saveOrUpdate" method="post"-->
+                <div class="widget-content"><!--th:object="${Query}"-->
+                    <form class="form-horizontal row-border" th:object="${grabListRule}" th:action="@{/grabListRule/add}" th:method="post" id="dataForm">
+                        <input type="hidden" id="objectIdFromUrl" name="objectId">
                         <div class="form-group">
                             <div class="col-md-4">
-                                <label class="col-md-4 control-label" for="objectId">
-                                    ID：
+                                <label class="col-md-4 control-label" for="ruleName">
+                                    规则名称：
                                 </label>
                                 <div class="col-md-8">
-                                    <input type="text" id="objectId" name="objectId" readonly class="form-control" th:value="${appTop.objectId}">
+                                    <input type="text" id="ruleName" name="ruleName" class="form-control" placeholder="输入规则名称">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-4">
+                                <label class="col-md-4 control-label" for="nodeObjectId">
+                                    节点：
+                                </label>
+                                <div class="col-md-8">
+                                    <select class="form-control" name="nodeObjectId" id="nodeObjectId">
+                                        <option value="" selected>请选择</option>
+                                        <option th:each="node:${globalNodeList}" th:value="${node.get('objectId')}" th:text="${node.get('nodeName')}"></option>
+                                    </select>
                                 </div>
                             </div>
                             <div class="col-md-4">
@@ -121,97 +141,139 @@
                                 </label>
                                 <div class="col-md-8">
                                     <select name="countryObjectId" id="countryObjectId" class="select2-select-00 col-md-12 full-width-fix select2-offscreen" tabindex="-1">
-                                        <option value="">请选择</option>
-                                        <option value="">所有国家</option>
-                                        <option th:each="country:${countryList}" th:selected="(${appTop.countryObjectId == country.objectId})" th:value="${country.objectId}" th:text="${country.get('countryCode')}+'&nbsp;'+${country.get('cnName')}"></option>
+                                        <option value="" selected>请选择</option>
+                                        <option th:each="country:${countryList}" th:value="${country.get('objectId')}" th:text="${country.get('countryCode')}+'&nbsp;'+${country.get('cnName')}"></option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-8">
+                                <label class="col-md-2 control-label" for="publicationObjectId">
+                                    媒体：
+                                </label>
+                                <div class="col-md-8">
+                                    <select name="publicationObjectId" id="publicationObjectId" class="select2-select-00 col-md-12 full-width-fix select2-offscreen" tabindex="-1">
+                                        <option value="" selected>请选择</option>
+                                        <option th:each="publication:${publicationList}" th:value="${publication.get('objectId')}" th:text="${publication.get('publicationName')}"></option>
                                     </select>
                                 </div>
                             </div>
                             <div class="col-md-4">
-                                <label class="col-md-4 control-label" for="languagesObjectId">
+                                <label class="col-md-4 control-label" for="channelObjectId">
+                                    渠道：
+                                </label>
+                                <div class="col-md-8">
+                                    <select class="form-control" name="channelObjectId" id="channelObjectId">
+                                        <option value="" selected>请选择</option>
+                                        <option th:each="channel:${channelList}" th:value="${channel.get('objectId')}" th:text="${channel.get('channelName')}"></option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-4">
+                                <label class="col-md-4 control-label" for="csspath">
+                                    csspath：
+                                </label>
+                                <div class="col-md-8">
+                                    <input type="text" id="csspath" name="csspath" min="0" class="form-control" placeholder="输入cssPath">
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="col-md-4 control-label" for="siteUrl">
+                                    url：
+                                </label>
+                                <div class="col-md-8">
+                                    <input type="text" id="siteUrl" name="siteUrl" min="0" class="form-control" placeholder="输入siteUrl">
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="col-md-4 control-label" for="findPre">
+                                    findpre：
+                                </label>
+                                <div class="col-md-8">
+                                    <input type="text" id="findPre" name="findPre" min="0" class="form-control" placeholder="输入findpre">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-4">
+                                <label class="col-md-4 control-label" for="topicObjectId">
+                                    话题：
+                                </label>
+                                <div class="col-md-8">
+                                    <select class="form-control" name="topicObjectId" id="topicObjectId">
+                                        <option value="" selected>请选择</option>
+                                        <option th:each="topic:${appTopicsList}" th:value="${topic.get('objectId')}" th:text="${topic.get('topicName')}"></option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="col-md-4 control-label" for="languageObjectId">
                                     语言：
                                 </label>
                                 <div class="col-md-8">
-                                    <select name="languagesObjectId" id="languagesObjectId" class="select2-select-00 col-md-12 full-width-fix select2-offscreen" tabindex="-1">
-                                        <option value="">请选择</option>
-                                        <option th:each="language:${languageList}" th:selected="(${appTop.languagesObjectId == language.objectId})" th:value="${language.objectId}" th:text="${language.get('codes')}+'&nbsp;'+${language.get('remark')}"></option>
+                                    <select name="languageObjectId" id="languageObjectId" class="select2-select-00 col-md-12 full-width-fix select2-offscreen" tabindex="-1">
+                                        <option value="" selected>请选择</option>
+                                        <option th:each="language:${languageList}" th:value="${language.get('objectId')}" th:text="${language.get('languageName')}"></option>
                                     </select>
                                 </div>
                             </div>
                         </div>
                         <div class="form-group">
                             <div class="col-md-4">
-                                <label class="col-md-4 control-label" for="articleTitle">
-                                    标题：
+                                <label class="col-md-4 control-label" for="listStatus">
+                                    列表文章状态：
                                 </label>
                                 <div class="col-md-8">
-                                    <input type="text" id="articleTitle" readonly class="form-control" th:value="${appTop.articleTitle}">
+                                    <select class="form-control" name="listStatus" id="listStatus">
+                                        <option value="">请选择</option>
+                                        <option th:each="grabListRuleList:${grabListRuleListStatusList}" th:value="${grabListRuleList.get('key')}" th:text="${grabListRuleList.get('value')}"></option>
+                                    </select>
                                 </div>
                             </div>
-                            <div class="col-md-4">
-                                <label class="col-md-4 control-label" for="itype">
-                                    类型：
-                                </label>
-                                <div class="col-md-8">
-                                    <input type="text" id="itype" readonly class="form-control" th:value="${appTop.itypeStr}">
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <label class="col-md-4 control-label" for="articleType">
-                                    文章类型：
-                                </label>
-                                <div class="col-md-8">
-                                    <input type="text" id="articleType" readonly class="form-control" th:value="${appTop.articleType}">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-group">
                             <div class="col-md-4">
                                 <label class="col-md-4 control-label" for="status">
-                                    状态：
+                                    规则状态：
                                 </label>
                                 <div class="col-md-8">
-                                    <select name="status" id="status" class="form-control" tabindex="-1">
-                                        <option value="" selected>请选择</option>
-                                        <option value="1" th:selected="(${appTop.status == 1})">正常</option>
-                                        <option value="0" th:selected="(${appTop.status == 0})">禁用</option>
-                                        <option value="-1" th:selected="(${appTop.status == -1})">删除</option>
+                                    <select class="form-control" name="status" id="status">
+                                        <option value="">请选择</option>
+                                        <option th:each="grabRuleList:${grabListRuleStatusList}" th:value="${grabRuleList.get('key')}" th:text="${grabRuleList.get('value')}"></option>
                                     </select>
                                 </div>
                             </div>
                             <div class="col-md-4">
-                                <label class="col-md-4 control-label" for="createdAt">
-                                    发布时间：
+                                <label class="col-md-4 control-label" for="zifu">
+                                    字符：
                                 </label>
                                 <div class="col-md-8">
-                                    <input type="text" id="createdAt" readonly class="form-control" placeholder="输入发布时间" th:value="${appTop.createdAt}" onClick="WdatePicker()">
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <label class="col-md-4 control-label" for="order">
-                                    排序：
-                                </label>
-                                <div class="col-md-8">
-                                    <input type="text" id="order" readonly class="form-control" th:value="${appTop.objectId}">
+                                    <input type="text" id="zifu" name="zifu" min="0" class="form-control" placeholder="输入字符" >
+                                    <!-- <select class="form-control" name="zifu" id="zifu"  th:field="*{zifu}">
+                                         <option value="" selected>请选择</option>
+                                         <option th:each="zifu:${channelList}" th:selected="(${grabListRule.zifu == zifu.objectId})" th:value="${zifu.objectId}" th:text="${zifu.get('topicName')}"></option>
+                                     </select>-->
                                 </div>
                             </div>
                         </div>
                         <div class="form-group">
-                            <div class="col-md-12">
-                                <label class="col-md-4 control-label" for="titlepicimg">
-                                    图片：
+                            <div class="col-md-4">
+                                <label class="col-md-4 control-label" for="grabTime">
+                                    抓取时间间隔(秒)：
                                 </label>
                                 <div class="col-md-8">
-                                    <img th:src="${appTop.picUrl}" id="titlepicimg" class="col-sm-8" alt="">
+                                    <input type="text" id="grabTime" name="grabTime" min="0" class="form-control" placeholder="输入抓取时间间隔">
                                 </div>
                             </div>
                         </div>
-                        <div class="form-actions" style="text-align: center;">
-                            <a href="javascript:void(0);" class="btn button-previous" style="display: inline-block;" th:href="@{/appTop/list}">
+                        <div class="form-actions">
+                            <input type="submit" value="提交" class="btn btn-primary pull-right" id="add">
+                            <input type="submit" value="测试" class="btn btn-primary pull-right">
+                            <a href="javascript:void(0);" class="btn button-previous pull-right" style="display: inline-block;" th:href="@{/grabListRule/list}">
                                 <i class="icon-angle-left"></i>
                                 返回
                             </a>
-                            <input type="submit" value="修改置顶图" class="btn btn-primary" id="edit">
                         </div>
                     </form>
                 </div>
@@ -225,14 +287,11 @@
             allowClear: true
         });
     });
-    if($("#msg").val() != ''){
-        bootbox.alert($("#msg").val());
-    }
-    $('#edit').click(function(e){
+    $('#add').click(function(e){
         e.preventDefault();
         var alertBox = bootbox.dialog({
-            message: "确认要修改吗?",
-            title: "修改",
+            message: "确认要添加吗?",
+            title: "添加",
             buttons: {
                 success: {
                     label: "取消",

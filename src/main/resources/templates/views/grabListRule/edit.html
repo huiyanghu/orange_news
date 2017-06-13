@@ -81,9 +81,14 @@
                     首页
                 </a>
             </li>
-            <li class="current">
-                <a href="javascript:void(0);" title="列表规则管理">
+            <li class="">
+                <a th:href="@{/grabListRule/list}" title="列表规则管理">
                     列表规则管理
+                </a>
+            </li>
+            <li class="current">
+                <a href="javascript:void(0);" title="列表规则修改">
+                    列表规则修改
                 </a>
             </li>
         </ul>
@@ -106,9 +111,10 @@
                     </div>
                 </div>
                 <div class="widget-content"><!--th:object="${Query}"-->
-                    <form class="form-horizontal row-border" th:object="${grabListRule}" th:action="@{/grabListRule/toUpdate}" th:method="get">
+                    <form class="form-horizontal row-border" th:object="${grabListRule}" th:action="@{/grabListRule/update}" th:method="post" id="dataForm">
+                        <input type="hidden" id="objectIdFromUrl" name="objectId">
                         <div class="form-group">
-                            <div class="col-md-6">
+                            <div class="col-md-4">
                                 <label class="col-md-4 control-label" for="ruleName">
                                     规则名称：
                                 </label>
@@ -118,7 +124,7 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <div class="col-md-6">
+                            <div class="col-md-4">
                                 <label class="col-md-4 control-label" for="nodeObjectId">
                                     节点：
                                 </label>
@@ -129,7 +135,7 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-md-4">
                                 <label class="col-md-4 control-label" for="countryObjectId">
                                     国家：
                                 </label>
@@ -143,7 +149,7 @@
                         </div>
                         <div class="form-group">
                             <div class="col-md-8">
-                                <label class="col-md-4 control-label" for="publicationObjectId">
+                                <label class="col-md-2 control-label" for="publicationObjectId">
                                     媒体：
                                 </label>
                                 <div class="col-md-8">
@@ -192,7 +198,7 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <div class="col-md-6">
+                            <div class="col-md-4">
                                 <label class="col-md-4 control-label" for="topicObjectId">
                                     话题：
                                 </label>
@@ -203,7 +209,7 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-md-4">
                                 <label class="col-md-4 control-label" for="languageObjectId">
                                     语言：
                                 </label>
@@ -252,7 +258,7 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <div class="col-md-6">
+                            <div class="col-md-4">
                                 <label class="col-md-4 control-label" for="grabTime">
                                     抓取时间间隔(秒)：
                                 </label>
@@ -262,9 +268,12 @@
                             </div>
                         </div>
                         <div class="form-actions">
-                            <input type="submit" value="提交" class="btn btn-primary pull-right">
+                            <input type="submit" value="提交" class="btn btn-primary pull-right" id="edit">
                             <input type="submit" value="测试" class="btn btn-primary pull-right">
-                            <input type="submit" value="返回" class="btn btn-primary pull-right">
+                            <a href="javascript:void(0);" class="btn button-previous pull-right" style="display: inline-block;" th:href="@{/grabListRule/list}">
+                                <i class="icon-angle-left"></i>
+                                返回
+                            </a>
                         </div>
                     </form>
                 </div>
@@ -276,6 +285,47 @@
     $(document).ready(function(){
         $('.select2-select-00').select2({
             allowClear: true
+        });
+    });
+    function UrlSearch() {
+        var name,value;
+        var str=location.href;
+        var num=str.indexOf("?")
+        str=str.substr(num+1);
+        var arr=str.split("&");
+        for(var i=0;i < arr.length;i++){
+            num=arr[i].indexOf("=");
+            if(num>0){
+                name=arr[i].substring(0,num);
+                value=arr[i].substr(num+1);
+                this[name]=value;
+            }
+        }
+    }
+    var Request=new UrlSearch();
+    var objectId = Request.objectId;
+    $('#objectIdFromUrl').val(objectId);
+    $('#edit').click(function(e){
+        e.preventDefault();
+        var alertBox = bootbox.dialog({
+            message: "确认要修改吗?",
+            title: "修改",
+            buttons: {
+                success: {
+                    label: "取消",
+                    className: "btn-default",
+                    callback: function() {
+                        alertBox.modal("hide");
+                    }
+                },
+                main: {
+                    label: "确认",
+                    className: "btn-primary",
+                    callback: function() {
+                        $('#dataForm').submit();
+                    }
+                }
+            }
         });
     });
 </script>
