@@ -68,11 +68,4 @@ public class DES {
 		}
 		return hexString.toString();
 	}
-
-	public static void main(String[] args) throws Exception {
-		System.out.println(encrypt("123456"));
-		//System.out.println(Md5.hashByMD5(encrypt("123456")));
-		System.out.println(decrypt("35722B54EF42563C","^k5$d78z"));
-		
-	}
 }
