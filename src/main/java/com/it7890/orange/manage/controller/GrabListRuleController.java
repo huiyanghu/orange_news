@@ -296,6 +296,6 @@ public class GrabListRuleController {
     public String toTestResult(Map map,String flag,String dataJson) throws AVException{
         map.put("flag",flag);
         map.put("dataJson",dataJson);
-        return "/testResult";
+        return "testResult";
     }
 }
