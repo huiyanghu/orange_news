@@ -131,6 +131,7 @@
         });
     }else if(flag == 'detailRule'){
         var dataJsonStr = Request.dataJson;
+        console.log(dataJsonStr);
         $.ajax({
             url: "http://54.219.221.173:80/checkGrabDetailRule",
             type: "post",
@@ -195,7 +196,8 @@
                 }
             },
             error: function (error) {
-                alert(data.msg);
+                console.log(error);
+                alert(error);
             }
         });
     }
