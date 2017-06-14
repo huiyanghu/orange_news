@@ -1,6 +1,5 @@
 package com.it7890.orange.manage;
 
-import com.it7890.orange.manage.demo.todo.Todo;
 import cn.leancloud.LeanEngine;
 import com.avos.avoscloud.AVOSCloud;
 import com.avos.avoscloud.AVObject;
@@ -27,7 +26,6 @@ public class Application {
     public static void main(String[] args) throws Exception {
         logger.info("LeanEngine app init.");
         // 注册子类化
-        AVObject.registerSubclass(Todo.class);
         AVObject.registerSubclass(ConArticle.class);
         AVObject.registerSubclass(HbTopics.class);
         AVObject.registerSubclass(SysUser.class);

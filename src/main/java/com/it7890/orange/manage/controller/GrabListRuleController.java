@@ -84,9 +84,8 @@ public class GrabListRuleController {
         map.put("languageList", languageList);
         map.put("grabListRuleStatusList", ConstantsUtil.getConstants("grabListRuleStatus"));//规则状态
         map.put("grabListRuleListStatusList", ConstantsUtil.getConstants("grabListRuleListStatus"));//列表文章状态
-        map.put("constantList",ConstantsUtil.getConstants("grabListRuleConstant"));
+        map.put("constantList", ConstantsUtil.getConstants("grabListRuleConstant"));
 
-        Object object=JSON.toJSON(map);
         System.out.println(JSON.toJSON(map));
         return "views/grabListRule/edit";
     }
@@ -115,7 +114,11 @@ public class GrabListRuleController {
         grabListRule.setNextPageCssPath(grabListRuleQuery.getNextPageCssPath());
         grabListRule.setGrabTime(grabListRuleQuery.getGrabTime());
 
-
+        if (StringUtil.isNotEmpty(grabListRuleQuery.getCountryObjectId())) {
+            HbCountrys country = new HbCountrys();
+            country.setObjectId(grabListRuleQuery.getCountryObjectId());
+            grabListRule.setCountry(country);
+        }
 
         if (StringUtil.isNotEmpty(grabListRuleQuery.getPublicationObjectId())) {
             ConPublication conPublication = new ConPublication();
@@ -142,7 +145,7 @@ public class GrabListRuleController {
         }
 
         if (StringUtil.isNotEmpty(grabListRuleQuery.getTopicObjectId())) {
-            AppTopics topics=new AppTopics();
+            AppTopics topics = new AppTopics();
             topics.setObjectId(grabListRuleQuery.getTopicObjectId());
             grabListRule.setTopics(topics);
         }
@@ -181,7 +184,7 @@ public class GrabListRuleController {
         map.put("languageList", languageList);
         map.put("grabListRuleStatusList", ConstantsUtil.getConstants("grabListRuleStatus"));//规则状态
         map.put("grabListRuleListStatusList", ConstantsUtil.getConstants("grabListRuleListStatus"));//列表文章状态
-        map.put("constantList",ConstantsUtil.getConstants("grabListRuleConstant"));
+        map.put("constantList", ConstantsUtil.getConstants("grabListRuleConstant"));
 
         System.out.println(JSON.toJSONString(map));
         return "views/grabListRule/add";
@@ -211,6 +214,11 @@ public class GrabListRuleController {
         grabListRule.setNextPageCssPath(grabListRuleQuery.getNextPageCssPath());
         grabListRule.setGrabTime(grabListRuleQuery.getGrabTime());
 
+        if (StringUtil.isNotEmpty(grabListRuleQuery.getCountryObjectId())) {
+            HbCountrys country = new HbCountrys();
+            country.setObjectId(grabListRuleQuery.getCountryObjectId());
+            grabListRule.setCountry(country);
+        }
         if (StringUtil.isNotEmpty(grabListRuleQuery.getPublicationObjectId())) {
             ConPublication conPublication = new ConPublication();
             conPublication.setObjectId(grabListRuleQuery.getPublicationObjectId());
@@ -236,7 +244,7 @@ public class GrabListRuleController {
         }
 
         if (StringUtil.isNotEmpty(grabListRuleQuery.getTopicObjectId())) {
-            AppTopics topics=new AppTopics();
+            AppTopics topics = new AppTopics();
             topics.setObjectId(grabListRuleQuery.getTopicObjectId());
             grabListRule.setTopics(topics);
         }
@@ -273,7 +281,7 @@ public class GrabListRuleController {
     }
 
     @RequestMapping("/toTest")
-    public String test(Map map, String objectId) throws AVException{
+    public String test(Map map, String objectId) throws AVException {
         /*Map grabListRule = grabListRuleService.get(objectId);
         map.put("grabListRule", grabListRule);
 
@@ -293,9 +301,9 @@ public class GrabListRuleController {
     }
 
     @RequestMapping("/toTestResult")
-    public String toTestResult(Map map,String flag,String dataJson) throws AVException{
-        map.put("flag",flag);
-        map.put("dataJson",dataJson);
+    public String toTestResult(Map map, String flag, String dataJson) throws AVException {
+        map.put("flag", flag);
+        map.put("dataJson", dataJson);
         return "testResult";
     }
 }
