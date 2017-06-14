@@ -278,7 +278,10 @@
 <script type="text/javascript">
     $(document).ready(function(){
         $.each($('.select2-select-00'),function(index){
-            $(this).select2().select2('val','');
+            $(this).select2();
+            if($(this).val() == ''){
+                $(this).select2().select2('val','');
+            }
         });
     });
     $('#add').click(function(e){

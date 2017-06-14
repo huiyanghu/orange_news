@@ -96,9 +96,6 @@
     var flag = Request.flag;
     if(flag == 'grabRule'){
         var dataJsonStr = Request.dataJson;
-        var base = new Base64();
-        dataJsonStr = base.decode(dataJsonStr);
-        dataJsonStr = decodeURIComponent(dataJsonStr);
         console.log(dataJsonStr)
         $.ajax({
             url: "http://54.219.221.173:80/checkGrabListRule",
@@ -112,7 +109,7 @@
                     var articleUrlList = data.articleUrlList;
                     var articleUrlListStr = '';
                     $.each(articleUrlList,function(i,item){
-                        articleUrlListStr += item+'<br />';
+                        articleUrlListStr += item+'\n';
                     });
                     var htmlStr = '<div class="form-group">'
                         +'<label class="col-md-2 control-label">'
@@ -133,9 +130,6 @@
         });
     }else if(flag == 'detailRule'){
         var dataJsonStr = Request.dataJson;
-        var base = new Base64();
-        dataJsonStr = base.decode(dataJsonStr);
-        dataJsonStr = decodeURIComponent(dataJsonStr);
         $.ajax({
             url: "http://54.219.221.173:80/checkGrabDetailRule",
             type: "get",

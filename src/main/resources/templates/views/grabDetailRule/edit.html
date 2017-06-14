@@ -172,6 +172,14 @@
                             </div>
                         </div>
                         <div class="form-group">
+                            <label class="col-md-3 control-label" for="descCssPath">
+                                描述：
+                            </label>
+                            <div class="col-md-9">
+                                <input type="text" id="descCssPath" name="descCssPath" class="form-control" placeholder="输入描述" th:value="${grabDetailRule.descCssPath}">
+                            </div>
+                        </div>
+                        <div class="form-group">
                             <label class="col-md-3 control-label" for="conCssPath">
                                 cssPath：
                             </label>
@@ -274,6 +282,9 @@
     $(document).ready(function(){
         $.each($('.select2-select-00'),function(index){
             $(this).select2();
+            if($(this).val() == ''){
+                $(this).select2().select2('val','');
+            }
         });
     });
     function UrlSearch() {
