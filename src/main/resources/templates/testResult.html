@@ -96,10 +96,10 @@
     var flag = Request.flag;
     if(flag == 'grabRule'){
         var dataJsonStr = Request.dataJson;
-        console.log(dataJsonStr)
+        console.log(dataJsonStr);
         $.ajax({
             url: "http://54.219.221.173:80/checkGrabListRule",
-            type: "get",
+            type: "post",
             data: {
                 "grabListRuleJSON": dataJsonStr
             },
@@ -125,14 +125,15 @@
                 }
             },
             error: function (error) {
-                alert(data.msg);
+                console.log(error);
+                alert(error);
             }
         });
     }else if(flag == 'detailRule'){
         var dataJsonStr = Request.dataJson;
         $.ajax({
             url: "http://54.219.221.173:80/checkGrabDetailRule",
-            type: "get",
+            type: "post",
             data: {
                 "grabDetailRuleJSON": dataJsonStr
             },
