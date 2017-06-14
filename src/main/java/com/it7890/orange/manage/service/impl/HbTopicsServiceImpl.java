@@ -27,6 +27,11 @@ public class HbTopicsServiceImpl implements HbTopicsService {
         return buildDto(ls);
     }
 
+    @Override
+    public HbTopicsDTO getById(String hid) {
+        return HbTopicsDTO.avo2dto(hbTopicsDao.getById(hid));
+    }
+
     public List<HbTopicsDTO> buildDto(List<AVObject> ls){
         List<HbTopicsDTO> dtols = null;
         if (ls!=null){

@@ -57,7 +57,7 @@ public class HbCountryServiceImpl implements HbCountryService {
             m.put("countryCode",avObject.getString("countryCode"));
             m.put("shortName",avObject.getString("shortName"));
             m.put("continent",avObject.getString("continent"));
-            List<AVObject> topicLs = appTopicsDao.getListByCId(avObject.getObjectId());
+            List<AVObject> topicLs = appTopicsDao.getListByCId(avObject.getObjectId(),null);
             logger.info(":::>>>>>>>>>>"+avObject.getString("cnName")+topicLs.size());
             List<String> topicList = new ArrayList<>();
             for(AVObject obj:topicLs) {

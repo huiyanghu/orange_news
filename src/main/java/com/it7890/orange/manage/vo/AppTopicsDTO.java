@@ -14,6 +14,7 @@ public class AppTopicsDTO {
     private String topicIcon;
     private String keyWords;
     private int checked;
+    private int rank;
 
     public String getHid() {
         return hid;
@@ -72,6 +73,14 @@ public class AppTopicsDTO {
         this.checked = checked;
     }
 
+    public int getRank() {
+        return rank;
+    }
+
+    public void setRank(int rank) {
+        this.rank = rank;
+    }
+
     public static AppTopicsDTO avo2dto(AVObject avo){
         AppTopicsDTO appTopicsDTO = null;
         if (avo!=null){
@@ -86,6 +95,7 @@ public class AppTopicsDTO {
             if (avo.getAVObject("HbTopicsObj")!=null){
                 appTopicsDTO.setHid(avo.getAVObject("HbTopicsObj").getObjectId());
             }
+            appTopicsDTO.setRank(avo.getInt("rank"));
         }
         return appTopicsDTO;
     }

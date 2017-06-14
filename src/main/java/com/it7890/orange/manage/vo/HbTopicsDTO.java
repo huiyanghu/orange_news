@@ -12,6 +12,8 @@ public class HbTopicsDTO {
     private int topicType;
     private String topicName;
     private String topicIcon;
+    private String topicIconId;
+
     private String keyWords;
     private int checked;
 
@@ -72,6 +74,14 @@ public class HbTopicsDTO {
         this.checked = checked;
     }
 
+    public String getTopicIconId() {
+        return topicIconId;
+    }
+
+    public void setTopicIconId(String topicIconId) {
+        this.topicIconId = topicIconId;
+    }
+
     public static HbTopicsDTO avo2dto(AVObject avo){
         HbTopicsDTO hbTopicsDTO = null;
         if (avo!=null){
@@ -79,6 +89,7 @@ public class HbTopicsDTO {
             hbTopicsDTO.setHid(avo.getObjectId());
             if (avo.getAVFile("topicIconFile")!=null){
                 hbTopicsDTO.setTopicIcon(avo.getAVFile("topicIconFile").getUrl());
+                hbTopicsDTO.setTopicIconId(avo.getAVFile("topicIconFile").getObjectId());
             }
             hbTopicsDTO.setTopicName(avo.getString("Name"));
             hbTopicsDTO.setTopicType(avo.getInt("topictype"));

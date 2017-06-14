@@ -156,10 +156,17 @@ public class HbCountryControler {
         }
         return avObject;
     }
+
+    /**
+     * 话题管理页面
+     * @param model
+     * @param countryId
+     * @return
+     */
     @RequestMapping(value = "/topics", method = RequestMethod.GET)
     public String topics( Model model, String countryId) {
-        List<HbTopicsDTO> hbTopicsDTOs = hbTopicsService.getDtoList();
-        List<AppTopicsDTO> apptopics = appTopicsService.getDtoList(countryId);
+        List<HbTopicsDTO> hbTopicsDTOs = hbTopicsService.getDtoList();//获取所有话题
+        List<AppTopicsDTO> apptopics = appTopicsService.getDtoList(countryId,null);//获取国家关联话题
         List<AppTopicsDTO> resTopics = new ArrayList<>();
         AppTopicsDTO appTopic;
         for (HbTopicsDTO hbTopicsDTO:hbTopicsDTOs){
@@ -183,71 +190,72 @@ public class HbCountryControler {
         logger.info("appss::>>{}",JSON.toJSONString(resTopics));
         return "country/topics";
     }
-//    @RequestMapping(value = "/topicsUpdate", method = RequestMethod.POST)
-//    public String topicsUpdate(HttpServletRequest request,
-//                               HttpServletResponse response, int cid, int[] topics,
-//                               String[] keywords, int[] ranks, Model model) {
-//        SysUser sysuer = (SysUser) request.getSession().getAttribute("sysuser");
-//        List<AppTopics> apptics = this.topcisService.getAppTopicsById(cid);
-//        int result = 0;
-//        if (topics != null && topics.length > 0) {
-//            // 检测需要删除的
-//            List<AppTopics> delapptics = new ArrayList<AppTopics>();
-//            List<AppTopics> addapptics = new ArrayList<AppTopics>();
-//            List<AppTopics> updateapptopics = new ArrayList<AppTopics>();
-//            AppTopics apptopics;
-//            HbTopics hbtopics;
-//            for (AppTopics appTopics : apptics) {
-//                boolean isdel = true;
-//                for (int a = 0; a < topics.length; a++) {
-//                    if (topics[a] == appTopics.getTopicid()) {
-//                        if (keywords != null && keywords.length > 0) {
-//                            if (keywords[a] != null && !"".equals(keywords[a])) {
-//                                appTopics.setKeywords(keywords[a]);
-//                            }
-//                        }
+
+
+    @RequestMapping(value = "/topicsUpdate", method = RequestMethod.GET)
+    public String topicsUpdate(HttpServletRequest request,
+                               HttpServletResponse response, String countryId,String[] hIds,
+                               String[] keyWords, int[] ranks, Model model) {
+        List<AppTopicsDTO> apptics = appTopicsService.getDtoList(countryId,null);
+        int result = 0;
+        List<AppTopicsDTO> delapptics = new ArrayList<AppTopicsDTO>();
+        List<AVObject> addapptics = new ArrayList<AVObject>();
+        List<AppTopicsDTO> updateapptopics = new ArrayList<AppTopicsDTO>();
+        if (hIds != null && hIds.length > 0) {
+            for (AppTopicsDTO appTopics : apptics) {
+                boolean isdel = true;
+                for (int a = 0; a < hIds.length; a++) {
+                    if (hIds[a].equals(appTopics.getHid())) {//hid存在 更新绑定信息
+                        if (keyWords != null && keyWords.length > 0) {
+                            if (keyWords[a] != null && !"".equals(keyWords[a])) {
+                                appTopics.setKeyWords(keyWords[a]);
+                            }
+                        }
 //                        appTopics.setRank(ranks[a]);
-//                        isdel = false;
-//                    }
-//                }
-//                if (isdel) {
-//                    delapptics.add(appTopics);
-//                } else {
-//                    updateapptopics.add(appTopics);
-//                }
-//            }
-//            // 检测需要添加的
-//            for (int a = 0; a < topics.length; a++) {
-//                boolean isextis = false;
-//                for (AppTopics appTopics : apptics) {
-//                    if (topics[a] == appTopics.getTopicid()) {
-//                        isextis = true;
-//                    }
-//                }
-//                if (!isextis) {
-//                    hbtopics = this.topcisService.getHbTopicsBytid(topics[a]);
-//                    apptopics = new AppTopics();
-//                    apptopics.setCountryid(cid);
+                        isdel = false;
+                    }
+                }
+                if (isdel) {
+                    delapptics.add(appTopics);
+                } else {
+                    updateapptopics.add(appTopics);
+                }
+            }
+            AVObject apptopics;
+            HbTopicsDTO hbtopics;
+            // 检测需要添加的
+            for (int a = 0; a < hIds.length; a++) {
+                boolean isextis = false;
+                for (AppTopicsDTO appTopics : apptics) {
+                    if (hIds[a].equals(appTopics.getHid())) {
+                        isextis = true;
+                    }
+                }
+                if (!isextis) {
+                    logger.info("hid::>>>,{}",hIds[a]);
+                    hbtopics = hbTopicsService.getById(hIds[a]);
+                    apptopics = new AVObject("AppTopics");
+                    apptopics.put("countryObj",AVObject.createWithoutData("hb_countrys",countryId));
+                    apptopics.put("HbTopicsObj",AVObject.createWithoutData("hb_topics",hIds[a]));
 //                    apptopics.setCreateuid(sysuer.getUserid());
-//                    apptopics.setHubiiid(hbtopics.getID());
-//                    apptopics.setKeywords(keywords[a]);
-//                    apptopics.setRank(ranks[a]);
-//                    apptopics.setTopicicon(hbtopics.getTopicicon());
-//                    apptopics.setTopicid(hbtopics.getTid());
-//                    apptopics.setTopicname(hbtopics.getName());
-//                    apptopics.setTopictype(hbtopics.getTopictype());
-//                    addapptics.add(apptopics);
-//                }
-//            }
-//            result = this.topcisService.updateCountryTopics(cid, delapptics,
-//                addapptics, updateapptopics);
-//        }
-//        request.getSession().setAttribute("message",
-//            "更新国家话题:" + (result > 0 ? "成功" : "失败"));
-//        request.getSession().setAttribute("url",
-//            "country/topics?countryid=" + cid);
-//        return String.format("redirect:/message");
-//    }
+                    apptopics.put("keyWords",keyWords[a]);
+//                    apptopics.put("rank",ranks[a]);
+//                    apptopics.put("topicIcon",hbtopics.getTopicIcon());
+                    apptopics.put("topicIconFile",hbtopics.getTopicIconId());
+                    apptopics.put("topicName",hbtopics.getTopicName());
+                    apptopics.put("topicType",hbtopics.getTopicType());
+                    addapptics.add(apptopics);
+                }
+            }
+            result = this.appTopicsService.updateAppTopics(countryId, delapptics,
+                addapptics, updateapptopics);
+        }
+        request.getSession().setAttribute("message",
+            "更新国家话题:" + (result > 0 ? "成功" : "失败"));
+        request.getSession().setAttribute("url",
+            "country/topics?countryid=" + countryId);
+        return String.format("redirect:/message");
+    }
 
 
     @RequestMapping(value = "exportCountry", method = RequestMethod.GET)

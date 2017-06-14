@@ -13,4 +13,5 @@ import java.util.Map;
 public interface HbTopicsService {
 
     public List<HbTopicsDTO> getDtoList();
+    public HbTopicsDTO getById(String hid);
 }

@@ -26,9 +26,34 @@ public class AppTopicsServiceImpl implements AppTopicsService {
     }
 
     @Override
-    public List<AppTopicsDTO> getDtoList(String cid) {
-        List<AVObject> ls = appTopicsDao.getListByCId(cid);
+    public List<AppTopicsDTO> getDtoList(String cid,String hid) {
+        List<AVObject> ls = appTopicsDao.getListByCId(cid,null);
         return buildDto(ls);
+    }
+
+    @Override
+    public int updateAppTopics(String countryId, List<AppTopicsDTO> delapptics, List<AVObject> addapptics, List<AppTopicsDTO> updateapptopics) {
+        int result = 0;
+        try{
+            for (AppTopicsDTO appTopics : delapptics) {
+                this.appTopicsDao.delByCidAndHid(countryId,appTopics.getHid());
+            }
+            for (AVObject appTopics : addapptics) {
+                this.appTopicsDao.saveOrUpdate(appTopics);
+            }
+            for (AppTopicsDTO appTopics : updateapptopics) {
+                List<AVObject> ls = this.appTopicsDao.getListByCId(countryId,appTopics.getHid());
+                AVObject updateAvo = new AVObject("AppTopics");
+                updateAvo.setObjectId(ls.get(0).getObjectId());
+                updateAvo.put("keyWords",appTopics.getKeyWords());
+                updateAvo.put("rank",appTopics.getRank());
+                this.appTopicsDao.saveOrUpdate(updateAvo);
+            }
+            result = 1;
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        return result;
     }
 
     public List<AppTopicsDTO> buildDto(List<AVObject> ls){

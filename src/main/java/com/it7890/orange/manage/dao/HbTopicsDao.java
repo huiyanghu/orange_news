@@ -12,4 +12,5 @@ import java.util.Map;
  **/
 public interface HbTopicsDao {
     public List<AVObject> getList();
+    public AVObject getById(String hid);
 }

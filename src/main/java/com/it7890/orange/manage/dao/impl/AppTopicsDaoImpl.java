@@ -20,11 +20,14 @@ import java.util.Map;
 @Component
 public class AppTopicsDaoImpl implements AppTopicsDao {
     @Override
-    public List<AVObject> getListByCId(String cid) {
+    public List<AVObject> getListByCId(String cid,String hid) {
         AVQuery avQuery = new AVQuery("AppTopics");
         avQuery.include("topicIconFile");
         avQuery.include("HbTopicsObj");
         List<AVObject> ls = new ArrayList<>();
+        if (StringUtils.isNotBlank(hid)){
+            avQuery.whereEqualTo("HbTopicsObj",AVObject.createWithoutData("hb_topics",hid));
+        }
         if (StringUtils.isNotBlank(cid)){
             avQuery.whereEqualTo("countryObj", AVObject.createWithoutData("hb_countrys", cid));
         }
@@ -49,4 +52,27 @@ public class AppTopicsDaoImpl implements AppTopicsDao {
         }
         return list;
     }
+
+    @Override
+    public void delByCidAndHid(String cid, String hid) {
+        AVQuery query = new AVQuery("AppTopics");
+        query.whereEqualTo("countryObj",AVObject.createWithoutData("hb_countrys",cid));
+        query.whereEqualTo("HbTopicsObj",AVObject.createWithoutData("hb_topics",hid));
+        try {
+            List<AVObject> ls =  query.find();
+            ls.get(0).delete();
+        } catch (AVException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void saveOrUpdate(AVObject avObject) {
+        try {
+            avObject.save();
+        } catch (AVException e) {
+            e.printStackTrace();
+        }
+    }
+
 }

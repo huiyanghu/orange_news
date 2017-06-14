@@ -28,4 +28,17 @@ public class HbTopicsDaoImpl implements HbTopicsDao {
         }
         return ls;
     }
+
+    @Override
+    public AVObject getById(String hid) {
+        AVObject avObject = new AVObject();
+        AVQuery avQuery = new AVQuery("hb_topics");
+        avQuery.include("topicIconFile");
+        try {
+            avObject = avQuery.get(hid);
+        } catch (AVException e) {
+            e.printStackTrace();
+        }
+        return avObject;
+    }
 }
