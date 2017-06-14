@@ -178,6 +178,7 @@ public class HbCountryControler {
                 if (null!=appTopicsDTO.getHid()&&appTopicsDTO.getHid().equals(hbTopicsDTO.getHid())){
                     appTopic.setChecked(1);
                     appTopic.setTid(appTopicsDTO.getTid());
+                    appTopic.setRank(appTopicsDTO.getRank());
                     appTopic.setKeyWords(appTopicsDTO.getKeyWords());
                     break;
                 }
