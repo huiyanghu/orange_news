@@ -40,7 +40,7 @@ import java.util.Map;
 @Controller
 @RequestMapping("/countrys")
 public class HbCountryControler {
-    private static final Logger logger = LogManager.getLogger(RecommendArtControler.class);
+    private static final Logger logger = LogManager.getLogger(HbCountryControler.class);
 
     @Resource
     HbCountryService hbCountryService;
@@ -212,8 +212,11 @@ public class HbCountryControler {
                                 appTopics.setKeyWords(keyWords[a]);
                             }
                         }
-//                        appTopics.setRank(ranks[a]);
+                        appTopics.setRank(ranks[a]);
                         isdel = false;
+                        logger.info("字段更新的hid::>>>{}",hIds[a]);
+                    }else {
+                        logger.info("要删除hid::>>>{}",hIds[a]);
                     }
                 }
                 if (isdel) {
@@ -233,14 +236,14 @@ public class HbCountryControler {
                     }
                 }
                 if (!isextis) {
-                    logger.info("hid::>>>,{}",hIds[a]);
+                    logger.info("需要绑定的hid::>>>{}",hIds[a]);
                     hbtopics = hbTopicsService.getById(hIds[a]);
                     apptopics = new AVObject("AppTopics");
                     apptopics.put("countryObj",AVObject.createWithoutData("hb_countrys",countryId));
                     apptopics.put("HbTopicsObj",AVObject.createWithoutData("hb_topics",hIds[a]));
 //                    apptopics.setCreateuid(sysuer.getUserid());
                     apptopics.put("keyWords",keyWords[a]);
-//                    apptopics.put("rank",ranks[a]);
+                    apptopics.put("rank",ranks[a]);
 //                    apptopics.put("topicIcon",hbtopics.getTopicIcon());
                     apptopics.put("topicIconFile",hbtopics.getTopicIconId());
                     apptopics.put("topicName",hbtopics.getTopicName());
