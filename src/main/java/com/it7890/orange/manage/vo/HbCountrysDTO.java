@@ -13,6 +13,7 @@ public class HbCountrysDTO {
     private String shortName;
     private String countryCode;
     private String countryId;
+    private String lingId;
 
 
     public String getCnName() {
@@ -64,6 +65,9 @@ public class HbCountrysDTO {
             hbCountrysDTO.setCountryCode(avo.getString("countryCode"));
             hbCountrysDTO.setShortName(avo.getString("shortName"));
             hbCountrysDTO.setCountryId(avo.getObjectId());
+            if(avo.getAVObject("languageObj")!=null){
+                hbCountrysDTO.setCountryId(avo.getAVObject("languageObj").getObjectId());
+            }
         }
         return hbCountrysDTO;
     }
