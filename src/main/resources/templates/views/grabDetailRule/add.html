@@ -138,7 +138,7 @@
                                 规则状态：
                             </label>
                             <div class="col-md-9">
-                                <select name="status" id="status" class="select2-select-00 col-md-12 full-width-fix select2-offscreen" tabindex="-1">
+                                <select class="form-control" name="status" id="status">
                                     <option value="" selected>请选择</option>
                                     <option th:each="grabListRuleListStatus:${grabListRuleListStatusList}" th:value="${grabListRuleListStatus.get('key')}" th:text="${grabListRuleListStatus.get('value')}"></option>
                                 </select>
