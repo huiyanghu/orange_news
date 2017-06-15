@@ -1,18 +1,18 @@
 package com.it7890.orange.manage.vo;
 
 import com.avos.avoscloud.AVObject;
-import com.it7890.orange.manage.model.HbLanguage;
 
 /**
  * @author gg
  * @create 2017/6/7
  **/
-public class HbLanguageDTO {
+public class HbLanguageVO {
     private String hbId;
     private String name;
     private String cnName;
     private long date;
     private String code;
+    private int checked;
 
     public String getHbId() {
         return hbId;
@@ -54,17 +54,13 @@ public class HbLanguageDTO {
         this.code = code;
     }
 
-    public static HbLanguageDTO avo2Dto(AVObject avo){
-        HbLanguageDTO hbLanguageDTO = null;
-        if(null != avo){
-            hbLanguageDTO = new HbLanguageDTO();
-            hbLanguageDTO.setHbId(avo.getObjectId());
-            hbLanguageDTO.setDate(avo.getCreatedAt().getTime());
-            hbLanguageDTO.setName(avo.getString("name"));
-            hbLanguageDTO.setCode(avo.getString("codes"));
-            hbLanguageDTO.setCnName(avo.getString("remark"));
-        }
-        return hbLanguageDTO;
+    public int getChecked() {
+        return checked;
     }
+
+    public void setChecked(int checked) {
+        this.checked = checked;
+    }
+
 }
 

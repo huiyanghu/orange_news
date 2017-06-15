@@ -4,14 +4,15 @@ import com.alibaba.fastjson.JSON;
 import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.AVObject;
 import com.avos.avoscloud.AVQuery;
+import com.it7890.orange.manage.dao.AppLanguagesDao;
 import com.it7890.orange.manage.dao.HbCountryDao;
+import com.it7890.orange.manage.model.HbLanguage;
 import com.it7890.orange.manage.po.CountryQuery;
 import com.it7890.orange.manage.po.RecommendQuery;
 import com.it7890.orange.manage.service.*;
 import com.it7890.orange.manage.utils.XlsUtil;
-import com.it7890.orange.manage.vo.AppTopicsDTO;
-import com.it7890.orange.manage.vo.HbCountrysDTO;
-import com.it7890.orange.manage.vo.HbTopicsDTO;
+import com.it7890.orange.manage.vo.*;
+import com.sun.org.apache.regexp.internal.RE;
 import org.apache.commons.lang.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -22,6 +23,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -52,6 +54,8 @@ public class HbCountryControler {
     AppTopicsService appTopicsService;
     @Resource
     HbTopicsService hbTopicsService;
+    @Resource
+    AppLanguagesService appLanguagesService;
 
     /**
      * 列表
@@ -194,8 +198,7 @@ public class HbCountryControler {
 
 
     @RequestMapping(value = "/topicsUpdate", method = RequestMethod.GET)
-    public String topicsUpdate(HttpServletRequest request,
-                               HttpServletResponse response, String countryId,String[] hIds,
+    public String topicsUpdate(HttpServletRequest request,String countryId,String[] hIds,
                                String[] keyWords, int[] ranks, Model model) {
         List<AppTopicsDTO> apptics = appTopicsService.getDtoList(countryId,null);
         int result = 0;
@@ -263,8 +266,7 @@ public class HbCountryControler {
 
 
     @RequestMapping(value = "exportCountry", method = RequestMethod.GET)
-    public void exportcountry(HttpServletRequest request,
-                              HttpServletResponse response, String[] countrys) throws IOException {
+    public void exportcountry( HttpServletResponse response) throws IOException {
         response.setHeader("content-disposition",
             "attachment;filename=exportcountry.xls");
         String[] title = { "国家ID", "国家名称", "国家代码" };
@@ -278,5 +280,28 @@ public class HbCountryControler {
             list.add(str);
         }
         XlsUtil.excelExport(list, title, response);
+    }
+
+    @RequestMapping("/languages")
+    public String countryLang(ModelMap modelMap,String countryId){
+        List<HbLanguageVO> resList = new ArrayList<>();
+        HbLanguageVO hbLanguageVO;
+        List<AppLanguagesDTO> appLanguagesDTOs = appLanguagesService.getByCidAndHBlangId(countryId,null);
+        List<HbLanguageDTO> ls = languageService.getDTOList();
+        for (HbLanguageDTO hbLanguageDTO:ls){
+            hbLanguageVO = new HbLanguageVO();
+            BeanUtils.copyProperties(hbLanguageDTO,hbLanguageVO);
+            hbLanguageVO.setChecked(0);
+            for (AppLanguagesDTO appLanguagesDTO : appLanguagesDTOs){
+                if (hbLanguageDTO.getHbId().equals(appLanguagesDTO.getHbLangId())){
+                    hbLanguageVO.setChecked(1);
+                }
+            }
+            resList.add(hbLanguageVO);
+        }
+        modelMap.addAttribute("langList",resList);
+//        logger.info("res::>>{}",JSON.toJSONString(resList));
+        logger.info("map::>>>{}",modelMap);
+        return "country/language";
     }
 }

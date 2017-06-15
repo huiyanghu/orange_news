@@ -229,7 +229,7 @@
                                 </div>
                                 <div class="col-md-4">
                                     <input type="button" id="viewUrl" class="btn btn-primary" value="预览">
-                                    <input type="button" id="editUrl" class="btn btn-primary" value="删除">
+                                    <!--<input type="button" id="editUrl" class="btn btn-primary" value="删除">-->
                                 </div>
                             </div>
                         </div>
@@ -336,6 +336,8 @@
         dataJson.descCssPath = $('#descCssPath').val();
         dataJson.keywordCssPath = $('#keywordCssPath').val();
         dataJson.conCssPath = $('#conCssPath').val();
+        dataJson.conCssPath2 = $('#conCssPath1').val();
+        dataJson.conCssPath3 = $('#conCssPath2').val();
         dataJson.replaceCssPath = $('#replaceCssPath').val();
         var dataJsonStr = encodeURIComponent(JSON.stringify(dataJson));
         var base = new Base64();
