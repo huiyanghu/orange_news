@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
-    <title></title>
+    <title>测试结果显示</title>
     <link href="/stylesheets/meAdmin/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
     <!--[if lt IE 9]>
     <link href="/stylesheets/meAdmin/plugins/jquery-ui/jquery.ui.1.10.2.ie.css" rel="stylesheet" type="text/css"/>
@@ -96,7 +96,6 @@
     var flag = Request.flag;
     if(flag == 'grabRule'){
         var dataJsonStr = Request.dataJson;
-        console.log(dataJsonStr);
         $.ajax({
             url: "http://54.219.221.173:80/checkGrabListRule",
             type: "post",

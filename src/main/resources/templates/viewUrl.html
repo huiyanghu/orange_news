@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>预览效果显示</title>
+    <link rel="stylesheet" type="text/css" href="/stylesheets/meAdmin/assets/css/simple-preview/iconfont.css"/>
+    <link rel="stylesheet" type="text/css" href="/stylesheets/meAdmin/assets/css/simple-preview/style.css" id="styleCss"/>
+    <script type="text/javascript" src="/stylesheets/meAdmin/assets/js/libs/jquery-1.10.2.min.js"></script>
+</head>
+<body style="width: 800px; margin: 0 auto;">
+<div class="headImg" id="headImg">
+    <img src="" alt="" onload="imgSize(this)" />
+</div>
+<div class="title" id="title"></div>
+<div class="info">
+    <div class="left" id="copyRight">
+        <div class="left">
+            <div class="mediaImg" id="mediaImg">
+                <img src=""/>
+            </div>
+        </div>
+        <div class="left text">
+            <div class="mediaName" id="mediaName" style="height: 30px;"></div>
+            <div class="date">
+                <span class="iconfont icon-clock"></span>
+                <span id="mediaTime"></span>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="content" id="content">
+
+</div>
+<script type="text/javascript">
+    function UrlSearch() {
+        var name,value;
+        var str=location.href;
+        var num=str.indexOf("?")
+        str=str.substr(num+1);
+        var arr=str.split("&");
+        for(var i=0;i < arr.length;i++){
+            num=arr[i].indexOf("=");
+            if(num>0){
+                name=arr[i].substring(0,num);
+                value=arr[i].substr(num+1);
+                this[name]=value;
+            }
+        }
+    }
+    var Request=new UrlSearch();
+    var dataJsonStr = Request.dataJson;
+    function imgSize(obj){
+        var w = $(obj).width();
+        var h = $(obj).height();
+        if(w < screenW){
+            $(obj).removeClass().addClass('posT');
+            $('.headImg').css('height',260);
+        }else{
+            $(obj).removeClass().addClass('posL');
+            $('.headImg').css('height',h);
+        }
+    }
+    function resolveJson(getJson){
+        console.log(getJson);
+        if(getJson == '' || getJson == undefined || getJson == null){
+            $('body').html('暂时没有数据');
+        }
+        //置顶图
+        if(getJson.articleTitleImage == '' || getJson.articleTitleImage == null || getJson.articleTitleImage == undefined){
+            $('#headImg').hide();
+        }else{
+            $('#headImg img').attr('src',getJson.articleTitleImage);
+        }
+        //文章名称
+        $('#title').html(getJson.articleTitle);
+        //媒体名称
+        $('#mediaName').html(getJson.author);
+        $('#mediaImg').hide();
+        //发布时间
+        var pubTime = getJson.updatedAt;
+        if(pubTime == '' || pubTime == null || pubTime == undefined){
+            pubTime = '';
+        }
+        $('#mediaTime').html('Updated at '+pubTime);
+        //文章内容
+        var contentBody = getJson.articleContent+getJson.articleContent2+getJson.articleContent3;
+        $('#content').html(contentBody);
+    }
+    $.ajax({
+        url: "http://54.219.221.173:80/checkGrabDetailRule",
+        type: "post",
+        data: {
+            "grabDetailRuleJSON": dataJsonStr
+        },
+        success: function (data) {
+            if(data.success == 1){
+                var articleJsonStr = data.articleJson;
+                resolveJson(articleJsonStr);
+            }else{
+                alert(data.msg);
+            }
+        },
+        error: function (error) {
+            console.log(error);
+            alert(error);
+        }
+    });
+</script>
+</body>
+</html>

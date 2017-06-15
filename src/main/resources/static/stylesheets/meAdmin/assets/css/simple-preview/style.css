@@ -1,0 +1,28 @@
+html{ font-size: 62.5%;}
+*{ margin: 0; padding: 0; list-style: none; box-sizing: border-box;}
+.left{ float: left;}
+.right{ float: right;}
+.headImg{ width: 100%; height: 260px; text-align: center; position: relative; overflow: hidden;}
+.headImg img{ height: 260px; width: auto; display: block;}
+.headImg img.posT{ width: 100%; height: auto; position: absolute; top: 50%; transform: translateY(-50%); -webkit-transform: translateY(-50%);}
+.headImg img.posL{ position: absolute; left: 50%; transform: translateX(-50%); -webkit-transform: translateX(-50%);}
+.title{ width: 100%;  padding: 0 3.33333%; line-height: 3rem; font-size: 2.4rem; color: #222; margin-top: 1rem;}
+.info{ width: 100%; padding: 0 3.33333%; margin-top: 1rem; padding-bottom: 1.5rem; border-bottom: 1px solid #ccc; overflow: hidden;}
+.mediaImg{ width: 4.5rem; height: 4.5rem; border-radius: 50%; position: relative; overflow: hidden; margin-right: 1.2rem;}
+.mediaImg img{ width: 100%; position: absolute; left: 50%; top: 50%; transform: translate(-50%,-50%); -webkit-transform: translate(-50%,-50%);}
+.left .text{ width: 15rem; line-height: 2rem; padding: 0.25rem 0;}
+.mediaName{ font-size: 1.6rem; color: #444; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;}
+.date{ font-size: 1.4rem; color: #666;}
+.date .iconfont{ font-size: 1.4rem; display: inline-block; margin-right: 0.4rem;}
+.subscribe{ width: 4.5rem; height: 2.7rem; border-radius: 0.4rem; border: 0.1rem solid dodgerblue; margin-top: 0.9rem; line-height: 2.5rem; text-align: center;}
+.subscribe .iconfont{ color: dodgerblue;}
+.subscribe.active{ background: dodgerblue;}
+.subscribe.active .iconfont{ color: #fff;}
+.icon-add{ font-size: 2rem;}
+.icon-subscribe{ font-size: 2.2rem;}
+.icon-subscribe.margin{ margin-left: -0.6rem;}
+.content{ padding: 1rem 3.33333% 4rem; font-size: 2rem; color: #222; line-height: 2.6rem;}
+.content p{ width: 100%; margin-bottom: 0.6rem; font-weight: 400 !important; color: #333 !important;}
+.content img{ max-width: 100% !important;}
+.content.minFontSize{ font-size: 1.4rem; line-height: 2.2rem;}
+.content.maxFontSize{ font-size: 2.8rem; line-height: 3.4rem;}

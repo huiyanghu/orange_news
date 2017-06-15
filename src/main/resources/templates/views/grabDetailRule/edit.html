@@ -216,7 +216,7 @@
                                 replaceCssPath：
                             </label>
                             <div class="col-md-9">
-                                <input type="text" id="replaceCssPath" name="replaceCssPath" class="form-control" placeholder="输入replaceCssPath" th:value="${grabDetailRule.replaceCssPath}">
+                                <textarea rows="3" cols="5" id="replaceCssPath" name="replaceCssPath" class="form-control" placeholder="输入replaceCssPath"  th:text="${grabDetailRule.replaceCssPath}"></textarea>
                             </div>
                         </div>
                         <div class="form-group">
@@ -327,6 +327,20 @@
                 }
             }
         });
+    });
+    $('#viewUrl').click(function(){
+        var dataJson ={};
+        dataJson.testUrl = $('#testUrl').val();
+        dataJson.authorCssPath = $('#authorCssPath').val();
+        dataJson.titleCssPath = $('#titleCssPath').val();
+        dataJson.descCssPath = $('#descCssPath').val();
+        dataJson.keywordCssPath = $('#keywordCssPath').val();
+        dataJson.conCssPath = $('#conCssPath').val();
+        dataJson.replaceCssPath = $('#replaceCssPath').val();
+        var dataJsonStr = encodeURIComponent(JSON.stringify(dataJson));
+        var base = new Base64();
+        dataJsonStr = base.encode(dataJsonStr);
+        window.open("../grabListRule/toViewUrl?dataJson="+dataJsonStr,"_blank");
     });
     $('#test').click(function (){
         var dataJson ={};
