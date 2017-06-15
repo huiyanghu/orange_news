@@ -306,4 +306,9 @@ public class GrabListRuleController {
         map.put("dataJson", dataJson);
         return "testResult";
     }
+    @RequestMapping("/toViewUrl")
+    public String toViewUrl(Map map, String dataJson) throws AVException {
+        map.put("dataJson", dataJson);
+        return "viewUrl";
+    }
 }
