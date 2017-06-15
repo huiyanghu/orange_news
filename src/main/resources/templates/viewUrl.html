@@ -49,19 +49,7 @@
     }
     var Request=new UrlSearch();
     var dataJsonStr = Request.dataJson;
-    function imgSize(obj){
-        var w = $(obj).width();
-        var h = $(obj).height();
-        if(w < screenW){
-            $(obj).removeClass().addClass('posT');
-            $('.headImg').css('height',260);
-        }else{
-            $(obj).removeClass().addClass('posL');
-            $('.headImg').css('height',h);
-        }
-    }
     function resolveJson(getJson){
-        console.log(getJson);
         if(getJson == '' || getJson == undefined || getJson == null){
             $('body').html('暂时没有数据');
         }
