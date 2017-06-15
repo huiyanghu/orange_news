@@ -109,9 +109,6 @@ public class GrabDetailRuleController {
         } else {
             grabDetailRule.setGrabListRule(null);
         }
-
-
-
         grabDetailRule.save();
 
         attributes.addAttribute("ruleName", grabDetailRuleQuery.getRuleName());
