@@ -168,6 +168,8 @@ public class GrabListRuleController {
         grabListRule.save();
 
 
+
+        /*
         attributes.addAttribute("ruleName", grabListRuleQuery.getRuleName());
         attributes.addAttribute("publicationObjectId", grabListRuleQuery.getPublicationObjectId());
         attributes.addAttribute("nodeObjectId", grabListRuleQuery.getNodeObjectId());
@@ -175,6 +177,7 @@ public class GrabListRuleController {
         attributes.addAttribute("countryCode", grabListRuleQuery.getCountryCode());
         attributes.addAttribute("topicObjectId", grabListRuleQuery.getTopicObjectId());
         attributes.addAttribute("page", page);
+        */
         attributes.addFlashAttribute("msg", "修改成功!");
         return "redirect:/grabListRule/list";
     }
@@ -293,6 +296,7 @@ public class GrabListRuleController {
         grabListRule.setStatus(2);//删除
         grabListRule.save();
 
+        /*
         attributes.addAttribute("ruleName", grabListRuleQuery.getRuleName());
         attributes.addAttribute("publicationObjectId", grabListRuleQuery.getPublicationObjectId());
         attributes.addAttribute("nodeObjectId", grabListRuleQuery.getNodeObjectId());
@@ -300,6 +304,7 @@ public class GrabListRuleController {
         attributes.addAttribute("countryCode", grabListRuleQuery.getCountryCode());
         attributes.addAttribute("topicObjectId", grabListRuleQuery.getTopicObjectId());
         attributes.addAttribute("page", page);
+        */
         attributes.addFlashAttribute("msg", "删除成功!");
         return "redirect:/grabListRule/list";
     }

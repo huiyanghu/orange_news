@@ -68,11 +68,13 @@ public class AppTopController {
         appTop.save();
 
         attributes.addFlashAttribute("msg", "删除成功!");
+        /*
         attributes.addAttribute("page", page);
         attributes.addAttribute("countryCode", appTopQuery.getCountryCode());
         attributes.addAttribute("ctype", appTopQuery.getCtype());
         attributes.addAttribute("startTime", appTopQuery.getStartTime());
         attributes.addAttribute("endTime", appTopQuery.getEndTime());
+        */
         return "redirect:/appTop/list";
     }
 

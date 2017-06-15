@@ -112,9 +112,12 @@ public class GrabDetailRuleController {
         grabDetailRule.save();
 
 
+        /*
         attributes.addAttribute("ruleName", grabDetailRuleQuery.getRuleName());
         attributes.addAttribute("status", grabDetailRuleQuery.getStatus());
         attributes.addAttribute("page", page);
+        */
+
         attributes.addFlashAttribute("msg", "修改成功!");
         return "redirect:/grabDetailRule/list";
     }
@@ -186,11 +189,12 @@ public class GrabDetailRuleController {
         grabDetailRule.setObjectId(grabDetailRuleQuery.getObjectId());
         grabDetailRule.setStatus(2);//删除
         grabDetailRule.save();
-
+        /*
         attributes.addAttribute("ruleName", grabDetailRuleQuery.getRuleName());
         attributes.addAttribute("status", grabDetailRuleQuery.getStatus());
         attributes.addAttribute("page", page);
-        attributes.addFlashAttribute("msg", "修改成功!");
+        */
+        attributes.addFlashAttribute("msg", "删除成功!");
         return "redirect:/grabDetailRule/list";
     }
 
