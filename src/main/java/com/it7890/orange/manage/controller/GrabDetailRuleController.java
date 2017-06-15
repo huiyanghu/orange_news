@@ -110,6 +110,7 @@ public class GrabDetailRuleController {
             grabDetailRule.setGrabListRule(null);
         }
         grabDetailRule.save();
+        
 
         attributes.addAttribute("ruleName", grabDetailRuleQuery.getRuleName());
         attributes.addAttribute("status", grabDetailRuleQuery.getStatus());
