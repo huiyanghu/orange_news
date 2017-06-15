@@ -60,7 +60,7 @@ public class GrabDetailRuleController {
         map.put("grabDetailRule", grabDetailRule);
         List<Map> grabListRuleList = grabListRuleService.get(new GrabListRuleQuery());
         map.put("grabListRuleList", grabListRuleList);
-        List<Map> globalNodeList=globalNodeService.getGlobalNodeList();
+        List<Map> globalNodeList = globalNodeService.getGlobalNodeList();
         map.put("globalNodeList", globalNodeList);
         map.put("grabListRuleListStatusList", ConstantsUtil.getConstants("grabListRuleListStatus"));//列表文章状态
         System.out.println(JSON.toJSONString(map));
@@ -92,15 +92,22 @@ public class GrabDetailRuleController {
         grabDetailRule.setAuthorCssPath(grabDetailRuleQuery.getAuthorCssPath());
         grabDetailRule.setTestUrl(grabDetailRuleQuery.getTestUrl());
 
+
         if (StringUtil.isNotEmpty(grabDetailRuleQuery.getGlobalNodeObjectId())) {
-            GlobalNode globalNode=new GlobalNode();
+            GlobalNode globalNode = new GlobalNode();
             globalNode.setObjectId(grabDetailRuleQuery.getGlobalNodeObjectId());
             grabDetailRule.setGlobalNode(globalNode);
+        } else {
+            grabDetailRule.setGlobalNode(null);
         }
+
+
         if (StringUtil.isNotEmpty(grabDetailRuleQuery.getGrabListRuleObjectId())) {
             GrabListRule grabListRule = new GrabListRule();
             grabListRule.setObjectId(grabDetailRuleQuery.getGrabListRuleObjectId());
             grabDetailRule.setGrabListRule(grabListRule);
+        } else {
+            grabDetailRule.setGrabListRule(null);
         }
 
 
@@ -118,7 +125,7 @@ public class GrabDetailRuleController {
     public String toAdd(Map map) throws AVException {
         List<Map> grabListRuleList = grabListRuleService.get(new GrabListRuleQuery());
         map.put("grabListRuleList", grabListRuleList);//列表规则
-        List<Map> globalNodeList=globalNodeService.getGlobalNodeList();
+        List<Map> globalNodeList = globalNodeService.getGlobalNodeList();
         map.put("globalNodeList", globalNodeList);
         map.put("grabListRuleListStatusList", ConstantsUtil.getConstants("grabListRuleListStatus"));//列表文章状态
         System.out.println(JSON.toJSONString(map));
@@ -152,14 +159,20 @@ public class GrabDetailRuleController {
         grabDetailRule.setTestUrl(grabDetailRuleQuery.getTestUrl());
 
         if (StringUtil.isNotEmpty(grabDetailRuleQuery.getGlobalNodeObjectId())) {
-            GlobalNode globalNode=new GlobalNode();
+            GlobalNode globalNode = new GlobalNode();
             globalNode.setObjectId(grabDetailRuleQuery.getGlobalNodeObjectId());
             grabDetailRule.setGlobalNode(globalNode);
+        } else {
+            grabDetailRule.setGlobalNode(null);
         }
+
+
         if (StringUtil.isNotEmpty(grabDetailRuleQuery.getGrabListRuleObjectId())) {
             GrabListRule grabListRule = new GrabListRule();
             grabListRule.setObjectId(grabDetailRuleQuery.getGrabListRuleObjectId());
             grabDetailRule.setGrabListRule(grabListRule);
+        } else {
+            grabDetailRule.setGrabListRule(null);
         }
         grabDetailRule.save();
 

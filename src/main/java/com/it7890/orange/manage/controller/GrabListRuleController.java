@@ -118,36 +118,48 @@ public class GrabListRuleController {
             HbCountrys country = new HbCountrys();
             country.setObjectId(grabListRuleQuery.getCountryObjectId());
             grabListRule.setCountry(country);
+        }else{
+            grabListRule.setCountry(null);
         }
 
         if (StringUtil.isNotEmpty(grabListRuleQuery.getPublicationObjectId())) {
             ConPublication conPublication = new ConPublication();
             conPublication.setObjectId(grabListRuleQuery.getPublicationObjectId());
             grabListRule.setConPublication(conPublication);
+        }else{
+            grabListRule.setConPublication(null);
         }
 
         if (StringUtil.isNotEmpty(grabListRuleQuery.getNodeObjectId())) {
             GlobalNode globalNode = new GlobalNode();
             globalNode.setObjectId(grabListRuleQuery.getNodeObjectId());
             grabListRule.setGlobalNode(globalNode);
+        }else{
+            grabListRule.setGlobalNode(null);
         }
 
         if (StringUtil.isNotEmpty(grabListRuleQuery.getChannelObjectId())) {
             ConChannel conChannel = new ConChannel();
             conChannel.setObjectId(grabListRuleQuery.getChannelObjectId());
             grabListRule.setConChannel(conChannel);
+        }else{
+            grabListRule.setConChannel(null);
         }
 
         if (StringUtil.isNotEmpty(grabListRuleQuery.getLanguageObjectId())) {
             HbLanguage hbLanguage = new HbLanguage();
             hbLanguage.setObjectId(grabListRuleQuery.getLanguageObjectId());
             grabListRule.setHbLanguage(hbLanguage);
+        }else{
+            grabListRule.setHbLanguage(null);
         }
 
         if (StringUtil.isNotEmpty(grabListRuleQuery.getTopicObjectId())) {
             AppTopics topics = new AppTopics();
             topics.setObjectId(grabListRuleQuery.getTopicObjectId());
             grabListRule.setTopics(topics);
+        }else{
+            grabListRule.setTopics(null);
         }
 
         grabListRule.setStatus(grabListRuleQuery.getStatus());
@@ -218,35 +230,47 @@ public class GrabListRuleController {
             HbCountrys country = new HbCountrys();
             country.setObjectId(grabListRuleQuery.getCountryObjectId());
             grabListRule.setCountry(country);
+        }else{
+            grabListRule.setCountry(null);
         }
         if (StringUtil.isNotEmpty(grabListRuleQuery.getPublicationObjectId())) {
             ConPublication conPublication = new ConPublication();
             conPublication.setObjectId(grabListRuleQuery.getPublicationObjectId());
             grabListRule.setConPublication(conPublication);
+        }else{
+            grabListRule.setConPublication(null);
         }
 
         if (StringUtil.isNotEmpty(grabListRuleQuery.getNodeObjectId())) {
             GlobalNode globalNode = new GlobalNode();
             globalNode.setObjectId(grabListRuleQuery.getNodeObjectId());
             grabListRule.setGlobalNode(globalNode);
+        }else{
+            grabListRule.setGlobalNode(null);
         }
 
         if (StringUtil.isNotEmpty(grabListRuleQuery.getChannelObjectId())) {
             ConChannel conChannel = new ConChannel();
             conChannel.setObjectId(grabListRuleQuery.getChannelObjectId());
             grabListRule.setConChannel(conChannel);
+        }else{
+            grabListRule.setConChannel(null);
         }
 
         if (StringUtil.isNotEmpty(grabListRuleQuery.getLanguageObjectId())) {
             HbLanguage hbLanguage = new HbLanguage();
             hbLanguage.setObjectId(grabListRuleQuery.getLanguageObjectId());
             grabListRule.setHbLanguage(hbLanguage);
+        }else{
+            grabListRule.setHbLanguage(null);
         }
 
         if (StringUtil.isNotEmpty(grabListRuleQuery.getTopicObjectId())) {
             AppTopics topics = new AppTopics();
             topics.setObjectId(grabListRuleQuery.getTopicObjectId());
             grabListRule.setTopics(topics);
+        }else{
+            grabListRule.setTopics(null);
         }
 
 
