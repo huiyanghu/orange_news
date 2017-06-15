@@ -283,7 +283,6 @@ public class HbCountryControler {
     }
 
     @RequestMapping("/languages")
-    @ResponseBody
     public String countryLang(ModelMap modelMap,String countryId){
         List<HbLanguageVO> resList = new ArrayList<>();
         HbLanguageVO hbLanguageVO;
