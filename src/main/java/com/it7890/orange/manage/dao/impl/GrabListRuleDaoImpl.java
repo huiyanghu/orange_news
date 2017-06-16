@@ -51,6 +51,7 @@ public class GrabListRuleDaoImpl implements GrabListRuleDao {
 
         PageUtil pageUtil = new PageUtil();
         Integer pageSize = pageUtil.getPageSize();
+
         query.skip((page - 1) * pageSize);
         query.limit(pageSize);
 
@@ -82,9 +83,9 @@ public class GrabListRuleDaoImpl implements GrabListRuleDao {
 
         /*pageUtil*/
         Integer count = query.count();
-        pageUtil.setCurrentPage(page);
         pageUtil.setRecordCount(count);
         pageUtil.setPagecount(pageUtil.getPagecount());
+        pageUtil.setCurrentPage(page);
         map.put("pageUtil", pageUtil);
         return map;
     }

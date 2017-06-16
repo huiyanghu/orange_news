@@ -86,9 +86,9 @@ public class AppTopDaoImpl  implements AppTopDao {
 
         /*pageUtil*/
         Integer count = query.count();
-        pageUtil.setCurrentPage(page);
         pageUtil.setRecordCount(count);
         pageUtil.setPagecount(pageUtil.getPagecount());
+        pageUtil.setCurrentPage(page);
         map.put("pageUtil", pageUtil);
         return map;
     }
