@@ -16,4 +16,6 @@ public interface LanguageDao {
     public List<AVObject> getLangList();
 
     public List<Map> getLanguageList() throws AVException;
+
+    public AVObject getById(String objId);
 }

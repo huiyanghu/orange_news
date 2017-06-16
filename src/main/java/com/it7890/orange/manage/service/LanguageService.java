@@ -14,4 +14,5 @@ public interface LanguageService {
     public List<HbLanguage> getAll();
     public List<HbLanguageDTO> getDTOList();
     public List<Map> getLanguageList() throws AVException;
+    public HbLanguageDTO getById(String objid);
 }

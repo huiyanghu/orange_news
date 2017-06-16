@@ -4,6 +4,7 @@ import com.avos.avoscloud.AVObject;
 import com.it7890.orange.manage.dao.AppLanguagesDao;
 import com.it7890.orange.manage.service.AppLanguagesService;
 import com.it7890.orange.manage.vo.AppLanguagesDTO;
+import com.it7890.orange.manage.vo.AppTopicsDTO;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
@@ -22,6 +23,23 @@ public class AppLanguagesServiceImpl implements AppLanguagesService {
     public List<AppLanguagesDTO> getByCidAndHBlangId(String cid, String hblangId) {
         List<AVObject> ls = appLanguagesDao.getByCidAndLangId(cid,hblangId);
         return buileDtoList(ls);
+    }
+
+    @Override
+    public int updateAppLang(String countryId, List<AppLanguagesDTO> delapplangs, List<AVObject> addapplangs) {
+        int result = 0;
+        try{
+            for (AppLanguagesDTO appLanguagesDTO : delapplangs) {
+                this.appLanguagesDao.delLangByCidAndHbid(countryId,appLanguagesDTO.getHbLangId());
+            }
+            for (AVObject appTopics : addapplangs) {
+                this.appLanguagesDao.saveOrUpdate(appTopics);
+            }
+            result = 1;
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        return result;
     }
 
     public static List<AppLanguagesDTO> buileDtoList(List<AVObject> ls){

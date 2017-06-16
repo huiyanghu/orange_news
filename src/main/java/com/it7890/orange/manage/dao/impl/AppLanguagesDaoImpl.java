@@ -35,4 +35,26 @@ public class AppLanguagesDaoImpl implements AppLanguagesDao {
         }
         return ls;
     }
+
+    @Override
+    public void delLangByCidAndHbid(String cid, String hid) {
+        AVQuery avQuery = new AVQuery("AppLanguages");
+        avQuery.whereEqualTo("CountryObj",AVObject.createWithoutData("hb_countrys",cid));
+        avQuery.whereEqualTo("HbLanguageObj",AVObject.createWithoutData("hb_languages",hid));
+        try {
+            List<AVObject> ls = avQuery.find();
+            ls.get(0).delete();
+        } catch (AVException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void saveOrUpdate(AVObject avObject) {
+        try {
+            avObject.save();
+        } catch (AVException e) {
+            e.printStackTrace();
+        }
+    }
 }

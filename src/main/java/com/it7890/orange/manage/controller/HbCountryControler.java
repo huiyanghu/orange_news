@@ -304,4 +304,50 @@ public class HbCountryControler {
         logger.info("map::>>>{}",modelMap);
         return "country/language";
     }
+
+    @RequestMapping(value = "/languageUpdate", method = RequestMethod.GET)
+    public String languageUpdate(HttpServletRequest request,String countryId,String[] hIds, Model model) {
+        List<AppLanguagesDTO> appLanguagesDTOs = appLanguagesService.getByCidAndHBlangId(countryId,null);
+        int result = 0;
+        List<AppLanguagesDTO> delapplangs = new ArrayList<AppLanguagesDTO>();
+        List<AVObject> addapplangs = new ArrayList<AVObject>();
+        if (hIds != null && hIds.length > 0) {
+            for (AppLanguagesDTO appLanguagesDTO : appLanguagesDTOs) {
+                boolean isdel = true;
+                for (int a = 0; a < hIds.length; a++) {
+                    if (hIds[a].equals(appLanguagesDTO.getHbLangId())) {
+                        isdel = false;
+                    }
+                }
+                if (isdel) {
+                    delapplangs.add(appLanguagesDTO);
+                }
+            }
+            AVObject applanguages;
+            HbLanguageDTO hbLanguageDTO;
+            // 检测需要添加绑定的
+            for (int a = 0; a < hIds.length; a++) {
+                boolean isextis = false;
+                for (AppLanguagesDTO appLanguagesDTO : appLanguagesDTOs) {
+                    if (hIds[a].equals(appLanguagesDTO.getHbLangId())) {
+                        isextis = true;
+                    }
+                }
+                if (!isextis) {
+                    logger.info("需要绑定的hid::>>>{}",hIds[a]);
+                    hbLanguageDTO = languageService.getById(hIds[a]);
+                    applanguages = new AVObject("AppLanguages");
+                    applanguages.put("countryObj",AVObject.createWithoutData("hb_countrys",countryId));
+                    applanguages.put("hb_languages",AVObject.createWithoutData("hb_languages",hIds[a]));
+                    addapplangs.add(applanguages);
+                }
+            }
+            result = this.appLanguagesService.updateAppLang(countryId,delapplangs,addapplangs);
+        }
+        request.getSession().setAttribute("message",
+            "更新国家语言:" + (result > 0 ? "成功" : "失败"));
+        request.getSession().setAttribute("url",
+            "country/languages?countryid=" + countryId);
+        return String.format("redirect:/message");
+    }
 }

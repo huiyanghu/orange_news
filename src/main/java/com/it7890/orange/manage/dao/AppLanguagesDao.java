@@ -10,4 +10,6 @@ import java.util.List;
  **/
 public interface AppLanguagesDao {
     public List<AVObject> getByCidAndLangId(String cid,String HBlangId);
+    public void delLangByCidAndHbid(String cid,String hid);
+    public void saveOrUpdate(AVObject avObject);
 }

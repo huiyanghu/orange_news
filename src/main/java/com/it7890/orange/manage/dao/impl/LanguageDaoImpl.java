@@ -57,4 +57,16 @@ public class LanguageDaoImpl implements LanguageDao {
         }
         return list;
     }
+
+    @Override
+    public AVObject getById(String objId) {
+        AVObject avObject = new AVObject();
+        AVQuery avQuery = new AVQuery("hb_languages");
+        try {
+            avObject = avQuery.get(objId);
+        } catch (AVException e) {
+            e.printStackTrace();
+        }
+        return avObject;
+    }
 }

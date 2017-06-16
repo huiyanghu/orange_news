@@ -48,4 +48,9 @@ public class LanguageServiceImpl implements LanguageService {
         return languageDao.getLanguageList();
     }
 
+    @Override
+    public HbLanguageDTO getById(String objid) {
+        return HbLanguageDTO.avo2Dto(languageDao.getById(objid));
+    }
+
 }
