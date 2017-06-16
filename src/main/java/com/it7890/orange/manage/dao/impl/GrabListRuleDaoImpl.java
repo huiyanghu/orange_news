@@ -57,6 +57,7 @@ public class GrabListRuleDaoImpl implements GrabListRuleDao {
         query.include("publicationObj");
         query.include("topicObj");
         query.include("nodeObj");
+        query.include("countryObj");
 
 
         List<GrabListRule> grabListRuleList = query.find();

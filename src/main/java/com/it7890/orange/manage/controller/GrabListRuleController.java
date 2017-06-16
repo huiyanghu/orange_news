@@ -38,7 +38,7 @@ public class GrabListRuleController {
     @Autowired
     LanguageService languageService;
 
-    @RequestMapping("/list")
+    @RequestMapping(path = "/list",method = {RequestMethod.GET,RequestMethod.POST})
     public String getList(Map map, GrabListRuleQuery grabListRuleQuery, @RequestParam(value = "page", required = false, defaultValue = "1") Integer page) throws AVException {
         List<Map> globalNodeList = globalNodeService.getGlobalNodeList();
         List<Map> appTopicsList = appTopicsService.getAppTopicsList();
@@ -54,7 +54,9 @@ public class GrabListRuleController {
         map.remove("org.springframework.validation.BindingResult.grabListRuleQuery");
         System.out.println(JSON.toJSONString(map));
 
+        //return "views/appTop/test1";
         return "views/grabListRule/list";
+
     }
 
     @RequestMapping("/toDetail")
