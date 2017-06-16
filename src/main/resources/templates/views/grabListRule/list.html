@@ -108,8 +108,8 @@
                     </div>
                 </div>
                 <div class="widget-content"><!--th:object="${Query}"-->
-                    <form class="form-horizontal row-border" th:object="${grabListRuleQuery}" th:action="@{/grabListRule/list}" th:method="get">
-                        <input type="hidden" name="page" id="page" value="1">
+                    <form class="form-horizontal row-border" id="dataForm" th:object="${grabListRuleQuery}" th:action="@{/grabListRule/list}" th:method="get">
+                        <input type="hidden" name="page" id="page" th:value="${pageUtil.currentPage}">
                         <div class="form-group">
                             <div class="col-md-6">
                                 <label class="col-md-4 control-label" for="ruleName">
@@ -222,7 +222,7 @@
                             <td th:text="${grab.get('ruleName')}"></td>
                             <td th:text="${grab.get('topicName')}"></td>
                             <td th:text="${grab.get('nodeName')}"></td>
-                            <td th:text="${grab.get('nodeName')}"></td>
+                            <td th:text="${grab.get('countryCode')}"></td>
                             <td th:text="${grab.get('createdAt')}"></td>
                             <td th:text="${grab.get('listStatusStr')}"></td>
                             <td th:text="${grab.get('statusStr')}"></td>
@@ -283,6 +283,30 @@
             if($(this).val() == ''){
                 $(this).select2().select2('val','');
             }
+        });
+        $('#pagination li').click(function(e){
+            var val = $(this).children('a').attr('value');
+            var currentPage = Number($('#page').val());
+            var pageCount = $('#countindex').val();
+            if(val == 'prev'){
+                var jumpPage = currentPage - 1;
+                if(jumpPage >= 0){
+                    $('#page').val(jumpPage);
+                }
+            }else if(val == 'next'){
+                var jumpPage = currentPage + 1;
+                if(jumpPage >= pageCount){
+                    $('#page').val(jumpPage);
+                }
+            }else if(val == 'page'){
+                var jumpPage = Number($(this).text());
+                $('#page').val(jumpPage);
+            }else if(val == '1'){
+                $('#page').val(1);
+            }else if(val == 'last'){
+                $('#page').val(pageCount);
+            }
+            $('#dataForm').submit();
         });
     });
     if($("#msg").val() != ''){
