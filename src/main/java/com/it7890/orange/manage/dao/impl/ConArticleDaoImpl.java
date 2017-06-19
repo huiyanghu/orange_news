@@ -76,7 +76,8 @@ public class ConArticleDaoImpl implements ConArticleDao {
             m = new HashMap();
             m.put("objectId", avObject.getObjectId());
             m.put("title", avObject.get("title"));
-            m.put("ctype", ConstantsUtil.getConstants("conArticleCtype", "" + avObject.get("ctype")));
+            m.put("ctype",  avObject.get("ctype"));
+            m.put("ctypeStr", ConstantsUtil.getConstants("conArticleCtype", "" + avObject.get("ctype")));
             m.put("countrycode", avObject.get("countrycode"));
             if (avObject.getAVObject("topicObj") != null) {
                 m.put("topicName", avObject.getAVObject("topicObj").get("topicName"));
@@ -84,7 +85,8 @@ public class ConArticleDaoImpl implements ConArticleDao {
             if (avObject.getAVObject("publicationObj") != null) {
                 m.put("publicationName", avObject.getAVObject("publicationObj").get("name"));
             }
-            m.put("status", ConstantsUtil.getConstants("conArticleStatus", "" + avObject.get("status")));
+            m.put("status",  avObject.get("status"));
+            m.put("statusStr", ConstantsUtil.getConstants("conArticleStatus", "" + avObject.get("status")));
 
             if (avObject.get("publishtime") != null) {
                 Date publishtime = (Date) avObject.get("publishtime");
