@@ -1,13 +1,16 @@
 package com.it7890.orange.manage.service.impl;
 
 import com.avos.avoscloud.AVException;
+import com.avos.avoscloud.AVObject;
 import com.it7890.orange.manage.dao.ConArticleDao;
 import com.it7890.orange.manage.model.ConArticle;
 import com.it7890.orange.manage.po.ConArticleQuery;
 import com.it7890.orange.manage.service.ConArticleService;
+import com.it7890.orange.manage.vo.ConArticleDetailDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
@@ -44,6 +47,12 @@ public class ConArticleServiceImpl implements ConArticleService {
         for (String id : idArr) {
             conArticleDao.publish(id);
         }
+    }
+
+    @Override
+    public ConArticleDetailDTO getContentByArtID(String artId) throws IOException, AVException {
+        AVObject avo = conArticleDao.getByArtid(artId);
+        return ConArticleDetailDTO.objectToDto(avo);
     }
 
 
