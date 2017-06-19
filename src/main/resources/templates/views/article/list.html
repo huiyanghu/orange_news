@@ -109,6 +109,7 @@
                 </div>
                 <div class="widget-content">
                     <form class="form-horizontal row-border" th:object="${conArticleQuery}" th:action="@{/conArticle/list}" th:method="get" id="dataForm">
+                        <input type="hidden" name="page" id="page" th:value="${pageUtil.currentPage}">
                         <div class="form-group">
                             <div class="col-md-4">
                                 <label class="col-md-4 control-label" for="objectId">
