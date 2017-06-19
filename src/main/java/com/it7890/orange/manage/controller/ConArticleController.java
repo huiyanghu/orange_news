@@ -509,13 +509,12 @@ public class ConArticleController {
     }
 
     @RequestMapping(value = "/getContent", method = RequestMethod.GET)
-    public String importscreen( @RequestParam(value = "articleId", required = true) String articleId,
+    public void importscreen( @RequestParam(value = "articleId", required = true) String articleId,
                                Model model) throws AVException, IOException {
 
         ConArticleDetailDTO resArtContentDTO = new ConArticleDetailDTO();
         resArtContentDTO = conArticleService.getContentByArtID(articleId);
         model.addAttribute("content",resArtContentDTO);
-        return "conrule/preview";
 
     }
 
