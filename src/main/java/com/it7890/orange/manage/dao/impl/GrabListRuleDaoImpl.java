@@ -105,6 +105,7 @@ public class GrabListRuleDaoImpl implements GrabListRuleDao {
 
     public List<GrabListRule> get(GrabListRuleQuery grabListRuleQuery) throws AVException {
         AVQuery<GrabListRule> query = new AVQuery<>("GrabListRule");
+        query.limit(1000);
         if (StringUtil.isNotEmpty(grabListRuleQuery.getChannelObjectId())) {
             query.whereEqualTo("channelObj", AVObject.createWithoutData("con_channel", grabListRuleQuery.getChannelObjectId()));
         }
