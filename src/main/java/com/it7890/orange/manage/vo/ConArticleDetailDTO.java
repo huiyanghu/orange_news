@@ -12,7 +12,7 @@ import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ConArticleDetailDTO {
+public class ConArticleDetailDTO extends ResponseBase {
 	private static Logger logger = LogManager.getLogger(ConArticleDetailDTO.class);
 	private String title;//标题
 	private String country;//国家

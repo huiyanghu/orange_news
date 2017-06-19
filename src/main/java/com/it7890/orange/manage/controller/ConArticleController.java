@@ -19,12 +19,15 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -509,7 +512,7 @@ public class ConArticleController {
 
     }
     @RequestMapping(value = "/preview", method = RequestMethod.GET)
-    public String preview(ModelMap map, String flag, String dataJson) {
+    public String preview(Map map, String flag, String dataJson) {
         map.put("flag", flag);
         map.put("dataJson", dataJson);
         return "viewUrl";
@@ -517,12 +520,40 @@ public class ConArticleController {
 
 
     @RequestMapping(value = "/getContent", method = RequestMethod.GET)
+    @ResponseBody
     public void getContent( @RequestParam(value = "articleId", required = true) String articleId,
-                               Model model) throws AVException, IOException {
+                               Model model,HttpServletResponse response) throws AVException, IOException {
 
         ConArticleDetailDTO resArtContentDTO = new ConArticleDetailDTO();
         resArtContentDTO = conArticleService.getContentByArtID(articleId);
-        model.addAttribute("content",resArtContentDTO);
+        model.addAttribute("content",JSON.toJSONString(resArtContentDTO));
+        if (resArtContentDTO!=null) {
+            resArtContentDTO.setMsg("成功");
+            resArtContentDTO.setSuccess(1);
+            resArtContentDTO.setStatus(200);
+        }else {
+            resArtContentDTO.setMsg("失败");
+            resArtContentDTO.setSuccess(0);
+            resArtContentDTO.setStatus(500);
+        }
+
+        response.setCharacterEncoding("UTF-8");
+        response.setContentType("text/json");
+        response.setDateHeader("Expires", 0);
+
+        PrintWriter out = null;
+        try {
+            out = response.getWriter();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (null != out) {
+                out.print(JSON.toJSONString(resArtContentDTO));
+                out.flush();
+                out.close();
+            }
+        }
+//        return JSON.toJSONString(resArtContentDTO);
     }
 
 }
