@@ -507,15 +507,21 @@ public class ConArticleController {
 
 
     }
+    @RequestMapping(value = "/preview", method = RequestMethod.GET)
+    public String preview(Model model) {
+
+        return "viewUrl";
+
+    }
+
 
     @RequestMapping(value = "/getContent", method = RequestMethod.GET)
-    public void importscreen( @RequestParam(value = "articleId", required = true) String articleId,
+    public void getContent( @RequestParam(value = "articleId", required = true) String articleId,
                                Model model) throws AVException, IOException {
 
         ConArticleDetailDTO resArtContentDTO = new ConArticleDetailDTO();
         resArtContentDTO = conArticleService.getContentByArtID(articleId);
         model.addAttribute("content",resArtContentDTO);
-
     }
 
 }
