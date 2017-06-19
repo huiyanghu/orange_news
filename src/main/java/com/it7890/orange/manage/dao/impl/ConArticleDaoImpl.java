@@ -67,6 +67,7 @@ public class ConArticleDaoImpl implements ConArticleDao {
         query.limit(pageSize);
         query.include("topicObj");
         query.include("publicationObj");
+        query.include("channelObj");
 
 
         List<AVObject> avObjectList = query.find();
@@ -76,6 +77,9 @@ public class ConArticleDaoImpl implements ConArticleDao {
             m = new HashMap();
             m.put("objectId", avObject.getObjectId());
             m.put("title", avObject.get("title"));
+            m.put("sourceUrl", avObject.get("sourceurl"));
+            m.put("attr", avObject.getInt("attr"));
+            m.put("attrStr", ConstantsUtil.getConstants("conArticleAttr",""+avObject.getInt("attr")));
             m.put("ctype",  avObject.get("ctype"));
             m.put("ctypeStr", ConstantsUtil.getConstants("conArticleCtype", "" + avObject.get("ctype")));
             m.put("countrycode", avObject.get("countrycode"));
@@ -84,6 +88,10 @@ public class ConArticleDaoImpl implements ConArticleDao {
             }
             if (avObject.getAVObject("publicationObj") != null) {
                 m.put("publicationName", avObject.getAVObject("publicationObj").get("name"));
+            }
+            if (avObject.getAVObject("channelObj") != null) {
+                m.put("channelObjectId", avObject.getAVObject("channelObj").getObjectId());
+                m.put("channelName", avObject.getAVObject("channelObj").getString("channelName"));
             }
             m.put("status",  avObject.get("status"));
             m.put("statusStr", ConstantsUtil.getConstants("conArticleStatus", "" + avObject.get("status")));
