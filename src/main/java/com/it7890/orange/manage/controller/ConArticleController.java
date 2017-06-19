@@ -513,7 +513,6 @@ public class ConArticleController {
         map.put("flag", flag);
         map.put("dataJson", dataJson);
         return "viewUrl";
-
     }
 
 
