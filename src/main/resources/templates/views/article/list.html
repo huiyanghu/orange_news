@@ -288,12 +288,12 @@
                                 </td>
                                 <td th:text="${conArticle.get('objectId')}"></td>
                                 <td th:text="${#strings.abbreviate({conArticle.get('title')},20)}"></td>
-                                <td th:text="${conArticle.get('ctype')}"></td>
+                                <td th:text="${conArticle.get('ctypeStr')}"></td>
                                 <td th:text="${conArticle.get('countrycode')}"></td>
                                 <td th:text="${conArticle.get('topicName')}"></td>
                                 <td th:text="${conArticle.get('publicationName')}"></td>
-                                <td th:text="${conArticle.get('status')}"></td>
-                                <td th:text="${conArticle.get('createdAt')}"></td>
+                                <td th:text="${conArticle.get('statusStr')}"></td>
+                                <td th:text="${conArticle.get('publishtime')}"></td>
                                 <td th:text="${conArticle.get('createdAt')}"></td>
                                 <td th:text="${conArticle.get('ctype')}"></td>
                                 <td class="align-center">
@@ -306,35 +306,27 @@
                                     <a href="javascript:void(0);" th:attr="objectid=${conArticle.get('objectId')}" class="btn btn-xs bs-tooltip eedit-article-con" title="" data-original-title="文章内容管理">
                                         <i class="icon-edit"></i>
                                     </a>
-                                    <!--th:if="${conArticle.status}==1"-->
-                                    <a href="javascript:void(0);" th:attr="objectid=${conArticle.get('objectId')}" class="btn btn-xs bs-tooltip examine-article" title="" data-original-title="审核">
+                                    <a href="javascript:void(0);" th:if="${conArticle.get('status')}==1" th:attr="objectid=${conArticle.get('objectId')}" class="btn btn-xs bs-tooltip examine-article" title="" data-original-title="审核">
                                         <i class="icon-stethoscope"></i>
                                     </a>
-                                    <!--th:if="${conArticle.status}==1"-->
                                     <a href="javascript:void(0);" th:attr="objectid=${conArticle.get('objectId')}" class="btn btn-xs bs-tooltip view-article" title="" data-original-title="预览">
                                         <i class="icon-picture"></i>
                                     </a>
                                     <a href="javascript:void(0);" th:attr="objectid=${conArticle.get('objectId')}" class="btn btn-xs bs-tooltip lock-article" title="" data-original-title="导入锁屏">
                                         <i class="icon-unlock-alt"></i>
                                     </a>
-                                    <!--th:if="${conArticle.status}!=2"-->
-                                    <a href="javascript:void(0);" th:attr="objectid=${conArticle.get('objectId')}" class="btn btn-xs bs-tooltip push-article" title="" data-original-title="推送">
+                                    <a href="javascript:void(0);" th:if="${conArticle.get('status')}!=2" th:attr="objectid=${conArticle.get('objectId')}" class="btn btn-xs bs-tooltip push-article" title="" data-original-title="推送">
                                         <i class="icon-share-sign"></i>
                                     </a>
-                                    <a href="javascript:void(0);" th:attr="objectid=${conArticle.get('objectId')}" class="btn btn-xs bs-tooltip push-2-article" title="" data-original-title="推送2">
+                                    <a href="javascript:void(0);" th:if="${conArticle.get('status')}!=2" th:attr="objectid=${conArticle.get('objectId')}" class="btn btn-xs bs-tooltip push-2-article" title="" data-original-title="推送2">
                                         <i class="icon-share-sign"></i>
                                     </a>
-                                    <!--th:if="${conArticle.status}==1"-->
-                                    <!--th:if="${conArticle.attr}==1"-->
-                                    <a href="javascript:void(0);" th:attr="objectid=${conArticle.get('objectId')}" class="btn btn-xs bs-tooltip add-article" title="" data-original-title="添加到置顶图">
+                                    <a href="javascript:void(0);" th:if="${conArticle.attr}==1" th:attr="objectid=${conArticle.get('objectId')}" class="btn btn-xs bs-tooltip add-article" title="" data-original-title="添加到置顶图">
                                         <i class="icon-plus"></i>
                                     </a>
-                                    <!--th:if="${conArticle.attr}==1"-->
-                                    <!--th:if="${conArticle.channelid}==1"-->
-                                    <a href="javascript:void(0);" th:attr="objectid=${conArticle.get('objectId')}" class="btn btn-xs bs-tooltip view-original-article" title="" data-original-title="查看原文">
-                                        <i class="icon-eye-open"></i>
-                                    </a>
-                                    <!--th:if="${conArticle.channelid}==1"-->
+                                    <!--<a href="javascript:void(0);" th:if="${conArticle.}=='591983ff0b000c0067f9dcd1'" th:attr="url=${conArticle.get('sourceUrl')}" class="btn btn-xs bs-tooltip view-original-article" title="" data-original-title="查看原文">-->
+                                        <!--<i class="icon-eye-open"></i>-->
+                                    <!--</a>-->
                                 </td>
                             </tr>
                         </tbody>
@@ -459,6 +451,14 @@
                 }
             }
         });
+    });
+    $('.view-article').click(function(){
+        var objectid = $(this).attr('objectid');
+        window.open("../conArticle/preview?flag=article&dataJson="+objectid,"_blank");
+    });
+    $('.view-original-article').click(function(){
+        var url = $(this).attr('url');
+        window.open(url,"_blank");
     });
 </script>
 </body>

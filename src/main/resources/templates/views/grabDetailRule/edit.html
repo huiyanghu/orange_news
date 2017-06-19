@@ -342,7 +342,7 @@
         var dataJsonStr = encodeURIComponent(JSON.stringify(dataJson));
         var base = new Base64();
         dataJsonStr = base.encode(dataJsonStr);
-        window.open("../grabListRule/toViewUrl?dataJson="+dataJsonStr,"_blank");
+        window.open("../grabListRule/toViewUrl?flag=grabDetailRule&dataJson="+dataJsonStr,"_blank");
     });
     $('#test').click(function (){
         var dataJson ={};

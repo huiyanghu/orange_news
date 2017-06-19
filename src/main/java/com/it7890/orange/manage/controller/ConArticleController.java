@@ -15,6 +15,7 @@ import com.it7890.orange.manage.vo.ConArticleDetailDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -508,8 +509,9 @@ public class ConArticleController {
 
     }
     @RequestMapping(value = "/preview", method = RequestMethod.GET)
-    public String preview(Model model) {
-
+    public String preview(ModelMap map, String flag, String dataJson) {
+        map.put("flag", flag);
+        map.put("dataJson", dataJson);
         return "viewUrl";
 
     }
