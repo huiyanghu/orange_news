@@ -116,8 +116,7 @@
                 }
             },
             error: function (error) {
-                console.log(error);
-                alert(error);
+                alert('服务器错误');
             }
         });
     }else if(flag == 'article'){
@@ -134,13 +133,11 @@
                     var articleJsonStr = data;
                     resolveJson2(articleJsonStr);
                 }else{
-                    console.log(data);
                     alert(data.msg);
                 }
             },
             error: function (error) {
-                console.log(error);
-                alert(error);
+                alert('服务器错误');
             }
         });
     }
