@@ -44,12 +44,14 @@ public class GrabListRuleController {
         List<Map> appTopicsList = appTopicsService.getAppTopicsList();
         List<Map> publicationList = publicationService.getPublictionList();
         List<Map> channelList = conChannelService.getChannelList();
+        List<Map> countryList = hbCountryService.getCountryList();
         Map m = grabListRuleService.getAll(grabListRuleQuery, page);
         map.putAll(m);
         map.put("globalNodeList", globalNodeList);
         map.put("appTopicsList", appTopicsList);
         map.put("publicationList", publicationList);
         map.put("channelList", channelList);
+        map.put("countryList", countryList);
         map.put("grabListRuleQuery", grabListRuleQuery);
         map.remove("org.springframework.validation.BindingResult.grabListRuleQuery");
         System.out.println(JSON.toJSONString(map));

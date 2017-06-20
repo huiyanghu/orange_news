@@ -30,7 +30,8 @@ public class ConArticleDaoImpl implements ConArticleDao {
             query.whereEqualTo("objectId", conArticleQuery.getObjectId());
         }
         if (StringUtil.isNotEmpty(conArticleQuery.getCountryCode())) {
-            query.whereEqualTo("countrycode", conArticleQuery.getCountryCode());
+            //query.whereEqualTo("countrycode", conArticleQuery.getCountryCode());
+            query.whereContains("countrycode", conArticleQuery.getCountryCode().toUpperCase());
         }
         if (StringUtil.isNotEmpty(conArticleQuery.getPublicationObjectId())) {
             query.whereEqualTo("publicationObj", AVObject.createWithoutData("con_publications", conArticleQuery.getPublicationObjectId()));
@@ -48,7 +49,8 @@ public class ConArticleDaoImpl implements ConArticleDao {
             query.whereEqualTo("status", conArticleQuery.getStatus());
         }
         if (StringUtil.isNotEmpty(conArticleQuery.getKeywords())) {
-            query.whereEqualTo("keywords", conArticleQuery.getKeywords());
+            //query.whereEqualTo("keywords", conArticleQuery.getKeywords());
+            query.whereContains("keywords", conArticleQuery.getKeywords());
         }
         if (StringUtil.isNotEmpty(conArticleQuery.getTopicObjectId())) {
             query.whereEqualTo("topicObj", AVObject.createWithoutData("AppTopics", conArticleQuery.getChannelObjectId()));

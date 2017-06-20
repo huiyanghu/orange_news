@@ -4,7 +4,7 @@ import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.AVObject;
 import com.avos.avoscloud.AVQuery;
 import com.it7890.orange.manage.dao.GrabListRuleDao;
-import com.it7890.orange.manage.model.GrabListRule;
+import com.it7890.orange.manage.model.*;
 import com.it7890.orange.manage.po.GrabListRuleQuery;
 import com.it7890.orange.manage.utils.ConstantsUtil;
 import com.it7890.orange.manage.utils.DateUtil;
@@ -28,24 +28,39 @@ public class GrabListRuleDaoImpl implements GrabListRuleDao {
 
         /*grabListRuleList*/
         AVQuery<GrabListRule> query = new AVQuery<>("GrabListRule");
+        query.include("publicationObj");
+        query.include("topicObj");
+        query.include("nodeObj");
+        query.include("countryObj");
 
         if (StringUtil.isNotEmpty(grabListRuleQuery.getRuleName())) {
-            query.whereEqualTo("ruleName", grabListRuleQuery.getRuleName());
+            //query.whereEqualTo("ruleName", grabListRuleQuery.getRuleName());
+            query.whereContains("ruleName", grabListRuleQuery.getRuleName());
         }
-        if (StringUtil.isNotEmpty(grabListRuleQuery.getCountryCode())) {
-            query.whereEqualTo("countryCode", grabListRuleQuery.getCountryCode());
+        if (StringUtil.isNotEmpty(grabListRuleQuery.getCountryObjectId())) {
+            HbCountrys country = new HbCountrys();
+            country.setCountryCode(grabListRuleQuery.getCountryObjectId());
+            query.whereEqualTo("countryObj", country);
         }
         if (StringUtil.isNotEmpty(grabListRuleQuery.getNodeObjectId())) {
-            query.whereEqualTo("nodeObj", AVObject.createWithoutData("GlobalNode", grabListRuleQuery.getNodeObjectId()));
+            GlobalNode globalNode = new GlobalNode();
+            globalNode.setObjectId(grabListRuleQuery.getNodeObjectId());
+            query.whereEqualTo("nodeObj", globalNode);
         }
         if (StringUtil.isNotEmpty(grabListRuleQuery.getTopicObjectId())) {
-            query.whereEqualTo("topicObj", AVObject.createWithoutData("hb_topics", grabListRuleQuery.getTopicObjectId()));
+            AppTopics appTopics = new AppTopics();
+            appTopics.setObjectId(grabListRuleQuery.getTopicObjectId());
+            query.whereEqualTo("topicObj", appTopics);
         }
         if (StringUtil.isNotEmpty(grabListRuleQuery.getPublicationObjectId())) {
-            query.whereEqualTo("publicationObj", AVObject.createWithoutData("con_publications", grabListRuleQuery.getPublicationObjectId()));
+            ConPublication publication=new ConPublication();
+            publication.setObjectId(grabListRuleQuery.getPublicationObjectId());
+            query.whereEqualTo("publicationObj", publication);
         }
         if (StringUtil.isNotEmpty(grabListRuleQuery.getChannelObjectId())) {
-            query.whereEqualTo("channelObj", AVObject.createWithoutData("con_channel", grabListRuleQuery.getChannelObjectId()));
+            ConChannel channel=new ConChannel();
+            channel.setObjectId(grabListRuleQuery.getChannelObjectId());
+            query.whereEqualTo("channelObj", channel);
         }
         query.orderByDescending("createdAt");
 
@@ -55,10 +70,7 @@ public class GrabListRuleDaoImpl implements GrabListRuleDao {
         query.skip((page - 1) * pageSize);
         query.limit(pageSize);
 
-        query.include("publicationObj");
-        query.include("topicObj");
-        query.include("nodeObj");
-        query.include("countryObj");
+
 
 
         List<GrabListRule> grabListRuleList = query.find();
@@ -71,7 +83,7 @@ public class GrabListRuleDaoImpl implements GrabListRuleDao {
             m.put("publicationName", grabListRule.getConPublication() == null ? "" : grabListRule.getConPublication().getName());
             m.put("topicName", grabListRule.getTopics() == null ? "" : grabListRule.getTopics().getTopicName());
             m.put("nodeName", grabListRule.getGlobalNode() == null ? "" : grabListRule.getGlobalNode().getNodename());
-            m.put("countryCode", grabListRule.getCountry()==null?"":grabListRule.getCountry().getCountryCode());
+            m.put("countryCode", grabListRule.getCountry() == null ? "" : grabListRule.getCountry().getCountryCode());
             m.put("createdAt", DateUtil.getTimeStampStr(grabListRule.getCreatedAt()));
             m.put("status", grabListRule.getStatus());
             m.put("listStatus", grabListRule.getListStatus());
