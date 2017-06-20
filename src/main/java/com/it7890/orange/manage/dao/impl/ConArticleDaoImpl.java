@@ -172,4 +172,22 @@ public class ConArticleDaoImpl implements ConArticleDao {
         }
     }
 
+    @Override
+    public AVObject getByArtid(String artId) {
+        AVObject avObject = new AVObject();
+        AVQuery avQuery = new AVQuery("con_articles_content");
+        avQuery.include("articleObj");
+        avQuery.include("articleObj.topicObj");
+        avQuery.include("articleObj.publicationObj");
+        avQuery.include("articleObj.titlePicObjArr");
+        avQuery.whereEqualTo("articleObj",AVObject.createWithoutData("conarticle",artId));
+        try {
+            List<AVObject> ls  = avQuery.find();
+            avObject = ls.get(0);
+        } catch (AVException e) {
+            e.printStackTrace();
+        }
+        return avObject;
+    }
+
 }

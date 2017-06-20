@@ -10,7 +10,7 @@ html{ font-size: 62.5%;}
 .info{ width: 100%; padding: 0 3.33333%; margin-top: 1rem; padding-bottom: 1.5rem; border-bottom: 1px solid #ccc; overflow: hidden;}
 .mediaImg{ width: 4.5rem; height: 4.5rem; border-radius: 50%; position: relative; overflow: hidden; margin-right: 1.2rem;}
 .mediaImg img{ width: 100%; position: absolute; left: 50%; top: 50%; transform: translate(-50%,-50%); -webkit-transform: translate(-50%,-50%);}
-.left .text{ width: 15rem; line-height: 2rem; padding: 0.25rem 0;}
+.left .text{ width: 300px; line-height: 2rem; padding: 0.25rem 0;}
 .mediaName{ font-size: 1.6rem; color: #444; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;}
 .date{ font-size: 1.4rem; color: #666;}
 .date .iconfont{ font-size: 1.4rem; display: inline-block; margin-right: 0.4rem;}

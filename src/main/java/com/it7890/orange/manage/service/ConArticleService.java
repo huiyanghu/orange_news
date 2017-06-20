@@ -3,7 +3,9 @@ package com.it7890.orange.manage.service;
 import com.avos.avoscloud.AVException;
 import com.it7890.orange.manage.model.ConArticle;
 import com.it7890.orange.manage.po.ConArticleQuery;
+import com.it7890.orange.manage.vo.ConArticleDetailDTO;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
@@ -21,5 +23,6 @@ public interface ConArticleService {
 
     public void publishBatch(String ids) throws AVException;
 
+    public ConArticleDetailDTO getContentByArtID(String artId) throws IOException, AVException;
 
 }

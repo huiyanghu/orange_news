@@ -48,7 +48,7 @@
         }
     }
     var Request=new UrlSearch();
-    var dataJsonStr = Request.dataJson;
+    var flag = Request.flag;
     function resolveJson(getJson){
         if(getJson == '' || getJson == undefined || getJson == null){
             $('body').html('暂时没有数据');
@@ -74,25 +74,77 @@
         var contentBody = getJson.articleContent+getJson.articleContent2+getJson.articleContent3;
         $('#content').html(contentBody);
     }
-    $.ajax({
-        url: "http://54.219.221.173:80/checkGrabDetailRule",
-        type: "post",
-        data: {
-            "grabDetailRuleJSON": dataJsonStr
-        },
-        success: function (data) {
-            if(data.success == 1){
-                var articleJsonStr = data.articleJson;
-                resolveJson(articleJsonStr);
-            }else{
-                alert(data.msg);
-            }
-        },
-        error: function (error) {
-            console.log(error);
-            alert(error);
+    function resolveJson2(getJson){
+        if(getJson == '' || getJson == undefined || getJson == null){
+            $('body').html('暂时没有数据');
         }
-    });
+        //置顶图
+        if(getJson.titlePicList == '' || getJson.titlePicList == null || getJson.titlePicList == undefined){
+            $('#headImg').hide();
+        }else{
+            $('#headImg img').attr('src',getJson.titlePicList[0].imageUrl);
+        }
+        //文章名称
+        $('#title').html(getJson.title);
+        //媒体名称
+        $('#mediaName').html(getJson.copyright);
+        $('#mediaImg').hide();
+        //发布时间
+        var pubTime = getJson.pubTime;
+        if(pubTime == '' || pubTime == null || pubTime == undefined){
+            pubTime = '';
+        }
+        $('#mediaTime').html('Updated at '+pubTime);
+        //文章内容
+        var contentBody = decodeURIComponent(getJson.contentBody.replace(/\+/g, '%20'));
+        $('#content').html(contentBody);
+    }
+    if(flag == 'grabDetailRule'){
+        var dataJsonStr = Request.dataJson;
+        $.ajax({
+            url: "http://54.219.221.173:80/checkGrabDetailRule",
+            type: "post",
+            data: {
+                "grabDetailRuleJSON": dataJsonStr
+            },
+            success: function (data) {
+                if(data.success == 1){
+                    var articleJsonStr = data.articleJson;
+                    resolveJson(articleJsonStr);
+                }else{
+                    alert(data.msg);
+                }
+            },
+            error: function (error) {
+                console.log(error);
+                alert(error);
+            }
+        });
+    }else if(flag == 'article'){
+        var articleId = Request.dataJson;
+        $.ajax({
+            url: "../conArticle/getContent",
+            type: "get",
+            data: {
+                "articleId": articleId
+            },
+            success: function (data) {
+                console.log(data);
+                if(data.success == 1){
+                    var articleJsonStr = data;
+                    resolveJson2(articleJsonStr);
+                }else{
+                    console.log(data);
+                    alert(data.msg);
+                }
+            },
+            error: function (error) {
+                console.log(error);
+                alert(error);
+            }
+        });
+    }
+
 </script>
 </body>
 </html>

@@ -1,7 +1,6 @@
 package com.it7890.orange.manage.vo;
 
 import com.avos.avoscloud.AVObject;
-import sun.dc.pr.PRError;
 
 /**
  * @author gg
