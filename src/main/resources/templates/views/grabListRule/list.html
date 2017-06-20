@@ -120,11 +120,16 @@
                                 </div>
                             </div>
                             <div class="col-md-6">
-                                <label class="col-md-4 control-label" for="countryCode">
-                                    国家码：
+                                <label class="col-md-4 control-label" for="countryObjectId">
+                                    国家：
                                 </label>
                                 <div class="col-md-8">
-                                    <input type="text" id="countryCode" name="countryCode" min="0" class="form-control" placeholder="输入规则名称" th:field="*{countryCode}" th:value="${grabListRuleQuery.countryCode}">
+                                    <!--countryObjectId-->
+                                    <select name="countryObjectId" id="countryObjectId" class="select2-select-00 col-md-12 full-width-fix select2-offscreen" tabindex="-1" th:field="*{countryObjectId}">
+                                        <option value=""  selected="selected">请选择</option>
+                                        <option th:each="country:${countryList}" th:value="${country.get('objectId')}" th:text="${country.get('countryCode')}+'&nbsp;'+${country.get('cnName')}"></option>
+                                    </select>
+                                    <!--<input type="text" id="countryCode" name="countryCode" min="0" class="form-control" placeholder="输入规则名称" th:field="*{countryCode}" th:value="${grabListRuleQuery.countryCode}">-->
                                 </div>
                             </div>
                         </div>
