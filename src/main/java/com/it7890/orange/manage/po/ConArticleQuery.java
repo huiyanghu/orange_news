@@ -7,6 +7,7 @@ public class ConArticleQuery implements java.io.Serializable {
     private String objectId;
     private String countryCode;
     private String publicationObjectId;
+    private String countryObjectId;
     private String languageObjectId;
     private String channelObjectId;
     private Integer attr;
@@ -104,21 +105,11 @@ public class ConArticleQuery implements java.io.Serializable {
         this.endTime = endTime;
     }
 
+    public String getCountryObjectId() {
+        return countryObjectId;
+    }
 
-    @Override
-    public String toString() {
-        return "ConArticleQuery{" +
-            "objectId='" + objectId + '\'' +
-            ", countryCode='" + countryCode + '\'' +
-            ", publicationObjectId='" + publicationObjectId + '\'' +
-            ", languageObjectId='" + languageObjectId + '\'' +
-            ", channelObjectId='" + channelObjectId + '\'' +
-            ", attr=" + attr +
-            ", status=" + status +
-            ", keywords='" + keywords + '\'' +
-            ", topicObjectId='" + topicObjectId + '\'' +
-            ", startTime='" + startTime + '\'' +
-            ", endTime='" + endTime + '\'' +
-            '}';
+    public void setCountryObjectId(String countryObjectId) {
+        this.countryObjectId = countryObjectId;
     }
 }

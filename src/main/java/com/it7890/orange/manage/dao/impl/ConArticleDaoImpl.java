@@ -40,7 +40,7 @@ public class ConArticleDaoImpl implements ConArticleDao {
             query.whereEqualTo("channelObj", AVObject.createWithoutData("con_channel", conArticleQuery.getChannelObjectId()));
         }
         if (StringUtil.isNotEmpty(conArticleQuery.getLanguageObjectId())) {
-            query.whereEqualTo("languageObj", AVObject.createWithoutData("hb_languages", conArticleQuery.getChannelObjectId()));
+            query.whereEqualTo("languageObj", AVObject.createWithoutData("hb_languages", conArticleQuery.getLanguageObjectId()));
         }
         if (StringUtil.isNotEmpty(conArticleQuery.getAttr())) {
             query.whereEqualTo("attr", conArticleQuery.getAttr());
@@ -53,7 +53,7 @@ public class ConArticleDaoImpl implements ConArticleDao {
             query.whereContains("keywords", conArticleQuery.getKeywords());
         }
         if (StringUtil.isNotEmpty(conArticleQuery.getTopicObjectId())) {
-            query.whereEqualTo("topicObj", AVObject.createWithoutData("AppTopics", conArticleQuery.getChannelObjectId()));
+            query.whereEqualTo("topicObj", AVObject.createWithoutData("AppTopics", conArticleQuery.getTopicObjectId()));
         }
         if (conArticleQuery.getStartTime() != null && !"".equals(conArticleQuery.getStartTime())) {
             query.whereGreaterThanOrEqualTo("createdAt", DateUtil.getDateByStr(conArticleQuery.getStartTime()));
