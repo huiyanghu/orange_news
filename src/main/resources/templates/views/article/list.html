@@ -142,9 +142,9 @@
                                     媒体：
                                 </label>
                                 <div class="col-md-8">
-                                    <select class="form-control" name="publicationObjectId" id="publicationObjectId"  th:field="*{publicationObjectId}">
-                                        <option value="" selected>请选择</option>
-                                        <option th:each="publication:${publicationList}" th:selected="(${conArticleQuery.publicationObjectId == publication.objectId})" th:value="${publication.objectId}" th:text="${publication.get('name')}"></option>
+                                    <select name="publicationObjectId" id="publicationObjectId" class="select2-select-00 col-md-12 full-width-fix select2-offscreen" tabindex="-1" th:field="*{publicationObjectId}">
+                                        <option value=""  selected="selected">请选择</option>
+                                        <option th:each="publication:${publicationList}" th:selected="(${conArticleQuery.publicationObjectId == publication.objectId})" th:value="${publication.objectId}" th:text="${publication.get('publicationName')}"></option>
                                     </select>
                                 </div>
                             </div>
@@ -155,7 +155,7 @@
                                 <div class="col-md-8">
                                     <select class="form-control" name="channelObjectId" id="channelObjectId"  th:field="*{channelObjectId}">
                                         <option value="" selected>请选择</option>
-                                        <option th:each="channel:${channelList}" th:selected="(${conArticleQuery.channelObjectId == channel.objectId})" th:value="${channel.objectId}" th:text="${channel.get('channelname')}"></option>
+                                        <option th:each="channel:${channelList}" th:selected="(${conArticleQuery.channelObjectId == channel.objectId})" th:value="${channel.objectId}" th:text="${channel.get('channelName')}"></option>
                                     </select>
                                 </div>
                             </div>
@@ -166,7 +166,7 @@
                                 <div class="col-md-8">
                                     <select class="form-control" name="languageObjectId" id="languageObjectId"  th:field="*{languageObjectId}">
                                         <option value="" selected>请选择</option>
-                                        <option th:each="language:${languageList}" th:selected="(${conArticleQuery.languageObjectId == language.objectId})" th:value="${language.objectId}" th:text="${language.get('codes')}+'&nbsp;'+${language.get('remark')}"></option>
+                                        <option th:each="language:${languageList}" th:selected="(${conArticleQuery.languageObjectId == language.objectId})" th:value="${language.objectId}" th:text="${language.get('languageName')}"></option>
                                     </select>
                                 </div>
                             </div>
@@ -203,7 +203,7 @@
                                 <div class="col-md-8">
                                     <select class="form-control" name="attr" id="topicObjectId"  th:field="*{topicObjectId}">
                                         <option value="" selected>请选择</option>
-                                        <option th:each="topic:${topicList}" th:selected="(${conArticleQuery.topicObjectId == topic.objectId})" th:value="${topic.objectId}" th:text="${topic.get('Name')}"></option>
+                                        <option th:each="topic:${topicList}" th:selected="(${conArticleQuery.topicObjectId == topic.objectId})" th:value="${topic.objectId}" th:text="${topic.get('topicName')}"></option>
                                     </select>
                                 </div>
                             </div>

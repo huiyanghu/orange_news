@@ -126,7 +126,7 @@
                                 <div class="col-md-8">
                                     <select class="form-control" name="status" id="status"  th:field="*{status}">
                                         <option value="" selected>请选择</option>
-                                        <option th:each="grabDetail:${grabDetailRuleList}" th:selected="(${grabDetailRuleQuery.status == grabDetail.status})" th:value="${grabDetail.status}" th:text="${grabDetail.get('statusStr')}"></option>
+                                        <option th:each="grabDetailStatus:${statusList}" th:selected="(${grabDetailRuleQuery.status == grabDetailStatus.key})" th:value="${grabDetailStatus.key}" th:text="${grabDetailStatus.get('value')}"></option>
                                     </select>
                                 </div>
                             </div>
