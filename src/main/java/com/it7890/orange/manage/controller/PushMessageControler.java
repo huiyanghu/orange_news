@@ -39,8 +39,8 @@ public class PushMessageControler {
         AVPush push = new AVPush();
         JSONObject object = new JSONObject();
         ConArticleDTO art = conArticleService.getConarticleById(articleId);
-        push.setPushToIOS(true);
-        object.put("alert", "ios推送的消息");
+//        push.setPushToIOS(true);
+        object.put("alert", "测试推送的消息");
 //        object.put("article","666666");
 //        object.put("article",JSON.toJSONString(art));
 //        object.put("alert",JSON.toJSONString(art));
