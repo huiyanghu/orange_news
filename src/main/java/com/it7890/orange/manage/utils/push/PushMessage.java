@@ -159,12 +159,12 @@ public class PushMessage {
 //            throw new RuntimeException();
 //        }
 //    }
-    public static void main(String[] args) {
-		PushMessage push = new PushMessage("VV7zErT5UtBfnhkkllg9wboY-MdYXbMMI","q8QNg0P0npQDGWlsQh8HbtgS","application/json");
+//    public static void main(String[] args) {
+//		PushMessage push = new PushMessage("VV7zErT5UtBfnhkkllg9wboY-MdYXbMMI","q8QNg0P0npQDGWlsQh8HbtgS","application/json");
 //        push.
 //		System.out.println(push.sendAndroidGroupcast("11","ahgge","geeg","gee",null));
 //		PushMessage push = new PushMessage(null,null,"55f8d848e0f55a8e83003006","4advnv7rq0zaaedj1wxm3wl4vjuv5zep");
 //		System.out.println(push.sendIOSGroupcast("11","ahgge","geeg","gee",null));
 
-	}
+//	}
 }
