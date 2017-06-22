@@ -192,4 +192,19 @@ public class ConArticleDaoImpl implements ConArticleDao {
         return avObject;
     }
 
+    @Override
+    public AVObject getConarticleByid(String artid) {
+        AVObject avObject = new AVObject();
+        AVQuery avQuery = new AVQuery("conarticle");
+        avQuery.include("topicObj");
+        avQuery.include("publicationObj");
+        avQuery.include("titlePicObjArr");
+        try {
+            avObject = avQuery.get(artid);
+        } catch (AVException e) {
+            e.printStackTrace();
+        }
+        return avObject;
+    }
+
 }

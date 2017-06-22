@@ -23,4 +23,6 @@ public interface ConArticleDao {
     public void publish(String id) throws AVException;
 
     public AVObject getByArtid(String artId);
+
+    public AVObject getConarticleByid(String artid);
 }
