@@ -15,7 +15,6 @@ import com.it7890.orange.manage.vo.ConArticleDetailDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -23,7 +22,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
@@ -79,6 +77,7 @@ public class ConArticleController {
         map.putAll(conArticleListAndPageUtilMap);
 
 
+        map.put("countryList", hbCountryService.getCountryList());
         map.put("topicList", topicsService.getAppTopicsList());
         map.put("channelList", conChannelService.getChannelList());
         map.put("publicationList", publicationService.getPublictionList());
@@ -177,9 +176,9 @@ public class ConArticleController {
         if (appPushInfo == null) {
             HbCountrys hbc = null;
             List<HbCountrys> hbCountrysList = null;
-            if (article.getCountrycode() != null) {
+            if (article.getCountryCode() != null) {
                 HbCountryQuery hbCountryQuery = new HbCountryQuery();
-                hbCountryQuery.setCountryCode(article.getCountrycode());
+                hbCountryQuery.setCountryCode(article.getCountryCode());
                 hbCountrysList = hbCountryService.get(hbCountryQuery);
                 if (hbCountrysList.isEmpty()) {
                     attributes.addFlashAttribute("msg", "推送失败");
@@ -292,9 +291,9 @@ public class ConArticleController {
         if (appPushInfo2 == null) {
             HbCountrys hbc = null;
 
-            if (article.getCountrycode() != null) {
+            if (article.getCountryCode() != null) {
                 HbCountryQuery hbCountryQuery = new HbCountryQuery();
-                hbCountryQuery.setCountryCode(article.getCountrycode());
+                hbCountryQuery.setCountryCode(article.getCountryCode());
                 List<HbCountrys> hbCountrysList = hbCountryService.get(hbCountryQuery);
                 if (hbCountrysList.isEmpty()) {
                     attributes.addFlashAttribute("msg", "推送失败");

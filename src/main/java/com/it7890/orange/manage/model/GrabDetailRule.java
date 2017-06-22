@@ -39,7 +39,7 @@ public class GrabDetailRule extends AVObject {
 
 
     public String getReplaceRule() {
-        return getString("replaceRule");
+        return this.getString("replaceRule");
     }
 
     public void setReplaceRule(String replaceRule) {
@@ -47,7 +47,7 @@ public class GrabDetailRule extends AVObject {
     }
 
     public String getTitleCssPath() {
-        return getString("titleCssPath");
+        return this.getString("titleCssPath");
     }
 
     public void setTitleCssPath(String titleCssPath) {
@@ -56,7 +56,7 @@ public class GrabDetailRule extends AVObject {
 
 
     public String getDescCssPath() {
-        return getString("descCssPath");
+        return this.getString("descCssPath");
     }
 
     public void setDescCssPath(String descCssPath) {
@@ -64,7 +64,7 @@ public class GrabDetailRule extends AVObject {
     }
 
     public String getConCssPath() {
-        return getString("conCssPath");
+        return this.getString("conCssPath");
     }
 
     public void setConCssPath(String conCssPath) {
@@ -72,7 +72,7 @@ public class GrabDetailRule extends AVObject {
     }
 
     public String getConCssPath1() {
-        return getString("conCssPath1");
+        return this.getString("conCssPath1");
     }
 
     public void setConCssPath1(String conCssPath1) {
@@ -80,7 +80,7 @@ public class GrabDetailRule extends AVObject {
     }
 
     public String getConCssPath2() {
-        return getString("conCssPath2");
+        return this.getString("conCssPath2");
     }
 
     public void setConCssPath2(String conCssPath2) {
@@ -88,7 +88,7 @@ public class GrabDetailRule extends AVObject {
     }
 
     public String getReplaceCssPath() {
-        return getString("replaceCssPath");
+        return this.getString("replaceCssPath");
     }
 
     public void setReplaceCssPath(String replaceCssPath) {
@@ -96,7 +96,7 @@ public class GrabDetailRule extends AVObject {
     }
 
     public String getSouCssPath() {
-        return getString("souCssPath");
+        return this.getString("souCssPath");
     }
 
     public void setSouCssPath(String souCssPath) {
@@ -104,7 +104,7 @@ public class GrabDetailRule extends AVObject {
     }
 
     public String getImgCssPath() {
-        return getString("imgCssPath");
+        return this.getString("imgCssPath");
     }
 
     public void setImgCssPath(String imgCssPath) {
@@ -112,7 +112,7 @@ public class GrabDetailRule extends AVObject {
     }
 
     public String getVideoCssPath() {
-        return getString("videoCssPath");
+        return this.getString("videoCssPath");
     }
 
     public void setVideoCssPath(String videoCssPath) {
@@ -120,7 +120,7 @@ public class GrabDetailRule extends AVObject {
     }
 
     public String getAuthorCssPath() {
-        return getString("authorCssPath");
+        return this.getString("authorCssPath");
     }
 
     public void setAuthorCssPath(String authorCssPath) {
@@ -128,7 +128,7 @@ public class GrabDetailRule extends AVObject {
     }
 
     public String getKeywordCssPath() {
-        return getString("keywordCssPath");
+        return this.getString("keywordCssPath");
     }
 
     public void setKeywordCssPath(String keywordCssPath) {
@@ -136,7 +136,7 @@ public class GrabDetailRule extends AVObject {
     }
 
     public String getTestUrl() {
-        return getString("testUrl");
+        return this.getString("testUrl");
     }
 
     public void setTestUrl(String testUrl) {
@@ -144,7 +144,7 @@ public class GrabDetailRule extends AVObject {
     }
 
     public Integer getStatus() {
-        return getInt("status");
+        return this.getInt("status");
     }
 
     public void setStatus(Integer status) {
@@ -160,7 +160,7 @@ public class GrabDetailRule extends AVObject {
     }
 
     public String getRuleName() {
-        return getString("ruleName");
+        return this.getString("ruleName");
     }
 
     public void setRuleName(String ruleName) {
@@ -168,7 +168,7 @@ public class GrabDetailRule extends AVObject {
     }
 
     public GlobalNode getGlobalNode() {
-        return getAVObject("nodeObj");
+        return this.getAVObject("nodeObj");
     }
 
     public void setGlobalNode(GlobalNode globalNode) {
@@ -192,6 +192,7 @@ public class GrabDetailRule extends AVObject {
         result.put("authorCssPath", getAuthorCssPath());
         result.put("keywordCssPath", getKeywordCssPath());
         result.put("testUrl", getTestUrl());
+        result.put("status", getStatus());
         return JSON.toJSONString(result);
     }
 }

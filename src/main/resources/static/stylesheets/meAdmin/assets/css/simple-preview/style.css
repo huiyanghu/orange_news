@@ -1,5 +1,6 @@
 html{ font-size: 62.5%;}
 *{ margin: 0; padding: 0; list-style: none; box-sizing: border-box;}
+strong{font-weight: normal !important;}
 .left{ float: left;}
 .right{ float: right;}
 .headImg{ width: 100%; text-align: center; position: relative; overflow: hidden;}

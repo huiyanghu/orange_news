@@ -50,7 +50,7 @@ public class AppTopController {
     @RequestMapping(path = "/list", method = RequestMethod.GET)
     public String getAll(Map map, AppTopQuery appTopQuery, @RequestParam(value = "page", required = false, defaultValue = "1") Integer page) throws AVException {
         Map appTopListAndPageUtilMap = appTopService.getAll(appTopQuery, page);//置顶大图列表
-        List<HbCountrys> countryList = hbCountryService.getAll();//国家列表
+        List<Map> countryList = hbCountryService.getCountryList();//国家列表
         map.remove("org.springframework.validation.BindingResult.appTopQuery");
         map.put("countryList", countryList);
         map.put("appTopItypeList", ConstantsUtil.getConstants("appTopItype"));//类型列表
