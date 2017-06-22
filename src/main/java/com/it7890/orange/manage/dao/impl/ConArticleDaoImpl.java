@@ -24,7 +24,7 @@ public class ConArticleDaoImpl implements ConArticleDao {
         Map map = new HashMap();
 
         /*conArticleList*/
-        AVQuery<AVObject> query = new AVQuery<>("conarticle");
+        AVQuery<ConArticle> query = new AVQuery<>("conarticle");
         query.whereNotEqualTo("status", -1);
         if (StringUtil.isNotEmpty(conArticleQuery.getObjectId())) {
             query.whereEqualTo("objectId", conArticleQuery.getObjectId());
@@ -72,40 +72,28 @@ public class ConArticleDaoImpl implements ConArticleDao {
         query.include("channelObj");
 
 
-        List<AVObject> avObjectList = query.find();
+        List<ConArticle> articleList = query.find();
         List<Map> conArticleList = new ArrayList<Map>();
         Map m;
-        for (AVObject avObject : avObjectList) {
+        for (ConArticle article : articleList) {
             m = new HashMap();
-            m.put("objectId", avObject.getObjectId());
-            m.put("title", avObject.get("title"));
-            m.put("sourceUrl", avObject.get("sourceurl"));
-            m.put("attr", avObject.getInt("attr"));
-            m.put("attrStr", ConstantsUtil.getConstants("conArticleAttr",""+avObject.getInt("attr")));
-            m.put("ctype",  avObject.get("ctype"));
-            m.put("ctypeStr", ConstantsUtil.getConstants("conArticleCtype", "" + avObject.get("ctype")));
-            m.put("countrycode", avObject.get("countrycode"));
-            if (avObject.getAVObject("topicObj") != null) {
-                m.put("topicName", avObject.getAVObject("topicObj").get("topicName"));
-            }
-            if (avObject.getAVObject("publicationObj") != null) {
-                m.put("publicationName", avObject.getAVObject("publicationObj").get("name"));
-            }
-            if (avObject.getAVObject("channelObj") != null) {
-                m.put("channelObjectId", avObject.getAVObject("channelObj").getObjectId());
-                m.put("channelName", avObject.getAVObject("channelObj").getString("channelName"));
-            }
-            m.put("status",  avObject.get("status"));
-            m.put("statusStr", ConstantsUtil.getConstants("conArticleStatus", "" + avObject.get("status")));
+            m.put("objectId", article.getObjectId());
+            m.put("title", article.getTitle());
+            m.put("sourceUrl", article.getSourceurl());
+            m.put("attr", article.getAttr());
+            m.put("attrStr", ConstantsUtil.getConstants("conArticleAttr", "" + article.getAttr()));
+            m.put("ctype", article.getCtype());
+            m.put("ctypeStr", ConstantsUtil.getConstants("conArticleCtype", "" + article.getCtype()));
+            m.put("countrycode", article.getCountryCode());
+            m.put("topicName", article.getTopics() == null ? "" : article.getTopics().getTopicName());
+            m.put("publicationName", article.getPublication() == null ? "" : article.getPublication().getName());
+            m.put("channelObjectId", article.getChannel() == null ? "" : article.getChannel().getObjectId());
+            m.put("channelName", article.getChannel() == null ? "" : article.getChannel().getChannelName());
+            m.put("status", article.getStatus());
+            m.put("statusStr", ConstantsUtil.getConstants("conArticleStatus", "" + article.getStatus()));
+            m.put("publishtime", StringUtil.isEmpty(article.getPushtime()) ? "" : DateUtil.getTimeStampStr(article.getPushtime()));
+            m.put("createdAt", DateUtil.getTimeStampStr(article.getCreatedAt()));
 
-            if (avObject.get("publishtime") != null) {
-                Date publishtime = (Date) avObject.get("publishtime");
-                m.put("publishtime", DateUtil.getTimeStampStr(publishtime));
-            }
-            if (avObject.get("createdAt") != null) {
-                Date createdAt = (Date) avObject.get("createdAt");
-                m.put("createdAt", DateUtil.getTimeStampStr(createdAt));
-            }
             conArticleList.add(m);
         }
         map.put("conArticleList", conArticleList);
@@ -130,12 +118,12 @@ public class ConArticleDaoImpl implements ConArticleDao {
         return null;
     }
 
-    public ConArticle getById(String objectId) throws AVException{
+    public ConArticle getById(String objectId) throws AVException {
         AVQuery<ConArticle> query = new AVQuery<>("conarticle");
         query.whereEqualTo("objectId", objectId);
         List<ConArticle> avObjectList = query.find();
         if (!avObjectList.isEmpty()) {
-            ConArticle conArticle=avObjectList.get(0);
+            ConArticle conArticle = avObjectList.get(0);
             return conArticle;
         }
         return null;
@@ -182,9 +170,9 @@ public class ConArticleDaoImpl implements ConArticleDao {
         avQuery.include("articleObj.topicObj");
         avQuery.include("articleObj.publicationObj");
         avQuery.include("articleObj.titlePicObjArr");
-        avQuery.whereEqualTo("articleObj",AVObject.createWithoutData("conarticle",artId));
+        avQuery.whereEqualTo("articleObj", AVObject.createWithoutData("conarticle", artId));
         try {
-            List<AVObject> ls  = avQuery.find();
+            List<AVObject> ls = avQuery.find();
             avObject = ls.get(0);
         } catch (AVException e) {
             e.printStackTrace();
