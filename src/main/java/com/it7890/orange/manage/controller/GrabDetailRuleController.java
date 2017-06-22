@@ -42,7 +42,7 @@ public class GrabDetailRuleController {
         map.put("grabDetailRuleQuery", grabDetailRuleQuery);
         map.remove("org.springframework.validation.BindingResult.grabDetailRuleQuery");
         map.put("statusList", ConstantsUtil.getConstants("grabDetailRuleStatus"));
-        System.out.println(JSON.toJSONString(map));
+        //System.out.println(JSON.toJSONString(map));
         return "views/grabDetailRule/list";
     }
 

@@ -36,6 +36,7 @@ public class GrabListRuleDaoImpl implements GrabListRuleDao {
         if (StringUtil.isNotEmpty(grabListRuleQuery.getRuleName())) {
             //query.whereEqualTo("ruleName", grabListRuleQuery.getRuleName());
             query.whereContains("ruleName", grabListRuleQuery.getRuleName());
+            //query.whereMatches("ruleName","regex");
         }
         if (StringUtil.isNotEmpty(grabListRuleQuery.getCountryObjectId())) {
             HbCountrys country = new HbCountrys();
