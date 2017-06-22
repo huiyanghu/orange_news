@@ -454,6 +454,7 @@ public class ConArticleDTO {
             conArticleDTO.setViewCount(tmp.getInt("viewCount"));
             conArticleDTO.setTmpPub(-1);
             conArticleDTO.setTmpFav(-1);
+
         }
         return conArticleDTO;
 
