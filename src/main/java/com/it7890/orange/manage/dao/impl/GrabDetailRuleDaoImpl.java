@@ -29,7 +29,7 @@ public class GrabDetailRuleDaoImpl implements GrabDetailRuleDao {
         AVQuery<GrabDetailRule> query = new AVQuery<>("GrabDetailRule");
 
         if (StringUtil.isNotEmpty(grabDetailRuleQuery.getRuleName())) {
-            query.whereEqualTo("ruleName", grabDetailRuleQuery.getRuleName());
+            query.whereContains("ruleName", grabDetailRuleQuery.getRuleName());
         }
         if (StringUtil.isNotEmpty(grabDetailRuleQuery.getStatus())) {
             query.whereEqualTo("status", grabDetailRuleQuery.getStatus());
