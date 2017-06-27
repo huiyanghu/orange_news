@@ -112,18 +112,17 @@ public class HbCountryServiceImpl implements HbCountryService {
         AppTopicsQuery appTopicsQuery;
         Map map;
         String topicStr;
+        List<AppTopics> appTopicsList;
         for (HbCountrys country : countrysList) {
             appTopicsQuery = new AppTopicsQuery();
             topicStr = "";
             appTopicsQuery.setCountryObjectId(country.getObjectId());
-            List<AppTopics> appTopicsList = appTopicsDao.get(appTopicsQuery);
+            appTopicsList = appTopicsDao.get(appTopicsQuery);
             for (AppTopics appTopics : appTopicsList) {
                 topicStr += appTopics.getTopicName() + ",";
             }
             map = new HashMap();
             map.put("objectId", country.getObjectId());
-
-
             map.put("icon", country.getIconFile() == null ? "" : country.getIconFile().getUrl());
             map.put("name", country.getCnName());
             map.put("countryCode", country.getCountryCode());
