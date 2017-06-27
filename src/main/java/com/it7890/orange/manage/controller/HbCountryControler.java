@@ -63,9 +63,13 @@ public class HbCountryControler {
     @RequestMapping(path = "/list", method = RequestMethod.GET)
     public String getRecommendList(ModelMap map, HbCountryQuery hbCountryQuery) throws AVException, ParseException {
 
+        hbCountryQuery.setStatus(0);
         List<Map> countryList = hbCountryService.getList(hbCountryQuery);
-        System.out.println(JSON.toJSONString(countryList));
+        System.out.println(map.keySet());
+        map.remove("hbCountryQuery");
+        map.remove("org.springframework.validation.BindingResult.hbCountryQuery");
         map.put("countryList",countryList);
+        System.out.println(JSON.toJSONString(map));
         return "views/country/list";
 
 
