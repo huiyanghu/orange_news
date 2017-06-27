@@ -1,6 +1,7 @@
 package com.it7890.orange.manage.model;
 
 import com.avos.avoscloud.AVClassName;
+import com.avos.avoscloud.AVFile;
 import com.avos.avoscloud.AVObject;
 
 /**
@@ -19,7 +20,12 @@ public class HbCountrys extends AVObject {
     private String cnName;
     private String continent;
     private String shortName;
-    private String countryCode;*/
+    private String countryCode;
+    private String enName;
+    private AVFile iconFile;
+
+    */
+
 
     public String getCnName() {
         return getString("cnName");
@@ -51,5 +57,21 @@ public class HbCountrys extends AVObject {
 
     public void setCountryCode(String countryCode) {
         this.put("countryCode", countryCode);
+    }
+
+    public String getEnName() {
+        return getString("enName");
+    }
+
+    public void setEnName(String enName) {
+        this.put("enName", enName);
+    }
+
+    public AVFile getIconFile() {
+        return getAVFile("iconFileObj");
+    }
+
+    public void setIconFile(AVFile iconFile) {
+        this.put("iconFileObj", iconFile);
     }
 }

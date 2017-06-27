@@ -5,6 +5,9 @@ import com.avos.avoscloud.AVObject;
 import com.avos.avoscloud.AVQuery;
 import com.it7890.orange.manage.dao.AppTopicsDao;
 import com.it7890.orange.manage.model.AppTopics;
+import com.it7890.orange.manage.model.HbCountrys;
+import com.it7890.orange.manage.po.AppTopicsQuery;
+import com.it7890.orange.manage.utils.StringUtil;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Component;
 
@@ -20,15 +23,15 @@ import java.util.Map;
 @Component
 public class AppTopicsDaoImpl implements AppTopicsDao {
     @Override
-    public List<AVObject> getListByCId(String cid,String hid) {
+    public List<AVObject> getListByCId(String cid, String hid) {
         AVQuery avQuery = new AVQuery("AppTopics");
         avQuery.include("topicIconFile");
         avQuery.include("HbTopicsObj");
         List<AVObject> ls = new ArrayList<>();
-        if (StringUtils.isNotBlank(hid)){
-            avQuery.whereEqualTo("HbTopicsObj",AVObject.createWithoutData("hb_topics",hid));
+        if (StringUtils.isNotBlank(hid)) {
+            avQuery.whereEqualTo("HbTopicsObj", AVObject.createWithoutData("hb_topics", hid));
         }
-        if (StringUtils.isNotBlank(cid)){
+        if (StringUtils.isNotBlank(cid)) {
             avQuery.whereEqualTo("countryObj", AVObject.createWithoutData("hb_countrys", cid));
         }
         try {
@@ -45,7 +48,7 @@ public class AppTopicsDaoImpl implements AppTopicsDao {
         List<Map> list = new ArrayList<>();
         Map map;
         for (AppTopics appTopics : appTopicsList) {
-            map=new HashMap();
+            map = new HashMap();
             map.put("objectId", appTopics.getObjectId());
             map.put("topicName", appTopics.getTopicName());
             list.add(map);
@@ -56,23 +59,31 @@ public class AppTopicsDaoImpl implements AppTopicsDao {
     @Override
     public void delByCidAndHid(String cid, String hid) {
         AVQuery query = new AVQuery("AppTopics");
-        query.whereEqualTo("countryObj",AVObject.createWithoutData("hb_countrys",cid));
-        query.whereEqualTo("HbTopicsObj",AVObject.createWithoutData("hb_topics",hid));
+        query.whereEqualTo("countryObj", AVObject.createWithoutData("hb_countrys", cid));
+        query.whereEqualTo("HbTopicsObj", AVObject.createWithoutData("hb_topics", hid));
         try {
-            List<AVObject> ls =  query.find();
+            List<AVObject> ls = query.find();
             ls.get(0).delete();
         } catch (AVException e) {
             e.printStackTrace();
         }
     }
 
-    @Override
-    public void saveOrUpdate(AVObject avObject) {
-        try {
-            avObject.save();
-        } catch (AVException e) {
-            e.printStackTrace();
+
+    public List<AppTopics> get(AppTopicsQuery appTopicsQuery) throws AVException {
+        AVQuery<AppTopics> query = new AVQuery<>("AppTopics");
+        if (StringUtil.isNotEmpty(appTopicsQuery.getObjectId())) {
+            query.whereEqualTo("objectId", appTopicsQuery.getObjectId());
         }
+        if (StringUtil.isNotEmpty(appTopicsQuery.getCountryObjectId())) {
+            HbCountrys country = new HbCountrys();
+            country.setObjectId(appTopicsQuery.getCountryObjectId());
+            query.whereEqualTo("countryObj", country);
+        }
+
+        List<AppTopics> appTopicsList = query.find();
+        return appTopicsList;
     }
+
 
 }

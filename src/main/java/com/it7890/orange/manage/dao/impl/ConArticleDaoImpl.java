@@ -27,7 +27,8 @@ public class ConArticleDaoImpl implements ConArticleDao {
         AVQuery<ConArticle> query = new AVQuery<>("conarticle");
         query.whereNotEqualTo("status", -1);
         if (StringUtil.isNotEmpty(conArticleQuery.getObjectId())) {
-            query.whereEqualTo("objectId", conArticleQuery.getObjectId());
+            query.whereContains("objectId", conArticleQuery.getObjectId());
+
         }
         if (StringUtil.isNotEmpty(conArticleQuery.getCountryCode())) {
             //query.whereEqualTo("countrycode", conArticleQuery.getCountryCode());
@@ -49,7 +50,6 @@ public class ConArticleDaoImpl implements ConArticleDao {
             query.whereEqualTo("status", conArticleQuery.getStatus());
         }
         if (StringUtil.isNotEmpty(conArticleQuery.getKeywords())) {
-            //query.whereEqualTo("keywords", conArticleQuery.getKeywords());
             query.whereContains("keywords", conArticleQuery.getKeywords());
         }
         if (StringUtil.isNotEmpty(conArticleQuery.getTopicObjectId())) {

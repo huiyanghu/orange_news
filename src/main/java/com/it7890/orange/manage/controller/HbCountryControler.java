@@ -4,15 +4,12 @@ import com.alibaba.fastjson.JSON;
 import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.AVObject;
 import com.avos.avoscloud.AVQuery;
-import com.it7890.orange.manage.dao.AppLanguagesDao;
 import com.it7890.orange.manage.dao.HbCountryDao;
-import com.it7890.orange.manage.model.HbLanguage;
 import com.it7890.orange.manage.po.CountryQuery;
-import com.it7890.orange.manage.po.RecommendQuery;
+import com.it7890.orange.manage.po.HbCountryQuery;
 import com.it7890.orange.manage.service.*;
 import com.it7890.orange.manage.utils.XlsUtil;
 import com.it7890.orange.manage.vo.*;
-import com.sun.org.apache.regexp.internal.RE;
 import org.apache.commons.lang.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -23,7 +20,6 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -31,7 +27,6 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -59,41 +54,44 @@ public class HbCountryControler {
 
     /**
      * 列表
+     *
      * @param map
      * @param
      * @return
      * @throws AVException
      */
     @RequestMapping(path = "/list", method = RequestMethod.GET)
-    public String getRecommendList(ModelMap map) throws AVException, ParseException {
-        logger.info("method name=countrys/list;param={");
-        Map mp =  hbCountryService.getAvoList();
-        map.putAll(mp);
-        logger.info("map数据::::::===>>"+ JSON.toJSON(map));
-        return "/views/country/list";
+    public String getRecommendList(ModelMap map, HbCountryQuery hbCountryQuery) throws AVException, ParseException {
+
+        List<Map> countryList = hbCountryService.getList(hbCountryQuery);
+        System.out.println(JSON.toJSONString(countryList));
+        map.put("countryList",countryList);
+        return "views/country/list";
     }
 
     /**
      * 转到添加或修改页面
+     *
      * @param map
      * @return
      */
     @RequestMapping("/edit")
-    public String addOrEdit(ModelMap map){
+    public String addOrEdit(ModelMap map) {
         // 区域名称
-        String[] str = { "亚洲AS", "欧洲EU", "非洲AF", "北美洲NA", "南美洲SA", "大洋洲OA" };
+        String[] str = {"亚洲AS", "欧洲EU", "非洲AF", "北美洲NA", "南美洲SA", "大洋洲OA"};
         List<String> continenList = new ArrayList<String>();
         for (int i = 0; i < str.length; i++) {
             continenList.add(str[i]);
         }
-        map.put("langList",languageService.getDTOList());
-        map.put("continentList",continenList);
-        logger.info("map数据::::::===>>"+JSON.toJSON(map));
+        map.put("langList", languageService.getDTOList());
+        map.put("continentList", continenList);
+        logger.info("map数据::::::===>>" + JSON.toJSON(map));
         return "/views/country/edit";
     }
 
     /**
      * 添加或修改
+     *
      * @param map
      * @param params
      * @param cnName
@@ -113,73 +111,74 @@ public class HbCountryControler {
                             @RequestParam(value = "langId", required = false, defaultValue = "") String langId,
                             @RequestParam(value = "picId", required = false, defaultValue = "") String picId,
                             @RequestParam(value = "status", required = false, defaultValue = "1") int status,
-                            @RequestParam(value = "continent", required = false, defaultValue = "") String continent){
+                            @RequestParam(value = "continent", required = false, defaultValue = "") String continent) {
         map.remove("org.springframework.validation.BindingResult.countryQuery");
         boolean tmp = false;
-        if(StringUtils.isNotBlank(cid)){
+        if (StringUtils.isNotBlank(cid)) {
             AVQuery avQuery = new AVQuery("hb_countrys");
             try {
                 AVObject avo = avQuery.get(cid);
-                buildAvoObj(avo, cnName, countryCode, shortName, langId,picId, status, continent);
+                buildAvoObj(avo, cnName, countryCode, shortName, langId, picId, status, continent);
                 hbCountryDao.saveHbAvo(avo);
                 tmp = true;
             } catch (AVException e) {
                 logger.info(e.getMessage());
             }
-        }else {
-           AVObject avObject = buildAvoObj(null, cnName, countryCode, shortName, langId,picId, status, continent);
-           hbCountryDao.saveHbAvo(avObject);
+        } else {
+            AVObject avObject = buildAvoObj(null, cnName, countryCode, shortName, langId, picId, status, continent);
+            hbCountryDao.saveHbAvo(avObject);
             tmp = true;
         }
-        map.addAttribute("tmp",tmp);
+        map.addAttribute("tmp", tmp);
         return "redirect:/views/country/edit";
     }
 
-    public static AVObject buildAvoObj(AVObject avObject,String cnName,String countryCode,String shortName,String langId,String picId,int status,String continent){
-        if(avObject==null){
+    public static AVObject buildAvoObj(AVObject avObject, String cnName, String countryCode, String shortName, String langId, String picId, int status, String continent) {
+        if (avObject == null) {
             avObject = new AVObject("hb_countrys");
         }
-        if(StringUtils.isNotBlank(cnName)){
-            avObject.put("cnName",cnName);
+        if (StringUtils.isNotBlank(cnName)) {
+            avObject.put("cnName", cnName);
         }
-        if(StringUtils.isNotBlank(countryCode)){
-            avObject.put("countryCode",countryCode);
+        if (StringUtils.isNotBlank(countryCode)) {
+            avObject.put("countryCode", countryCode);
         }
-        if(StringUtils.isNotBlank(shortName)){
-            avObject.put("shortName",shortName);
+        if (StringUtils.isNotBlank(shortName)) {
+            avObject.put("shortName", shortName);
         }
-        if(StringUtils.isNotBlank(langId)){
-            avObject.put("langId",langId);
+        if (StringUtils.isNotBlank(langId)) {
+            avObject.put("langId", langId);
         }
-        if(StringUtils.isNotBlank(picId)){
-            avObject.put("iconFileObj",picId);
+        if (StringUtils.isNotBlank(picId)) {
+            avObject.put("iconFileObj", picId);
         }
-        avObject.put("status",status);
-        if(StringUtils.isNotBlank(continent)){
-            avObject.put("continent",continent);
+        avObject.put("status", status);
+        if (StringUtils.isNotBlank(continent)) {
+            avObject.put("continent", continent);
         }
         return avObject;
     }
 
     /**
      * 话题管理页面
+     *
      * @param model
      * @param countryId
      * @return
      */
     @RequestMapping(value = "/topics", method = RequestMethod.GET)
-    public String topics( Model model, String countryId) {
+    public String topics(Model model, String countryId) {
         List<HbTopicsDTO> hbTopicsDTOs = hbTopicsService.getDtoList();//获取所有话题
-        List<AppTopicsDTO> apptopics = appTopicsService.getDtoList(countryId,null);//获取国家关联话题
+        List<AppTopicsDTO> apptopics = appTopicsService.getDtoList(countryId, null);//获取国家关联话题
         List<AppTopicsDTO> resTopics = new ArrayList<>();
         AppTopicsDTO appTopic;
-        for (HbTopicsDTO hbTopicsDTO:hbTopicsDTOs){
+        for (HbTopicsDTO hbTopicsDTO : hbTopicsDTOs) {
             appTopic = new AppTopicsDTO();
             BeanUtils.copyProperties(hbTopicsDTO, appTopic);
             appTopic.setChecked(0);
             appTopic.setTopicType(hbTopicsDTO.getTopicType());
-            for (AppTopicsDTO appTopicsDTO : apptopics){
-                if (null!=appTopicsDTO.getHid()&&appTopicsDTO.getHid().equals(hbTopicsDTO.getHid())){
+            for (AppTopicsDTO appTopicsDTO : apptopics) {
+                if (null != appTopicsDTO.getHid() && appTopicsDTO.getHid().equals(hbTopicsDTO.getHid())) {
                     appTopic.setChecked(1);
                     appTopic.setTid(appTopicsDTO.getTid());
                     appTopic.setRank(appTopicsDTO.getRank());
@@ -189,18 +188,18 @@ public class HbCountryControler {
             }
             resTopics.add(appTopic);
         }
-        model.addAttribute("country",hbCountryService.getByCid(countryId));
+        model.addAttribute("country", hbCountryService.getByCid(countryId));
         model.addAttribute("apptopics", resTopics);
-        logger.info("country::>>>{}",JSON.toJSONString(hbCountryService.getByCid(countryId)));
-        logger.info("appss::>>{}",JSON.toJSONString(resTopics));
+        logger.info("country::>>>{}", JSON.toJSONString(hbCountryService.getByCid(countryId)));
+        logger.info("appss::>>{}", JSON.toJSONString(resTopics));
         return "country/topics";
     }
 
 
     @RequestMapping(value = "/topicsUpdate", method = RequestMethod.GET)
-    public String topicsUpdate(HttpServletRequest request,String countryId,String[] hIds,
+    public String topicsUpdate(HttpServletRequest request, String countryId, String[] hIds,
                                String[] keyWords, int[] ranks, Model model) {
-        List<AppTopicsDTO> apptics = appTopicsService.getDtoList(countryId,null);
+        List<AppTopicsDTO> apptics = appTopicsService.getDtoList(countryId, null);
         int result = 0;
         List<AppTopicsDTO> delapptics = new ArrayList<AppTopicsDTO>();
         List<AVObject> addapptics = new ArrayList<AVObject>();
@@ -217,9 +216,9 @@ public class HbCountryControler {
                         }
                         appTopics.setRank(ranks[a]);
                         isdel = false;
-                        logger.info("字段更新的hid::>>>{}",hIds[a]);
-                    }else {
-                        logger.info("要删除hid::>>>{}",hIds[a]);
+                        logger.info("字段更新的hid::>>>{}", hIds[a]);
+                    } else {
+                        logger.info("要删除hid::>>>{}", hIds[a]);
                     }
                 }
                 if (isdel) {
@@ -239,18 +238,18 @@ public class HbCountryControler {
                     }
                 }
                 if (!isextis) {
-                    logger.info("需要绑定的hid::>>>{}",hIds[a]);
+                    logger.info("需要绑定的hid::>>>{}", hIds[a]);
                     hbtopics = hbTopicsService.getById(hIds[a]);
                     apptopics = new AVObject("AppTopics");
-                    apptopics.put("countryObj",AVObject.createWithoutData("hb_countrys",countryId));
-                    apptopics.put("HbTopicsObj",AVObject.createWithoutData("hb_topics",hIds[a]));
+                    apptopics.put("countryObj", AVObject.createWithoutData("hb_countrys", countryId));
+                    apptopics.put("HbTopicsObj", AVObject.createWithoutData("hb_topics", hIds[a]));
 //                    apptopics.setCreateuid(sysuer.getUserid());
-                    apptopics.put("keyWords",keyWords[a]);
-                    apptopics.put("rank",ranks[a]);
+                    apptopics.put("keyWords", keyWords[a]);
+                    apptopics.put("rank", ranks[a]);
 //                    apptopics.put("topicIcon",hbtopics.getTopicIcon());
-                    apptopics.put("topicIconFile",hbtopics.getTopicIconId());
-                    apptopics.put("topicName",hbtopics.getTopicName());
-                    apptopics.put("topicType",hbtopics.getTopicType());
+                    apptopics.put("topicIconFile", hbtopics.getTopicIconId());
+                    apptopics.put("topicName", hbtopics.getTopicName());
+                    apptopics.put("topicType", hbtopics.getTopicType());
                     addapptics.add(apptopics);
                 }
             }
@@ -266,10 +265,10 @@ public class HbCountryControler {
 
 
     @RequestMapping(value = "exportCountry", method = RequestMethod.GET)
-    public void exportcountry( HttpServletResponse response) throws IOException {
+    public void exportcountry(HttpServletResponse response) throws IOException {
         response.setHeader("content-disposition",
             "attachment;filename=exportcountry.xls");
-        String[] title = { "国家ID", "国家名称", "国家代码" };
+        String[] title = {"国家ID", "国家名称", "国家代码"};
         List<String[]> list = new ArrayList<String[]>();
         List<HbCountrysDTO> countrylist = hbCountryService.getDtoList();
         for (HbCountrysDTO hb : countrylist) {
@@ -283,31 +282,31 @@ public class HbCountryControler {
     }
 
     @RequestMapping("/languages")
-    public String countryLang(ModelMap modelMap,String countryId){
+    public String countryLang(ModelMap modelMap, String countryId) {
         List<HbLanguageVO> resList = new ArrayList<>();
         HbLanguageVO hbLanguageVO;
-        List<AppLanguagesDTO> appLanguagesDTOs = appLanguagesService.getByCidAndHBlangId(countryId,null);
+        List<AppLanguagesDTO> appLanguagesDTOs = appLanguagesService.getByCidAndHBlangId(countryId, null);
         List<HbLanguageDTO> ls = languageService.getDTOList();
-        for (HbLanguageDTO hbLanguageDTO:ls){
+        for (HbLanguageDTO hbLanguageDTO : ls) {
             hbLanguageVO = new HbLanguageVO();
-            BeanUtils.copyProperties(hbLanguageDTO,hbLanguageVO);
+            BeanUtils.copyProperties(hbLanguageDTO, hbLanguageVO);
             hbLanguageVO.setChecked(0);
-            for (AppLanguagesDTO appLanguagesDTO : appLanguagesDTOs){
-                if (hbLanguageDTO.getHbId().equals(appLanguagesDTO.getHbLangId())){
+            for (AppLanguagesDTO appLanguagesDTO : appLanguagesDTOs) {
+                if (hbLanguageDTO.getHbId().equals(appLanguagesDTO.getHbLangId())) {
                     hbLanguageVO.setChecked(1);
                 }
             }
             resList.add(hbLanguageVO);
         }
-        modelMap.addAttribute("langList",resList);
+        modelMap.addAttribute("langList", resList);
 //        logger.info("res::>>{}",JSON.toJSONString(resList));
-        logger.info("map::>>>{}",modelMap);
+        logger.info("map::>>>{}", modelMap);
         return "country/language";
     }
 
     @RequestMapping(value = "/languageUpdate", method = RequestMethod.GET)
-    public String languageUpdate(HttpServletRequest request,String countryId,String[] hIds, Model model) {
-        List<AppLanguagesDTO> appLanguagesDTOs = appLanguagesService.getByCidAndHBlangId(countryId,null);
+    public String languageUpdate(HttpServletRequest request, String countryId, String[] hIds, Model model) {
+        List<AppLanguagesDTO> appLanguagesDTOs = appLanguagesService.getByCidAndHBlangId(countryId, null);
         int result = 0;
         List<AppLanguagesDTO> delapplangs = new ArrayList<AppLanguagesDTO>();
         List<AVObject> addapplangs = new ArrayList<AVObject>();
@@ -334,15 +333,15 @@ public class HbCountryControler {
                     }
                 }
                 if (!isextis) {
-                    logger.info("需要绑定的hid::>>>{}",hIds[a]);
+                    logger.info("需要绑定的hid::>>>{}", hIds[a]);
                     hbLanguageDTO = languageService.getById(hIds[a]);
                     applanguages = new AVObject("AppLanguages");
-                    applanguages.put("countryObj",AVObject.createWithoutData("hb_countrys",countryId));
-                    applanguages.put("hb_languages",AVObject.createWithoutData("hb_languages",hIds[a]));
+                    applanguages.put("countryObj", AVObject.createWithoutData("hb_countrys", countryId));
+                    applanguages.put("hb_languages", AVObject.createWithoutData("hb_languages", hIds[a]));
                     addapplangs.add(applanguages);
                 }
             }
-            result = this.appLanguagesService.updateAppLang(countryId,delapplangs,addapplangs);
+            result = this.appLanguagesService.updateAppLang(countryId, delapplangs, addapplangs);
         }
         request.getSession().setAttribute("message",
             "更新国家语言:" + (result > 0 ? "成功" : "失败"));

@@ -5,7 +5,6 @@ import com.avos.avoscloud.AVObject;
 import com.it7890.orange.manage.dao.AppTopicsDao;
 import com.it7890.orange.manage.service.AppTopicsService;
 import com.it7890.orange.manage.vo.AppTopicsDTO;
-import com.it7890.orange.manage.vo.HbCountrysDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -39,7 +38,7 @@ public class AppTopicsServiceImpl implements AppTopicsService {
                 this.appTopicsDao.delByCidAndHid(countryId,appTopics.getHid());
             }
             for (AVObject appTopics : addapptics) {
-                this.appTopicsDao.saveOrUpdate(appTopics);
+                appTopics.save();
             }
             for (AppTopicsDTO appTopics : updateapptopics) {
                 List<AVObject> ls = this.appTopicsDao.getListByCId(countryId,appTopics.getHid());
@@ -47,7 +46,7 @@ public class AppTopicsServiceImpl implements AppTopicsService {
                 updateAvo.setObjectId(ls.get(0).getObjectId());
                 updateAvo.put("keyWords",appTopics.getKeyWords());
                 updateAvo.put("rank",appTopics.getRank());
-                this.appTopicsDao.saveOrUpdate(updateAvo);
+                updateAvo.save();
             }
             result = 1;
         }catch(Exception e){

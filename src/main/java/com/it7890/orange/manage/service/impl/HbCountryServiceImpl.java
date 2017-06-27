@@ -4,7 +4,9 @@ import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.AVObject;
 import com.it7890.orange.manage.dao.AppTopicsDao;
 import com.it7890.orange.manage.dao.HbCountryDao;
+import com.it7890.orange.manage.model.AppTopics;
 import com.it7890.orange.manage.model.HbCountrys;
+import com.it7890.orange.manage.po.AppTopicsQuery;
 import com.it7890.orange.manage.po.HbCountryQuery;
 import com.it7890.orange.manage.service.HbCountryService;
 import com.it7890.orange.manage.utils.DateUtil;
@@ -31,12 +33,14 @@ public class HbCountryServiceImpl implements HbCountryService {
     @Resource
     AppTopicsDao appTopicsDao;
 
+
     @Override
     public List<HbCountrys> getAll() {
         return hbCountryDao.getAll();
     }
+
     @Override
-    public List<HbCountrys> get(HbCountryQuery hbCountryQuery) throws AVException{
+    public List<HbCountrys> get(HbCountryQuery hbCountryQuery) throws AVException {
         return hbCountryDao.get(hbCountryQuery);
     }
 
@@ -50,20 +54,20 @@ public class HbCountryServiceImpl implements HbCountryService {
         for (AVObject avObject : ls) {
             m = new HashMap();
             m.put("objectId", avObject.getObjectId());
-            if (avObject.getAVFile("iconFileObj")!=null){
-                m.put("countryIcon",avObject.getAVFile("iconFileObj").getUrl());
+            if (avObject.getAVFile("iconFileObj") != null) {
+                m.put("countryIcon", avObject.getAVFile("iconFileObj").getUrl());
             }
             m.put("cnName", avObject.getString("cnName"));
-            m.put("countryCode",avObject.getString("countryCode"));
-            m.put("shortName",avObject.getString("shortName"));
-            m.put("continent",avObject.getString("continent"));
-            List<AVObject> topicLs = appTopicsDao.getListByCId(avObject.getObjectId(),null);
-            logger.info(":::>>>>>>>>>>"+avObject.getString("cnName")+topicLs.size());
+            m.put("countryCode", avObject.getString("countryCode"));
+            m.put("shortName", avObject.getString("shortName"));
+            m.put("continent", avObject.getString("continent"));
+            List<AVObject> topicLs = appTopicsDao.getListByCId(avObject.getObjectId(), null);
+            logger.info(":::>>>>>>>>>>" + avObject.getString("cnName") + topicLs.size());
             List<String> topicList = new ArrayList<>();
-            for(AVObject obj:topicLs) {
+            for (AVObject obj : topicLs) {
                 topicList.add(obj.getString("topicName"));
             }
-            m.put("topicList",topicList);
+            m.put("topicList", topicList);
 //            m.put("status", avObject.getInt("status"));
             m.put("createdAt", DateUtil.getTimeStampStr(avObject.getCreatedAt()));
             countryList.add(m);
@@ -72,10 +76,10 @@ public class HbCountryServiceImpl implements HbCountryService {
         return map;
     }
 
-    public List<Map> getCountryList() throws AVException{
-        List<HbCountrys> hbCountrysList= hbCountryDao.get(new HbCountryQuery());
+    public List<Map> getCountryList() throws AVException {
+        List<HbCountrys> hbCountrysList = hbCountryDao.get(new HbCountryQuery());
         List<Map> list = new ArrayList<>();
-        Map map ;
+        Map map;
         for (HbCountrys hbCountrys : hbCountrysList) {
             map = new HashMap();
             map.put("objectId", hbCountrys.getObjectId());
@@ -100,11 +104,42 @@ public class HbCountryServiceImpl implements HbCountryService {
         return HbCountrysDTO.avo2dto(avo);
     }
 
-    public List<HbCountrysDTO> buildDtoList(List<AVObject> ls){
+    @Override
+    public List<Map> getList(HbCountryQuery hbCountryQuery) throws AVException {
+        List<HbCountrys> countrysList = hbCountryDao.get(hbCountryQuery);
+        List<Map> list = new ArrayList();
+
+        AppTopicsQuery appTopicsQuery;
+        Map map;
+        String topicStr;
+        for (HbCountrys country : countrysList) {
+            appTopicsQuery = new AppTopicsQuery();
+            topicStr = "";
+            appTopicsQuery.setCountryObjectId(country.getObjectId());
+            List<AppTopics> appTopicsList = appTopicsDao.get(appTopicsQuery);
+            for (AppTopics appTopics : appTopicsList) {
+                topicStr += appTopics.getTopicName() + ",";
+            }
+            map = new HashMap();
+            map.put("objectId", country.getObjectId());
+
+
+            map.put("icon", country.getIconFile() == null ? "" : country.getIconFile().getUrl());
+            map.put("name", country.getCnName());
+            map.put("countryCode", country.getCountryCode());
+            map.put("continent", country.getContinent());
+            map.put("topics", "".equals(topicStr) ? "" : topicStr.substring(0, topicStr.length() - 1));
+
+            list.add(map);
+        }
+        return list;
+    }
+
+    public List<HbCountrysDTO> buildDtoList(List<AVObject> ls) {
         List<HbCountrysDTO> dtols = null;
-        if (ls!=null){
+        if (ls != null) {
             dtols = new ArrayList<>();
-            for (AVObject avo : ls){
+            for (AVObject avo : ls) {
                 HbCountrysDTO dto = HbCountrysDTO.avo2dto(avo);
                 dtols.add(dto);
             }

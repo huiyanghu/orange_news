@@ -37,6 +37,7 @@ public class HbCountryDaoImpl implements HbCountryDao {
 
     public List<HbCountrys> get(HbCountryQuery hbCountryQuery) throws AVException {
         AVQuery<HbCountrys> query = new AVQuery<>("hb_countrys");
+        query.include("iconFileObj");
         if (StringUtil.isNotEmpty(hbCountryQuery.getCountryCode())) {
             query.whereEqualTo("countryCode", hbCountryQuery.getCountryCode());
         }
