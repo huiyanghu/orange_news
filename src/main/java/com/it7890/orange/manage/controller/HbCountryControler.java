@@ -65,10 +65,12 @@ public class HbCountryControler {
 
         hbCountryQuery.setStatus(0);
         List<Map> countryList = hbCountryService.getList(hbCountryQuery);
-        System.out.println(map.keySet());
+        List<Map> languageList = languageService.getLanguageList();
         map.remove("hbCountryQuery");
         map.remove("org.springframework.validation.BindingResult.hbCountryQuery");
+
         map.put("countryList",countryList);
+        map.put("languageList",languageList);
         System.out.println(JSON.toJSONString(map));
         return "views/country/list";
 
