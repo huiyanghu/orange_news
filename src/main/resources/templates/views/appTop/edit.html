@@ -134,7 +134,7 @@
                                 <div class="col-md-8">
                                     <select name="languagesObjectId" id="languagesObjectId" class="select2-select-00 col-md-12 full-width-fix select2-offscreen" tabindex="-1">
                                         <option value="">请选择</option>
-                                        <option th:each="language:${languageList}" th:selected="(${appTop.languagesObjectId == language.objectId})" th:value="${language.objectId}" th:text="${language.get('codes')}+'&nbsp;'+${language.get('remark')}"></option>
+                                        <option th:each="language:${languageList}" th:selected="(${appTop.languagesObjectId == language.get('objectId')})" th:value="${language.get('objectId')}" th:text="${language.get('codes')}+'&nbsp;'+${language.get('remark')}"></option>
                                     </select>
                                 </div>
                             </div>
@@ -161,7 +161,7 @@
                                     文章类型：
                                 </label>
                                 <div class="col-md-8">
-                                    <input type="text" id="articleType" readonly class="form-control" th:value="${appTop.articleType}">
+                                    <input type="text" id="articleType" readonly class="form-control" th:value="${appTop.articleTypeStr}">
                                 </div>
                             </div>
                         </div>
@@ -173,9 +173,9 @@
                                 <div class="col-md-8">
                                     <select name="status" id="status" class="form-control" tabindex="-1">
                                         <option value="" selected>请选择</option>
-                                        <option value="1" th:selected="(${appTop.status == 1})">正常</option>
-                                        <option value="0" th:selected="(${appTop.status == 0})">禁用</option>
-                                        <option value="-1" th:selected="(${appTop.status == -1})">删除</option>
+                                        <option value="0" th:selected="(${appTop.status == 0})">正常</option>
+                                        <option value="1" th:selected="(${appTop.status == 1})">禁用</option>
+                                        <option value="2" th:selected="(${appTop.status == 2})">删除</option>
                                     </select>
                                 </div>
                             </div>
@@ -184,17 +184,17 @@
                                     发布时间：
                                 </label>
                                 <div class="col-md-8">
-                                    <input type="text" id="createdAt" readonly class="form-control" placeholder="输入发布时间" th:value="${appTop.createdAt}" onClick="WdatePicker()">
+                                    <input type="text" id="createdAt" readonly class="form-control" th:value="${appTop.createdAt}"  >
                                 </div>
                             </div>
-                            <div class="col-md-4">
+                            <!--<div class="col-md-4">
                                 <label class="col-md-4 control-label" for="order">
                                     排序：
                                 </label>
                                 <div class="col-md-8">
                                     <input type="text" id="order" readonly class="form-control" th:value="${appTop.objectId}">
                                 </div>
-                            </div>
+                            </div>-->
                         </div>
                         <div class="form-group">
                             <div class="col-md-12">

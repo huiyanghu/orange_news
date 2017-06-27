@@ -53,6 +53,8 @@ public class LanguageDaoImpl implements LanguageDao {
             map = new HashMap();
             map.put("objectId", language.getObjectId());
             map.put("languageName", language.getName());
+            map.put("remark", language.getRemark());
+            map.put("codes", language.getCodes());
             list.add(map);
         }
         return list;

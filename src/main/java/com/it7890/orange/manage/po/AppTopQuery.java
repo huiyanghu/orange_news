@@ -11,7 +11,7 @@ public class AppTopQuery {
     private Integer ctype;
     private String startTime;
     private String endTime;
-    private Integer status;//1正常 0禁用 -1删除
+    private Integer status;//0正常 1禁用 2删除
     private Integer itype;
     private Integer longitude;
     private Integer latitude;

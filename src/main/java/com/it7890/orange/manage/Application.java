@@ -42,7 +42,7 @@ public class Application {
         AVObject.registerSubclass(AppAplication.class);
         AVObject.registerSubclass(AppTopics.class);
         AVObject.registerSubclass(SysUser.class);
-        AVObject.registerSubclass(File.class);
+        AVObject.registerSubclass(AppTop.class);
 
 
 

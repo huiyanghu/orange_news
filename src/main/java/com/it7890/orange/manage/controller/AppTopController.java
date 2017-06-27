@@ -3,8 +3,6 @@ package com.it7890.orange.manage.controller;
 import com.alibaba.fastjson.JSON;
 import com.avos.avoscloud.AVException;
 import com.it7890.orange.manage.model.AppTop;
-import com.it7890.orange.manage.model.HbCountrys;
-import com.it7890.orange.manage.model.HbLanguage;
 import com.it7890.orange.manage.po.AppTopQuery;
 import com.it7890.orange.manage.service.AppTopService;
 import com.it7890.orange.manage.service.HbCountryService;
@@ -81,9 +79,10 @@ public class AppTopController {
     @RequestMapping(path = "/toUpdate", method = RequestMethod.GET)
     public String toUpdate(String objectId, Map map) throws AVException {
         map.put("appTop", appTopService.getAppTop(objectId));
-        List<HbCountrys> countryList = hbCountryService.getAll();//国家列表
+        List<Map> countryList = hbCountryService.getCountryList();//国家列表
+        List<Map> hbLanguageList = languageService.getLanguageList();
+
         map.put("countryList", countryList);
-        List<HbLanguage> hbLanguageList = languageService.getAll();
         map.put("languageList", hbLanguageList);
 
         System.out.println(JSON.toJSON(map));

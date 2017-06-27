@@ -1,6 +1,7 @@
 package com.it7890.orange.manage.model;
 
 import com.avos.avoscloud.AVClassName;
+import com.avos.avoscloud.AVFile;
 import com.avos.avoscloud.AVObject;
 
 import java.util.Date;
@@ -93,11 +94,12 @@ public class ConArticle extends AVObject {
         this.put("channelObj", channel);
     }
 
-    public List<File> getContentPicArr() {
+    public List<AVFile> getContentPicArr() {
+
         return getList("contentPicObjArr");
     }
 
-    public void setContentPicArr(List<File> contentPicArr) {
+    public void setContentPicArr(List<AVFile> contentPicArr) {
         this.put("contentPicObjArr", contentPicArr);
     }
 
@@ -333,11 +335,11 @@ public class ConArticle extends AVObject {
         this.put("topicObj", topics);
     }
 
-    public List<File> getTitlePicArr() {
+    public List<AVFile> getTitlePicArr() {
         return getList("titlePicObjArr");
     }
 
-    public void setTitlePicArr(List<File> titlePicArr) {
+    public void setTitlePicArr(List<AVFile> titlePicArr) {
         this.put("titlePicObjArr", titlePicArr);
     }
 

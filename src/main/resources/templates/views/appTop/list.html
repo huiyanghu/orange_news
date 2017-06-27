@@ -141,9 +141,9 @@
                                 <div class="col-md-8">
                                     <select name="status" id="status" class="form-control" tabindex="-1" th:field="*{status}">
                                         <option value="" selected>请选择</option>
-                                        <option value="1" th:selected="(${appTopQuery.status== 1})">正常</option>
-                                        <option value="0" th:selected="(${appTopQuery.status== 0})">禁用</option>
-                                        <option value="-1" th:selected="(${appTopQuery.status == -1})">删除</option>
+                                        <option value="0" th:selected="(${appTopQuery.status== 0})">正常</option>
+                                        <option value="1" th:selected="(${appTopQuery.status== 1})">禁用</option>
+                                        <option value="2" th:selected="(${appTopQuery.status == 2})">删除</option>
                                     </select>
                                 </div>
                             </div>
@@ -198,7 +198,7 @@
                             <th>发布时间</th>
                             <th>更新时间</th>
                             <th>状态</th>
-                            <th>排序</th>
+                            <!--<th>排序</th>-->
                             <th>操作</th>
                         </tr>
                         </thead>
@@ -209,18 +209,18 @@
                             <td th:text="${appTop.get('languageRemark')}"></td>
                             <td th:text="${appTop.get('articleTitle')}"></td>
                             <td th:text="${appTop.get('itypeStr')}"></td>
-                            <td th:text="${appTop.get('articleType')}"></td>
+                            <td th:text="${appTop.get('articleTypeStr')}"></td>
                             <td>
                                 <img th:src="${appTop.get('picUrl')}" alt="">
                             </td>
                             <td th:text="${appTop.get('createdAt')}"></td>
-                            <td th:text="${appTop.get('createdAt')}"></td>
-                            <td th:text="${appTop.get('createdAt')}"></td>
+                            <td th:text="${appTop.get('updatedAt')}"></td>
+                            <td th:text="${appTop.get('updatedAt')}"></td>
                             <!--<td th:text="${#calendars.format({appTop.get('createdAt')},'yyyy-MM-dd HH:mm'}"></td>
                             <td th:text="${#calendars.format({appTop.get('createdAt')},'yyyy-MM-dd HH:mm'}"></td>
                             <td th:text="${#calendars.format({appTop.get('createdAt')},'yyyy-MM-dd HH:mm'}"></td>-->
-                            <td th:text="${appTop.get('cType')}"></td>
-                            <td th:text="${appTop.get('cType')}"></td>
+                            <td th:text="${appTop.get('statusStr')}"></td>
+                            <!--<td th:text="${appTop.get('cType')}"></td>-->
                             <td class="align-center">
                                     <span class="btn-group">
                                         <a href="javascript:void(0);" th:href="@{/appTop/toUpdate(objectId=${appTop.get('objectId')})}" th:attr="objectid=${appTop.get('objectId')}" class="btn btn-xs bs-tooltip edit-app-top" title="" data-original-title="修改">

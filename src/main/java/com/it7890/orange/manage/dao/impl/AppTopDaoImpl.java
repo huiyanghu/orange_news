@@ -5,6 +5,7 @@ import com.avos.avoscloud.AVFile;
 import com.avos.avoscloud.AVObject;
 import com.avos.avoscloud.AVQuery;
 import com.it7890.orange.manage.dao.AppTopDao;
+import com.it7890.orange.manage.model.AppTop;
 import com.it7890.orange.manage.po.AppTopQuery;
 import com.it7890.orange.manage.utils.ConstantsUtil;
 import com.it7890.orange.manage.utils.DateUtil;
@@ -18,26 +19,29 @@ import java.util.*;
  * Created by Administrator on 2017/5/26.
  */
 @Repository
-public class AppTopDaoImpl  implements AppTopDao {
+public class AppTopDaoImpl implements AppTopDao {
     @Override
     public Map getAll(AppTopQuery appTopQuery, Integer page) throws AVException {
         Map map = new HashMap();
 
         /*appTopList*/
-        AVQuery<AVObject> query = new AVQuery<>("AppTop");
-        if (appTopQuery.getCountryCode() != null && !"".equals(appTopQuery.getCountryCode())) {
+        AVQuery<AppTop> query = new AVQuery("AppTop");
+        if (StringUtil.isNotEmpty(appTopQuery.getCountryCode())) {
             query.whereEqualTo("countryCode", appTopQuery.getCountryCode());
         }
-        if (appTopQuery.getStartTime() != null && !"".equals(appTopQuery.getStartTime())) {
+        if (StringUtil.isNotEmpty(appTopQuery.getCtype())) {
+            query.whereEqualTo("cType", appTopQuery.getCtype());
+        }
+        if (StringUtil.isNotEmpty(appTopQuery.getStartTime())) {
             query.whereGreaterThanOrEqualTo("createdAt", DateUtil.getDateByStr(appTopQuery.getStartTime()));
         }
-        if (appTopQuery.getEndTime() != null && !"".equals(appTopQuery.getEndTime())) {
+        if (StringUtil.isNotEmpty(appTopQuery.getEndTime())) {
             query.whereLessThan("createdAt", DateUtil.addDay(DateUtil.getDateByStr(appTopQuery.getEndTime()), 1));
         }
-        if (appTopQuery.getStatus() != null) {
+        if (StringUtil.isNotEmpty(appTopQuery.getStatus())) {
             query.whereEqualTo("status", appTopQuery.getStatus());
         }
-        if (appTopQuery.getItype() != null) {
+        if (StringUtil.isNotEmpty(appTopQuery.getItype())) {
             query.whereEqualTo("iType", appTopQuery.getItype());
         }
         query.orderByDescending("createdAt");
@@ -52,37 +56,36 @@ public class AppTopDaoImpl  implements AppTopDao {
         query.include("articleObj.titlePicObjArr");
 
 
-        List<AVObject> avObjectList = query.find();
-        List<Map> appTopList = new ArrayList<Map>();
+        List<AppTop> appTopList = query.find();
+        List<Map> list = new ArrayList();
         Map m;
-        for (AVObject avObject : avObjectList) {
+        for (AppTop appTop : appTopList) {
             m = new HashMap();
-            m.put("objectId", avObject.getObjectId());
-            m.put("status", avObject.getString("status"));
-            m.put("statusStr", ConstantsUtil.getConstants("appTopStatus",""+avObject.getInt("status")));
-            if (avObject.get("createdAt") != null) {
-                Date createdAt = (Date) avObject.get("createdAt");
-                m.put("createdAt", DateUtil.getTimeStampStr(createdAt));
-            }
-            m.put("itype", avObject.get("iType"));
-            m.put("itypeStr", ConstantsUtil.getConstants("appTopItype","" + avObject.get("iType")));
-            if (avObject.getAVObject("languagesObj") != null) {
-                m.put("languageRemark", avObject.getAVObject("languagesObj").get("remark"));
-            }
-            if (avObject.getAVObject("countryObj") != null) {
-                m.put("countryCnName", avObject.getAVObject("countryObj").get("cnName"));
-            }
-            if (avObject.getAVObject("articleObj") != null) {
-                m.put("articleTitle", avObject.getAVObject("articleObj").get("title"));
-                m.put("articleType", ConstantsUtil.getConstants("appTopArtitype", "" + avObject.getAVObject("articleObj").get("attr")));
-                List<AVFile> avFileList = avObject.getAVObject("articleObj").getList("titlePicObjArr");
-                if (!avFileList.isEmpty() && avFileList.size() > 0) {
+            m.put("objectId", appTop.getObjectId());
+            m.put("status", appTop.getStatus());
+            m.put("statusStr", ConstantsUtil.getConstants("appTopStatus", "" + appTop.getStatus()));
+            m.put("createdAt", DateUtil.getTimeStampStr(appTop.getCreatedAt()));
+            m.put("updatedAt", DateUtil.getTimeStampStr(appTop.getUpdatedAt()));
+
+            m.put("itype", appTop.getItype());
+            m.put("itypeStr", ConstantsUtil.getConstants("appTopItype", "" + appTop.getItype()));
+            m.put("languageRemark", appTop.getLanguage() == null ? "" : appTop.getLanguage().getRemark());
+            m.put("countryCnName", appTop.getCountry() == null ? "" : appTop.getCountry().getCnName());
+
+
+            if (appTop.getArticle() != null) {
+                m.put("articleTitle", appTop.getArticle().getTitle());
+                m.put("articleType", appTop.getArticle().getAttr());
+                m.put("articleTypeStr", ConstantsUtil.getConstants("appTopArtitype", "" + appTop.getArticle().getAttr()));
+                List<AVFile> avFileList = appTop.getArticle().getTitlePicArr();
+                if (avFileList!=null&&!avFileList.isEmpty()) {
                     m.put("picUrl", avFileList.get(0).getUrl());
                 }
             }
-            appTopList.add(m);
+
+            list.add(m);
         }
-        map.put("appTopList", appTopList);
+        map.put("appTopList", list);
 
         /*pageUtil*/
         Integer count = query.count();
@@ -94,44 +97,40 @@ public class AppTopDaoImpl  implements AppTopDao {
     }
 
     public Map getAppTop(String objectId) throws AVException {
-        AVQuery<AVObject> query = new AVQuery<>("AppTop");
+        AVQuery<AppTop> query = new AVQuery<>("AppTop");
         query.include("articleObj");
         query.include("articleObj.titlePicObjArr");
 
-        AVObject avObject = query.get(objectId);
+        AppTop appTop = query.get(objectId);
 
         Map map = new HashMap();
-        map.put("objectId", avObject.getObjectId());
-        map.put("countryObjectId", avObject.getAVObject("countryObj") == null ? "" : avObject.getAVObject("countryObj").getObjectId());
-        map.put("languagesObjectId", avObject.getAVObject("languagesObj") == null ? "" : avObject.getAVObject("languagesObj").getObjectId());
-        map.put("itypeStr", ConstantsUtil.getConstants("appTopItype","" + avObject.get("iType")));
-        map.put("itype", avObject.get("iType"));
-        if (avObject.getAVObject("articleObj") != null) {
-            map.put("articleTitle", avObject.getAVObject("articleObj").get("title"));
-            map.put("articleType", ConstantsUtil.getConstants("appTopArtitype", "" + avObject.getAVObject("articleObj").get("attr")));
-            List<AVFile> avFileList = avObject.getAVObject("articleObj").getList("titlePicObjArr");
-            if (!avFileList.isEmpty() && avFileList.size() > 0) {
+        map.put("objectId", appTop.getObjectId());
+        map.put("countryObjectId", appTop.getCountry() == null ? "" : appTop.getCountry().getObjectId());
+        map.put("languagesObjectId", appTop.getLanguage() == null ? "" : appTop.getLanguage().getObjectId());
+        map.put("itype", appTop.getItype());
+        map.put("itypeStr", ConstantsUtil.getConstants("appTopItype", "" + appTop.getItype()));
+        if (appTop.getArticle() != null) {
+            map.put("articleTitle", appTop.getArticle().getTitle());
+            map.put("articleType", appTop.getArticle().getAttr());
+            map.put("articleTypeStr", ConstantsUtil.getConstants("appTopArtitype", "" + appTop.getArticle().getAttr()));
+            List<AVFile> avFileList = appTop.getArticle().getTitlePicArr();
+            if (avFileList!=null&&!avFileList.isEmpty()) {
                 map.put("picUrl", avFileList.get(0).getUrl());
             }
         }
+        map.put("status", appTop.getStatus());
+        map.put("statusStr", ConstantsUtil.getConstants("appTopStatus", "" + appTop.getStatus()));
+        map.put("createdAt", DateUtil.getTimeStampStr(appTop.getCreatedAt()));
 
-        map.put("status", avObject.getString("status"));
-        map.put("statusStr", ConstantsUtil.getConstants("appTopStatus",""+avObject.getString("status")));
-
-        if (avObject.get("createdAt") != null) {
-            Date createdAt = (Date) avObject.get("createdAt");
-            map.put("createdAt", DateUtil.getTimeStampStr(createdAt));
-
-        }
         return map;
     }
 
     public void saveOrUpdate(AppTopQuery appTopQuery) throws AVException {
         AVObject avObject = AVObject.createWithoutData("AppTop", appTopQuery.getObjectId());
-        if(StringUtil.isNotEmpty(appTopQuery.getCountryObjectId())){
+        if (StringUtil.isNotEmpty(appTopQuery.getCountryObjectId())) {
             avObject.put("countryObj", AVObject.createWithoutData("hb_countrys", appTopQuery.getCountryObjectId()));
         }
-        if(StringUtil.isNotEmpty(appTopQuery.getLanguagesObjectId())){
+        if (StringUtil.isNotEmpty(appTopQuery.getLanguagesObjectId())) {
             avObject.put("languagesObj", AVObject.createWithoutData("hb_languages", appTopQuery.getLanguagesObjectId()));
         }
 

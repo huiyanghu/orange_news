@@ -11,7 +11,7 @@ public class AppTop extends AVObject {
     /*public AppTop() {
         super();
     }*/
-    private ConArticle article;
+  /*  private ConArticle article;
     private Integer ctype;
     private ConChannel channel;
     private HbCountrys country;
@@ -25,7 +25,7 @@ public class AppTop extends AVObject {
     private Integer rank;
     private Integer status;
     private AppTopics topics;
-
+*/
     public ConArticle getArticle() {
         return getAVObject("articleObj");
     }
