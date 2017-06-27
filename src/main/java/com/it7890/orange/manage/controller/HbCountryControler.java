@@ -67,6 +67,7 @@ public class HbCountryControler {
         System.out.println(JSON.toJSONString(countryList));
         map.put("countryList",countryList);
         return "views/country/list";
+
     }
 
     /**
