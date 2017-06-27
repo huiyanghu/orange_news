@@ -1,6 +1,5 @@
 package com.it7890.orange.manage.dao.impl;
 
-import com.alibaba.fastjson.JSON;
 import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.AVQuery;
 import com.it7890.orange.manage.dao.GrabDetailRuleDao;
@@ -55,11 +54,7 @@ public class GrabDetailRuleDaoImpl implements GrabDetailRuleDao {
             m.put("status", grabDetailRule.getStatus()==null?"":grabDetailRule.getStatus());
             m.put("statusStr", ConstantsUtil.getConstants("grabDetailRuleStatus", "" + grabDetailRule.getStatus()));
             result.add(m);
-            if ("594a50fae330d90066ab9801".equals(grabDetailRule.getObjectId())){
-                System.out.println(grabDetailRule.getStatus());
-                System.out.println("============================");
-                System.out.println(JSON.toJSONString(grabDetailRule));
-            }
+
         }
         map.put("grabDetailRuleList", result);
 
