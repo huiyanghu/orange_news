@@ -35,11 +35,11 @@ public class AppKeywordsController {
         List<Map> list0 = appKeywordsService.getKeywordsList(appKeywordsQuery);
         appKeywordsQuery.setKeywordType(1);
         List<Map> list1 = appKeywordsService.getKeywordsList(appKeywordsQuery);
-
+        System.out.println(map.keySet());
         map.put("list0", list0);
         map.put("list1", list1);
         System.out.println(JSON.toJSONString(map));
-        return "keywords/list";
+        return "views/keywords/list";
     }
 
     @RequestMapping("/toCountryKeywordsEdit")
@@ -49,7 +49,7 @@ public class AppKeywordsController {
             map.put("keywords", keywords);
         }
         map.put("countryObjectId", countryObjectId);
-        return "keywords/add";
+        return "views/keywords/add";
     }
 
     @RequestMapping(value = "/editCountryKeywords", method = RequestMethod.POST)
