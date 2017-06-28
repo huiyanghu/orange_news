@@ -1,6 +1,5 @@
 package com.it7890.orange.manage.controller;
 
-import com.alibaba.fastjson.JSON;
 import com.avos.avoscloud.AVException;
 import com.it7890.orange.manage.po.RecommendQuery;
 import com.it7890.orange.manage.service.HbCountryService;
@@ -45,15 +44,8 @@ public class RecommendArtControler {
                                    @RequestParam(value = "countryCode", required = false, defaultValue = "") String countryCode,
                                    @RequestParam(value = "startTime", required = false, defaultValue = "") String startTime,
                                    @RequestParam(value = "endTime", required = false, defaultValue = "") String endTime) throws AVException, ParseException {
-        logger.info("method name=applicationRecommedArt/list;param={"
-                                                            +"page:" +page
-                                                            +",pushNum:"+pushNum
-                                                            +",countryCode:"+countryCode
-                                                            +",startTime:"+startTime
-                                                            +",endTime:"+endTime
-                                                            +"}");
+
         Map listAndPageUtilMap = recommendArtService.getList(pushNum, countryCode, startTime, endTime, page);
-//        logger.info("map;;;;;;;;;;;;;"+map.keySet());
         map.remove("org.springframework.validation.BindingResult.recommendQuery");
 //        map.put("pushNum", pushNum);
 //        map.put("countryCode", countryCode);
@@ -61,8 +53,8 @@ public class RecommendArtControler {
 //        map.put("endTime", endTime);
 //        map.put("queryParams",query);
         map.putAll(listAndPageUtilMap);
-        map.putAll(hbCountryService.getAvoList());
-        logger.info("map数据::::::===>>"+JSON.toJSON(map));
+        map.put("countryList",hbCountryService.getCountryList());
+        //System.out.println(JSON.toJSONString(map));
         return "views/recommend/list";
 
     }

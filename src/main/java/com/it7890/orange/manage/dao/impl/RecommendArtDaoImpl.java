@@ -38,11 +38,16 @@ public class RecommendArtDaoImpl implements RecommendArtDao {
             avQueryArt.whereEqualTo("countrycode",countryCode);
         }
         if(StringUtil.isNotEmpty(startDate)){
-            avQueryArt.whereGreaterThan("createdAt", DateUtil.getDateByStr(startDate));
+            avQueryArt.whereGreaterThanOrEqualTo("createdAt", DateUtil.getDateByStr(startDate));
         }
         if (StringUtil.isNotEmpty(endDate)){
-            avQueryArt.whereLessThan("createdAt",DateUtil.getDateByStr(endDate));
+            avQueryArt.whereLessThan("createdAt",DateUtil.addDay(DateUtil.getDateByStr(endDate), 1));
         }
+
+
+
+
+
         avQueryArt.limit(pageSize);
         avQueryArt.skip(skip);
         try {

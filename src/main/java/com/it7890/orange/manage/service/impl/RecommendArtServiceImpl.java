@@ -1,7 +1,6 @@
 package com.it7890.orange.manage.service.impl;
 
 import com.avos.avoscloud.AVException;
-import com.avos.avoscloud.AVFile;
 import com.avos.avoscloud.AVObject;
 import com.it7890.orange.manage.dao.RecommendArtDao;
 import com.it7890.orange.manage.service.RecommendArtService;
@@ -12,7 +11,10 @@ import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
 import java.text.ParseException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Created by wyq on 2017/6/6.
@@ -42,9 +44,9 @@ public class RecommendArtServiceImpl implements RecommendArtService {
             artList.add(m);
         }
         map.put("artList", artList);
-        pageUtil.setCurrentPage(page);
         pageUtil.setRecordCount(count);
         pageUtil.setPagecount(pageUtil.getPagecount());
+        pageUtil.setCurrentPage(page);
         map.put("pageUtil", pageUtil);
         return map;
     }
