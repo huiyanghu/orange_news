@@ -46,7 +46,7 @@ public class AppAdvertDaoImpl implements AppAdvertDao {
             query.whereEqualTo("objectId", appAdvertQuery.getObjectId());
         }
         if (StringUtil.isNotEmpty(appAdvertQuery.getArticleObjectId())) {
-            query.whereEqualTo("articleObj", AVObject.createWithoutData("conarticle",appAdvertQuery.getArticleObjectId()));
+            query.whereEqualTo("articleObj", AVObject.createWithoutData("conarticle", appAdvertQuery.getArticleObjectId()));
         }
 
         query.include("languageObj");
