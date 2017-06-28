@@ -109,7 +109,7 @@
                 </div>
                 <div class="widget-content"><!--th:object="${Query}"-->
                     <form class="form-horizontal row-border" th:object="${recommendQuery}" th:action="@{/applicationRecommedArt/list}" th:method="get" id="dataForm">
-                        <input type="hidden" name="page" id="page" value="1">
+                        <input type="hidden" name="page" id="page" th:value="${pageUtil.currentPage}">
                         <div class="form-group">
                             <div class="col-md-6">
                                 <label class="col-md-4 control-label" for="pushNum">
