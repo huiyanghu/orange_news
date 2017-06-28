@@ -125,6 +125,7 @@ public class HbCountryControler {
         if (StringUtils.isNotBlank(cid)) {
             AVQuery avQuery = new AVQuery("hb_countrys");
             try {
+
                 AVObject avo = avQuery.get(cid);
                 buildAvoObj(avo, cnName, countryCode, shortName, langId, picId, status, continent);
                 hbCountryDao.saveHbAvo(avo);
