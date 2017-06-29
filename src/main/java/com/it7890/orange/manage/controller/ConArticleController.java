@@ -10,6 +10,7 @@ import com.it7890.orange.manage.po.ConArticleQuery;
 import com.it7890.orange.manage.po.HbCountryQuery;
 import com.it7890.orange.manage.service.*;
 import com.it7890.orange.manage.utils.ConstantsUtil;
+import com.it7890.orange.manage.utils.MD5;
 import com.it7890.orange.manage.utils.StringUtil;
 import com.it7890.orange.manage.vo.ConArticleDetailDTO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,10 +28,7 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created by Administrator on 2017/5/31.
@@ -637,6 +635,74 @@ public class ConArticleController {
             e.printStackTrace();
         }
         return "redirect:/conArticle/list";
+    }
+
+    /**
+     * 添加到置顶图
+     */
+    @RequestMapping("/addToAppTop")
+    public String addToAppTop(String objectId, Map map) throws Exception {
+        AppAdvertQuery appAdvertQuery = new AppAdvertQuery();
+        appAdvertQuery.setArticleObjectId(objectId);
+        AppAdvert appAdvert = null;
+        List<AppAdvert> appAdvertList = appAdvertService.get(appAdvertQuery);
+        if (appAdvertList != null && !appAdvertList.isEmpty()) {
+            appAdvert = appAdvertList.get(0);
+        }
+
+        AppTop appTop = new AppTop();
+
+
+        if (appAdvert != null) {
+            appTop.setAdvert(appAdvert);
+            appTop.setItype(3); //广告
+            ConArticle article = new ConArticle();
+            article.setObjectId(objectId);
+            article.setAttr(7);//其他
+            appTop.setArticle(article);
+
+            //国家
+            HbCountryQuery countryQuery = new HbCountryQuery();
+            countryQuery.setCountryCode(appAdvert.getCountryCode());
+            List<HbCountrys> countrysList = hbCountryService.get(countryQuery);
+            if (countrysList != null && !countrysList.isEmpty()) {
+                appTop.setCountry(countrysList.get(0));
+            }
+
+            appTop.setLanguage(appAdvert.getLanguageObj()); //语言
+            appTop.setRank(0); //排序
+            appTop.setStatus(1);//禁用
+
+            if (appAdvert.getAdTitle() != null && !appAdvert.getAdTitle().equals("")) {
+                appTop.setTitle(appAdvert.getAdTitle());
+            } else if (appAdvert.getAdName() != null && !appAdvert.getAdName().equals("")) {
+                appTop.setTitle(appAdvert.getAdName());
+            }
+            appTop.setTitlePic(appAdvert.getAdImg());
+
+            appTop.setUrl(appAdvert.getAdUrl());
+            appTop.setSubTime(new Date());
+        }
+        long result = appTopService.updateAppTopES(appTop);
+
+        //向队列中发送消息
+        if (switch1.getIsopenapptop() == 0) {
+            String[] list = SQSUtil.getUrlList();
+            for (int j = 0; j < list.length; j++) {
+                SqsBaseVo sb = new SqsBaseVo();
+                sb.setType(0);
+                sb.setName(AppTop.class.getSimpleName());
+                List l = new ArrayList();
+                l.add(appTop);
+                sb.setList(l);
+                SQSUtil.putMessage(SQSUtil.getSQSClient(), sb, list[j]);
+                logger.info("send art message to " + list[j]);
+            }
+        }
+        request.getSession().setAttribute("message",
+            "添加到置顶图:" + (result > 0 ? "成功" : "失败"));
+        request.getSession().setAttribute("url", "advert/list?searchstr=" + searchstr);
+        return String.format("redirect:/message");
     }
 
 }

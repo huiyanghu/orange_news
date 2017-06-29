@@ -5,6 +5,7 @@ import com.avos.avoscloud.AVObject;
 import com.avos.avoscloud.AVQuery;
 import com.it7890.orange.manage.dao.AppAdvertDao;
 import com.it7890.orange.manage.model.AppAdvert;
+import com.it7890.orange.manage.model.ConArticle;
 import com.it7890.orange.manage.po.AppAdvertQuery;
 import com.it7890.orange.manage.utils.StringUtil;
 import org.springframework.stereotype.Repository;
@@ -46,7 +47,9 @@ public class AppAdvertDaoImpl implements AppAdvertDao {
             query.whereEqualTo("objectId", appAdvertQuery.getObjectId());
         }
         if (StringUtil.isNotEmpty(appAdvertQuery.getArticleObjectId())) {
-            query.whereEqualTo("articleObj", AVObject.createWithoutData("conarticle", appAdvertQuery.getArticleObjectId()));
+            ConArticle article = new ConArticle();
+            article.setObjectId(appAdvertQuery.getArticleObjectId());
+            query.whereEqualTo("articleObj", article);
         }
 
         query.include("languageObj");
