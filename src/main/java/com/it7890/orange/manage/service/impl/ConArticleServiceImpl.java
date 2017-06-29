@@ -38,7 +38,9 @@ public class ConArticleServiceImpl implements ConArticleService {
     public void deleteBatch(String ids) throws AVException {
         String[] idArr = ids.split(",");
         for (String id : idArr) {
-            conArticleDao.delete(id);
+            ConArticle article = conArticleDao.getById(id);
+            article.setStatus(-1);
+            article.save();
         }
 
     }
