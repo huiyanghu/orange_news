@@ -44,6 +44,7 @@ public class PushMessageController {
                     @Override
                     public void done(AVException e) {
                         if (e == null) {
+                            // 更新推送次数
                             articleInfo.increment("pushnum");
                             try {
                                 conArticleService.updateArticleInfo(articleInfo);

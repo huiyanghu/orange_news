@@ -1,8 +1,10 @@
 package com.it7890.orange.manage.controller;
 
 import com.alibaba.fastjson.JSON;
+import com.avos.avoscloud.AVFile;
 import com.it7890.orange.manage.po.FileInfo;
 import com.it7890.orange.manage.utils.MD5;
+import com.it7890.orange.manage.utils.StringUtil;
 import com.it7890.orange.manage.utils.UpLoadFileUtil;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -38,7 +40,7 @@ public class UpLoadFileContrler {
 
     @RequestMapping("do")
     @ResponseBody
-    public String upLoadFile(@RequestParam(value = "file", required = false) MultipartFile file){
+    public String upLoadFile(@RequestParam(value = "file", required = false) MultipartFile file) {
         String fileId = null;
         String fileName = file.getOriginalFilename();
         logger.info("fileName:::::>>>>>"+fileName);
@@ -51,43 +53,5 @@ public class UpLoadFileContrler {
         fileInfo.setFileId(fileId);
         logger.info("上传图片生成的id是::::::::::>>>>\""+JSON.toJSONString(fileInfo));
         return JSON.toJSONString(fileInfo);
-    }
-
-    @RequestMapping(value = "/ueditor")
-    @ResponseBody
-    public String BinaryUpload(
-        HttpServletRequest req,
-        HttpServletResponse response,
-        @RequestParam(value = "action", required = false) String action
-    ){
-
-        if("config".equals(action))
-        {
-            return "{\"snapscreenInsertAlign\":\"none\",\"imageUrlPrefix\":\"\",\"imageAllowFiles\":[\".png\",\".jpg\",\".jpeg\",\".gif\",\".bmp\"],\"filePathFormat\":\"/ueditor/jsp/upload/file/{yyyy}{mm}{dd}/{time}{rand:6}\",\"fileMaxSize\":51200000,\"fileManagerListPath\":\"/ueditor/jsp/upload/file/\",\"catcherUrlPrefix\":\"\",\"scrawlInsertAlign\":\"none\",\"imageManagerUrlPrefix\":\"\",\"scrawlUrlPrefix\":\"\",\"imageFieldName\":\"upfile\",\"fileManagerAllowFiles\":[\".png\",\".jpg\",\".jpeg\",\".gif\",\".bmp\",\".flv\",\".swf\",\".mkv\",\".avi\",\".rm\",\".rmvb\",\".mpeg\",\".mpg\",\".ogg\",\".ogv\",\".mov\",\".wmv\",\".mp4\",\".webm\",\".mp3\",\".wav\",\".mid\",\".rar\",\".zip\",\".tar\",\".gz\",\".7z\",\".bz2\",\".cab\",\".iso\",\".doc\",\".docx\",\".xls\",\".xlsx\",\".ppt\",\".pptx\",\".pdf\",\".txt\",\".md\",\".xml\"],\"imageMaxSize\":2048000,\"catcherPathFormat\":\"/ueditor/jsp/upload/image/{yyyy}{mm}{dd}/{time}{rand:6}\",\"imageManagerInsertAlign\":\"none\",\"scrawlFieldName\":\"upfile\",\"imagePathFormat\":\"/ueditor/jsp/upload/image/{yyyy}{mm}{dd}/{time}{rand:6}\",\"scrawlActionName\":\"uploadscrawl\",\"imageManagerActionName\":\"listimage\",\"imageActionName\":\"uploadimage\",\"imageManagerListSize\":20,\"imageManagerAllowFiles\":[\".png\",\".jpg\",\".jpeg\",\".gif\",\".bmp\"],\"fileAllowFiles\":[\".png\",\".jpg\",\".jpeg\",\".gif\",\".bmp\",\".flv\",\".swf\",\".mkv\",\".avi\",\".rm\",\".rmvb\",\".mpeg\",\".mpg\",\".ogg\",\".ogv\",\".mov\",\".wmv\",\".mp4\",\".webm\",\".mp3\",\".wav\",\".mid\",\".rar\",\".zip\",\".tar\",\".gz\",\".7z\",\".bz2\",\".cab\",\".iso\",\".doc\",\".docx\",\".xls\",\".xlsx\",\".ppt\",\".pptx\",\".pdf\",\".txt\",\".md\",\".xml\"],\"snapscreenActionName\":\"uploadimage\",\"fileFieldName\":\"upfile\",\"fileActionName\":\"uploadfile\",\"catcherActionName\":\"catchimage\",\"fileManagerListSize\":20,\"catcherAllowFiles\":[\".png\",\".jpg\",\".jpeg\",\".gif\",\".bmp\"],\"snapscreenPathFormat\":\"/ueditor/jsp/upload/image/{yyyy}{mm}{dd}/{time}{rand:6}\",\"imageCompressBorder\":1600,\"snapscreenUrlPrefix\":\"\",\"imageCompressEnable\":false,\"catcherLocalDomain\":[\"127.0.0.1\",\"localhost\",\"img.baidu.com\"],\"imageManagerListPath\":\"/ueditor/jsp/upload/image/\",\"imageInsertAlign\":\"none\",\"catcherMaxSize\":2048000,\"videoMaxSize\":102400000,\"fileManagerUrlPrefix\":\"\",\"scrawlPathFormat\":\"/ueditor/jsp/upload/image/{yyyy}{mm}{dd}/{time}{rand:6}\",\"scrawlMaxSize\":2048000,\"catcherFieldName\":\"source\"}";
-        }
-        if("uploadimage".equals(action)){
-            String filename = "";
-            DefaultMultipartHttpServletRequest request = (DefaultMultipartHttpServletRequest)req;
-
-            CommonsMultipartFile file = (CommonsMultipartFile) request.getFile("upfile");
-            String logImageName = null;
-            String suffix = null;
-            try {
-
-                suffix = file.getOriginalFilename().substring(
-                    file.getOriginalFilename().lastIndexOf("."));
-                SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-                String folder = df.format(new Date());
-                logImageName = MD5.MD5(UUID.randomUUID().toString()) + suffix;
-                filename = "/" + folder + "/" + logImageName;
-                upyunutil.writeFile(filename, file.getBytes());
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            String imgsrc = upyunutil.getUpyunhttp() + filename;
-            return "{\"state\": \"SUCCESS\",\"title\": \""+logImageName+"\",\"original\": \""+logImageName+"\",\"type\": \""+suffix+"\",\"url\": \""+imgsrc+"\",\"size\": \"16585\"}";
-
-        }
-        return "";
     }
 }
