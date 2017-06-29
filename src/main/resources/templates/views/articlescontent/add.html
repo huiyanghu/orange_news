@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans" xmlns:th="http://www.thymeleaf.org" xmlns:c="http://www.w3.org/1999/html">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+    <title></title>
+    <link href="/stylesheets/meAdmin/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+    <!--[if lt IE 9]>
+    <link rel="stylesheet" type="text/css" href="/stylesheets/meAdmin/plugins/jquery-ui/jquery.ui.1.10.2.ie.css"/>
+    <![endif]-->
+    <link href="/stylesheets/meAdmin/assets/css/main.css" rel="stylesheet" type="text/css" />
+    <link href="/stylesheets/meAdmin/assets/css/plugins.css" rel="stylesheet" type="text/css" />
+    <link href="/stylesheets/meAdmin/assets/css/responsive.css" rel="stylesheet" type="text/css"/>
+    <link href="/stylesheets/meAdmin/assets/css/icons.css" rel="stylesheet" type="text/css" />
+    <link href="/stylesheets/meAdmin/assets/css/fontawesome/font-awesome.min.css" rel="stylesheet" >
+    <link href="/stylesheets/meAdmin/assets/plugins/ueditor/themes/default/css/ueditor.min.css" rel="stylesheet" type="text/css"/>
+    <!--[if IE 7]>
+    <link href="/stylesheets/meAdmin/assets/css/fontawesome/font-awesome-ie7.min.css" rel="stylesheet">
+    <![endif]-->
+    <!--[if IE 8]>
+    <link href="/stylesheets/meAdmin/assets/css/ie8.css" rel="stylesheet" type="text/css" />
+    <![endif]-->
+    <!--<link href='http://fonts.useso.com/css?family=Open+Sans:400,600,700' rel='stylesheet' type='text/css'>-->
+    <script type="text/javascript" src="/stylesheets/meAdmin/assets/js/libs/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src="/stylesheets/meAdmin/plugins/jquery-ui/jquery-ui-1.10.2.custom.min.js"></script>
+    <script type="text/javascript" src="/stylesheets/meAdmin/bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/stylesheets/meAdmin/assets/js/libs/lodash.compat.min.js"></script>
+    <!--[if lt IE 9]>
+    <script src="/stylesheets/meAdmin/assets/js/libs/html5shiv.js"></script>
+    <![endif]-->
+    <script type="text/javascript" src="/stylesheets/meAdmin/plugins/touchpunch/jquery.ui.touch-punch.min.js"></script>
+    <script type="text/javascript" src="/stylesheets/meAdmin/plugins/event.swipe/jquery.event.move.js"></script>
+    <script type="text/javascript" src="/stylesheets/meAdmin/plugins/event.swipe/jquery.event.swipe.js"></script>
+    <script type="text/javascript" src="/stylesheets/meAdmin/assets/js/libs/breakpoints.js"></script>
+    <script type="text/javascript" src="/stylesheets/meAdmin/plugins/respond/respond.min.js"></script>
+    <script type="text/javascript" src="/stylesheets/meAdmin/plugins/cookie/jquery.cookie.min.js"></script>
+    <script type="text/javascript" src="/stylesheets/meAdmin/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+    <script type="text/javascript" src="/stylesheets/meAdmin/plugins/slimscroll/jquery.slimscroll.horizontal.min.js"></script>
+    <script type="text/javascript" src="/stylesheets/meAdmin/plugins/sparkline/jquery.sparkline.min.js"></script>
+    <script type="text/javascript" src="/stylesheets/meAdmin/plugins/daterangepicker/moment.min.js"></script>
+    <script type="text/javascript" src="/stylesheets/meAdmin/plugins/daterangepicker/daterangepicker.js"></script>
+    <script type="text/javascript" src="/stylesheets/meAdmin/plugins/blockui/jquery.blockUI.min.js"></script>
+    <script type="text/javascript" src="/stylesheets/meAdmin/plugins/typeahead/typeahead.min.js"></script>
+    <script type="text/javascript" src="/stylesheets/meAdmin/plugins/autosize/jquery.autosize.min.js"></script>
+    <script type="text/javascript" src="/stylesheets/meAdmin/plugins/inputlimiter/jquery.inputlimiter.min.js"></script>
+    <script type="text/javascript" src="/stylesheets/meAdmin/plugins/uniform/jquery.uniform.min.js"></script>
+    <script type="text/javascript" src="/stylesheets/meAdmin/plugins/tagsinput/jquery.tagsinput.min.js"></script>
+    <script type="text/javascript" src="/stylesheets/meAdmin/plugins/select2/select2.min.js"></script>
+    <script type="text/javascript" src="/stylesheets/meAdmin/plugins/fileinput/fileinput.js"></script>
+    <script type="text/javascript" src="/stylesheets/meAdmin/plugins/duallistbox/jquery.duallistbox.min.js"></script>
+    <script type="text/javascript" src="/stylesheets/meAdmin/plugins/bootstrap-inputmask/jquery.inputmask.min.js"></script>
+    <script type="text/javascript" src="/stylesheets/meAdmin/plugins/bootstrap-wysihtml5/wysihtml5.min.js"></script>
+    <script type="text/javascript" src="/stylesheets/meAdmin/plugins/bootstrap-wysihtml5/bootstrap-wysihtml5.min.js"></script>
+    <script type="text/javascript" src="/stylesheets/meAdmin/plugins/bootstrap-multiselect/bootstrap-multiselect.min.js"></script>
+    <script type="text/javascript" src="/stylesheets/meAdmin/plugins/bootstrap-switch/bootstrap-switch.min.js"></script>
+    <script type="text/javascript" src="/stylesheets/meAdmin/plugins/globalize/globalize.js"></script>
+    <script type="text/javascript" src="/stylesheets/meAdmin/plugins/globalize/cultures/globalize.culture.de-DE.js"></script>
+    <script type="text/javascript" src="/stylesheets/meAdmin/plugins/globalize/cultures/globalize.culture.ja-JP.js"></script>
+    <script type="text/javascript" src="/stylesheets/meAdmin/plugins/datatables/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="/stylesheets/meAdmin/plugins/datatables/DT_bootstrap.js"></script>
+    <script type="text/javascript" src="/stylesheets/meAdmin/plugins/My97DatePicker/WdatePicker.js"></script>
+    <script type="text/javascript" src="/stylesheets/meAdmin/plugins/bootbox/bootbox.min.js"></script>
+    <script type="text/javascript" src="/stylesheets/meAdmin/plugins/ueditor/ueditor.config.js"></script>
+    <script type="text/javascript" src="/stylesheets/meAdmin/plugins/ueditor/ueditor.all.js"></script>
+    <script type="text/javascript" src="/stylesheets/meAdmin/plugins/ueditor/ueditor.parse.min.js"></script>
+    <script type="text/javascript" src="/stylesheets/meAdmin/assets/js/jquery.ui.widget.js"></script>
+    <script type="text/javascript" src="/stylesheets/meAdmin/assets/js/jquery.fileupload.js"></script>
+    <script type="text/javascript" src="/stylesheets/meAdmin/assets/js/app.js"></script>
+    <script type="text/javascript" src="/stylesheets/meAdmin/assets/js/plugins.js"></script>
+    <script type="text/javascript" src="/stylesheets/meAdmin/assets/js/plugins.form-components.js"></script>
+    <script type="text/javascript" src="/stylesheets/meAdmin/plugins/base64.js"></script>
+    <script>
+        $(document).ready(function() {
+            App.init();
+            Plugins.init();
+            FormComponents.init()
+        });
+    </script>
+</head>
+<body>
+<input type="hidden" name="" id="msg" th:value="${msg}">
+<div class="container">
+    <div class="crumbs">
+        <ul class="breadcrumb">
+            <li>
+                <i class="icon-home"></i>
+                <a th:href="@{/orangeIndex/toDefault}" title="首页">
+                    首页
+                </a>
+            </li>
+            <li class="">
+                <a th:href="@{/conArticle/list}" title="文章管理">
+                    文章管理
+                </a>
+            </li>
+            <li class="current">
+                <a href="javascript:void(0);" title="修改文章内容">
+                    修改文章内容
+                </a>
+            </li>
+        </ul>
+    </div>
+    <div class="row" style="height: 20px;"></div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="widget box">
+                <div class="widget-header">
+                    <h4>
+                        <i class="icon-search"></i>
+                        修改文章内容
+                    </h4>
+                    <div class="toolbar no-padding">
+                        <div class="btn-group">
+                            <span class="btn btn-xs widget-collapse">
+                                <i class="icon-angle-down"></i>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="widget-content"><!--th:object="${Query}"-->
+                    <form class="form-horizontal row-border" th:action="@{/conArticle/editArticleContent}" th:method="post" id="dataForm">
+                        <input type="hidden" id="objectIdFromUrl" name="objectId" th:value="${article.objectId}">
+                        <div class="form-actions">
+                            <input type="button" value="提交" class="btn btn-primary pull-right edit">
+                            <a href="javascript:void(0);" class="btn button-previous pull-right" style="display: inline-block;" th:href="@{/conArticle/list}">
+                                <i class="icon-angle-left"></i>
+                                返回
+                            </a>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-2 control-label" for="content">
+                                文章内容：
+                            </label>
+                            <div class="col-md-10">
+                                <textarea id="content" name="content" th:value="${content}"></textarea>
+                            </div>
+                        </div>
+                        <div class="form-actions">
+                            <input type="button" value="提交" class="btn btn-primary pull-right edit" />
+                            <a href="javascript:void(0);" class="btn button-previous pull-right" style="display: inline-block;" th:href="@{/conArticle/list}">
+                                <i class="icon-angle-left"></i>
+                                返回
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function(){
+        $.each($('.select2-select-00'),function(index){
+            $(this).select2();
+            if($(this).val() == ''){
+                $(this).select2().select2('val','');
+            }
+        });
+    });
+    var  editor1 = new baidu.editor.ui.Editor({
+        textarea:'tcontent',
+        autoClearinitialContent : false,
+        wordCount:false,
+        initialFrameWidth : 700,
+        initialFrameHeight: 300,
+        toolbars:[
+            [ 'fullscreen', 'source', '|','undo', 'redo','autotypeset','|','pasteplain','|',
+                'bold', 'italic','removeformat','blockquote','insertorderedlist', 'insertunorderedlist', 'selectall','cleardoc',
+                'rowspacingtop', 'rowspacingbottom', 'lineheight',
+                'customstyle', 'paragraph', 'fontfamily', 'fontsize',
+                'justifyleft', 'justifycenter', 'justifyright', 'justifyjustify',
+                'link', 'unlink', '|',
+                'simpleupload']
+        ]
+    });
+    editor1.render("content");
+    $('.edit').click(function(e){
+        e.preventDefault();
+        var alertBox = bootbox.dialog({
+            message: "确认要修改吗?",
+            title: "修改",
+            buttons: {
+                success: {
+                    label: "取消",
+                    className: "btn-default",
+                    callback: function() {
+                        alertBox.modal("hide");
+                    }
+                },
+                main: {
+                    label: "确认",
+                    className: "btn-primary",
+                    callback: function() {
+                        $('#dataForm').submit();
+                    }
+                }
+            }
+        });
+    });
+</script>
+</body>
+</html>

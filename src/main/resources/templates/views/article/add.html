@@ -59,9 +59,12 @@
     <script type="text/javascript" src="/stylesheets/meAdmin/plugins/datatables/DT_bootstrap.js"></script>
     <script type="text/javascript" src="/stylesheets/meAdmin/plugins/My97DatePicker/WdatePicker.js"></script>
     <script type="text/javascript" src="/stylesheets/meAdmin/plugins/bootbox/bootbox.min.js"></script>
+    <script type="text/javascript" src="/stylesheets/meAdmin/assets/js/jquery.ui.widget.js"></script>
+    <script type="text/javascript" src="/stylesheets/meAdmin/assets/js/jquery.fileupload.js"></script>
     <script type="text/javascript" src="/stylesheets/meAdmin/assets/js/app.js"></script>
     <script type="text/javascript" src="/stylesheets/meAdmin/assets/js/plugins.js"></script>
     <script type="text/javascript" src="/stylesheets/meAdmin/assets/js/plugins.form-components.js"></script>
+    <script type="text/javascript" src="/stylesheets/meAdmin/plugins/base64.js"></script>
     <script>
         $(document).ready(function() {
             App.init();
@@ -81,14 +84,264 @@
                     首页
                 </a>
             </li>
-            <li class="current">
+            <li class="">
                 <a th:href="@{/conArticle/list}" title="文章管理">
                     文章管理
+                </a>
+            </li>
+            <li class="current">
+                <a href="javascript:void(0);" title="添加文章">
+                    添加文章
                 </a>
             </li>
         </ul>
     </div>
     <div class="row" style="height: 20px;"></div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="widget box">
+                <div class="widget-header">
+                    <h4>
+                        <i class="icon-search"></i>
+                        添加文章
+                    </h4>
+                    <div class="toolbar no-padding">
+                        <div class="btn-group">
+                            <span class="btn btn-xs widget-collapse">
+                                <i class="icon-angle-down"></i>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="widget-content"><!--th:object="${Query}"-->
+                    <form class="form-horizontal row-border" th:action="@{/conArticle/saveOrUpdateArticle}" th:method="post" id="dataForm">
+                        <input type="hidden" id="objectId" name="objectId">
+                        <div class="form-group">
+                            <label class="col-md-3 control-label" for="title">
+                                文章名称：
+                            </label>
+                            <div class="col-md-9">
+                                <input type="text" id="title" name="title" class="form-control" placeholder="输入文章名称">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 control-label" for="itype">
+                                文章类型：
+                            </label>
+                            <div class="col-md-9">
+                                <select class="form-control" name="itype" id="itype">
+                                    <option value="" selected>请选择</option>
+                                    <option th:each="itype:${itypeList}" th:value="${itype.get('key')}" th:text="${itype.get('value')}"></option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 control-label" for="ctype">
+                                稿件属性：
+                            </label>
+                            <div class="col-md-9">
+                                <select class="form-control" name="ctype" id="ctype">
+                                    <option value="" selected>请选择</option>
+                                    <option th:each="ctype:${ctypeList}" th:value="${ctype.get('key')}" th:text="${ctype.get('value')}"></option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 control-label" for="languageObjectId">
+                                国际化语言：
+                            </label>
+                            <div class="col-md-9">
+                                <select name="languageObjectId" id="languageObjectId" class="select2-select-00 col-md-12 full-width-fix select2-offscreen" tabindex="-1">
+                                    <option value=""  selected="selected">请选择</option>
+                                    <option th:each="language:${languageList}" th:value="${language.objectId}" th:text="${language.get('languageName')}"></option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 control-label" for="countryObjectId">
+                                国家：
+                            </label>
+                            <div class="col-md-9">
+                                <select name="countryObjectId" id="countryObjectId" class="select2-select-00 col-md-12 full-width-fix select2-offscreen" tabindex="-1">
+                                    <option value="" selected="selected">请选择</option>
+                                    <option th:each="country:${countryList}" th:value="${country.get('objectId')}" th:text="${country.get('countryCode')}+'&nbsp;'+${country.get('cnName')}"></option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 control-label" for="topicObjectId">
+                                话题：
+                            </label>
+                            <div class="col-md-9">
+                                <select class="form-control" name="topicObjectId" id="topicObjectId">
+                                    <option value="" selected>请选择</option>
+                                    <option th:each="topic:${topicList}" th:value="${topic.get('objectId')}" th:text="${topic.get('topicName')}"></option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 control-label" for="publicationObjectId">
+                                媒体：
+                            </label>
+                            <div class="col-md-9">
+                                <select name="publicationObjectId" id="publicationObjectId" class="select2-select-00 col-md-12 full-width-fix select2-offscreen" tabindex="-1">
+                                    <option value=""  selected="selected">请选择</option>
+                                    <option th:each="publication:${publicationList}" th:value="${publication.get('objectId')}" th:text="${publication.get('publicationName')}"></option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 control-label" for="replaceCssPath">
+                                文章摘要：
+                            </label>
+                            <div class="col-md-9">
+                                <textarea rows="3" cols="5" id="replaceCssPath" name="replaceCssPath" class="form-control" placeholder="输入文章摘要"></textarea>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 control-label" for="keywords">
+                                关键字：
+                            </label>
+                            <div class="col-md-9">
+                                <input type="text" id="keywords" name="keywords" class="form-control" placeholder="输入关键字">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 control-label" for="author">
+                                作者：
+                            </label>
+                            <div class="col-md-9">
+                                <input type="text" id="author" name="author" class="form-control" placeholder="输入作者">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 control-label" for="source">
+                                来源：
+                            </label>
+                            <div class="col-md-9">
+                                <input type="text" id="source" name="source" class="form-control" placeholder="输入来源">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 control-label" for="sourceUrl">
+                                来源链接：
+                            </label>
+                            <div class="col-md-9">
+                                <input type="text" id="sourceUrl" name="sourceUrl" class="form-control" placeholder="输入来源链接">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 control-label" for="linkurl">
+                                跳转链接：
+                            </label>
+                            <div class="col-md-9">
+                                <input type="text" id="linkurl" name="linkurl" class="form-control" placeholder="输入跳转链接">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 control-label" for="medialink">
+                                多媒体地址：
+                            </label>
+                            <div class="col-md-9">
+                                <input type="text" id="medialink" name="medialink" class="form-control" placeholder="输入多媒体地址">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 control-label" for="pubTime">
+                                发布时间：
+                            </label>
+                            <div class="col-md-9">
+                                <input type="text" id="pubTime" name="pubTime" class="form-control" placeholder="输入发布时间" onClick="WdatePicker()">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 control-label" for="status">
+                                状态：
+                            </label>
+                            <div class="col-md-9">
+                                <select class="form-control" name="status" id="status">
+                                    <option value="" selected>请选择</option>
+                                    <option th:each="status:${statusList}" th:value="${status.get('key')}" th:text="${status.get('value')}"></option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 control-label">
+                                标题图片：
+                            </label>
+                            <div class="col-md-9">
+                                <input type="file" id="fileBtn" data-style="fileinput">
+                            </div>
+                            <input type="hidden" name="titlePic" id="titlePic">
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 control-label">
+                                标题图片预览：
+                            </label>
+                            <div class="col-md-9">
+                                <img src="" alt="" width="150" id="titlePicImg">
+                            </div>
+                        </div>
+                        <div class="form-actions">
+                            <input type="button" value="提交" class="btn btn-primary pull-right" id="add">
+                            <a href="javascript:void(0);" class="btn button-previous pull-right" style="display: inline-block;" th:href="@{/conArticle/list}">
+                                <i class="icon-angle-left"></i>
+                                返回
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
+<script type="text/javascript">
+    $(document).ready(function(){
+        $.each($('.select2-select-00'),function(index){
+            $(this).select2();
+            if($(this).val() == ''){
+                $(this).select2().select2('val','');
+            }
+        });
+    });
+    $(function () {
+        $('#fileBtn').fileupload({
+            url: '',
+            dataType: 'json',
+            done: function (e, data) {
+                $("#titlePicImg").attr("src",data.result.imgsrc);
+                $("#titlepic").attr("value",data.result.imgpath);
+            },
+            progressall: function (e, data) {
+                var progress = parseInt(data.loaded / data.total * 100, 10);
+                $('#progress .progress-bar').css('width',progress + '%' );
+            }
+        }).prop('disabled', !$.support.fileInput)
+            .parent().addClass($.support.fileInput ? undefined : 'disabled');
+    });
+    $('#add').click(function(e){
+        e.preventDefault();
+        var alertBox = bootbox.dialog({
+            message: "确认要添加吗?",
+            title: "添加",
+            buttons: {
+                success: {
+                    label: "取消",
+                    className: "btn-default",
+                    callback: function() {
+                        alertBox.modal("hide");
+                    }
+                },
+                main: {
+                    label: "确认",
+                    className: "btn-primary",
+                    callback: function() {
+                        $('#dataForm').submit();
+                    }
+                }
+            }
+        });
+    });
+</script>
 </body>
 </html>

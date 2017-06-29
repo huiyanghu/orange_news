@@ -194,4 +194,14 @@ public class ConArticleDaoImpl implements ConArticleDao {
         return avObject;
     }
 
+    @Override
+    public boolean updateArticleInfo(ConArticle articleInfo) throws AVException {
+        boolean isSuccess = false;
+        if (null != articleInfo && StringUtil.isNotEmpty(articleInfo)) {
+            articleInfo.save();
+            isSuccess = true;
+        }
+        return isSuccess;
+    }
+
 }

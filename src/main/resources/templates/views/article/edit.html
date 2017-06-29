@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans" xmlns:th="http://www.thymeleaf.org" xmlns:c="http://www.w3.org/1999/html">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+    <title></title>
+    <link href="/stylesheets/meAdmin/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+    <!--[if lt IE 9]>
+    <link rel="stylesheet" type="text/css" href="/stylesheets/meAdmin/plugins/jquery-ui/jquery.ui.1.10.2.ie.css"/>
+    <![endif]-->
+    <link href="/stylesheets/meAdmin/assets/css/main.css" rel="stylesheet" type="text/css" />
+    <link href="/stylesheets/meAdmin/assets/css/plugins.css" rel="stylesheet" type="text/css" />
+    <link href="/stylesheets/meAdmin/assets/css/responsive.css" rel="stylesheet" type="text/css"/>
+    <link href="/stylesheets/meAdmin/assets/css/icons.css" rel="stylesheet" type="text/css" />
+    <link href="/stylesheets/meAdmin/assets/css/fontawesome/font-awesome.min.css" rel="stylesheet" >
+    <!--[if IE 7]>
+    <link href="/stylesheets/meAdmin/assets/css/fontawesome/font-awesome-ie7.min.css" rel="stylesheet">
+    <![endif]-->
+    <!--[if IE 8]>
+    <link href="/stylesheets/meAdmin/assets/css/ie8.css" rel="stylesheet" type="text/css" />
+    <![endif]-->
+    <!--<link href='http://fonts.useso.com/css?family=Open+Sans:400,600,700' rel='stylesheet' type='text/css'>-->
+    <script type="text/javascript" src="/stylesheets/meAdmin/assets/js/libs/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src="/stylesheets/meAdmin/plugins/jquery-ui/jquery-ui-1.10.2.custom.min.js"></script>
+    <script type="text/javascript" src="/stylesheets/meAdmin/bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/stylesheets/meAdmin/assets/js/libs/lodash.compat.min.js"></script>
+    <!--[if lt IE 9]>
+    <script src="/stylesheets/meAdmin/assets/js/libs/html5shiv.js"></script>
+    <![endif]-->
+    <script type="text/javascript" src="/stylesheets/meAdmin/plugins/touchpunch/jquery.ui.touch-punch.min.js"></script>
+    <script type="text/javascript" src="/stylesheets/meAdmin/plugins/event.swipe/jquery.event.move.js"></script>
+    <script type="text/javascript" src="/stylesheets/meAdmin/plugins/event.swipe/jquery.event.swipe.js"></script>
+    <script type="text/javascript" src="/stylesheets/meAdmin/assets/js/libs/breakpoints.js"></script>
+    <script type="text/javascript" src="/stylesheets/meAdmin/plugins/respond/respond.min.js"></script>
+    <script type="text/javascript" src="/stylesheets/meAdmin/plugins/cookie/jquery.cookie.min.js"></script>
+    <script type="text/javascript" src="/stylesheets/meAdmin/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+    <script type="text/javascript" src="/stylesheets/meAdmin/plugins/slimscroll/jquery.slimscroll.horizontal.min.js"></script>
+    <script type="text/javascript" src="/stylesheets/meAdmin/plugins/sparkline/jquery.sparkline.min.js"></script>
+    <script type="text/javascript" src="/stylesheets/meAdmin/plugins/daterangepicker/moment.min.js"></script>
+    <script type="text/javascript" src="/stylesheets/meAdmin/plugins/daterangepicker/daterangepicker.js"></script>
+    <script type="text/javascript" src="/stylesheets/meAdmin/plugins/blockui/jquery.blockUI.min.js"></script>
+    <script type="text/javascript" src="/stylesheets/meAdmin/plugins/typeahead/typeahead.min.js"></script>
+    <script type="text/javascript" src="/stylesheets/meAdmin/plugins/autosize/jquery.autosize.min.js"></script>
+    <script type="text/javascript" src="/stylesheets/meAdmin/plugins/inputlimiter/jquery.inputlimiter.min.js"></script>
+    <script type="text/javascript" src="/stylesheets/meAdmin/plugins/uniform/jquery.uniform.min.js"></script>
+    <script type="text/javascript" src="/stylesheets/meAdmin/plugins/tagsinput/jquery.tagsinput.min.js"></script>
+    <script type="text/javascript" src="/stylesheets/meAdmin/plugins/select2/select2.min.js"></script>
+    <script type="text/javascript" src="/stylesheets/meAdmin/plugins/fileinput/fileinput.js"></script>
+    <script type="text/javascript" src="/stylesheets/meAdmin/plugins/duallistbox/jquery.duallistbox.min.js"></script>
+    <script type="text/javascript" src="/stylesheets/meAdmin/plugins/bootstrap-inputmask/jquery.inputmask.min.js"></script>
+    <script type="text/javascript" src="/stylesheets/meAdmin/plugins/bootstrap-wysihtml5/wysihtml5.min.js"></script>
+    <script type="text/javascript" src="/stylesheets/meAdmin/plugins/bootstrap-wysihtml5/bootstrap-wysihtml5.min.js"></script>
+    <script type="text/javascript" src="/stylesheets/meAdmin/plugins/bootstrap-multiselect/bootstrap-multiselect.min.js"></script>
+    <script type="text/javascript" src="/stylesheets/meAdmin/plugins/bootstrap-switch/bootstrap-switch.min.js"></script>
+    <script type="text/javascript" src="/stylesheets/meAdmin/plugins/globalize/globalize.js"></script>
+    <script type="text/javascript" src="/stylesheets/meAdmin/plugins/globalize/cultures/globalize.culture.de-DE.js"></script>
+    <script type="text/javascript" src="/stylesheets/meAdmin/plugins/globalize/cultures/globalize.culture.ja-JP.js"></script>
+    <script type="text/javascript" src="/stylesheets/meAdmin/plugins/datatables/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="/stylesheets/meAdmin/plugins/datatables/DT_bootstrap.js"></script>
+    <script type="text/javascript" src="/stylesheets/meAdmin/plugins/My97DatePicker/WdatePicker.js"></script>
+    <script type="text/javascript" src="/stylesheets/meAdmin/plugins/bootbox/bootbox.min.js"></script>
+    <script type="text/javascript" src="/stylesheets/meAdmin/assets/js/jquery.ui.widget.js"></script>
+    <script type="text/javascript" src="/stylesheets/meAdmin/assets/js/jquery.fileupload.js"></script>
+    <script type="text/javascript" src="/stylesheets/meAdmin/assets/js/app.js"></script>
+    <script type="text/javascript" src="/stylesheets/meAdmin/assets/js/plugins.js"></script>
+    <script type="text/javascript" src="/stylesheets/meAdmin/assets/js/plugins.form-components.js"></script>
+    <script type="text/javascript" src="/stylesheets/meAdmin/plugins/base64.js"></script>
+    <script>
+        $(document).ready(function() {
+            App.init();
+            Plugins.init();
+            FormComponents.init()
+        });
+    </script>
+</head>
+<body>
+<input type="hidden" name="" id="msg" th:value="${msg}">
+<div class="container">
+    <div class="crumbs">
+        <ul class="breadcrumb">
+            <li>
+                <i class="icon-home"></i>
+                <a th:href="@{/orangeIndex/toDefault}" title="首页">
+                    首页
+                </a>
+            </li>
+            <li class="">
+                <a th:href="@{/conArticle/list}" title="文章管理">
+                    文章管理
+                </a>
+            </li>
+            <li class="current">
+                <a href="javascript:void(0);" title="修改文章">
+                    修改文章
+                </a>
+            </li>
+        </ul>
+    </div>
+    <div class="row" style="height: 20px;"></div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="widget box">
+                <div class="widget-header">
+                    <h4>
+                        <i class="icon-search"></i>
+                        修改文章
+                    </h4>
+                    <div class="toolbar no-padding">
+                        <div class="btn-group">
+                            <span class="btn btn-xs widget-collapse">
+                                <i class="icon-angle-down"></i>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="widget-content"><!--th:object="${Query}"-->
+                    <form class="form-horizontal row-border" th:object="${article}" th:action="@{/conArticle/saveOrUpdateArticle}" th:method="post" id="dataForm">
+                        <input type="hidden" id="objectId" name="objectId" th:value="${article.objectId}">
+                        <div class="form-group">
+                            <label class="col-md-3 control-label" for="title">
+                                文章名称：
+                            </label>
+                            <div class="col-md-9">
+                                <input type="text" id="title" name="title" th:value="${article.get('title')}" class="form-control" placeholder="输入文章名称">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 control-label" for="itype">
+                                文章类型：
+                            </label>
+                            <div class="col-md-9">
+                                <select class="form-control" name="itype" id="itype">
+                                    <option value="" selected>请选择</option>
+                                    <option th:each="itype:${itypeList}" th:selected="(${article.attr == itype.get('key')})" th:value="${itype.get('key')}" th:text="${itype.get('value')}"></option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 control-label" for="ctype">
+                                稿件属性：
+                            </label>
+                            <div class="col-md-9">
+                                <select class="form-control" name="ctype" id="ctype">
+                                    <option value="" selected>请选择</option>
+                                    <option th:each="ctype:${ctypeList}" th:selected="(${article.ctype == ctype.get('key')})" th:value="${ctype.get('key')}" th:text="${ctype.get('value')}"></option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 control-label" for="languageObjectId">
+                                国际化语言：
+                            </label>
+                            <div class="col-md-9">
+                                <select name="languageObjectId" id="languageObjectId" class="select2-select-00 col-md-12 full-width-fix select2-offscreen" tabindex="-1">
+                                    <option value=""  selected="selected">请选择</option>
+                                    <option th:each="language:${languageList}" th:selected="(${article.languageObjectId == language.objectId})" th:value="${language.objectId}" th:text="${language.get('languageName')}"></option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 control-label" for="countryCode">
+                                国家：
+                            </label>
+                            <div class="col-md-9">
+                                <select name="countryCode" id="countryCode" class="select2-select-00 col-md-12 full-width-fix select2-offscreen" tabindex="-1">
+                                    <option value="" selected="selected">请选择</option>
+                                    <option th:each="country:${countryList}" th:selected="(${article.countryCode == country.countryCode})" th:value="${country.get('objectId')}" th:text="${country.get('countryCode')}+'&nbsp;'+${country.get('cnName')}"></option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 control-label" for="topicsObjectId">
+                                话题：
+                            </label>
+                            <div class="col-md-9">
+                                <select class="form-control" name="topicsObjectId" id="topicsObjectId">
+                                    <option value="" selected>请选择</option>
+                                    <option th:each="topic:${topicList}" th:selected="(${article.topicsObjectId == topic.get('objectId')})" th:value="${topic.get('objectId')}" th:text="${topic.get('topicName')}"></option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 control-label" for="publicationObjectId">
+                                媒体：
+                            </label>
+                            <div class="col-md-9">
+                                <select name="publicationObjectId" id="publicationObjectId" class="select2-select-00 col-md-12 full-width-fix select2-offscreen" tabindex="-1">
+                                    <option value=""  selected="selected">请选择</option>
+                                    <option th:each="publication:${publicationList}" th:selected="(${article.publicationObjectId == publication.get('objectId')})" th:value="${publication.get('objectId')}" th:text="${publication.get('publicationName')}"></option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 control-label" for="replaceCssPath">
+                                文章摘要：
+                            </label>
+                            <div class="col-md-9">
+                                <textarea rows="3" cols="5" id="replaceCssPath" name="replaceCssPath" class="form-control" placeholder="输入文章摘要" th:value="${article.abstracts}"></textarea>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 control-label" for="keywords">
+                                关键字：
+                            </label>
+                            <div class="col-md-9">
+                                <input type="text" id="keywords" name="keywords" class="form-control" placeholder="输入关键字" th:value="${article.keywords}">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 control-label" for="author">
+                                作者：
+                            </label>
+                            <div class="col-md-9">
+                                <input type="text" id="author" name="author" class="form-control" placeholder="输入作者" th:value="${article.author}">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 control-label" for="source">
+                                来源：
+                            </label>
+                            <div class="col-md-9">
+                                <input type="text" id="source" name="source" class="form-control" placeholder="输入来源" th:value="${article.source}">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 control-label" for="sourceUrl">
+                                来源链接：
+                            </label>
+                            <div class="col-md-9">
+                                <input type="text" id="sourceUrl" name="sourceUrl" class="form-control" placeholder="输入来源链接" th:value="${article.sourceUrl}">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 control-label" for="linkurl">
+                                跳转链接：
+                            </label>
+                            <div class="col-md-9">
+                                <input type="text" id="linkurl" name="linkurl" class="form-control" placeholder="输入跳转链接" th:value="${article.get('linkurl')}">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 control-label" for="medialink">
+                                多媒体地址：
+                            </label>
+                            <div class="col-md-9">
+                                <input type="text" id="medialink" name="medialink" class="form-control" placeholder="输入多媒体地址" th:value="${article.medialink}">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 control-label" for="pubTime">
+                                发布时间：
+                            </label>
+                            <div class="col-md-9">
+                                <input type="text" id="pubTime" name="pubTime" class="form-control" placeholder="输入发布时间" th:value="${article.subTime}" onClick="WdatePicker()">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 control-label" for="status">
+                                状态：
+                            </label>
+                            <div class="col-md-9">
+                                <select class="form-control" name="status" id="status">
+                                    <option value="" selected>请选择</option>
+                                    <option th:each="status:${statusList}" th:selected="(${article.status == status.get('key')})" th:value="${status.get('key')}" th:text="${status.get('value')}"></option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 control-label">
+                                标题图片：
+                            </label>
+                            <div class="col-md-9">
+                                <input type="file" id="fileBtn" data-style="fileinput">
+                            </div>
+                            <input type="hidden" name="titlePic" id="titlePic" th:value="${article.titlePic}">
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 control-label">
+                                标题图片预览：
+                            </label>
+                            <div class="col-md-9">
+                                <img th:src="${article.titlePic}" alt="" width="150" id="titlePicImg">
+                            </div>
+                        </div>
+                        <div class="form-actions">
+                            <input type="button" value="提交" class="btn btn-primary pull-right" id="edit">
+                            <a href="javascript:void(0);" class="btn button-previous pull-right" style="display: inline-block;" th:href="@{/conArticle/list}">
+                                <i class="icon-angle-left"></i>
+                                返回
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function(){
+        $.each($('.select2-select-00'),function(index){
+            $(this).select2();
+            if($(this).val() == ''){
+                $(this).select2().select2('val','');
+            }
+        });
+    });
+    function UrlSearch() {
+        var name,value;
+        var str=location.href;
+        var num=str.indexOf("?")
+        str=str.substr(num+1);
+        var arr=str.split("&");
+        for(var i=0;i < arr.length;i++){
+            num=arr[i].indexOf("=");
+            if(num>0){
+                name=arr[i].substring(0,num);
+                value=arr[i].substr(num+1);
+                this[name]=value;
+            }
+        }
+    }
+    var Request=new UrlSearch();
+    var objectId = Request.objectId;
+    $('#objectId').val(objectId);
+    $(function () {
+        $('#fileBtn').fileupload({
+            url: '',
+            dataType: 'json',
+            done: function (e, data) {
+                $("#titlePicImg").attr("src",data.result.imgsrc);
+                $("#titlepic").attr("value",data.result.imgpath);
+            },
+            progressall: function (e, data) {
+                var progress = parseInt(data.loaded / data.total * 100, 10);
+            }
+        }).prop('disabled', !$.support.fileInput)
+            .parent().addClass($.support.fileInput ? undefined : 'disabled');
+    });
+    $('#edit').click(function(e){
+        e.preventDefault();
+        var alertBox = bootbox.dialog({
+            message: "确认要修改吗?",
+            title: "修改",
+            buttons: {
+                success: {
+                    label: "取消",
+                    className: "btn-default",
+                    callback: function() {
+                        alertBox.modal("hide");
+                    }
+                },
+                main: {
+                    label: "确认",
+                    className: "btn-primary",
+                    callback: function() {
+                        $('#dataForm').submit();
+                    }
+                }
+            }
+        });
+    });
+</script>
+</body>
+</html>

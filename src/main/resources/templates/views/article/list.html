@@ -253,12 +253,12 @@
                                 批量发布
                             </span>
                         </div>
-                        <!--<div class="btn-group">-->
-                            <!--<span class="btn btn-xs" id="addArticles">-->
-                                <!--<i class="icon-plus"></i>-->
-                                <!--添加文章-->
-                            <!--</span>-->
-                        <!--</div>-->
+                        <div class="btn-group">
+                            <span class="btn btn-xs" id="addArticles">
+                                <i class="icon-plus"></i>
+                                添加文章
+                            </span>
+                        </div>
                     </div>
                 </div>
                 <div class="widget-content">
@@ -298,15 +298,15 @@
                                 <td th:text="${conArticle.get('ctype')}"></td>
                                 <td class="align-center">
                                     <span class="btn-group">
-                                        <!--<a href="javascript:void(0);" th:attr="objectid=${conArticle.get('objectId')}" class="btn btn-xs bs-tooltip edit-article" title="" data-original-title="修改">-->
-                                            <!--<i class="icon-pencil"></i>-->
-                                        <!--</a>-->
+                                        <a href="javascript:void(0);" th:attr="objectid=${conArticle.get('objectId')}" class="btn btn-xs bs-tooltip edit-article" title="" data-original-title="修改">
+                                            <i class="icon-pencil"></i>
+                                        </a>
                                         <!--<a href="javascript:void(0);" th:attr="objectid=${conArticle.get('objectId')}" class="btn btn-xs bs-tooltip del-article" title="" data-original-title="删除">-->
                                             <!--<i class="icon-trash"></i>-->
                                         <!--</a>-->
-                                        <!--<a href="javascript:void(0);" th:attr="objectid=${conArticle.get('objectId')}" class="btn btn-xs bs-tooltip eedit-article-con" title="" data-original-title="文章内容管理">-->
-                                            <!--<i class="icon-edit"></i>-->
-                                        <!--</a>-->
+                                        <a href="javascript:void(0);" th:attr="objectid=${conArticle.get('objectId')}" class="btn btn-xs bs-tooltip edit-article-con" title="" data-original-title="文章内容管理">
+                                            <i class="icon-edit"></i>
+                                        </a>
                                         <!--<a href="javascript:void(0);" th:if="${conArticle.get('status')}==1" th:attr="objectid=${conArticle.get('objectId')}" class="btn btn-xs bs-tooltip examine-article" title="" data-original-title="审核">-->
                                             <!--<i class="icon-stethoscope"></i>-->
                                         <!--</a>-->
@@ -453,6 +453,17 @@
                 }
             }
         });
+    });
+    $('#addArticles').click(function(){
+        window.location.href = "../conArticle/toAddArticle";
+    });
+    $('.edit-article').click(function(){
+        var objectId = $(this).attr('objectid');
+        window.location.href = "../conArticle/toEditArticle?objectId="+objectId;
+    });
+    $('.edit-article-con').click(function(){
+        var objectId = $(this).attr('objectid');
+        window.location.href = "../conArticle/toEditArticleContent?objectId="+objectId;
     });
     $('.view-article').click(function(){
         var objectid = $(this).attr('objectid');
