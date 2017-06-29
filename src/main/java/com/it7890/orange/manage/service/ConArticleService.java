@@ -35,4 +35,6 @@ public interface ConArticleService {
     void updateArticleContent(String objectId, String content) throws Exception;
 
     public String getConArticleContent(String articleObjectId) throws AVException;
+    boolean updateArticleInfo(ConArticle articleInfo) throws AVException;
+
 }
