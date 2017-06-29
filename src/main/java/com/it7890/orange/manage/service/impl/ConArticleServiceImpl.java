@@ -12,6 +12,7 @@ import com.it7890.orange.manage.service.ConArticleService;
 import com.it7890.orange.manage.utils.ConstantsUtil;
 import com.it7890.orange.manage.utils.DateUtil;
 import com.it7890.orange.manage.utils.StringUtil;
+import com.it7890.orange.manage.utils.StringUtil;
 import com.it7890.orange.manage.vo.ConArticleDTO;
 import com.it7890.orange.manage.vo.ConArticleDetailDTO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -195,5 +196,13 @@ public class ConArticleServiceImpl implements ConArticleService {
         return ConArticleDTO.avobjectToDto(conArticleDao.getConarticleByid(artid));
     }
 
+    @Override
+    public boolean updateArticleInfo(ConArticle articleInfo) throws AVException {
+        boolean isSuccess = false;
+        if (null != articleInfo && StringUtil.isNotEmpty(articleInfo.getObjectId())) {
+            isSuccess = conArticleDao.updateArticleInfo(articleInfo);
+        }
+        return isSuccess;
+    }
 
 }

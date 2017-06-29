@@ -25,4 +25,6 @@ public interface ConArticleDao {
     public AVObject getByArtid(String artId);
 
     public AVObject getConarticleByid(String artid);
+
+    boolean updateArticleInfo(ConArticle articleInfo) throws AVException;
 }
