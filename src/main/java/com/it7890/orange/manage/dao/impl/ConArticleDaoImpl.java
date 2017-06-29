@@ -110,7 +110,10 @@ public class ConArticleDaoImpl implements ConArticleDao {
 
     public List<ConArticle> get(ConArticleQuery conArticleQuery) throws AVException {
         AVQuery<ConArticle> query = new AVQuery<>("conarticle");
-        query.whereEqualTo("objectId", conArticleQuery.getObjectId());
+        if (StringUtil.isNotEmpty(conArticleQuery.getObjectId())) {
+            query.whereEqualTo("objectId", conArticleQuery.getObjectId());
+        }
+
         List<ConArticle> avObjectList = query.find();
         if (!avObjectList.isEmpty()) {
             return avObjectList;
@@ -118,15 +121,11 @@ public class ConArticleDaoImpl implements ConArticleDao {
         return null;
     }
 
-    public ConArticle getById(String objectId) throws AVException {
+    public ConArticle get(String objectId) throws AVException {
         AVQuery<ConArticle> query = new AVQuery<>("conarticle");
-        query.whereEqualTo("objectId", objectId);
-        List<ConArticle> avObjectList = query.find();
-        if (!avObjectList.isEmpty()) {
-            ConArticle conArticle = avObjectList.get(0);
-            return conArticle;
-        }
-        return null;
+        query.include("titlePicObjArr");
+        ConArticle article = query.get(objectId);
+        return article;
     }
 
 

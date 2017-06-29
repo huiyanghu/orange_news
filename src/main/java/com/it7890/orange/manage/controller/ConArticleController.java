@@ -510,6 +510,7 @@ public class ConArticleController {
 
 
     }
+
     @RequestMapping(value = "/preview", method = RequestMethod.GET)
     public String preview(Map map, String flag, String dataJson) {
         map.put("flag", flag);
@@ -520,17 +521,17 @@ public class ConArticleController {
 
     @RequestMapping(value = "/getContent", method = RequestMethod.GET)
     @ResponseBody
-    public void getContent( @RequestParam(value = "articleId", required = true) String articleId,
-                               Model model,HttpServletResponse response) throws AVException, IOException {
+    public void getContent(@RequestParam(value = "articleId", required = true) String articleId,
+                           Model model, HttpServletResponse response) throws AVException, IOException {
 
         ConArticleDetailDTO resArtContentDTO = new ConArticleDetailDTO();
         resArtContentDTO = conArticleService.getContentByArtID(articleId);
-        model.addAttribute("content",JSON.toJSONString(resArtContentDTO));
-        if (resArtContentDTO!=null) {
+        model.addAttribute("content", JSON.toJSONString(resArtContentDTO));
+        if (resArtContentDTO != null) {
             resArtContentDTO.setMsg("成功");
             resArtContentDTO.setSuccess(1);
             resArtContentDTO.setStatus(200);
-        }else {
+        } else {
             resArtContentDTO.setMsg("失败");
             resArtContentDTO.setSuccess(0);
             resArtContentDTO.setStatus(500);
@@ -553,6 +554,89 @@ public class ConArticleController {
             }
         }
 //        return JSON.toJSONString(resArtContentDTO);
+    }
+
+    /**
+     * 到添加页面
+     */
+    @RequestMapping("/toAddArticle")
+    public String toAddArticle(Map map) throws Exception {
+        map.put("ctypeList", ConstantsUtil.getConstants("conArticleCtype"));
+        map.put("itypeList", ConstantsUtil.getConstants("appTopArtitype"));
+        map.put("statusList", ConstantsUtil.getConstants("conArticleStatus"));
+        map.put("countryList", hbCountryService.getCountryList());
+        map.put("topicList", topicsService.getAppTopicsList());
+        map.put("channelList", conChannelService.getChannelList());
+        map.put("publicationList", publicationService.getPublictionList());
+        map.put("languageList", languageService.getLanguageList());
+        System.out.println(JSON.toJSONString(map));
+        return "views/article/add";
+    }
+
+    /**
+     * 到修改页面
+     */
+    @RequestMapping(path = "/toEditArticle")
+    public String toEditArticle(String objectId, Map map) throws Exception {
+        map.put("article", conArticleService.getConArticleMap(objectId));
+        map.put("ctypeList", ConstantsUtil.getConstants("conArticleCtype"));
+        map.put("itypeList", ConstantsUtil.getConstants("appTopArtitype"));
+        map.put("statusList", ConstantsUtil.getConstants("conArticleStatus"));
+        map.put("countryList", hbCountryService.getCountryList());
+        map.put("topicList", topicsService.getAppTopicsList());
+        map.put("channelList", conChannelService.getChannelList());
+        map.put("publicationList", publicationService.getPublictionList());
+        map.put("languageList", languageService.getLanguageList());
+        System.out.println(JSON.toJSONString(map));
+        return "views/article/edit";
+    }
+
+    /**
+     * 添加,修改 文章
+     */
+    @RequestMapping(path = "/saveOrUpdateArticle", method = RequestMethod.POST)
+    public String updateArticle(ConArticleQuery articleQuery, RedirectAttributes attributes) throws Exception {
+        String msg = "";
+        if (StringUtil.isEmpty(articleQuery.getObjectId())) {
+            msg = "添加";
+        } else {
+            msg = "修改";
+        }
+        try {
+            conArticleService.updateArticle(articleQuery);
+            attributes.addFlashAttribute(msg + "成功");
+        } catch (Exception e) {
+            attributes.addFlashAttribute(msg + "失败");
+            e.printStackTrace();
+        }
+        return "redirect:/conArticle/list";
+    }
+
+    /**
+     * 到编辑 文章内容 页面
+     */
+    @RequestMapping("/toEditArticleContent")
+    public String toEditArticleContent(String objectId, Map map) throws Exception {
+        String content = conArticleService.getConArticleContent(objectId);
+        map.put("content", content);
+        map.put("articleObjectId", objectId);
+
+        return "views/articlescontent/add";
+    }
+
+    /**
+     * 编辑 文章内容
+     */
+    @RequestMapping(path = "/editArticleContent", method = RequestMethod.POST)
+    public String editArticleContent(String objectId, String content, RedirectAttributes attributes) throws Exception {
+        try {
+            conArticleService.updateArticleContent(objectId, content);
+            attributes.addFlashAttribute("编辑成功");
+        } catch (Exception e) {
+            attributes.addFlashAttribute("编辑失败");
+            e.printStackTrace();
+        }
+        return "redirect:/conArticle/list";
     }
 
 }
