@@ -10,7 +10,6 @@ import com.it7890.orange.manage.po.ConArticleQuery;
 import com.it7890.orange.manage.po.HbCountryQuery;
 import com.it7890.orange.manage.service.*;
 import com.it7890.orange.manage.utils.ConstantsUtil;
-import com.it7890.orange.manage.utils.MD5;
 import com.it7890.orange.manage.utils.StringUtil;
 import com.it7890.orange.manage.vo.ConArticleDetailDTO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +27,10 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Administrator on 2017/5/31.
@@ -683,6 +685,8 @@ public class ConArticleController {
             appTop.setUrl(appAdvert.getAdUrl());
             appTop.setSubTime(new Date());
         }
+
+        /*
         long result = appTopService.updateAppTopES(appTop);
 
         //向队列中发送消息
@@ -702,7 +706,8 @@ public class ConArticleController {
         request.getSession().setAttribute("message",
             "添加到置顶图:" + (result > 0 ? "成功" : "失败"));
         request.getSession().setAttribute("url", "advert/list?searchstr=" + searchstr);
-        return String.format("redirect:/message");
+        return String.format("redirect:/message");*/
+        return null;
     }
 
 }
