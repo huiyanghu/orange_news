@@ -83,13 +83,13 @@
                 </a>
             </li>
             <li class="">
-                <a th:href="@{/grabDetailRule/list}" title="文章规则管理">
-                    文章规则管理
+                <a th:href="@{/keywords/toCountryKeywordsList(countryObjectId=${countryObjectId})}" id="" title="热搜词、敏感词管理">
+                    热搜词、敏感词管理
                 </a>
             </li>
             <li class="current">
-                <a href="javascript:void(0);" title="文章规则管理修改">
-                    文章规则管理修改
+                <a href="javascript:void(0);" title="添加热搜词、敏感词管理" id="breadcrumbText">
+                    添加热搜词、敏感词管理
                 </a>
             </li>
         </ul>
@@ -101,7 +101,7 @@
                 <div class="widget-header">
                     <h4>
                         <i class="icon-search"></i>
-                        添加热词和敏感词
+                        <span id="titleText">添加热词和敏感词</span>
                     </h4>
                     <div class="toolbar no-padding">
                         <div class="btn-group">
@@ -113,8 +113,8 @@
                 </div>
                 <div class="widget-content">
                     <form class="form-horizontal row-border" th:action="@{/keywords/editCountryKeywords}" th:method="post" id="dataForm">
-                        <input type="hidden" id="objectId" name="objectId">
-                        <input type="hidden" id="countryObjectId" name="countryObjectId">
+                        <input type="hidden" id="objectId" name="objectId" th:value="${objectId}">
+                        <input type="hidden" id="countryObjectId" name="countryObjectId" th:value="${countryObjectId}">
                         <div class="form-group">
                             <label class="col-md-3 control-label" for="keyword">
                                 名称：
@@ -181,12 +181,13 @@
         var flag = 'add';
     }else{
         var flag = 'edit';
+        $('#titleText').html('修改热搜词、敏感词管理');
+        $('#breadcrumbText').html('修改热搜词、敏感词管理').attr('title','修改热搜词、敏感词管理');
+        $('#objectId').val(objectId);
     }
     $('#back').click(function(){
         window.location.href = "../keywords/toCountryKeywordsList?countryObjectId="+countryObjectId;
     });
-    $('#objectId').val(objectId);
-    $('#countryObjectId').val(countryObjectId);
     $('#edit').click(function(e){
         e.preventDefault();
         if(flag == 'add'){
