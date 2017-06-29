@@ -16,6 +16,16 @@ public class ConArticleQuery implements java.io.Serializable {
     private String topicObjectId;
     private String startTime;
     private String endTime;
+    private Integer ctype;
+    private String title;
+    private String abstracts;
+    private String author;
+    private String source;
+    private String sourceUrl;
+    private String linkUrl;
+    private String mediaLink;
+    private String subTime;
+    private String titlePic;
 
     public String getObjectId() {
         return objectId;
@@ -39,6 +49,14 @@ public class ConArticleQuery implements java.io.Serializable {
 
     public void setPublicationObjectId(String publicationObjectId) {
         this.publicationObjectId = publicationObjectId;
+    }
+
+    public String getCountryObjectId() {
+        return countryObjectId;
+    }
+
+    public void setCountryObjectId(String countryObjectId) {
+        this.countryObjectId = countryObjectId;
     }
 
     public String getLanguageObjectId() {
@@ -105,11 +123,83 @@ public class ConArticleQuery implements java.io.Serializable {
         this.endTime = endTime;
     }
 
-    public String getCountryObjectId() {
-        return countryObjectId;
+    public Integer getCtype() {
+        return ctype;
     }
 
-    public void setCountryObjectId(String countryObjectId) {
-        this.countryObjectId = countryObjectId;
+    public void setCtype(Integer ctype) {
+        this.ctype = ctype;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getAbstracts() {
+        return abstracts;
+    }
+
+    public void setAbstracts(String abstracts) {
+        this.abstracts = abstracts;
+    }
+
+    public String getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
+    }
+
+    public String getSource() {
+        return source;
+    }
+
+    public void setSource(String source) {
+        this.source = source;
+    }
+
+    public String getSourceUrl() {
+        return sourceUrl;
+    }
+
+    public void setSourceUrl(String sourceUrl) {
+        this.sourceUrl = sourceUrl;
+    }
+
+    public String getLinkUrl() {
+        return linkUrl;
+    }
+
+    public void setLinkUrl(String linkUrl) {
+        this.linkUrl = linkUrl;
+    }
+
+    public String getMediaLink() {
+        return mediaLink;
+    }
+
+    public void setMediaLink(String mediaLink) {
+        this.mediaLink = mediaLink;
+    }
+
+    public String getSubTime() {
+        return subTime;
+    }
+
+    public void setSubTime(String subTime) {
+        this.subTime = subTime;
+    }
+
+    public String getTitlePic() {
+        return titlePic;
+    }
+
+    public void setTitlePic(String titlePic) {
+        this.titlePic = titlePic;
     }
 }

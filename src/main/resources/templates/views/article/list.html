@@ -301,30 +301,30 @@
                                         <a href="javascript:void(0);" th:attr="objectid=${conArticle.get('objectId')}" class="btn btn-xs bs-tooltip edit-article" title="" data-original-title="修改">
                                             <i class="icon-pencil"></i>
                                         </a>
-                                        <a href="javascript:void(0);" th:attr="objectid=${conArticle.get('objectId')}" class="btn btn-xs bs-tooltip del-article" title="" data-original-title="删除">
-                                            <i class="icon-trash"></i>
-                                        </a>
-                                        <a href="javascript:void(0);" th:attr="objectid=${conArticle.get('objectId')}" class="btn btn-xs bs-tooltip eedit-article-con" title="" data-original-title="文章内容管理">
+                                        <!--<a href="javascript:void(0);" th:attr="objectid=${conArticle.get('objectId')}" class="btn btn-xs bs-tooltip del-article" title="" data-original-title="删除">-->
+                                            <!--<i class="icon-trash"></i>-->
+                                        <!--</a>-->
+                                        <a href="javascript:void(0);" th:attr="objectid=${conArticle.get('objectId')}" class="btn btn-xs bs-tooltip edit-article-con" title="" data-original-title="文章内容管理">
                                             <i class="icon-edit"></i>
                                         </a>
-                                        <a href="javascript:void(0);" th:if="${conArticle.get('status')}==1" th:attr="objectid=${conArticle.get('objectId')}" class="btn btn-xs bs-tooltip examine-article" title="" data-original-title="审核">
-                                            <i class="icon-stethoscope"></i>
-                                        </a>
+                                        <!--<a href="javascript:void(0);" th:if="${conArticle.get('status')}==1" th:attr="objectid=${conArticle.get('objectId')}" class="btn btn-xs bs-tooltip examine-article" title="" data-original-title="审核">-->
+                                            <!--<i class="icon-stethoscope"></i>-->
+                                        <!--</a>-->
                                         <a href="javascript:void(0);" th:attr="objectid=${conArticle.get('objectId')}" class="btn btn-xs bs-tooltip view-article" title="" data-original-title="预览">
                                             <i class="icon-picture"></i>
                                         </a>
-                                        <a href="javascript:void(0);" th:attr="objectid=${conArticle.get('objectId')}" class="btn btn-xs bs-tooltip lock-article" title="" data-original-title="导入锁屏">
-                                            <i class="icon-unlock-alt"></i>
-                                        </a>
-                                        <a href="javascript:void(0);" th:if="${conArticle.get('status')}!=2" th:attr="objectid=${conArticle.get('objectId')}" class="btn btn-xs bs-tooltip push-article" title="" data-original-title="推送">
-                                            <i class="icon-share-sign"></i>
-                                        </a>
-                                        <a href="javascript:void(0);" th:if="${conArticle.get('status')}!=2" th:attr="objectid=${conArticle.get('objectId')}" class="btn btn-xs bs-tooltip push-2-article" title="" data-original-title="推送2">
-                                            <i class="icon-share-sign"></i>
-                                        </a>
-                                        <a href="javascript:void(0);" th:if="${conArticle.attr}==1" th:attr="objectid=${conArticle.get('objectId')}" class="btn btn-xs bs-tooltip add-article" title="" data-original-title="添加到置顶图">
-                                            <i class="icon-plus"></i>
-                                        </a>
+                                        <!--<a href="javascript:void(0);" th:attr="objectid=${conArticle.get('objectId')}" class="btn btn-xs bs-tooltip lock-article" title="" data-original-title="导入锁屏">-->
+                                            <!--<i class="icon-unlock-alt"></i>-->
+                                        <!--</a>-->
+                                        <!--<a href="javascript:void(0);" th:if="${conArticle.get('status')}!=2" th:attr="objectid=${conArticle.get('objectId')}" class="btn btn-xs bs-tooltip push-article" title="" data-original-title="推送">-->
+                                            <!--<i class="icon-share-sign"></i>-->
+                                        <!--</a>-->
+                                        <!--<a href="javascript:void(0);" th:if="${conArticle.get('status')}!=2" th:attr="objectid=${conArticle.get('objectId')}" class="btn btn-xs bs-tooltip push-2-article" title="" data-original-title="推送2">-->
+                                            <!--<i class="icon-share-sign"></i>-->
+                                        <!--</a>-->
+                                        <!--<a href="javascript:void(0);" th:if="${conArticle.attr}==1" th:attr="objectid=${conArticle.get('objectId')}" class="btn btn-xs bs-tooltip add-article" title="" data-original-title="添加到置顶图">-->
+                                            <!--<i class="icon-plus"></i>-->
+                                        <!--</a>-->
                                         <!--<a href="javascript:void(0);" th:if="${conArticle.}=='591983ff0b000c0067f9dcd1'" th:attr="url=${conArticle.get('sourceUrl')}" class="btn btn-xs bs-tooltip view-original-article" title="" data-original-title="查看原文">-->
                                         <!--<i class="icon-eye-open"></i>-->
                                         <!--</a>-->
@@ -453,6 +453,17 @@
                 }
             }
         });
+    });
+    $('#addArticles').click(function(){
+        window.location.href = "../conArticle/toAddArticle";
+    });
+    $('.edit-article').click(function(){
+        var objectId = $(this).attr('objectid');
+        window.location.href = "../conArticle/toEditArticle?objectId="+objectId;
+    });
+    $('.edit-article-con').click(function(){
+        var objectId = $(this).attr('objectid');
+        window.location.href = "../conArticle/toEditArticleContent?objectId="+objectId;
     });
     $('.view-article').click(function(){
         var objectid = $(this).attr('objectid');

@@ -3,6 +3,8 @@ package com.it7890.orange.manage.model;
 import com.avos.avoscloud.AVClassName;
 import com.avos.avoscloud.AVObject;
 
+import java.util.Date;
+
 /**
  * Created by Administrator on 2017/5/26.
  */
@@ -11,13 +13,13 @@ public class AppTop extends AVObject {
     /*public AppTop() {
         super();
     }*/
-  /*  private ConArticle article;
-    private Integer ctype;
+  /*  private ConArticle article;//
+    private Integer ctype;//
     private ConChannel channel;
     private HbCountrys country;
     private SysUser createUser;
-    private Integer itype;
-    private HbLanguage language;
+    private Integer itype;//
+    private HbLanguage language;//
     private Integer longitude;
     private Integer latitude;
     private ConPublication publication;
@@ -25,7 +27,14 @@ public class AppTop extends AVObject {
     private Integer rank;
     private Integer status;
     private AppTopics topics;
+    private AppAdvert advert;
+    private String title;
 */
+    private String url;
+    private Date subTime;
+    private String titlePic;
+
+
     public ConArticle getArticle() {
         return getAVObject("articleObj");
     }
@@ -136,5 +145,45 @@ public class AppTop extends AVObject {
 
     public void setTopics(AppTopics topics) {
         this.put("topicsObj", topics);
+    }
+
+    public AppAdvert getAdvert() {
+        return getAVObject("advertObj");
+    }
+
+    public void setAdvert(AppAdvert advert) {
+        this.put("advertObj", advert);
+    }
+
+    public String getTitle() {
+        return getString("title");
+    }
+
+    public void setTitle(String title) {
+        this.put("title", title);
+    }
+
+    public String getUrl() {
+        return getString("url");
+    }
+
+    public void setUrl(String url) {
+        this.put("url", url);
+    }
+
+    public Date getSubTime() {
+        return getDate("subTime");
+    }
+
+    public void setSubTime(Date subTime) {
+        this.put("subTime", subTime);
+    }
+
+    public String getTitlePic() {
+        return getString("titlePic");
+    }
+
+    public void setTitlePic(String titlePic) {
+        this.put("titlePic", titlePic);
     }
 }
