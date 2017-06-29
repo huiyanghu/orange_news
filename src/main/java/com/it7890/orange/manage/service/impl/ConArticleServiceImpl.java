@@ -48,34 +48,37 @@ public class ConArticleServiceImpl implements ConArticleService {
     public Map getConArticleMap(String objectId) throws Exception {
         ConArticle article = conArticleDao.get(objectId);
         Map map = new HashMap();
-        map.put("objectId", article.getObjectId());
-        map.put("title", article.getTitle());
-        map.put("ctype", article.getCtype());
-        map.put("ctypeStr", ConstantsUtil.getConstants("conArticleCtype", "" + article.getCtype()));
-        map.put("attr", article.getAttr());
-        map.put("attrStr", ConstantsUtil.getConstants("appTopArtitype", "" + article.getAttr()));
-        map.put("languageObjectId", article.getLanguage().getObjectId());
-        map.put("countryCode", article.getCountryCode());
-        map.put("topicsObjectId", article.getTopics().getObjectId());
-        map.put("publicationObjectId", article.getPublication().getObjectId());
-        map.put("abstracts", article.getAbstracts());
-        map.put("keywords", article.getKeywords());
-        map.put("author", article.getAuthor());
-        map.put("source", article.getSource());
-        map.put("sourceUrl", article.getSourceurl());
-        map.put("linkUrl", article.getLinkurl());
-        map.put("mediaLink", article.getMedialink());
-        //map.put("pushTime", DateUtil.formatDate(article.getPushtime()));
-        map.put("subTime", DateUtil.formatDate(article.getSubtime()));
-        map.put("status", article.getStatus());
-        map.put("statusStr", ConstantsUtil.getConstants("conArticleStatus", "" + article.getStatus()));
-        String titlePic = "";
-        if (article.getTitlePicArr() != null && !article.getTitlePicArr().isEmpty()) {
-            for (AVFile file : article.getTitlePicArr()) {
-                titlePic += file.getUrl() + ",";
+        if (article != null) {
+            map.put("objectId", article.getObjectId());
+            map.put("title", article.getTitle());
+            map.put("ctype", article.getCtype());
+            map.put("ctypeStr", ConstantsUtil.getConstants("conArticleCtype", "" + article.getCtype()));
+            map.put("attr", article.getAttr());
+            map.put("attrStr", ConstantsUtil.getConstants("appTopArtitype", "" + article.getAttr()));
+            map.put("languageObjectId", article.getLanguage()==null?"":article.getLanguage().getObjectId());
+            map.put("countryCode", article.getCountryCode());
+            map.put("topicsObjectId", article.getTopics()==null?"":article.getTopics().getObjectId());
+            map.put("publicationObjectId", article.getPublication()==null?"":article.getPublication().getObjectId());
+            map.put("abstracts", article.getAbstracts());
+            map.put("keywords", article.getKeywords());
+            map.put("author", article.getAuthor());
+            map.put("source", article.getSource());
+            map.put("sourceUrl", article.getSourceurl());
+            map.put("linkUrl", article.getLinkurl());
+            map.put("mediaLink", article.getMedialink());
+            //map.put("pushTime", DateUtil.formatDate(article.getPushtime()));
+            map.put("subTime", DateUtil.formatDate(article.getSubtime()));
+            map.put("status", article.getStatus());
+            map.put("statusStr", ConstantsUtil.getConstants("conArticleStatus", "" + article.getStatus()));
+            String titlePic = "";
+            if (article.getTitlePicArr() != null && !article.getTitlePicArr().isEmpty()) {
+                for (AVFile file : article.getTitlePicArr()) {
+                    titlePic += file.getUrl() + ",";
+                }
             }
+            map.put("titlePic", "".equals(titlePic) ? "" : titlePic.substring(0, titlePic.length() - 1));
         }
-        map.put("titlePic", "".equals(titlePic) ? "" : titlePic.substring(0, titlePic.length() - 1));
+
 
         return map;
     }
