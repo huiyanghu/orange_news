@@ -279,7 +279,7 @@
                                 标题图片预览：
                             </label>
                             <div class="col-md-9">
-                                <img th:src="${article.titlePic}" alt="" width="150" id="titlePicImg">
+                                <img th:src="${article.titlePic}" alt="" id="titlePicImg" style="height:150px;display: inline-block;">
                             </div>
                         </div>
                         <div class="form-actions">
@@ -322,19 +322,37 @@
     var Request=new UrlSearch();
     var objectId = Request.objectId;
     $('#objectId').val(objectId);
-    $(function () {
-        $('#fileBtn').fileupload({
-            url: '',
-            dataType: 'json',
-            done: function (e, data) {
-                $("#titlePicImg").attr("src",data.result.imgsrc);
-                $("#titlepic").attr("value",data.result.imgpath);
-            },
-            progressall: function (e, data) {
-                var progress = parseInt(data.loaded / data.total * 100, 10);
+    $('#fileBtn').change(function(){
+        App.blockUI($('.widget'));
+        var formData = new FormData();
+        formData.append('file', $('#fileBtn')[0].files[0]);
+        $.ajax({
+            url: '../conArticle/uploadTitlePic',
+            type: 'POST',
+            cache: false,
+            data: formData,
+            processData: false,
+            contentType: false
+        }).done(function(data) {
+            App.unblockUI($('.widget'));
+            if(data.isSuccess == 1){
+                var code = data.result.code;
+                if(code == 1){
+                    bootbox.alert("图片不能为空");
+                }else if(code == -1){
+                    $('#titlePic').val(data.result.objectId);
+                    $('#titlePicImg').attr('src',data.result.url);
+                    bootbox.alert("上传成功");
+                }else{
+                    bootbox.alert(data.result.msg);
+                }
+            }else{
+                bootbox.alert(data.result.msg);
             }
-        }).prop('disabled', !$.support.fileInput)
-            .parent().addClass($.support.fileInput ? undefined : 'disabled');
+        }).fail(function(res) {
+            App.unblockUI($('.widget'));
+            bootbox.alert('服务器错误');
+        });
     });
     $('#edit').click(function(e){
         e.preventDefault();

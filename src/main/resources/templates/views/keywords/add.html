@@ -112,7 +112,7 @@
                     </div>
                 </div>
                 <div class="widget-content">
-                    <form class="form-horizontal row-border" th:action="@{/keywords/editCountryKeywords}" th:method="post" id="dataForm">
+                    <form class="form-horizontal row-border" th:object="${keywords}" th:action="@{/keywords/editCountryKeywords}" th:method="post" id="dataForm">
                         <input type="hidden" id="objectId" name="objectId" th:value="${objectId}">
                         <input type="hidden" id="countryObjectId" name="countryObjectId" th:value="${countryObjectId}">
                         <div class="form-group">
@@ -120,7 +120,7 @@
                                 名称：
                             </label>
                             <div class="col-md-9">
-                                <input type="text" id="keyword" name="keyword" class="form-control" placeholder="输入名称">
+                                <input type="text" id="keyword" name="keyword" class="form-control" placeholder="输入名称"/>
                             </div>
                         </div>
                         <div class="form-group">
@@ -129,17 +129,17 @@
                             </label>
                             <div class="col-md-9">
                                 <label class="radio-inline">
-                                    <input type="radio" class="uniform" name="keywordType" value="热搜词">
+                                    <input type="radio" class="uniform" name="keywordType" value="0">
                                     热搜词
                                 </label>
                                 <label class="radio-inline">
-                                    <input type="radio" class="uniform" name="keywordType" value="敏感词">
+                                    <input type="radio" class="uniform" name="keywordType" value="1">
                                     敏感词
                                 </label>
                             </div>
                         </div>
                         <div class="form-actions">
-                            <input type="submit" value="提交" class="btn btn-primary pull-right" id="edit">
+                            <input type="submit" value="提交" class="btn btn-primary pull-right" id="add">
                             <a href="javascript:void(0);" class="btn button-previous pull-right" style="display: inline-block;" id="back">
                                 返回
                             </a>
@@ -176,30 +176,14 @@
     }
     var Request=new UrlSearch();
     var countryObjectId = Request.countryObjectId;
-    var objectId = Request.objectId;
-    if(objectId == '' || objectId == null || objectId == undefined){
-        var flag = 'add';
-    }else{
-        var flag = 'edit';
-        $('#titleText').html('修改热搜词、敏感词管理');
-        $('#breadcrumbText').html('修改热搜词、敏感词管理').attr('title','修改热搜词、敏感词管理');
-        $('#objectId').val(objectId);
-    }
     $('#back').click(function(){
         window.location.href = "../keywords/toCountryKeywordsList?countryObjectId="+countryObjectId;
     });
-    $('#edit').click(function(e){
+    $('#add').click(function(e){
         e.preventDefault();
-        if(flag == 'add'){
-            var msg = '确认要添加吗';
-            var title = '添加';
-        }else if(flag == 'edit'){
-            var msg = '确认要修改吗';
-            var title = '修改';
-        }
         var alertBox = bootbox.dialog({
-            message: msg,
-            title: title,
+            message: '确认要添加吗',
+            title: '添加',
             buttons: {
                 success: {
                     label: "取消",
