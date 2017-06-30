@@ -13,7 +13,7 @@
     <link href="/stylesheets/meAdmin/assets/css/responsive.css" rel="stylesheet" type="text/css"/>
     <link href="/stylesheets/meAdmin/assets/css/icons.css" rel="stylesheet" type="text/css" />
     <link href="/stylesheets/meAdmin/assets/css/fontawesome/font-awesome.min.css" rel="stylesheet" >
-    <link href="/stylesheets/meAdmin/assets/plugins/ueditor/themes/default/css/ueditor.min.css" rel="stylesheet" type="text/css"/>
+    <link href="/stylesheets/ueditor/themes/default/css/ueditor.min.css" rel="stylesheet" type="text/css"/>
     <!--[if IE 7]>
     <link href="/stylesheets/meAdmin/assets/css/fontawesome/font-awesome-ie7.min.css" rel="stylesheet">
     <![endif]-->
@@ -60,9 +60,9 @@
     <script type="text/javascript" src="/stylesheets/meAdmin/plugins/datatables/DT_bootstrap.js"></script>
     <script type="text/javascript" src="/stylesheets/meAdmin/plugins/My97DatePicker/WdatePicker.js"></script>
     <script type="text/javascript" src="/stylesheets/meAdmin/plugins/bootbox/bootbox.min.js"></script>
-    <script type="text/javascript" src="/stylesheets/meAdmin/plugins/ueditor/ueditor.config.js"></script>
-    <script type="text/javascript" src="/stylesheets/meAdmin/plugins/ueditor/ueditor.all.js"></script>
-    <script type="text/javascript" src="/stylesheets/meAdmin/plugins/ueditor/ueditor.parse.min.js"></script>
+    <script type="text/javascript" src="/stylesheets/ueditor/ueditor.config.js"></script>
+    <script type="text/javascript" src="/stylesheets/ueditor/ueditor.all.js"></script>
+    <script type="text/javascript" src="/stylesheets/ueditor/ueditor.parse.min.js"></script>
     <script type="text/javascript" src="/stylesheets/meAdmin/assets/js/jquery.ui.widget.js"></script>
     <script type="text/javascript" src="/stylesheets/meAdmin/assets/js/jquery.fileupload.js"></script>
     <script type="text/javascript" src="/stylesheets/meAdmin/assets/js/app.js"></script>
@@ -119,8 +119,8 @@
                 </div>
                 <div class="widget-content"><!--th:object="${Query}"-->
                     <form class="form-horizontal row-border" th:action="@{/conArticle/editArticleContent}" th:method="post" id="dataForm">
-                        <input type="hidden" id="objectIdFromUrl" name="objectId" th:value="${article.objectId}">
-                        <div class="form-actions">
+                        <input type="hidden" id="objectId" name="objectId" th:value="${objectId}">
+                        <div class="form-actions" style="border-bottom: 1px solid #e5e5e5; margin-top: 0; margin-bottom: 20px;">
                             <input type="button" value="提交" class="btn btn-primary pull-right edit">
                             <a href="javascript:void(0);" class="btn button-previous pull-right" style="display: inline-block;" th:href="@{/conArticle/list}">
                                 <i class="icon-angle-left"></i>
@@ -128,11 +128,11 @@
                             </a>
                         </div>
                         <div class="form-group">
-                            <label class="col-md-2 control-label" for="content">
+                            <label class="col-md-2 control-label" for="myEditor">
                                 文章内容：
                             </label>
                             <div class="col-md-10">
-                                <textarea id="content" name="content" th:value="${content}"></textarea>
+                                <textarea id="myEditor" name="content" th:value="${content}"></textarea>
                             </div>
                         </div>
                         <div class="form-actions">
@@ -157,6 +157,24 @@
             }
         });
     });
+    function UrlSearch() {
+        var name,value;
+        var str=location.href;
+        var num=str.indexOf("?")
+        str=str.substr(num+1);
+        var arr=str.split("&");
+        for(var i=0;i < arr.length;i++){
+            num=arr[i].indexOf("=");
+            if(num>0){
+                name=arr[i].substring(0,num);
+                value=arr[i].substr(num+1);
+                this[name]=value;
+            }
+        }
+    }
+    var Request=new UrlSearch();
+    var objectId = Request.objectId;
+    $('#objectId').val(objectId);
     var  editor1 = new baidu.editor.ui.Editor({
         textarea:'tcontent',
         autoClearinitialContent : false,
@@ -173,7 +191,7 @@
                 'simpleupload']
         ]
     });
-    editor1.render("content");
+    editor1.render("myEditor");
     $('.edit').click(function(e){
         e.preventDefault();
         var alertBox = bootbox.dialog({

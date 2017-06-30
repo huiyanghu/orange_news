@@ -191,11 +191,11 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-md-3 control-label" for="replaceCssPath">
+                            <label class="col-md-3 control-label" for="abstracts">
                                 文章摘要：
                             </label>
                             <div class="col-md-9">
-                                <textarea rows="3" cols="5" id="replaceCssPath" name="replaceCssPath" class="form-control" placeholder="输入文章摘要" th:value="${article.abstracts}"></textarea>
+                                <textarea rows="3" cols="5" id="abstracts" name="abstracts" class="form-control" placeholder="输入文章摘要" th:value="${article.abstracts}"></textarea>
                             </div>
                         </div>
                         <div class="form-group">
@@ -243,7 +243,7 @@
                                 多媒体地址：
                             </label>
                             <div class="col-md-9">
-                                <input type="text" id="medialink" name="medialink" class="form-control" placeholder="输入多媒体地址" th:value="${article.medialink}">
+                                <input type="text" id="medialink" name="medialink" class="form-control" placeholder="输入多媒体地址" th:value="${article.get('medialink')}">
                             </div>
                         </div>
                         <div class="form-group">

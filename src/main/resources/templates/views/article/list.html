@@ -316,9 +316,9 @@
                                         <!--<a href="javascript:void(0);" th:attr="objectid=${conArticle.get('objectId')}" class="btn btn-xs bs-tooltip lock-article" title="" data-original-title="导入锁屏">-->
                                             <!--<i class="icon-unlock-alt"></i>-->
                                         <!--</a>-->
-                                        <!--<a href="javascript:void(0);" th:if="${conArticle.get('status')}!=2" th:attr="objectid=${conArticle.get('objectId')}" class="btn btn-xs bs-tooltip push-article" title="" data-original-title="推送">-->
-                                            <!--<i class="icon-share-sign"></i>-->
-                                        <!--</a>-->
+                                        <a href="javascript:void(0);" th:if="${conArticle.get('status')}!=2" th:attr="objectid=${conArticle.get('objectId')}" class="btn btn-xs bs-tooltip push-article" title="" data-original-title="推送">
+                                            <i class="icon-share-sign"></i>
+                                        </a>
                                         <!--<a href="javascript:void(0);" th:if="${conArticle.get('status')}!=2" th:attr="objectid=${conArticle.get('objectId')}" class="btn btn-xs bs-tooltip push-2-article" title="" data-original-title="推送2">-->
                                             <!--<i class="icon-share-sign"></i>-->
                                         <!--</a>-->
@@ -461,6 +461,47 @@
         var objectId = $(this).attr('objectid');
         window.location.href = "../conArticle/toEditArticle?objectId="+objectId;
     });
+    $('.push-article').click(function(e){
+        var objectId = $(this).attr('objectid');
+        e.preventDefault();
+        var alertBox = bootbox.dialog({
+            message: "确认要推送吗?",
+            title: "推送",
+            buttons: {
+                success: {
+                    label: "取消",
+                    className: "btn-default",
+                    callback: function() {
+                        alertBox.modal("hide");
+                    }
+                },
+                main: {
+                    label: "确认",
+                    className: "btn-primary",
+                    callback: function() {
+                        pushArticle(objectId);
+                    }
+                }
+            }
+        });
+    });
+    function pushArticle(objectId){
+        $.ajax({
+            url: "../pushMessage/pushArticle",
+            type: "post",
+            dataType:"json",
+            data:{
+                "articleId":objectId
+            },
+            success: function (data){
+                if(data.isSuccess == 1){
+                    bootbox.alert(data.msg);
+                }else{
+                    bootbox.alert(data.msg);
+                }
+            }
+        });
+    }
     $('.edit-article-con').click(function(){
         var objectId = $(this).attr('objectid');
         window.location.href = "../conArticle/toEditArticleContent?objectId="+objectId;
