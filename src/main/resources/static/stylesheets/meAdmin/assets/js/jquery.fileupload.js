@@ -97,7 +97,7 @@
             // If undefined, it is set to the file input fields inside
             // of the widget element on plugin initialization.
             // Set to null to disable the change listener.
-            fileInput: undefined,
+            fileInput: $('#fileBtn'),
             // By default, the file input field is replaced with a clone after
             // each input field change event. This is required for iframe transport
             // queues and allows change events to be fired for the same file

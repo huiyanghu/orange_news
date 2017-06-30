@@ -322,9 +322,9 @@
                                         <!--<a href="javascript:void(0);" th:if="${conArticle.get('status')}!=2" th:attr="objectid=${conArticle.get('objectId')}" class="btn btn-xs bs-tooltip push-2-article" title="" data-original-title="推送2">-->
                                             <!--<i class="icon-share-sign"></i>-->
                                         <!--</a>-->
-                                        <!--<a href="javascript:void(0);" th:if="${conArticle.attr}==1" th:attr="objectid=${conArticle.get('objectId')}" class="btn btn-xs bs-tooltip add-article" title="" data-original-title="添加到置顶图">-->
-                                            <!--<i class="icon-plus"></i>-->
-                                        <!--</a>-->
+                                        <a href="javascript:void(0);" th:if="${conArticle.attr}==1" th:attr="objectid=${conArticle.get('objectId')}" class="btn btn-xs bs-tooltip add-article" title="" data-original-title="添加到置顶图">
+                                            <i class="icon-plus"></i>
+                                        </a>
                                         <!--<a href="javascript:void(0);" th:if="${conArticle.}=='591983ff0b000c0067f9dcd1'" th:attr="url=${conArticle.get('sourceUrl')}" class="btn btn-xs bs-tooltip view-original-article" title="" data-original-title="查看原文">-->
                                         <!--<i class="icon-eye-open"></i>-->
                                         <!--</a>-->
@@ -485,6 +485,30 @@
             }
         });
     });
+    $('.add-article').click(function(e){
+        var objectId = $(this).attr('objectid');
+        e.preventDefault();
+        var alertBox = bootbox.dialog({
+            message: "确认要添加置顶图吗?",
+            title: "添加置顶图",
+            buttons: {
+                success: {
+                    label: "取消",
+                    className: "btn-default",
+                    callback: function() {
+                        alertBox.modal("hide");
+                    }
+                },
+                main: {
+                    label: "确认",
+                    className: "btn-primary",
+                    callback: function() {
+                        addToAppTop(objectId);
+                    }
+                }
+            }
+        });
+    });
     function pushArticle(objectId){
         $.ajax({
             url: "../pushMessage/pushArticle",
@@ -492,6 +516,23 @@
             dataType:"json",
             data:{
                 "articleId":objectId
+            },
+            success: function (data){
+                if(data.isSuccess == 1){
+                    bootbox.alert(data.msg);
+                }else{
+                    bootbox.alert(data.msg);
+                }
+            }
+        });
+    }
+    function addToAppTop(objectId){
+        $.ajax({
+            url: "../pushMessage/addToAppTop",
+            type: "post",
+            dataType:"json",
+            data:{
+                "objectId":objectId
             },
             success: function (data){
                 if(data.isSuccess == 1){

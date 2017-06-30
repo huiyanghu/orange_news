@@ -304,20 +304,48 @@
             }
         });
     });
-    $(function () {
-        $('#fileBtn').fileupload({
-            url: '',
-            dataType: 'json',
-            done: function (e, data) {
-                $("#titlePicImg").attr("src",data.result.imgsrc);
-                $("#titlepic").attr("value",data.result.imgpath);
+//    $(function () {
+//        $('#fileBtn').fileupload({
+//            url: ' ../conArticle/uploadTitlePic',
+//            dataType: 'json',
+//            done: function (e, data) {
+//                console.log(data)
+//                $("#titlePicImg").attr("src",data.result.imgsrc);
+//                $("#titlepic").attr("value",data.result.imgpath);
+//            },
+//            progressall: function (e, data) {
+//                var progress = parseInt(data.loaded / data.total * 100, 10);
+//                $('#progress .progress-bar').css('width',progress + '%' );
+//            }
+//        }).prop('disabled', !$.support.fileInput)
+//            .parent().addClass($.support.fileInput ? undefined : 'disabled');
+//    });
+    $('#fileBtn').change(function(){
+        console.log($('#fileBtn').val())
+        $.ajax({
+            url:"../conArticle/uploadTitlePic",
+            type: "post",
+            dataType:"json",
+            data: {
+                "file": $('#fileBtn').val()
             },
-            progressall: function (e, data) {
-                var progress = parseInt(data.loaded / data.total * 100, 10);
-                $('#progress .progress-bar').css('width',progress + '%' );
+            success: function (data) {
+                console.log(data);
+                if(data.isSuccess == 1){
+                    var code = data.result.code;
+                    if(code == 1){
+                        bootbox.alert("图片不能为空");
+                    }else{
+                        bootbox.alert("上传成功");
+                    }
+                }else{
+                    bootbox.alert("上传失败");
+                }
+            },
+            error: function (error) {
+                bootbox.alert('服务器错误');
             }
-        }).prop('disabled', !$.support.fileInput)
-            .parent().addClass($.support.fileInput ? undefined : 'disabled');
+        });
     });
     $('#add').click(function(e){
         e.preventDefault();
