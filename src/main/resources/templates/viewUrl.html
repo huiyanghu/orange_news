@@ -8,7 +8,7 @@
 </head>
 <body style="width: 800px; margin: 0 auto;">
 <div class="headImg" id="headImg">
-    <img src="" alt="" onload="imgSize(this)" />
+    <img src="" alt="" />
 </div>
 <div class="title" id="title"></div>
 <div class="info">
@@ -127,7 +127,6 @@
                 "articleId": articleId
             },
             success: function (data) {
-                console.log(data);
                 if(data.success == 1){
                     var articleJsonStr = data;
                     resolveJson2(articleJsonStr);
