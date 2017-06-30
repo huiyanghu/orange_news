@@ -112,8 +112,7 @@
                     </div>
                 </div>
                 <div class="widget-content">
-                    <form class="form-horizontal row-border" th:object="${keywords}" th:action="@{/keywords/editCountryKeywords}" th:method="post" id="dataForm">
-                        <input type="hidden" id="objectId" name="objectId" th:value="${objectId}">
+                    <form class="form-horizontal row-border" th:action="@{/keywords/editCountryKeywords}" th:method="post" id="dataForm">
                         <input type="hidden" id="countryObjectId" name="countryObjectId" th:value="${countryObjectId}">
                         <div class="form-group">
                             <label class="col-md-3 control-label" for="keyword">
