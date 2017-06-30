@@ -83,6 +83,7 @@ public class PushMessageController {
             articleMap.put("topicId", null != articleInfo.getAVObject("topicObj") ? articleInfo.getAVObject("topicObj").getObjectId() : "");
             articleMap.put("countryCode", StringUtil.isNotEmpty(articleInfo.getString("countrycode")) ? articleInfo.getString("countrycode") : "");
             articleMap.put("sourceUrl", StringUtil.isNotEmpty(articleInfo.getString("sourceurl")) ? articleInfo.getString("sourceurl") : "");
+            articleMap.put("action", "com.orange.headline.push");
         }
 
         return articleMap;
