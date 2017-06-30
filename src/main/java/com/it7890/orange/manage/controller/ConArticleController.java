@@ -685,6 +685,7 @@ public class ConArticleController {
     @ResponseBody
     public Object uploadTitlePic(@RequestParam(value = "file", required = false)MultipartFile file) {
 
+        
         int isSuccess = 1;
         int code = -1;
         Map result = new HashMap();
