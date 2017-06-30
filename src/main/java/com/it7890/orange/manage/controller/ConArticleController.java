@@ -2,6 +2,7 @@ package com.it7890.orange.manage.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.avos.avoscloud.AVException;
+import com.avos.avoscloud.AVFile;
 import com.avos.avoscloud.AVObject;
 import com.it7890.orange.manage.model.*;
 import com.it7890.orange.manage.po.AppAdvertQuery;
@@ -10,6 +11,7 @@ import com.it7890.orange.manage.po.ConArticleQuery;
 import com.it7890.orange.manage.po.HbCountryQuery;
 import com.it7890.orange.manage.service.*;
 import com.it7890.orange.manage.utils.ConstantsUtil;
+import com.it7890.orange.manage.utils.MD5;
 import com.it7890.orange.manage.utils.StringUtil;
 import com.it7890.orange.manage.vo.ConArticleDetailDTO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -27,10 +30,7 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created by Administrator on 2017/5/31.
@@ -642,72 +642,106 @@ public class ConArticleController {
     /**
      * 添加到置顶图
      */
-    @RequestMapping("/addToAppTop")
-    public String addToAppTop(String objectId, Map map) throws Exception {
-        AppAdvertQuery appAdvertQuery = new AppAdvertQuery();
-        appAdvertQuery.setArticleObjectId(objectId);
-        AppAdvert appAdvert = null;
-        List<AppAdvert> appAdvertList = appAdvertService.get(appAdvertQuery);
-        if (appAdvertList != null && !appAdvertList.isEmpty()) {
-            appAdvert = appAdvertList.get(0);
-        }
+    @RequestMapping(value = "/addToAppTop", method = {RequestMethod.GET, RequestMethod.POST})
+    @ResponseBody
+    public Object addToAppTop(String objectId) throws Exception {
+        int isSuccess = 1;
 
-        AppTop appTop = new AppTop();
-
-
-        if (appAdvert != null) {
-            appTop.setAdvert(appAdvert);
-            appTop.setItype(3); //广告
-            ConArticle article = new ConArticle();
-            article.setObjectId(objectId);
-            article.setAttr(7);//其他
-            appTop.setArticle(article);
-
-            //国家
-            HbCountryQuery countryQuery = new HbCountryQuery();
-            countryQuery.setCountryCode(appAdvert.getCountryCode());
-            List<HbCountrys> countrysList = hbCountryService.get(countryQuery);
-            if (countrysList != null && !countrysList.isEmpty()) {
-                appTop.setCountry(countrysList.get(0));
+        try {
+            AppAdvertQuery appAdvertQuery = new AppAdvertQuery();
+            appAdvertQuery.setArticleObjectId(objectId);
+            AppAdvert appAdvert = null;
+            List<AppAdvert> appAdvertList = appAdvertService.get(appAdvertQuery);
+            if (appAdvertList != null && !appAdvertList.isEmpty()) {
+                appAdvert = appAdvertList.get(0);
             }
 
-            appTop.setLanguage(appAdvert.getLanguageObj()); //语言
-            appTop.setRank(0); //排序
-            appTop.setStatus(1);//禁用
+            AppTop appTop = new AppTop();
+            if (appAdvert != null) {
+                appTop.setAdvert(appAdvert);
+                appTop.setItype(3); //广告
+                ConArticle article = new ConArticle();
+                article.setObjectId(objectId);
+                article.setAttr(7);//其他
+                appTop.setArticle(article);
 
-            if (appAdvert.getAdTitle() != null && !appAdvert.getAdTitle().equals("")) {
-                appTop.setTitle(appAdvert.getAdTitle());
-            } else if (appAdvert.getAdName() != null && !appAdvert.getAdName().equals("")) {
-                appTop.setTitle(appAdvert.getAdName());
+                //国家
+                HbCountryQuery countryQuery = new HbCountryQuery();
+                countryQuery.setCountryCode(article.getCountryCode());
+                List<HbCountrys> countrysList = hbCountryService.get(countryQuery);
+                if (countrysList != null && !countrysList.isEmpty()) {
+                    appTop.setCountry(countrysList.get(0));
+                }
+
+                appTop.setLanguage(article.getLanguage()); //语言
+                appTop.setRank(0); //排序
+                appTop.setStatus(1);//禁用
+
+                if (appAdvert.getAdTitle() != null && !appAdvert.getAdTitle().equals("")) {
+                    appTop.setTitle(appAdvert.getAdTitle());
+                } else if (appAdvert.getAdName() != null && !appAdvert.getAdName().equals("")) {
+                    appTop.setTitle(appAdvert.getAdName());
+                }
+                appTop.setTitlePic(appAdvert.getAdImg());
+                appTop.setUrl(appAdvert.getAdUrl());
+                appTop.setSubTime(new Date());
+                appTop.save();
             }
-            appTop.setTitlePic(appAdvert.getAdImg());
-
-            appTop.setUrl(appAdvert.getAdUrl());
-            appTop.setSubTime(new Date());
+        } catch (AVException e) {
+            isSuccess = 0;
+            e.printStackTrace();
         }
 
-        /*
-        long result = appTopService.updateAppTopES(appTop);
+        Map map = new HashMap();
+        map.put("isSuccess", isSuccess);
+        return JSON.toJSON(map);
+    }
 
-        //向队列中发送消息
-        if (switch1.getIsopenapptop() == 0) {
-            String[] list = SQSUtil.getUrlList();
-            for (int j = 0; j < list.length; j++) {
-                SqsBaseVo sb = new SqsBaseVo();
-                sb.setType(0);
-                sb.setName(AppTop.class.getSimpleName());
-                List l = new ArrayList();
-                l.add(appTop);
-                sb.setList(l);
-                SQSUtil.putMessage(SQSUtil.getSQSClient(), sb, list[j]);
-                logger.info("send art message to " + list[j]);
+    @RequestMapping(value = "/uploadTitlePic")
+    @ResponseBody
+    public Object uploadTitlePic(MultipartFile file) {
+
+        int isSuccess = 1;
+        int code = -1;
+        Map result = new HashMap();
+
+        if (file != null) {
+            String logImageName = null;
+            String suffix = null;
+            String imgSrc = "";
+            try {
+                suffix = file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf("."));
+                SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+                String folder = df.format(new Date());
+                logImageName = MD5.MD5(UUID.randomUUID().toString()) + suffix;
+                String filename = "/" + folder + "/" + logImageName;
+
+                AVFile uploadFile = new AVFile(filename, file.getBytes());
+                uploadFile.save();
+
+                if (StringUtil.isNotEmpty(uploadFile.getUrl())) {
+                    imgSrc = uploadFile.getUrl();
+                }
+
+                result.put("title", logImageName);
+                result.put("original", logImageName);
+                result.put("type", suffix);
+                result.put("url", imgSrc);
+                result.put("title", logImageName);
+                result.put("objectId", uploadFile.getObjectId());
+            } catch (Exception e) {
+                isSuccess = 0;
+                e.printStackTrace();
             }
+        } else {
+            code = 1;//图片不能为空
         }
-        request.getSession().setAttribute("message",
-            "添加到置顶图:" + (result > 0 ? "成功" : "失败"));
-        request.getSession().setAttribute("url", "advert/list?searchstr=" + searchstr);
-        return String.format("redirect:/message");*/
-        return null;
+
+        Map map = new HashMap();
+        result.put("code", code);
+        map.put("isSuccess", isSuccess);
+        map.put("result", result);
+        return JSON.toJSON(map);
     }
 
 }

@@ -1,11 +1,8 @@
 package com.it7890.orange.manage.controller;
 
-import com.alibaba.fastjson.JSON;
 import com.avos.avoscloud.AVFile;
-import com.it7890.orange.manage.po.FileInfo;
 import com.it7890.orange.manage.utils.MD5;
 import com.it7890.orange.manage.utils.StringUtil;
-import com.it7890.orange.manage.utils.UpLoadFileUtil;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Controller;
@@ -13,14 +10,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
-import org.springframework.web.multipart.MultipartResolver;
-import org.springframework.web.multipart.commons.CommonsMultipartFile;
-import org.springframework.web.multipart.commons.CommonsMultipartResolver;
-import org.springframework.web.multipart.support.DefaultMultipartHttpServletRequest;
 
 import javax.servlet.http.HttpServletRequest;
-import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.UUID;
@@ -44,13 +35,6 @@ public class UpLoadContrler {
         }
 
         if("uploadimage".equals(action) && null != file){
-//            MultipartResolver resolver = new CommonsMultipartResolver(request.getSession().getServletContext());
-//            MultipartHttpServletRequest multipartRequest = resolver.resolveMultipart(request);
-//            CommonsMultipartFile file = (CommonsMultipartFile) multipartRequest.getFile("upfile");
-
-//            DefaultMultipartHttpServletRequest request = (DefaultMultipartHttpServletRequest)req;
-//            CommonsMultipartFile file = (CommonsMultipartFile) request.getFile("upfile");
-
             String logImageName = null;
             String suffix = null;
             String imgSrc = "";
@@ -75,4 +59,6 @@ public class UpLoadContrler {
         }
         return "";
     }
+
+
 }
