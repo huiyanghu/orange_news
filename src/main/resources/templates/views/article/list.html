@@ -164,7 +164,7 @@
                                     国际化语言：
                                 </label>
                                 <div class="col-md-8">
-                                    <select class="form-control" name="languageObjectId" id="languageObjectId" th:field="*{languageObjectId}">
+                                    <select name="languageObjectId" id="languageObjectId" class="select2-select-00 col-md-12 full-width-fix select2-offscreen" tabindex="-1" th:field="*{languageObjectId}">
                                         <option value="" selected>请选择</option>
                                         <option th:each="language:${languageList}" th:selected="(${conArticleQuery.languageObjectId == language.objectId})" th:value="${language.objectId}" th:text="${language.get('languageName')}"></option>
                                     </select>

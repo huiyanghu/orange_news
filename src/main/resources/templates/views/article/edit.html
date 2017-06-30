@@ -195,7 +195,7 @@
                                 文章摘要：
                             </label>
                             <div class="col-md-9">
-                                <textarea rows="3" cols="5" id="abstracts" name="abstracts" class="form-control" placeholder="输入文章摘要" th:value="${article.abstracts}"></textarea>
+                                <textarea rows="3" cols="5" id="abstracts" name="abstracts" class="form-control" placeholder="输入文章摘要" th:text="${article.abstracts}"></textarea>
                             </div>
                         </div>
                         <div class="form-group">
@@ -231,27 +231,27 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-md-3 control-label" for="linkurl">
+                            <label class="col-md-3 control-label" for="linkUrl">
                                 跳转链接：
                             </label>
                             <div class="col-md-9">
-                                <input type="text" id="linkurl" name="linkurl" class="form-control" placeholder="输入跳转链接" th:value="${article.get('linkurl')}">
+                                <input type="text" id="linkUrl" name="linkUrl" class="form-control" placeholder="输入跳转链接" th:value="${article.get('linkUrl')}">
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-md-3 control-label" for="medialink">
+                            <label class="col-md-3 control-label" for="mediaLink">
                                 多媒体地址：
                             </label>
                             <div class="col-md-9">
-                                <input type="text" id="medialink" name="medialink" class="form-control" placeholder="输入多媒体地址" th:value="${article.get('medialink')}">
+                                <input type="text" id="mediaLink" name="mediaLink" class="form-control" placeholder="输入多媒体地址" th:value="${article.get('mediaLink')}">
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-md-3 control-label" for="pubTime">
+                            <label class="col-md-3 control-label" for="subTime">
                                 发布时间：
                             </label>
                             <div class="col-md-9">
-                                <input type="text" id="pubTime" name="pubTime" class="form-control" placeholder="输入发布时间" th:value="${article.subTime}" onClick="WdatePicker()">
+                                <input type="text" id="subTime" name="subTime" class="form-control" placeholder="输入发布时间" th:value="${article.subTime}" onClick="WdatePicker()">
                             </div>
                         </div>
                         <div class="form-group">
