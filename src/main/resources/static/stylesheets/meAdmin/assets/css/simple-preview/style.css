@@ -1,5 +1,6 @@
 html{ font-size: 62.5%;}
-*{ margin: 0; padding: 0; list-style: none; box-sizing: border-box;}
+*{ margin: 0; padding: 0; list-style: none; box-sizing: border-box; tap-highlight-color: transparent; -webkit-tap-highlight-color: transparent;}
+pre,strong{ word-wrap: break-word !important;white-space: pre-wrap !important;}
 strong{font-weight: normal !important;}
 .left{ float: left;}
 .right{ float: right;}
@@ -7,23 +8,33 @@ strong{font-weight: normal !important;}
 .headImg img{ width: 100%; display: block;}
 .headImg img.posT{ width: 100%; height: auto; position: absolute; top: 50%; transform: translateY(-50%); -webkit-transform: translateY(-50%);}
 .headImg img.posL{ position: absolute; left: 50%; transform: translateX(-50%); -webkit-transform: translateX(-50%);}
-.title{ width: 100%;  padding: 0 3.33333%; line-height: 3rem; font-size: 2.4rem; color: #222; margin-top: 1rem;}
-.info{ width: 100%; padding: 0 3.33333%; margin-top: 1rem; padding-bottom: 1.5rem; border-bottom: 1px solid #ccc; overflow: hidden;}
+.title{ width: 100%;  padding: 0 3.33333%; line-height: 2.8rem; font-size: 2.4rem; color: #222; margin-top: 1rem; word-wrap: break-word !important;}
+.title.minFontSize{ font-size: 2.2rem; line-height: 2.6rem;}
+.title.maxFontSize{ font-size: 2.6rem; line-height: 3.2rem;}
+.info{ width: 100%; padding: 0 3.33333%; margin-top: 1rem; padding-bottom: 1.2rem; border-bottom: 1px solid #e8e8e8; overflow: hidden;}
 .mediaImg{ width: 4.5rem; height: 4.5rem; border-radius: 50%; position: relative; overflow: hidden; margin-right: 1.2rem;}
 .mediaImg img{ width: 100%; position: absolute; left: 50%; top: 50%; transform: translate(-50%,-50%); -webkit-transform: translate(-50%,-50%);}
-.left .text{ width: 300px; line-height: 2rem; padding: 0.25rem 0;}
+.left .text{ width: 18rem; line-height: 2rem; padding: 0.25rem 0;}
 .mediaName{ font-size: 1.6rem; color: #444; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;}
 .date{ font-size: 1.4rem; color: #666;}
-.date .iconfont{ font-size: 1.4rem; display: inline-block; margin-right: 0.4rem;}
-.subscribe{ width: 4.5rem; height: 2.7rem; border-radius: 0.4rem; border: 0.1rem solid dodgerblue; margin-top: 0.9rem; line-height: 2.5rem; text-align: center;}
-.subscribe .iconfont{ color: dodgerblue;}
-.subscribe.active{ background: dodgerblue;}
-.subscribe.active .iconfont{ color: #fff;}
-.icon-add{ font-size: 2rem;}
-.icon-subscribe{ font-size: 2.2rem;}
-.icon-subscribe.margin{ margin-left: -0.6rem;}
-.content{ padding: 1rem 3.33333% 4rem; font-size: 2rem; color: #222; line-height: 2.6rem;}
-.content p{ width: 100%; margin-bottom: 0.6rem; font-weight: 400 !important; color: #333 !important;}
-.content img{ max-width: 100% !important;}
-.content.minFontSize{ font-size: 1.4rem; line-height: 2.2rem;}
-.content.maxFontSize{ font-size: 2.8rem; line-height: 3.4rem;}
+.date .iconfont{ width: 1.2rem; height: 1.2rem; display: inline-block; margin-right: 0.4rem; background: url('/stylesheets/meAdmin/assets/img/icBlock.png') no-repeat center; background-size: 100%;}
+.date span{ vertical-align: middle;}
+#mediaTime,#mediaName{ font-family: "微软雅黑";}
+.content{ padding: 1rem 3.33333% 4rem; font-size: 2rem; color: #222; line-height: 2.4rem;}
+.content h1,.content h2,.content h3,.content h4,.content h5,.content h6{ font-weight: normal; font-size: 2rem;}
+.content p{ width: 100%; margin-bottom: 0.6rem; font-weight: 400 !important; color: #333 !important;word-wrap: break-word !important;}
+.content img{ width: 100% !important;}
+.content.minFontSize{ font-size: 1.8rem; line-height: 2.2rem;}
+.content.minFontSize h1,
+.content.minFontSize h2,
+.content.minFontSize h3,
+.content.minFontSize h4,
+.content.minFontSize h5,
+.content.minFontSize h6{ font-size: 1.8rem;}
+.content.maxFontSize{ font-size: 2.2rem; line-height: 2.6rem;}
+.content.maxFontSize h1,
+.content.maxFontSize h2,
+.content.maxFontSize h3,
+.content.maxFontSize h4,
+.content.maxFontSize h5,
+.content.maxFontSize h6{ font-size: 2.2rem;}

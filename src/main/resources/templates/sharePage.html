@@ -2,12 +2,12 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <title id="pageTitle"></title>
-    <link rel="stylesheet" type="text/css" href="/stylesheets/meAdmin/assets/css/simple-preview/iconfont.css"/>
     <link rel="stylesheet" type="text/css" href="/stylesheets/meAdmin/assets/css/simple-preview/style.css" id="styleCss"/>
     <script type="text/javascript" src="/stylesheets/meAdmin/assets/js/libs/jquery-1.10.2.min.js"></script>
 </head>
-<body style="width: 800px; margin: 0 auto;">
+<body>
 <div class="headImg" id="headImg">
     <img src="" alt="" onload="imgSize(this)" />
 </div>
@@ -22,7 +22,7 @@
         <div class="left text">
             <div class="mediaName" id="mediaName" style="height: 30px;"></div>
             <div class="date">
-                <span class="iconfont icon-clock"></span>
+                <span class="iconfont"></span>
                 <span id="mediaTime"></span>
             </div>
         </div>
@@ -73,6 +73,28 @@
         //文章内容
         var contentBody = decodeURIComponent(getJson.contentBody.replace(/\+/g, '%20'));
         $('#content').html(contentBody);
+        $('iframe').remove();
+        $.each($('table'),function(index){
+            var tableText = $('table').text();
+            $(this).after('<p>'+tableText+'</p>');
+            $(this).remove();
+        });
+        $.each($('p'),function(index){
+            var pText = '';
+            var imgHtml = ''
+            var childs = $(this).children()
+            if(childs.length != 0){
+                $.each($(this).children(),function(index){
+                    if($(this).is('img')){
+                        imgHtml += '<img src="'+$(this).attr('src')+'"/>';
+                    }else{
+                        pText += $(this).text();
+                    }
+                });
+                $(this).after('<p>'+imgHtml+'</p><p>'+pText+'</p>');
+                $(this).remove();
+            }
+        });
     }
     var articleId = Request.articleId;
     $.ajax({
