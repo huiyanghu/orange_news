@@ -229,6 +229,8 @@
             var val = $(this).children('a').attr('value');
             var currentPage = Number($('#page').val());
             var pageCount = $('#countindex').val();
+
+            alert(val);
             if(val == 'prev'){
                 var jumpPage = currentPage - 1;
                 if(jumpPage >= 0){
@@ -236,7 +238,7 @@
                 }
             }else if(val == 'next'){
                 var jumpPage = currentPage + 1;
-                if(jumpPage >= pageCount){
+                if(jumpPage <=pageCount){
                     $('#page').val(jumpPage);
                 }
             }else if(val == 'page'){
