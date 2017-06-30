@@ -44,6 +44,7 @@ public class Application {
         AVObject.registerSubclass(SysUser.class);
         AVObject.registerSubclass(AppTop.class);
         AVObject.registerSubclass(AppKeywords.class);
+        AVObject.registerSubclass(ConArticlesContent.class);
 
 
 

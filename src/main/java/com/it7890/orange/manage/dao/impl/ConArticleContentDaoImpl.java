@@ -3,6 +3,7 @@ package com.it7890.orange.manage.dao.impl;
 import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.AVQuery;
 import com.it7890.orange.manage.dao.ConArticleContentDao;
+import com.it7890.orange.manage.model.ConArticle;
 import com.it7890.orange.manage.model.ConArticlesContent;
 import com.it7890.orange.manage.po.ConArticleContentQuery;
 import com.it7890.orange.manage.utils.StringUtil;
@@ -27,7 +28,9 @@ public class ConArticleContentDaoImpl implements ConArticleContentDao {
         AVQuery<ConArticlesContent> query = new AVQuery<>("con_articles_content");
 
         if (StringUtil.isNotEmpty(conArticleContentQuery.getArticleObjectId())) {
-            query.whereEqualTo("articleObj", conArticleContentQuery.getArticleObjectId());
+            ConArticle article=new ConArticle();
+            article.setObjectId(conArticleContentQuery.getArticleObjectId());
+            query.whereEqualTo("articleObj", article);
         }
         List<ConArticlesContent> list = query.find();
 
