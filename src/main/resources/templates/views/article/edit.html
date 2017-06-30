@@ -340,7 +340,8 @@
                 if(code == 1){
                     bootbox.alert("图片不能为空");
                 }else if(code == -1){
-                    $('#titlePic').val(data.result.objectId);
+                    console.log(data)
+                    $('#titlePicId').val(data.result.objectId);
                     $('#titlePicImg').attr('src',data.result.url);
                     bootbox.alert("上传成功");
                 }else{
