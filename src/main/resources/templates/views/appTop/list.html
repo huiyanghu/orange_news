@@ -112,14 +112,14 @@
                         <input type="hidden" name="page" id="page" th:value="${pageUtil.currentPage}">
                         <div class="form-group">
                             <div class="col-md-4">
-                                <label class="col-md-4 control-label" for="countrycode">
+                                <label class="col-md-4 control-label" for="countryObjectId">
                                     国家：
                                 </label>
                                 <div class="col-md-8">
-                                    <select name="countrycode" id="countrycode" class="select2-select-00 col-md-12 full-width-fix select2-offscreen" tabindex="-1" th:field="*{countryCode}">
+                                    <select name="countryObjectId" id="countryObjectId" class="select2-select-00 col-md-12 full-width-fix select2-offscreen" tabindex="-1" th:field="*{countryObjectId}">
                                         <option value="">请选择</option>
                                         <option value="">所有国家</option>
-                                        <option th:each="country:${countryList}" th:selected="(${appTopQuery.countryCode == country.get('countryCode')})" th:value="${country.get('countryCode')}" th:text="${country.get('countryCode')}+'&nbsp;'+${country.get('cnName')}"></option>
+                                        <option th:each="country:${countryList}" th:selected="(${appTopQuery.countryObjectId == country.get('objectId')})" th:value="${country.get('objectId')}" th:text="${country.get('countryCode')}+'&nbsp;'+${country.get('cnName')}"></option>
                                     </select>
                                 </div>
                             </div>

@@ -6,6 +6,7 @@ import com.avos.avoscloud.AVObject;
 import com.avos.avoscloud.AVQuery;
 import com.it7890.orange.manage.dao.AppTopDao;
 import com.it7890.orange.manage.model.AppTop;
+import com.it7890.orange.manage.model.HbCountrys;
 import com.it7890.orange.manage.po.AppTopQuery;
 import com.it7890.orange.manage.utils.ConstantsUtil;
 import com.it7890.orange.manage.utils.DateUtil;
@@ -28,6 +29,11 @@ public class AppTopDaoImpl implements AppTopDao {
         AVQuery<AppTop> query = new AVQuery("AppTop");
         if (StringUtil.isNotEmpty(appTopQuery.getCountryCode())) {
             query.whereEqualTo("countryCode", appTopQuery.getCountryCode());
+        }
+        if (StringUtil.isNotEmpty(appTopQuery.getCountryObjectId())) {
+            HbCountrys countrys=new HbCountrys();
+            countrys.setObjectId(appTopQuery.getCountryObjectId());
+            query.whereEqualTo("countryObj",countrys);
         }
         if (StringUtil.isNotEmpty(appTopQuery.getCtype())) {
             query.whereEqualTo("cType", appTopQuery.getCtype());
