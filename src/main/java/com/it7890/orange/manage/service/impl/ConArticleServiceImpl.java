@@ -55,10 +55,10 @@ public class ConArticleServiceImpl implements ConArticleService {
             map.put("ctypeStr", ConstantsUtil.getConstants("conArticleCtype", "" + article.getCtype()));
             map.put("attr", article.getAttr());
             map.put("attrStr", ConstantsUtil.getConstants("appTopArtitype", "" + article.getAttr()));
-            map.put("languageObjectId", article.getLanguage()==null?"":article.getLanguage().getObjectId());
+            map.put("languageObjectId", article.getLanguage() == null ? "" : article.getLanguage().getObjectId());
             map.put("countryCode", article.getCountryCode());
-            map.put("topicsObjectId", article.getTopics()==null?"":article.getTopics().getObjectId());
-            map.put("publicationObjectId", article.getPublication()==null?"":article.getPublication().getObjectId());
+            map.put("topicsObjectId", article.getTopics() == null ? "" : article.getTopics().getObjectId());
+            map.put("publicationObjectId", article.getPublication() == null ? "" : article.getPublication().getObjectId());
             map.put("abstracts", article.getAbstracts());
             map.put("keywords", article.getKeywords());
             map.put("author", article.getAuthor());
@@ -70,13 +70,19 @@ public class ConArticleServiceImpl implements ConArticleService {
             map.put("subTime", DateUtil.formatDate(article.getSubtime()));
             map.put("status", article.getStatus());
             map.put("statusStr", ConstantsUtil.getConstants("conArticleStatus", "" + article.getStatus()));
-            String titlePic = "";
+            String titlePicUrl = "";
+            String titlePicId = "";
             if (article.getTitlePicArr() != null && !article.getTitlePicArr().isEmpty()) {
-                for (AVFile file : article.getTitlePicArr()) {
-                    titlePic += file.getUrl() + ",";
+                List<AVFile> fileList = article.getTitlePicArr();
+                for (AVFile file : fileList) {
+                    if (file != null) {
+                        titlePicUrl += file.getUrl() + ",";
+                        titlePicId += file.getObjectId() + ",";
+                    }
                 }
             }
-            map.put("titlePic", "".equals(titlePic) ? "" : titlePic.substring(0, titlePic.length() - 1));
+            map.put("titlePicUrl", "".equals(titlePicUrl) ? "" : titlePicUrl.substring(0, titlePicUrl.length() - 1));
+            map.put("titlePicId", "".equals(titlePicId) ? "" : titlePicId.substring(0, titlePicId.length() - 1));
         }
 
 
@@ -132,19 +138,17 @@ public class ConArticleServiceImpl implements ConArticleService {
         }
 
         article.setStatus(articleQuery.getStatus());
-        if (StringUtil.isNotEmpty(articleQuery.getTitlePic())) {
-            List<AVFile> list = new ArrayList();
-            String[] titlePicArr = articleQuery.getTitlePic().split(",");
-            for (String titlePic : titlePicArr) {
-                AVFile file = new AVFile();
-                file.setObjectId(titlePic);
-                list.add(file);
-            }
-            article.setTitlePicArr(list);
-        }else{
-            article.setTitlePicArr(null);
-        }
+        List<AVFile> list = new ArrayList();
+        if (StringUtil.isNotEmpty(articleQuery.getTitlePicId())) {
 
+            String[] titlePicIdArr = articleQuery.getTitlePicId().split(",");
+            for (String titlePicId : titlePicIdArr) {
+                /*AVFile file = new AVFile();
+                file.setObjectId(titlePic);*/
+                list.add(AVFile.withObjectId(titlePicId));
+            }
+        }
+        article.setTitlePicArr(list);
         article.save();
     }
 
