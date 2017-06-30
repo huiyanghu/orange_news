@@ -648,54 +648,40 @@ public class ConArticleController {
         int isSuccess = 1;
 
         try {
-//            AppAdvertQuery appAdvertQuery = new AppAdvertQuery();
-//            appAdvertQuery.setArticleObjectId(objectId);
-//            AppAdvert appAdvert = null;
-//            List<AppAdvert> appAdvertList = appAdvertService.get(appAdvertQuery);
-//            if (appAdvertList != null && !appAdvertList.isEmpty()) {
-//                appAdvert = appAdvertList.get(0);
-//            }
-
             AppTop appTop = new AppTop();
-//            if (appAdvert != null) {
-//                appTop.setAdvert(appAdvert);
+            ConArticle article = conArticleService.getById(objectId);
+            if (article != null) {
+                appTop.setItype(1); //1文章 2 竞猜 3广告
+                appTop.setCtype(article.getAttr());//其他
 
-            ConArticle article2=conArticleService.getById(objectId);
-            appTop.setItype(1); //1文章 2 竞猜 3广告
-            appTop.setCtype(article2.getAttr());//其他
+                ConArticle article2 = new ConArticle();
+                article2.setObjectId(objectId);
                 appTop.setArticle(article2);
-
                 //国家
                 HbCountryQuery countryQuery = new HbCountryQuery();
-                countryQuery.setCountryCode(article2.getCountryCode());
+                countryQuery.setCountryCode(article.getCountryCode());
                 List<HbCountrys> countrysList = hbCountryService.get(countryQuery);
                 if (countrysList != null && !countrysList.isEmpty()) {
                     appTop.setCountry(countrysList.get(0));
                 }
 
-                appTop.setLanguage(article2.getLanguage()); //语言
+                appTop.setLanguage(article.getLanguage()); //语言
                 appTop.setRank(0); //排序
                 appTop.setStatus(1);//禁用
-
-//                if (appAdvert.getAdTitle() != null && !appAdvert.getAdTitle().equals("")) {
-                    appTop.setTitle(article2.getTitle());
-
-                //appTop.setTitlePic(article2.getTitlePicArr().get(0));
-                //appTop.setUrl(appAdvert.getAdUrl());
+                appTop.setTitle(article.getTitle());
                 appTop.setSubTime(new Date());
                 appTop.save();
-//            }
+            }
         } catch (AVException e) {
             isSuccess = 0;
             e.printStackTrace();
         }
-
         Map map = new HashMap();
         map.put("isSuccess", isSuccess);
         return JSON.toJSON(map);
     }
 
-    @RequestMapping(value = "/uploadTitlePic",method = RequestMethod.POST)
+    @RequestMapping(value = "/uploadTitlePic", method = RequestMethod.POST)
     @ResponseBody
     public Object uploadTitlePic(MultipartFile file) {
 
