@@ -51,4 +51,10 @@ public class LoginController {
         session.removeAttribute("loginUser");
         return "redirect:/toLogin";
     }
+
+    @RequestMapping(path = "/toSharePage")
+    public String toSharePage(String dataJson,Map map) {
+        map.put("dataJson",dataJson);
+        return "sharePage";
+    }
 }
