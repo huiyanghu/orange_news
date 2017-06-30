@@ -53,8 +53,8 @@ public class LoginController {
     }
 
     @RequestMapping(path = "/toSharePage")
-    public String toSharePage(String dataJson,Map map) {
-        map.put("dataJson",dataJson);
+    public String toSharePage(String articleId,Map map) {
+        map.put("articleId",articleId);
         return "sharePage";
     }
 }
