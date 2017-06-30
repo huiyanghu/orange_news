@@ -12,7 +12,6 @@ import com.it7890.orange.manage.service.ConArticleService;
 import com.it7890.orange.manage.utils.ConstantsUtil;
 import com.it7890.orange.manage.utils.DateUtil;
 import com.it7890.orange.manage.utils.StringUtil;
-import com.it7890.orange.manage.utils.StringUtil;
 import com.it7890.orange.manage.vo.ConArticleDTO;
 import com.it7890.orange.manage.vo.ConArticleDetailDTO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -137,10 +136,13 @@ public class ConArticleServiceImpl implements ConArticleService {
             List<AVFile> list = new ArrayList();
             String[] titlePicArr = articleQuery.getTitlePic().split(",");
             for (String titlePic : titlePicArr) {
-                AVFile file = new AVFile("image/jpeg", titlePic, null);
+                AVFile file = new AVFile();
+                file.setObjectId(titlePic);
                 list.add(file);
             }
             article.setTitlePicArr(list);
+        }else{
+            article.setTitlePicArr(null);
         }
 
         article.save();
