@@ -272,14 +272,14 @@
                             <div class="col-md-9">
                                 <input type="file" id="fileBtn" data-style="fileinput">
                             </div>
-                            <input type="hidden" name="titlePic" id="titlePic" th:value="${article.titlePic}">
+                            <input type="hidden" name="titlePicId" id="titlePicId" th:value="${article.titlePicId}">
                         </div>
                         <div class="form-group">
                             <label class="col-md-3 control-label">
                                 标题图片预览：
                             </label>
                             <div class="col-md-9">
-                                <img th:src="${article.titlePic}" alt="" id="titlePicImg" style="height:150px;display: inline-block;">
+                                <img th:src="${article.titlePicUrl}" alt="" id="titlePicImg" style="height:150px;display: inline-block;">
                             </div>
                         </div>
                         <div class="form-actions">
@@ -344,10 +344,10 @@
                     $('#titlePicImg').attr('src',data.result.url);
                     bootbox.alert("上传成功");
                 }else{
-                    bootbox.alert(data.result.msg);
+                    bootbox.alert("上传失败");
                 }
             }else{
-                bootbox.alert(data.result.msg);
+                bootbox.alert("上传失败");
             }
         }).fail(function(res) {
             App.unblockUI($('.widget'));

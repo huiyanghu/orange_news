@@ -35,8 +35,7 @@ public class PushMessageController {
         if (StringUtil.isNotEmpty(articleId)) {
             ConArticle articleInfo = conArticleService.getById(articleId);
             if (null != articleInfo) {
-                Map<String, Object> dataMap = new HashMap<>();
-                dataMap.put("alert", buildPushData(articleInfo));
+                Map<String, Object> dataMap = buildPushData(articleInfo);
 
                 AVPush push = new AVPush();
                 push.setData(dataMap);
@@ -77,6 +76,7 @@ public class PushMessageController {
         Map<String, Object> articleMap = null;
         if (null != articleInfo) {
             articleMap = new HashMap<>();
+            articleMap.put("alert", articleInfo.getAbstracts());
             articleMap.put("articleId", articleInfo.getObjectId());
             articleMap.put("title", articleInfo.getTitle());
             articleMap.put("abstracts", articleInfo.getAbstracts());
