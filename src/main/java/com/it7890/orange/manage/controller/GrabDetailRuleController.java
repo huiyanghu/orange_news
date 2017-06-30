@@ -74,8 +74,11 @@ public class GrabDetailRuleController {
         System.out.println("========================");
         System.out.println(JSON.toJSONString(grabDetailRuleQuery));
         System.out.println("========================");
-        GrabDetailRule grabDetailRule = new GrabDetailRule();
-        grabDetailRule.setObjectId(grabDetailRuleQuery.getObjectId());
+
+        GrabDetailRule grabDetailRule= grabDetailRuleService.getGrabDetailRule(grabDetailRuleQuery.getObjectId());
+
+
+
         grabDetailRule.setRuleName(grabDetailRuleQuery.getRuleName());
         grabDetailRule.setTitleCssPath(grabDetailRuleQuery.getTitleCssPath());
         grabDetailRule.setStatus(grabDetailRuleQuery.getStatus());

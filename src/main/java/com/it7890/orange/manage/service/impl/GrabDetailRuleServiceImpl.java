@@ -55,6 +55,11 @@ public class GrabDetailRuleServiceImpl implements GrabDetailRuleService {
         return map;
     }
 
+    @Override
+    public GrabDetailRule getGrabDetailRule(String objectId) throws AVException {
+        return grabDetailRuleDao.get(objectId);
+    }
+
     public List<GrabDetailRule> get(GrabDetailRuleQuery grabDetailRuleQuery) throws AVException {
         return null;
     }
