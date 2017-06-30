@@ -3,6 +3,7 @@ package com.it7890.orange.manage.controller;
 import com.alibaba.fastjson.JSON;
 import com.avos.avoscloud.AVException;
 import com.it7890.orange.manage.model.AppKeywords;
+import com.it7890.orange.manage.model.HbCountrys;
 import com.it7890.orange.manage.po.AppKeywordsQuery;
 import com.it7890.orange.manage.service.AppKeywordsService;
 import com.it7890.orange.manage.utils.StringUtil;
@@ -62,8 +63,20 @@ public class AppKeywordsController {
     @RequestMapping(value = "/editCountryKeywords", method = RequestMethod.POST)
     public String editCountryKeywords(@RequestParam(required = false, name = "objectId") String objectId, String keyword, Integer keywordType, String countryObjectId, RedirectAttributes attributes) throws AVException {
         String msg = "";
+        AppKeywords appKeywords;
+        if (StringUtil.isEmpty(objectId)) {
+            appKeywords = new AppKeywords();
+        } else {
+            appKeywords = appKeywordsService.getKeywords(objectId);
+        }
 
-        AppKeywords appKeywords = appKeywordsService.getKeywords(objectId);
+        if (StringUtil.isNotEmpty(countryObjectId)) {
+            HbCountrys countrys = new HbCountrys();
+            countrys.setObjectId(countryObjectId);
+            appKeywords.setCountry(countrys);
+        }
+
+
         appKeywords.setKeyword(keyword);
         appKeywords.setKeywordType(keywordType);
         try {
