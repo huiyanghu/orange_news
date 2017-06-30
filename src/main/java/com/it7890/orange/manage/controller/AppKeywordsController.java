@@ -43,15 +43,21 @@ public class AppKeywordsController {
     }
 
     @RequestMapping("/toCountryKeywordsEdit")
-    public String toCountryKeywordsEdit(@RequestParam(required = false, name = "objectId") String objectId, String countryObjectId, Map map) throws AVException {
-        if (StringUtil.isNotEmpty(objectId)) {//添加
-            Map keywords = appKeywordsService.getKeywordsMap(objectId);
-            map.put("keywords", keywords);
-        }
+    public String toCountryKeywordsEdit(String objectId, String countryObjectId, Map map) throws AVException {
+        Map keywords = appKeywordsService.getKeywordsMap(objectId);
+        map.put("keywords", keywords);
+        map.put("countryObjectId", countryObjectId);
+        System.out.println(JSON.toJSONString(map));
+        return "views/keywords/edit";
+    }
+
+    @RequestMapping("/toCountryKeywordsAdd")
+    public String toCountryKeywordsAdd(String countryObjectId, Map map) throws AVException {
         map.put("countryObjectId", countryObjectId);
         System.out.println(JSON.toJSONString(map));
         return "views/keywords/add";
     }
+
 
     @RequestMapping(value = "/editCountryKeywords", method = RequestMethod.POST)
     public String editCountryKeywords(@RequestParam(required = false, name = "objectId") String objectId, String keyword, Integer keywordType, String countryObjectId, RedirectAttributes attributes) throws AVException {
