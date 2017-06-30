@@ -683,7 +683,7 @@ public class ConArticleController {
 
     @RequestMapping(value = "/uploadTitlePic", method = RequestMethod.POST)
     @ResponseBody
-    public Object uploadTitlePic(MultipartFile file) {
+    public Object uploadTitlePic(@RequestParam(value = "file", required = false)MultipartFile file) {
 
         int isSuccess = 1;
         int code = -1;
