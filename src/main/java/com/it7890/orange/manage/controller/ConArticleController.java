@@ -613,18 +613,6 @@ public class ConArticleController {
     }
 
     /**
-     * 到添加 文章内容 页面
-     */
-    @RequestMapping("/toAddArticleContent")
-    public String toAddArticleContent(String objectId, Map map) throws Exception {
-        String content = conArticleService.getConArticleContent(objectId);
-        map.put("content", content);
-        map.put("articleObjectId", objectId);
-
-        return "views/articlescontent/add";
-    }
-
-    /**
      * 到编辑 文章内容 页面
      */
     @RequestMapping("/toEditArticleContent")
@@ -633,7 +621,7 @@ public class ConArticleController {
         map.put("content", content);
         map.put("articleObjectId", objectId);
 
-        return "views/articlescontent/edit";
+        return "views/articlescontent/add";
     }
 
     /**
