@@ -697,7 +697,7 @@ public class ConArticleController {
         return JSON.toJSON(map);
     }
 
-    @RequestMapping(value = "/uploadTitlePic")
+    @RequestMapping(value = "/uploadTitlePic",method = RequestMethod.POST)
     @ResponseBody
     public Object uploadTitlePic(MultipartFile file) {
 
