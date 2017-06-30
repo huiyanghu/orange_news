@@ -49,6 +49,7 @@ public class AppKeywordsController {
             map.put("keywords", keywords);
         }
         map.put("countryObjectId", countryObjectId);
+        System.out.println(JSON.toJSONString(map));
         return "views/keywords/add";
     }
 
