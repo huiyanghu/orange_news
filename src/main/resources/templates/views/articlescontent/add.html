@@ -119,7 +119,7 @@
                 </div>
                 <div class="widget-content"><!--th:object="${Query}"-->
                     <form class="form-horizontal row-border" th:action="@{/conArticle/editArticleContent}" th:method="post" id="dataForm">
-                        <input type="hidden" id="objectId" name="objectId" th:value="${objectId}">
+                        <input type="hidden" id="articleObjectId" name="articleObjectId" th:value="${objectId}">
                         <div class="form-actions" style="border-bottom: 1px solid #e5e5e5; margin-top: 0; margin-bottom: 20px;">
                             <input type="button" value="提交" class="btn btn-primary pull-right edit">
                             <a href="javascript:void(0);" class="btn button-previous pull-right" style="display: inline-block;" th:href="@{/conArticle/list}">
@@ -174,7 +174,7 @@
     }
     var Request=new UrlSearch();
     var objectId = Request.objectId;
-    $('#objectId').val(objectId);
+    $('#articleObjectId').val(objectId);
     var  editor1 = new baidu.editor.ui.Editor({
         textarea:'tcontent',
         autoClearinitialContent : false,
