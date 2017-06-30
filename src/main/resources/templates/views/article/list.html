@@ -523,6 +523,9 @@
                 }else{
                     bootbox.alert(data.msg);
                 }
+            },
+            error: function (error) {
+                bootbox.alert('服务器错误');
             }
         });
     }
@@ -537,10 +540,13 @@
             success: function (data){
                 console.log(data);
                 if(data.isSuccess == 1){
-                    bootbox.alert('');
+                    bootbox.alert(data.result.msg);
                 }else{
-                    bootbox.alert('');
+                    bootbox.alert(data.result.msg);
                 }
+            },
+            error: function (error) {
+                bootbox.alert('服务器错误');
             }
         });
     }
