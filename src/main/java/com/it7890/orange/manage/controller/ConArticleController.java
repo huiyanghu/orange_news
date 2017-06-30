@@ -604,9 +604,9 @@ public class ConArticleController {
         }
         try {
             conArticleService.updateArticle(articleQuery);
-            attributes.addFlashAttribute(msg + "成功");
+            attributes.addFlashAttribute("msg",msg + "成功");
         } catch (Exception e) {
-            attributes.addFlashAttribute(msg + "失败");
+            attributes.addFlashAttribute("msg",msg + "失败");
             e.printStackTrace();
         }
         return "redirect:/conArticle/list";
@@ -631,9 +631,9 @@ public class ConArticleController {
     public String editArticleContent(String objectId, String content, RedirectAttributes attributes) throws Exception {
         try {
             conArticleService.updateArticleContent(objectId, content);
-            attributes.addFlashAttribute("编辑成功");
+            attributes.addFlashAttribute("msg","编辑成功");
         } catch (Exception e) {
-            attributes.addFlashAttribute("编辑失败");
+            attributes.addFlashAttribute("msg","编辑失败");
             e.printStackTrace();
         }
         return "redirect:/conArticle/list";
