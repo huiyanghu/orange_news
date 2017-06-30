@@ -676,6 +676,7 @@ public class ConArticleController {
                 msg="未找到相应文章";
             }
         } catch (AVException e) {
+            msg="添加失败";
             isSuccess = 0;
             e.printStackTrace();
         }
