@@ -636,6 +636,7 @@ public class ConArticleController {
             attributes.addFlashAttribute("msg","编辑失败");
             e.printStackTrace();
         }
+
         return "redirect:/conArticle/list";
     }
 
