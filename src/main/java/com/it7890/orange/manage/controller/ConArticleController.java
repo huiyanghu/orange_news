@@ -648,45 +648,43 @@ public class ConArticleController {
         int isSuccess = 1;
 
         try {
-            AppAdvertQuery appAdvertQuery = new AppAdvertQuery();
-            appAdvertQuery.setArticleObjectId(objectId);
-            AppAdvert appAdvert = null;
-            List<AppAdvert> appAdvertList = appAdvertService.get(appAdvertQuery);
-            if (appAdvertList != null && !appAdvertList.isEmpty()) {
-                appAdvert = appAdvertList.get(0);
-            }
+//            AppAdvertQuery appAdvertQuery = new AppAdvertQuery();
+//            appAdvertQuery.setArticleObjectId(objectId);
+//            AppAdvert appAdvert = null;
+//            List<AppAdvert> appAdvertList = appAdvertService.get(appAdvertQuery);
+//            if (appAdvertList != null && !appAdvertList.isEmpty()) {
+//                appAdvert = appAdvertList.get(0);
+//            }
 
             AppTop appTop = new AppTop();
-            if (appAdvert != null) {
-                appTop.setAdvert(appAdvert);
-                appTop.setItype(3); //广告
-                ConArticle article = new ConArticle();
-                article.setObjectId(objectId);
-                article.setAttr(7);//其他
-                appTop.setArticle(article);
+//            if (appAdvert != null) {
+//                appTop.setAdvert(appAdvert);
+
+            ConArticle article2=conArticleService.getById(objectId);
+            appTop.setItype(1); //1文章 2 竞猜 3广告
+            appTop.setCtype(article2.getAttr());//其他
+                appTop.setArticle(article2);
 
                 //国家
                 HbCountryQuery countryQuery = new HbCountryQuery();
-                countryQuery.setCountryCode(article.getCountryCode());
+                countryQuery.setCountryCode(article2.getCountryCode());
                 List<HbCountrys> countrysList = hbCountryService.get(countryQuery);
                 if (countrysList != null && !countrysList.isEmpty()) {
                     appTop.setCountry(countrysList.get(0));
                 }
 
-                appTop.setLanguage(article.getLanguage()); //语言
+                appTop.setLanguage(article2.getLanguage()); //语言
                 appTop.setRank(0); //排序
                 appTop.setStatus(1);//禁用
 
-                if (appAdvert.getAdTitle() != null && !appAdvert.getAdTitle().equals("")) {
-                    appTop.setTitle(appAdvert.getAdTitle());
-                } else if (appAdvert.getAdName() != null && !appAdvert.getAdName().equals("")) {
-                    appTop.setTitle(appAdvert.getAdName());
-                }
-                appTop.setTitlePic(appAdvert.getAdImg());
-                appTop.setUrl(appAdvert.getAdUrl());
+//                if (appAdvert.getAdTitle() != null && !appAdvert.getAdTitle().equals("")) {
+                    appTop.setTitle(article2.getTitle());
+
+                //appTop.setTitlePic(article2.getTitlePicArr().get(0));
+                //appTop.setUrl(appAdvert.getAdUrl());
                 appTop.setSubTime(new Date());
                 appTop.save();
-            }
+//            }
         } catch (AVException e) {
             isSuccess = 0;
             e.printStackTrace();
