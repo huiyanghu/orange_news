@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title id="pageTitle"></title>
+    <link rel="stylesheet" type="text/css" href="/stylesheets/meAdmin/assets/css/simple-preview/iconfont.css"/>
+    <link rel="stylesheet" type="text/css" href="/stylesheets/meAdmin/assets/css/simple-preview/style.css" id="styleCss"/>
+    <script type="text/javascript" src="/stylesheets/meAdmin/assets/js/libs/jquery-1.10.2.min.js"></script>
+</head>
+<body style="width: 800px; margin: 0 auto;">
+<div class="headImg" id="headImg">
+    <img src="" alt="" onload="imgSize(this)" />
+</div>
+<div class="title" id="title"></div>
+<div class="info">
+    <div class="left" id="copyRight">
+        <div class="left">
+            <div class="mediaImg" id="mediaImg">
+                <img src=""/>
+            </div>
+        </div>
+        <div class="left text">
+            <div class="mediaName" id="mediaName" style="height: 30px;"></div>
+            <div class="date">
+                <span class="iconfont icon-clock"></span>
+                <span id="mediaTime"></span>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="content" id="content">
+
+</div>
+<script type="text/javascript">
+    function UrlSearch() {
+        var name,value;
+        var str=location.href;
+        var num=str.indexOf("?")
+        str=str.substr(num+1);
+        var arr=str.split("&");
+        for(var i=0;i < arr.length;i++){
+            num=arr[i].indexOf("=");
+            if(num>0){
+                name=arr[i].substring(0,num);
+                value=arr[i].substr(num+1);
+                this[name]=value;
+            }
+        }
+    }
+    var Request=new UrlSearch();
+    function resolveJson(getJson){
+        if(getJson == '' || getJson == undefined || getJson == null){
+            $('body').html('暂时没有数据');
+        }
+        //置顶图
+        if(getJson.titlePicList == '' || getJson.titlePicList == null || getJson.titlePicList == undefined){
+            $('#headImg').hide();
+        }else{
+            $('#headImg img').attr('src',getJson.titlePicList[0].imageUrl);
+        }
+        //文章名称
+        $('#title').html(getJson.title);
+        $('#pageTitle').html(getJson.title);
+        //媒体名称
+        $('#mediaName').html(getJson.copyright);
+        $('#mediaImg').hide();
+        //发布时间
+        var pubTime = getJson.pubTime;
+        if(pubTime == '' || pubTime == null || pubTime == undefined){
+            pubTime = '';
+        }
+        $('#mediaTime').html('Updated at '+pubTime);
+        //文章内容
+        var contentBody = decodeURIComponent(getJson.contentBody.replace(/\+/g, '%20'));
+        $('#content').html(contentBody);
+    }
+    var articleId = Request.articleId;
+    $.ajax({
+        url: "../conArticle/getContent",
+        type: "get",
+        data: {
+            "articleId": articleId
+        },
+        success: function (data) {
+            console.log(data);
+            if(data.success == 1){
+                var articleJsonStr = data;
+                resolveJson2(articleJsonStr);
+            }else{
+                alert(data.msg);
+            }
+        },
+        error: function (error) {
+            alert('服务器错误');
+        }
+    });
+
+</script>
+</body>
+</html>
