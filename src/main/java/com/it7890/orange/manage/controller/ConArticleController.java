@@ -646,7 +646,7 @@ public class ConArticleController {
     @ResponseBody
     public Object addToAppTop(String objectId) throws Exception {
         int isSuccess = 1;
-
+        String msg="";
         try {
             AppTop appTop = new AppTop();
             ConArticle article = conArticleService.getById(objectId);
@@ -671,13 +671,20 @@ public class ConArticleController {
                 appTop.setTitle(article.getTitle());
                 appTop.setSubTime(new Date());
                 appTop.save();
+                msg="添加成功";
+            }else{
+                msg="未找到相应文章";
             }
         } catch (AVException e) {
             isSuccess = 0;
             e.printStackTrace();
         }
+        Map result=new HashMap();
+        result.put("msg",msg);
+
         Map map = new HashMap();
         map.put("isSuccess", isSuccess);
+        map.put("result",result);
         return JSON.toJSON(map);
     }
 
