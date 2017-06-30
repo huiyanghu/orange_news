@@ -25,7 +25,8 @@ public class ConArticleQuery implements java.io.Serializable {
     private String linkUrl;
     private String mediaLink;
     private String subTime;
-    private String titlePic;
+    private String titlePicUrl;
+    private String titlePicId;
 
     public String getObjectId() {
         return objectId;
@@ -195,11 +196,19 @@ public class ConArticleQuery implements java.io.Serializable {
         this.subTime = subTime;
     }
 
-    public String getTitlePic() {
-        return titlePic;
+    public String getTitlePicUrl() {
+        return titlePicUrl;
     }
 
-    public void setTitlePic(String titlePic) {
-        this.titlePic = titlePic;
+    public void setTitlePicUrl(String titlePicUrl) {
+        this.titlePicUrl = titlePicUrl;
+    }
+
+    public String getTitlePicId() {
+        return titlePicId;
+    }
+
+    public void setTitlePicId(String titlePicId) {
+        this.titlePicId = titlePicId;
     }
 }
