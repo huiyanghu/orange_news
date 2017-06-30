@@ -85,7 +85,7 @@
             console.log(data);
             if(data.success == 1){
                 var articleJsonStr = data;
-                resolveJson2(articleJsonStr);
+                resolveJson(articleJsonStr);
             }else{
                 alert(data.msg);
             }
