@@ -528,17 +528,18 @@
     }
     function addToAppTop(objectId){
         $.ajax({
-            url: "../pushMessage/addToAppTop",
+            url: "../conArticle/addToAppTop",
             type: "post",
             dataType:"json",
             data:{
                 "objectId":objectId
             },
             success: function (data){
+                console.log(data);
                 if(data.isSuccess == 1){
-                    bootbox.alert(data.msg);
+                    bootbox.alert('');
                 }else{
-                    bootbox.alert(data.msg);
+                    bootbox.alert('');
                 }
             }
         });
