@@ -13,7 +13,7 @@ function loadpage() {
         currentPage: parseInt($("#Pagedq").val()),
         first: '<li class="first"><a href="javascript:void(0);" value="1">首页</a></li>',
         prev: '<li class="prev"><a href="javascript:void(0);" value="prev"><i class="arrow arrow2"></i>上一页</a></li>',
-        next: '<li class="next"><a href="javascript:void(0);" value="prev">下一页<i class="arrow arrow3"></i></a></li>',
+        next: '<li class="next"><a href="javascript:void(0);" value="next">下一页<i class="arrow arrow3"></i></a></li>',
         last: '<li class="last"><a href="javascript:void(0);" value="last">末页</a></li>',
         page: '<li class="page"><a href="javascript:void(0);" value="page">{{page}}</a></li>',
         // onPageChange: function (num, type) {

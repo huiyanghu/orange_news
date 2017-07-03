@@ -296,7 +296,7 @@
                 }
             }else if(val == 'next'){
                 var jumpPage = currentPage + 1;
-                if(jumpPage >= pageCount){
+                if(jumpPage <= pageCount){
                     $('#page').val(jumpPage);
                 }
             }else if(val == 'page'){
