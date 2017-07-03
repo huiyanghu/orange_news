@@ -30,6 +30,7 @@ public class AppKeywordsController {
     @RequestMapping("/toCountryKeywordsList")
     public String toCountryKeywordsList(String countryObjectId, Map map) throws AVException {
         // 0=热词 1=敏感词
+
         AppKeywordsQuery appKeywordsQuery = new AppKeywordsQuery();
         appKeywordsQuery.setCountryObjectId(countryObjectId);
         appKeywordsQuery.setKeywordType(0);
