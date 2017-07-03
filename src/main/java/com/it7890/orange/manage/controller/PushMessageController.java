@@ -76,7 +76,7 @@ public class PushMessageController {
         Map<String, Object> articleMap = null;
         if (null != articleInfo) {
             articleMap = new HashMap<>();
-            articleMap.put("alert", articleInfo.getAbstracts());
+            articleMap.put("alert", articleInfo.getTitle());
             articleMap.put("articleId", articleInfo.getObjectId());
             articleMap.put("title", articleInfo.getTitle());
             articleMap.put("abstracts", articleInfo.getAbstracts());
@@ -84,7 +84,7 @@ public class PushMessageController {
             articleMap.put("countryCode", StringUtil.isNotEmpty(articleInfo.getString("countrycode")) ? articleInfo.getString("countrycode") : "");
             articleMap.put("sourceUrl", StringUtil.isNotEmpty(articleInfo.getString("sourceurl")) ? articleInfo.getString("sourceurl") : "");
             articleMap.put("action", "com.orange.headline.push");
-            articleMap.put("publicationId", "");
+            articleMap.put("publicationId", null != articleInfo.getAVObject("publicationObj") ? articleInfo.getAVObject("publicationObj").getObjectId() : "");
         }
 
         return articleMap;
