@@ -604,9 +604,9 @@ public class ConArticleController {
         }
         try {
             conArticleService.updateArticle(articleQuery);
-            attributes.addFlashAttribute(msg + "成功");
+            attributes.addFlashAttribute("msg", msg + "成功");
         } catch (Exception e) {
-            attributes.addFlashAttribute(msg + "失败");
+            attributes.addFlashAttribute("msg", msg + "失败");
             e.printStackTrace();
         }
         return "redirect:/conArticle/list";
@@ -631,11 +631,12 @@ public class ConArticleController {
     public String editArticleContent(String objectId, String content, RedirectAttributes attributes) throws Exception {
         try {
             conArticleService.updateArticleContent(objectId, content);
-            attributes.addFlashAttribute("编辑成功");
+            attributes.addFlashAttribute("msg", "编辑成功");
         } catch (Exception e) {
-            attributes.addFlashAttribute("编辑失败");
+            attributes.addFlashAttribute("msg", "编辑失败");
             e.printStackTrace();
         }
+
         return "redirect:/conArticle/list";
     }
 
@@ -646,7 +647,7 @@ public class ConArticleController {
     @ResponseBody
     public Object addToAppTop(String objectId) throws Exception {
         int isSuccess = 1;
-        String msg="";
+        String msg = "";
         try {
             AppTop appTop = new AppTop();
             ConArticle article = conArticleService.getById(objectId);
@@ -663,6 +664,7 @@ public class ConArticleController {
                 List<HbCountrys> countrysList = hbCountryService.get(countryQuery);
                 if (countrysList != null && !countrysList.isEmpty()) {
                     appTop.setCountry(countrysList.get(0));
+                    appTop.setCountryCode(countrysList.get(0).getCountryCode());
                 }
 
                 appTop.setLanguage(article.getLanguage()); //语言
@@ -670,28 +672,34 @@ public class ConArticleController {
                 appTop.setStatus(1);//禁用
                 appTop.setTitle(article.getTitle());
                 appTop.setSubTime(new Date());
+
+
+                appTop.setTopics(article.getTopics());
+                appTop.setPublication(article.getPublication());
+
+
                 appTop.save();
-                msg="添加成功";
-            }else{
-                msg="未找到相应文章";
+                msg = "添加成功";
+            } else {
+                msg = "未找到相应文章";
             }
         } catch (AVException e) {
-            msg="添加失败";
+            msg = "添加失败";
             isSuccess = 0;
             e.printStackTrace();
         }
-        Map result=new HashMap();
-        result.put("msg",msg);
+        Map result = new HashMap();
+        result.put("msg", msg);
 
         Map map = new HashMap();
         map.put("isSuccess", isSuccess);
-        map.put("result",result);
+        map.put("result", result);
         return JSON.toJSON(map);
     }
 
     @RequestMapping(value = "/uploadTitlePic", method = RequestMethod.POST)
     @ResponseBody
-    public Object uploadTitlePic(@RequestParam(value = "file", required = true)MultipartFile file) {
+    public Object uploadTitlePic(@RequestParam(value = "file", required = true) MultipartFile file) {
 
 
         int isSuccess = 1;

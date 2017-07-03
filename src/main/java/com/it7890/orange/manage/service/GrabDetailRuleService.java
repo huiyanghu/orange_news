@@ -15,5 +15,7 @@ public interface GrabDetailRuleService {
 
     public Map get(String objectId) throws AVException;
 
+    public GrabDetailRule getGrabDetailRule(String objectId)throws AVException;
+
     public List<GrabDetailRule> get(GrabDetailRuleQuery grabDetailRuleQuery) throws AVException;
 }

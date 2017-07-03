@@ -29,10 +29,12 @@ public class AppTop extends AVObject {
     private AppTopics topics;
     private AppAdvert advert;
     private String title;
-*/
     private String url;
     private Date subTime;
     private String titlePic;
+    private String countryCode;
+*/
+
 
 
     public ConArticle getArticle() {
@@ -185,5 +187,13 @@ public class AppTop extends AVObject {
 
     public void setTitlePic(String titlePic) {
         this.put("titlePic", titlePic);
+    }
+
+    public String getCountryCode() {
+        return getString("countryCode");
+    }
+
+    public void setCountryCode(String countryCode) {
+        this.put("countryCode",countryCode);
     }
 }

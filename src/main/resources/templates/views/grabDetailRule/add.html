@@ -112,7 +112,7 @@
                     </div>
                 </div>
                 <div class="widget-content"><!--th:object="${Query}"-->
-                    <form class="form-horizontal row-border" th:object="${grabDetailRule}" th:action="@{/grabDetailRule/update}" th:method="post" id="dataForm">
+                    <form class="form-horizontal row-border" th:object="${grabDetailRule}" th:action="@{/grabDetailRule/add}" th:method="post" id="dataForm">
                         <input type="hidden" id="objectIdFromUrl" name="objectId">
                         <div class="form-group">
                             <label class="col-md-3 control-label" for="ruleName">
@@ -123,13 +123,13 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-md-3 control-label" for="nodeObjectId">
+                            <label class="col-md-3 control-label" for="globalNodeObjectId">
                                 节点：
                             </label>
                             <div class="col-md-9">
-                                <select class="form-control" name="nodeObjectId" id="nodeObjectId">
+                                <select class="form-control" name="globalNodeObjectId" id="globalNodeObjectId">
                                     <option value="" selected>请选择</option>
-                                    <option th:each="node:${globalNodeList}" th:text="${node.get('nodeName')}"></option>
+                                    <option th:each="node:${globalNodeList}" th:text="${node.get('nodeName')}" th:value="${node.objectId}"></option>
                                 </select>
                             </div>
                         </div>
